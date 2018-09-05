@@ -1,0 +1,2 @@
+enterprise git@github.com:Jarsa-dev/enterprise.git 11.0
+mexico git@git.vauxoo.com:Vauxoo/mexico.git 11.0
