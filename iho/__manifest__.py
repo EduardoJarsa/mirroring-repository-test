@@ -6,7 +6,7 @@
     'summary': 'Customs',
     'version': '11.0.1.0.2',
     'category': 'Connector',
-    'author': 'Jarsa Sistemas S.A. de C.V.',
+    'author': 'Jarsa Sistemas, Vauxoo, Odoo Community Association (OCA)',
     'website': 'https://www.jarsa.com.mx',
     'license': 'AGPL-3',
     'depends': [
