@@ -1,5 +1,5 @@
-IHO
-====
+Sale Percentage Warning
+=======================
 
 This module allows:
 

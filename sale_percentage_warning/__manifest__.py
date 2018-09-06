@@ -3,18 +3,17 @@
 
 {
     'name': 'Percentage Warning',
-    'summary': 'percentage',
-    'version': '11.0.1.0.2',
-    'category': 'Connector',
+    'summary': 'Module to limit the discount on each line of the sale order',
+    'version': '11.0.1.0.0',
+    'category': 'Sale',
     'author': 'Jarsa Sistemas, Vauxoo, Odoo Community Association (OCA)',
     'website': 'https://www.jarsa.com.mx',
     'license': 'AGPL-3',
     'depends': [
-        'sale_management',
+        'sale',
     ],
     'data': [
         'views/sale_order_view.xml',
         'views/res_config_settings_view.xml',
     ],
-    'installable': True,
 }

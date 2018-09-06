@@ -7,4 +7,7 @@ from odoo import fields, models
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
-    max_percentage = fields.Float(related="company_id.max_percentage")
+    max_percentage = fields.Float(
+        related="company_id.max_percentage",
+        help="Technical field to determine the percentage "
+        "limit to use in the lines of the sale order")
