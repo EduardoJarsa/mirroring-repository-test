@@ -2,20 +2,17 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
-    'name': 'IHO customs',
-    'summary': 'Customs',
+    'name': 'Sale Authorization',
+    'summary': 'Module for the authorization of third parties in quotes',
     'version': '11.0.1.0.0',
-    'category': 'Customs',
+    'category': 'Sale',
     'author': 'Jarsa Sistemas, Vauxoo, Odoo Community Association (OCA)',
     'website': 'https://www.jarsa.com.mx',
     'license': 'AGPL-3',
     'depends': [
-        'sale_percentage_warning',
-        'stock_move_quantity_limit',
-        'sale_authorization',
+        'sale_management',
     ],
     'data': [
-        'views/res_partner_view.xml',
         'views/sale_order_view.xml',
     ],
 }
