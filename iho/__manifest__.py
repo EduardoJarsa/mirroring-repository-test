@@ -11,6 +11,7 @@
     'license': 'AGPL-3',
     'depends': [
         'sale_percentage_warning',
+        'stock_move_quantity_limit',
     ],
     'data': [
         'views/res_partner_view.xml',
