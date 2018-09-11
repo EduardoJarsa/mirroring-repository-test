@@ -7,7 +7,7 @@
     'version': '11.0.1.0.0',
     'category': 'stock',
     'website': 'https://www.jarsa.com.mx/',
-    'author': 'Jarsa Sistemas de S.A. de C.V.',
+    'author': 'Jarsa Sistemas, Vauxoo, Odoo Community Association (OCA)',
     'license': 'AGPL-3',
     'installable': True,
     'depends': [
