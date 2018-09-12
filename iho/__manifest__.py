@@ -11,6 +11,7 @@
     'license': 'AGPL-3',
     'depends': [
         'res_currency_rate_custom_decimals',
+        'sale_fleet_service',
         'sale_percentage_warning',
         'stock_move_quantity_limit',
         'sale_authorization',

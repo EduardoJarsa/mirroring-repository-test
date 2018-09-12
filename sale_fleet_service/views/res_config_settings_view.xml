@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_sale_fleet_service_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.sale.fleet.service.form</field>
+        <field name="model">res.config.settings</field>
+        <field eval="40" name="priority"/>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='delivery']" position="before">
+                <div class="col-xs-12 col-md-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="sale_lower_total"/>
+                        <field name="sale_lower_total"/>
+                        <div class="text-muted">Set of the lower price for the sale orders to compute the fleet service. If the sale total is lower / equal than this value the fleet service price will be the value of this field. Otherwise the price will be 8% of the total order</div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

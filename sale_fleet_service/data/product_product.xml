@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="product_product_fleet_service" model="product.product">
+        <field name="name">Fleet Service</field>
+        <field name="default_code">FLEET-SERVICE</field>
+        <field name="type">service</field>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="uom_id" ref="product.product_uom_unit"/>
+        <field name="sale_ok" eval="True"/>
+        <field name="purchase_ok" eval="False"/>
+        <field name="service_tracking">task_global_project</field>
+        <field name="project_id" ref="sale_fleet_service.project_project_services"/>
+    </record>
+</odoo>
