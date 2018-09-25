@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_import_bom_wizard_form" model="ir.ui.view">
+        <field name="name">view.import.bom.wizard.form</field>
+        <field name="model">import.bom.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <h2><strong>Please Upload the XML file</strong></h2>
+                        <big><i class="fa fa-file-code-o fa-2x text-primary"></i><label for="file_xml"/><field name="file_xml" filename="xml_name" nolabel="1"/></big>
+                        <field name="xml_name" invisible="1" class="oe_inline oe_right"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                    <footer>
+                        <button name="attach" string='Save' type="object" class="oe_highlight"/>
+                        <button string="Cancel" special="cancel"/>
+                    </footer>
+                </sheet>
+           </form>
+        </field>
+    </record>
+    <record id="action_import_bom_wizard" model="ir.actions.act_window">
+        <field name="name">Create BoM from XML file</field>
+        <field name="res_model">import.bom.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_import_bom_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+    <menuitem id="create_bom_wizard_menu" name="Create BoM fom XML file" action="action_import_bom_wizard" parent="sale.product_menu_catalog" sequence="10"/>
+</odoo>
