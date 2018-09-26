@@ -1,0 +1,86 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* sif_interface
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-09-26 17:36+0000\n"
+"PO-Revision-Date: 2018-09-26 17:36+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: sif_interface
+#: model:ir.ui.view,arch_db:sif_interface.view_import_bom_wizard_form
+msgid "<strong>Please Upload the XML file</strong>"
+msgstr "<strong>Por favor cargue su archivo XML</strong>"
+
+#. module: sif_interface
+#: model:ir.ui.view,arch_db:sif_interface.view_import_bom_wizard_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_import_bom_wizard_company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: sif_interface
+#: model:ir.model.fields,help:sif_interface.field_import_bom_wizard_company_id
+msgid "Company to which it belongs this attachment"
+msgstr "Compañia a la cual pertenece el adjunto"
+
+#. module: sif_interface
+#: model:ir.ui.view,arch_db:sif_interface.view_import_bom_wizard_form
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: sif_interface
+#: model:ir.ui.menu,name:sif_interface.create_bom_wizard_menu
+msgid "Create BoM fom XML file"
+msgstr "Crear LdM desde archivo XML"
+
+#. module: sif_interface
+#: model:ir.actions.act_window,name:sif_interface.action_import_bom_wizard
+msgid "Create BoM from XML file"
+msgstr "Crear LdM desde archivo XML"
+
+
+#. module: sif_interface
+#: model:ir.model.fields,help:sif_interface.field_import_bom_wizard_xml_name
+msgid "Save the file name, to verify that is .xml"
+msgstr "Se guarda el nombre del archivo para validar que es .xml"
+
+#. module: sif_interface
+#: code:addons/sif_interface/wizards/import_bom_wizard.py:60
+#, python-format
+msgid "The XML file has an error, please check your data. \n"
+" Error: %s"
+msgstr "El archivo XML tiene un error, por favor compruebe su información. \n"
+" Error: %s"
+
+#. module: sif_interface
+#: model:ir.model.fields,help:sif_interface.field_import_bom_wizard_file_xml
+msgid "The xml file exported by the system"
+msgstr "El archivo XML exportado desde el sistema externo"
+
+#. module: sif_interface
+#: code:addons/sif_interface/wizards/import_bom_wizard.py:69
+#, python-format
+msgid "Verify that file is .xml, please!"
+msgstr "¡Verifique que el archivo es .xml por favor!"
+
+#. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_import_bom_wizard_file_xml
+msgid "XML File"
+msgstr "XML File"
+
+#. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_import_bom_wizard_xml_name
+msgid "Xml Name"
+msgstr "Nombre del Archivo"

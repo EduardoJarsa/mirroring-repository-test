@@ -13,7 +13,7 @@
                         <field name="company_id" groups="base.group_multi_company"/>
                     </group>
                     <footer>
-                        <button name="attach" string='Save' type="object" class="oe_highlight"/>
+                        <button name="run_bom_creation" string='Confirm' type="object" class="oe_highlight"/>
                         <button string="Cancel" special="cancel"/>
                     </footer>
                 </sheet>
