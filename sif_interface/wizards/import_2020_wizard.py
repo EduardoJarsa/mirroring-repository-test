@@ -12,8 +12,8 @@ from odoo.exceptions import ValidationError
 BOM_UTF8U = BOM_UTF8.decode('UTF-8')
 
 
-class ImportBomWizard(models.TransientModel):
-    _name = "import.bom.wizard"
+class Import2020Wizard(models.TransientModel):
+    _name = "import.2020.wizard"
 
     company_id = fields.Many2one(
         comodel_name='res.company', string='Company', readonly=True,
@@ -31,7 +31,7 @@ class ImportBomWizard(models.TransientModel):
             :return: method to iterate the xml recursively
             :rtype: dict
         """
-        def recursive_dict(element):
+        def recursive_dict(xml_object):
             """ Local method that iterates recursively element
             by element the xml to convert it in a dictionary with
             format { 'xml_tag': children_tags or element value }
@@ -39,10 +39,13 @@ class ImportBomWizard(models.TransientModel):
                 :return: self-method to iterate the children tags
                 :rtype: self-method
             """
-            return (element.tag.split('}')[1],
-                    dict(map(recursive_dict, element.getchildren()),
-                         **element.attrib))
-        return dict([recursive_dict(xml)])
+            dict_object = xml_object.__dict__
+            if not dict_object:
+                return xml_object
+            for key, value in dict_object.items():
+                dict_object[key] = recursive_dict(value)
+            return dict_object
+        return {xml.tag.split('}')[1]: recursive_dict(xml)}
 
     @api.model
     def get_file_data(self):
@@ -62,7 +65,7 @@ class ImportBomWizard(models.TransientModel):
         return file_data
 
     @api.multi
-    def run_bom_creation(self):
+    def run_product_creation(self):
         self.ensure_one()
         file_extension = os.path.splitext(self.xml_name)[1].lower()
         if file_extension != '.xml':

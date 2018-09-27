@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_import_bom_wizard_form" model="ir.ui.view">
-        <field name="name">view.import.bom.wizard.form</field>
-        <field name="model">import.bom.wizard</field>
+    <record id="view_import_2020_wizard_form" model="ir.ui.view">
+        <field name="name">view.import.2020.wizard.form</field>
+        <field name="model">import.2020.wizard</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
@@ -13,20 +13,20 @@
                         <field name="company_id" groups="base.group_multi_company"/>
                     </group>
                     <footer>
-                        <button name="run_bom_creation" string='Confirm' type="object" class="oe_highlight"/>
+                        <button name="run_product_creation" string='Confirm' type="object" class="oe_highlight"/>
                         <button string="Cancel" special="cancel"/>
                     </footer>
                 </sheet>
            </form>
         </field>
     </record>
-    <record id="action_import_bom_wizard" model="ir.actions.act_window">
-        <field name="name">Create BoM from XML file</field>
-        <field name="res_model">import.bom.wizard</field>
+    <record id="action_import_2020_wizard" model="ir.actions.act_window">
+        <field name="name">Import From 2020</field>
+        <field name="res_model">import.2020.wizard</field>
         <field name="view_type">form</field>
         <field name="view_mode">form</field>
-        <field name="view_id" ref="view_import_bom_wizard_form"/>
+        <field name="view_id" ref="view_import_2020_wizard_form"/>
         <field name="target">new</field>
     </record>
-    <menuitem id="create_bom_wizard_menu" name="Create BoM fom XML file" action="action_import_bom_wizard" parent="sale.product_menu_catalog" sequence="10"/>
+    <menuitem id="create_product_wizard_menu" name="Import From 2020" action="action_import_2020_wizard" parent="sale.product_menu_catalog" sequence="10"/>
 </odoo>

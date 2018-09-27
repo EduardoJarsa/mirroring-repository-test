@@ -15,6 +15,6 @@
         'sale_management',
     ],
     'data': [
-        'wizards/import_bom_wizard_view.xml',
+        'wizards/import_2020_wizard_view.xml',
     ],
 }
