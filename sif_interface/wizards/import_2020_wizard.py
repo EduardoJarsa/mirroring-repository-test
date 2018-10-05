@@ -24,6 +24,13 @@ class Import2020Wizard(models.TransientModel):
         help='The xml file exported by the system', required=True,)
 
     @api.model
+    def validate_data(self, dict_value):
+        if 'Vendor' in dict_value:
+            return True
+        else:
+            return False
+
+    @api.model
     def xml2dict(self, xml):
         """Receive 1 lxml etree object and return a dict string.
         This method allow us have a precise diff output
@@ -39,7 +46,18 @@ class Import2020Wizard(models.TransientModel):
                 :return: self-method to iterate the children tags
                 :rtype: self-method
             """
-            dict_object = xml_object.__dict__
+            count = 1
+            dict_object = {}
+            if xml_object.getchildren():
+                for children in xml_object.getchildren():
+                    tag = children.tag.split('}')[1]
+                    if tag in dict_object.keys():
+                        dict_object[tag + str(count)] = children
+                        count += 1
+                    else:
+                        dict_object[tag] = children
+            else:
+                dict_object = xml_object.__dict__
             if not dict_object:
                 return xml_object
             for key, value in dict_object.items():
@@ -64,6 +82,22 @@ class Import2020Wizard(models.TransientModel):
                     'Error: %s') % (err))
         return file_data
 
+    @api.model
+    def get_data_info(self, xpath, data_node):
+        return [data for node, data in data_node.items() if xpath in node]
+
+    @api.model
+    def search_data(self, value, model, attr=False):
+        item = self.env[model].search([('name', '=', str(value))])
+        if not item:
+            if model == 'product.attribute.value':
+                item = self.env[model].create({
+                    'name': str(value),
+                    'attribute_id': attr.id})
+                return item
+            item = self.env[model].create({'name': str(value)})
+        return item
+
     @api.multi
     def run_product_creation(self):
         self.ensure_one()
@@ -71,4 +105,32 @@ class Import2020Wizard(models.TransientModel):
         if file_extension != '.xml':
             raise ValidationError(_('Verify that file is .xml, please!'))
         file_data = self.get_file_data()
+        vendors = self.get_data_info('Vendor', file_data['Envelope']['Header'])
+        order_lines = self.get_data_info(
+            'OrderLineItem', file_data['Envelope']['PurchaseOrder'])
+        for vendor in vendors:
+            partner = self.search_data(vendor.get('Code'), 'res.partner')
+        for line in order_lines:
+            prod_temp_code = line['SpecItem']['Number']
+            product_template = self.search_data(
+                prod_temp_code, 'product.template')
+            atributes = self.get_attributes(
+                self.get_data_info('Option', line['SpecItem']))
         return file_data
+
+    @api.model
+    def get_attributes(self, line):
+        attributes = []
+
+        def option_recursive(option):
+            data = str(option['Description']).split(":")
+            attr = self.search_data(data[0], 'product.attribute')
+            value = self.search_data(data[1], 'product.attribute.value', attr)
+            attributes.append(value)
+
+            print('hi')
+
+        for item in line:
+            option_recursive(item)
+
+        return attributes
