@@ -87,7 +87,7 @@ msgid "Save the file name, to verify that is .xml"
 msgstr "Se guarda el nombre del archivo para verificar que es .xml"
 
 #. module: sif_interface
-#: code:addons/sif_interface/wizards/import_2020_wizard.py:63
+#: code:addons/sif_interface/wizard/import_2020_wizard.py:63
 #, python-format
 msgid "The XML file has an error, please check your data. \n"
 " Error: %s"
@@ -100,7 +100,7 @@ msgid "The xml file exported by the system"
 msgstr "El archivo xml exportado desde el sistema"
 
 #. module: sif_interface
-#: code:addons/sif_interface/wizards/import_2020_wizard.py:72
+#: code:addons/sif_interface/wizard/import_2020_wizard.py:72
 #, python-format
 msgid "Verify that file is .xml, please!"
 msgstr "¡Verifique que el archivo es .xml por favor!"

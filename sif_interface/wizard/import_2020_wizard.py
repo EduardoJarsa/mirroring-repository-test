@@ -101,6 +101,7 @@ class Import2020Wizard(models.TransientModel):
     @api.multi
     def run_product_creation(self):
         self.ensure_one()
+        obj_prod_prod = self.env['product.product']
         file_extension = os.path.splitext(self.xml_name)[1].lower()
         if file_extension != '.xml':
             raise ValidationError(_('Verify that file is .xml, please!'))
@@ -111,11 +112,21 @@ class Import2020Wizard(models.TransientModel):
         for vendor in vendors:
             partner = self.search_data(vendor.get('Code'), 'res.partner')
         for line in order_lines:
-            prod_temp_code = line['SpecItem']['Number']
             product_template = self.search_data(
-                prod_temp_code, 'product.template')
-            atributes = self.get_attributes(
+                line['SpecItem']['Number'], 'product.template')
+            attributes = self.get_attributes(
                 self.get_data_info('Option', line['SpecItem']))
+            product = obj_prod_prod.search([
+                ('name', '=', str(line['SpecItem']['Alias']['Number'])),
+                ('product_tmpl_id', '=', product_template.id)])
+            if not product or product.attribute_value_ids.ids == attributes:
+                obj_prod_prod.create({
+                    'name': str(line['SpecItem']['Alias']['Number']),
+                    'product_tmpl_id': product_template.id,
+                    'attribute_value_ids': [(6, 0, attributes)],
+                    'list_price': line['Price']['PublishedPrice'],
+                })
+
         return file_data
 
     @api.model
@@ -126,9 +137,10 @@ class Import2020Wizard(models.TransientModel):
             data = str(option['Description']).split(":")
             attr = self.search_data(data[0], 'product.attribute')
             value = self.search_data(data[1], 'product.attribute.value', attr)
-            attributes.append(value)
-
-            print('hi')
+            attributes.append(value.id)
+            if option.get('Option'):
+                option_recursive(option.get('Option'))
+            return True
 
         for item in line:
             option_recursive(item)

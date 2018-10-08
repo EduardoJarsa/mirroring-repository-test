@@ -8,7 +8,7 @@
                 <sheet>
                     <group>
                         <h2><strong>Please Upload the XML file</strong></h2>
-                        <big><i class="fa fa-file-code-o fa-2x text-primary"></i><label for="file_xml"/><field name="file_xml" filename="xml_name" nolabel="1"/></big>
+                        <big><i class="fa fa-file-code-o fa-2x text-primary" aria-label="Code" title="Code"></i><label for="file_xml"/><field name="file_xml" filename="xml_name" nolabel="1"/></big>
                         <field name="xml_name" invisible="1" class="oe_inline oe_right"/>
                         <field name="company_id" groups="base.group_multi_company"/>
                     </group>
@@ -25,7 +25,7 @@
         <field name="res_model">import.2020.wizard</field>
         <field name="view_type">form</field>
         <field name="view_mode">form</field>
-        <field name="view_id" ref="view_import_2020_wizard_form"/>
+        <field name="type">ir.actions.act_window</field>
         <field name="target">new</field>
     </record>
     <menuitem id="create_product_wizard_menu" name="Import From 2020" action="action_import_2020_wizard" parent="sale.product_menu_catalog" sequence="10"/>
