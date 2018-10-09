@@ -8,6 +8,7 @@ class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
     sale_lower_total = fields.Float(
+        readonly=False,
         related="company_id.sale_lower_total",
         help="""Technical field to determine the lower total for the
         quotations used to create the fleet service line. If the amount

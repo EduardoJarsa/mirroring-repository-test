@@ -5,7 +5,7 @@
         <field name="default_code">FLEET-SERVICE</field>
         <field name="type">service</field>
         <field name="categ_id" ref="product.product_category_all"/>
-        <field name="uom_id" ref="product.product_uom_unit"/>
+        <field name="uom_id" ref="uom.product_uom_unit"/>
         <field name="sale_ok" eval="True"/>
         <field name="purchase_ok" eval="False"/>
         <field name="service_tracking">task_global_project</field>
