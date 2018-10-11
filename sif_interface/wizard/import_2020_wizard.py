@@ -87,46 +87,97 @@ class Import2020Wizard(models.TransientModel):
         return [data for node, data in data_node.items() if xpath in node]
 
     @api.model
-    def search_data(self, value, model, attr=False):
+    def search_data(self, value, model, attr=False, name=False):
         item = self.env[model].search([('name', '=', str(value))])
-        if not item:
-            if model == 'product.attribute.value':
+        if model in ['res.partner', 'product.attribute']:
+            if not item:
+                item = self.env[model].create({'name': str(value)})
+        elif model == 'product.template':
+            item = self.env[model].search([
+                ('default_code', '=', str(value)),
+                ('name', '=', str(name))])
+            if not item:
+                item = self.env[model].create({
+                    'name': name,
+                    'default_code': value,
+                })
+        elif model == 'product.attribute.value':
+            item = self.env[model].search([
+                ('name', '=', str(value)),
+                ('attribute_id', '=', attr.id)])
+            if not item:
                 item = self.env[model].create({
                     'name': str(value),
                     'attribute_id': attr.id})
-                return item
-            item = self.env[model].create({'name': str(value)})
         return item
 
     @api.multi
     def run_product_creation(self):
         self.ensure_one()
+        obj_bom = self.env['mrp.bom']
         obj_prod_prod = self.env['product.product']
+        bom_elements = {}
+        routes = [
+            self.env.ref('stock.route_warehouse0_mto').id,
+            self.env.ref('purchase_stock.route_warehouse0_buy').id]
         file_extension = os.path.splitext(self.xml_name)[1].lower()
         if file_extension != '.xml':
             raise ValidationError(_('Verify that file is .xml, please!'))
         file_data = self.get_file_data()
-        vendors = self.get_data_info('Vendor', file_data['Envelope']['Header'])
         order_lines = self.get_data_info(
             'OrderLineItem', file_data['Envelope']['PurchaseOrder'])
-        for vendor in vendors:
-            partner = self.search_data(vendor.get('Code'), 'res.partner')
         for line in order_lines:
+            tags = self.get_data_info('Tag', line)
+            tag_alias = [
+                str(tag.get('Value'))
+                for tag in tags
+                if 'Alias' in str(tag.get('Type'))
+            ][0]
+            vendor = self.search_data(
+                line.get('VendorRef'), 'res.partner')
             product_template = self.search_data(
-                line['SpecItem']['Number'], 'product.template')
+                line['SpecItem']['Number'], 'product.template',
+                name=line['SpecItem']['Description'])
             attributes = self.get_attributes(
                 self.get_data_info('Option', line['SpecItem']))
             product = obj_prod_prod.search([
-                ('name', '=', str(line['SpecItem']['Alias']['Number'])),
-                ('product_tmpl_id', '=', product_template.id)])
+                ('name', '=', str(line['SpecItem']['Description'])),
+                ('product_tmpl_id', '=', product_template.id),
+                ('code', '=', str(line['SpecItem']['Alias']['Number']))
+            ])
             if not product or product.attribute_value_ids.ids == attributes:
-                obj_prod_prod.create({
-                    'name': str(line['SpecItem']['Alias']['Number']),
+                product = obj_prod_prod.create({
+                    'name': str(line['SpecItem']['Description']),
                     'product_tmpl_id': product_template.id,
                     'attribute_value_ids': [(6, 0, attributes)],
                     'list_price': line['Price']['PublishedPrice'],
+                    'route_ids': [(6, 0, routes)],
+                    'seller_ids': [(0, 0, {
+                        'name': vendor.id,
+                        'delay': 1,
+                        'min_qty': 0,
+                        'price': 0,
+                    })],
+                    'code': str(line['SpecItem']['Alias']['Number']),
+                    'default_code': line['SpecItem']['Number'],
                 })
-
+            if tag_alias not in bom_elements.keys():
+                bom_elements[tag_alias] = []
+            bom_elements[tag_alias].append((0, 0, {
+                'product_id': product.id,
+                'product_qty': line.get('Quantity'),
+            }))
+        for tag, boms in bom_elements.items():
+            product_template_bom = self.search_data(
+                tag, 'product.template', name=tag)
+            if not obj_bom.search(
+                    [('product_tmpl_id', '=', product_template_bom.id)]):
+                product_template_bom.ntagame = tag
+                obj_bom.create({
+                    'type': 'phantom',
+                    'bom_line_ids': boms,
+                    'product_tmpl_id': product_template_bom.id,
+                })
         return file_data
 
     @api.model
@@ -136,7 +187,8 @@ class Import2020Wizard(models.TransientModel):
         def option_recursive(option):
             data = str(option['Description']).split(":")
             attr = self.search_data(data[0], 'product.attribute')
-            value = self.search_data(data[1], 'product.attribute.value', attr)
+            value = self.search_data(data[1], 'product.attribute.value',
+                                     attr=attr)
             attributes.append(value.id)
             if option.get('Option'):
                 option_recursive(option.get('Option'))

@@ -13,6 +13,7 @@
     'depends': [
         'purchase',
         'sale_management',
+        'mrp',
     ],
     'data': [
         'wizard/import_2020_wizard_view.xml',
