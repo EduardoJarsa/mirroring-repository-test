@@ -100,6 +100,7 @@ class Import2020Wizard(models.TransientModel):
                 item = self.env[model].create({
                     'name': name,
                     'default_code': value,
+                    'list_price': 1.0,
                 })
         elif model == 'product.attribute.value':
             item = self.env[model].search([
@@ -117,6 +118,9 @@ class Import2020Wizard(models.TransientModel):
         obj_bom = self.env['mrp.bom']
         obj_prod_prod = self.env['product.product']
         bom_elements = {}
+        sale_order = self.env[
+            self._context.get('active_model')].browse(
+                self._context.get('active_id'))
         routes = [
             self.env.ref('stock.route_warehouse0_mto').id,
             self.env.ref('purchase_stock.route_warehouse0_buy').id]
@@ -150,7 +154,7 @@ class Import2020Wizard(models.TransientModel):
                     'name': str(line['SpecItem']['Description']),
                     'product_tmpl_id': product_template.id,
                     'attribute_value_ids': [(6, 0, attributes)],
-                    'list_price': line['Price']['PublishedPrice'],
+                    'price_extra': line['Price']['PublishedPrice'] - 1.0,
                     'route_ids': [(6, 0, routes)],
                     'seller_ids': [(0, 0, {
                         'name': vendor.id,
@@ -168,16 +172,30 @@ class Import2020Wizard(models.TransientModel):
                 'product_qty': line.get('Quantity'),
             }))
         for tag, boms in bom_elements.items():
+            bom_price = sum(obj_prod_prod.browse(
+                [x[2].get('product_id') for x in boms]).mapped('list_price'))
             product_template_bom = self.search_data(
                 tag, 'product.template', name=tag)
             if not obj_bom.search(
                     [('product_tmpl_id', '=', product_template_bom.id)]):
-                product_template_bom.ntagame = tag
+                product_template_bom.name = tag
                 obj_bom.create({
                     'type': 'phantom',
                     'bom_line_ids': boms,
                     'product_tmpl_id': product_template_bom.id,
                 })
+            product_bom = obj_prod_prod.search([
+                ('product_tmpl_id', '=', product_template_bom.id)])
+            sale_order.order_line.create({
+                'product_id': product_bom.id,
+                'product_uom_qty': 1.0,
+                'name': product_bom.display_name,
+                'order_id': sale_order.id,
+                'price_unit': bom_price,
+                'discount': 0.0,
+                'product_uom': product_bom.uom_id.id,
+
+            })
         return file_data
 
     @api.model

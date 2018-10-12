@@ -28,5 +28,4 @@
         <field name="type">ir.actions.act_window</field>
         <field name="target">new</field>
     </record>
-    <menuitem id="create_product_wizard_menu" name="Import From 2020" action="action_import_2020_wizard" parent="sale.product_menu_catalog" sequence="10"/>
 </odoo>

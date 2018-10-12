@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_order_inherit_form_sif_interface" model="ir.ui.view">
+        <field name="name">sale.order.inherit.form.sif.interface</field>
+        <field name="model">sale.order</field>
+        <field name="priority">101</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='action_unlock']" position="before">
+                <button name="%(action_import_2020_wizard)d" string="Import to 2020" type='action' class="btn-primary"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
