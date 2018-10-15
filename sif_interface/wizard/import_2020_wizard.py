@@ -24,13 +24,6 @@ class Import2020Wizard(models.TransientModel):
         help='The xml file exported by the system', required=True,)
 
     @api.model
-    def validate_data(self, dict_value):
-        if 'Vendor' in dict_value:
-            return True
-        else:
-            return False
-
-    @api.model
     def xml2dict(self, xml):
         """Receive 1 lxml etree object and return a dict string.
         This method allow us have a precise diff output
@@ -146,15 +139,13 @@ class Import2020Wizard(models.TransientModel):
                 self.get_data_info('Option', line['SpecItem']))
             product = obj_prod_prod.search([
                 ('name', '=', str(line['SpecItem']['Description'])),
-                ('product_tmpl_id', '=', product_template.id),
-                ('code', '=', str(line['SpecItem']['Alias']['Number']))
-            ])
-            if not product or product.attribute_value_ids.ids == attributes:
+                ('product_tmpl_id', '=', product_template.id)])
+            if not product or product.attribute_value_ids.ids != attributes:
                 product = obj_prod_prod.create({
                     'name': str(line['SpecItem']['Description']),
                     'product_tmpl_id': product_template.id,
                     'attribute_value_ids': [(6, 0, attributes)],
-                    'price_extra': line['Price']['PublishedPrice'] - 1.0,
+                    'price': line['Price']['PublishedPrice'],
                     'route_ids': [(6, 0, routes)],
                     'seller_ids': [(0, 0, {
                         'name': vendor.id,
