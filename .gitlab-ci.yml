@@ -4,11 +4,11 @@ stages:
 
 variables:
     PSQL_VERSION: "9.6"
-    VERSION: "11.0"
-    TRAVIS_PYTHON_VERSION: "3.5"
+    VERSION: "12.0"
+    TRAVIS_PYTHON_VERSION: "3.6"
     ODOO_REPO: "vauxoo/odoo"
-    ODOO_BRANCH: "11.0"
-    BASE_IMAGE: "vauxoo/odoo-110-image"
+    ODOO_BRANCH: "12.0"
+    BASE_IMAGE: "vauxoo/odoo-120-image"
     COUNTRY: "MX"
 
 lint:
@@ -36,7 +36,7 @@ test:
     - odoo
     - test
   variables:
-    LINT_CHECK: "0"
+    LINT_CHECK: "1"
     TESTS: "1"
     INCLUDE: "iho,company_country"
     INSTALL: "iho"
