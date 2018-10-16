@@ -4,12 +4,13 @@
 {
     'name': 'IHO customs',
     'summary': 'Customs',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'category': 'Customs',
     'author': 'Jarsa Sistemas, Vauxoo, Odoo Community Association (OCA)',
     'website': 'https://www.jarsa.com.mx',
     'license': 'AGPL-3',
     'depends': [
+        'res_currency_rate_custom_decimals',
         'sale_percentage_warning',
         'stock_move_quantity_limit',
         'sale_authorization',
