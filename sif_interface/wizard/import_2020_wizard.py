@@ -91,7 +91,7 @@ class Import2020Wizard(models.TransientModel):
                 ('name', '=', str(name))])
             if not item:
                 item = self.env[model].create({
-                    'name': name,
+                    'name': str(name),
                     'default_code': value,
                     'list_price': 1.0,
                 })
@@ -137,6 +137,11 @@ class Import2020Wizard(models.TransientModel):
                 name=line['SpecItem']['Description'])
             attributes = self.get_attributes(
                 self.get_data_info('Option', line['SpecItem']))
+            catalog = self.search_data('Catalog', 'product.attribute')
+            cat_value = self.search_data(
+                line['SpecItem']['Catalog']['Code'],
+                'product.attribute.value', attr=catalog)
+            attributes.append(cat_value.id)
             product = obj_prod_prod.search([
                 ('name', '=', str(line['SpecItem']['Description'])),
                 ('product_tmpl_id', '=', product_template.id)])
@@ -163,8 +168,11 @@ class Import2020Wizard(models.TransientModel):
                 'product_qty': line.get('Quantity'),
             }))
         for tag, boms in bom_elements.items():
-            bom_price = sum(obj_prod_prod.browse(
-                [x[2].get('product_id') for x in boms]).mapped('list_price'))
+            list_price_total = []
+            for x in boms:
+                list_price_total.append(
+                    obj_prod_prod.browse(x[2].get('product_id')).list_price *
+                    x[2].get('product_qty'))
             product_template_bom = self.search_data(
                 tag, 'product.template', name=tag)
             if not obj_bom.search(
@@ -182,7 +190,7 @@ class Import2020Wizard(models.TransientModel):
                 'product_uom_qty': 1.0,
                 'name': product_bom.display_name,
                 'order_id': sale_order.id,
-                'price_unit': bom_price,
+                'iho_price_list': sum(list_price_total),
                 'discount': 0.0,
                 'product_uom': product_bom.uom_id.id,
 
@@ -195,10 +203,13 @@ class Import2020Wizard(models.TransientModel):
 
         def option_recursive(option):
             data = str(option['Description']).split(":")
-            attr = self.search_data(data[0], 'product.attribute')
-            value = self.search_data(data[1], 'product.attribute.value',
-                                     attr=attr)
-            attributes.append(value.id)
+            code = str(option.get('Code'))
+            attribute = code + "-" + data[0] if len(data) == 2 else code
+            value = data[1] if len(data) == 2 else data[0]
+            attr = self.search_data(attribute, 'product.attribute')
+            attr_value = self.search_data(
+                value, 'product.attribute.value', attr=attr)
+            attributes.append(attr_value.id)
             if option.get('Option'):
                 option_recursive(option.get('Option'))
             return True
