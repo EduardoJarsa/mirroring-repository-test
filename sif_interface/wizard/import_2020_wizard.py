@@ -15,9 +15,6 @@ BOM_UTF8U = BOM_UTF8.decode('UTF-8')
 class Import2020Wizard(models.TransientModel):
     _name = "import.2020.wizard"
 
-    company_id = fields.Many2one(
-        comodel_name='res.company', string='Company', readonly=True,
-        help='Company to which it belongs this attachment',)
     xml_name = fields.Char(help='Save the file name, to verify that is .xml',)
     file_xml = fields.Binary(
         string='XML File',

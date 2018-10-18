@@ -10,7 +10,6 @@
                         <h2><strong>Please Upload the XML file</strong></h2>
                         <big><i class="fa fa-file-code-o fa-2x text-primary" aria-label="Code" title="Code"></i><label for="file_xml"/><field name="file_xml" filename="xml_name" nolabel="1"/></big>
                         <field name="xml_name" invisible="1" class="oe_inline oe_right"/>
-                        <field name="company_id" groups="base.group_multi_company"/>
                     </group>
                     <footer>
                         <button name="run_product_creation" string='Confirm' type="object" class="oe_highlight"/>
