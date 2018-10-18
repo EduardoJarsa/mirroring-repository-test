@@ -22,6 +22,7 @@ class SaleOrder(models.Model):
             if (rec.amount_total and fleet_price <
                     rec.company_id.sale_lower_total):
                 rec.low_fleet_flag = True
+            return True
 
     @api.onchange('amount_total')
     def _onchange_amount_total_fleet_service(self):
@@ -50,3 +51,4 @@ class SaleOrder(models.Model):
         fleet_sol.update({
             'price_unit': fleet_price,
         })
+        return {}
