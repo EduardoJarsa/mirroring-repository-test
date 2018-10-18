@@ -169,10 +169,10 @@ class Import2020Wizard(models.TransientModel):
             }))
         for tag, boms in bom_elements.items():
             list_price_total = []
-            for x in boms:
+            for bom in boms:
                 list_price_total.append(
-                    obj_prod_prod.browse(x[2].get('product_id')).list_price *
-                    x[2].get('product_qty'))
+                    obj_prod_prod.browse(bom[2].get('product_id')).list_price *
+                    bom[2].get('product_qty'))
             product_template_bom = self.search_data(
                 tag, 'product.template', name=tag)
             if not obj_bom.search(
