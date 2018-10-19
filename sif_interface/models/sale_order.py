@@ -32,7 +32,7 @@ class SaleOrderLine(models.Model):
         store=True,)
 
     @api.multi
-    @api.depends('iho_price_list')
+    @api.depends('iho_price_list', 'iho_discount')
     def _compute_sell_1(self):
         for rec in self:
             rec.iho_sell_1 = rec.iho_price_list * (1 - rec.iho_discount / 100)
