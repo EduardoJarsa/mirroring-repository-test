@@ -77,7 +77,7 @@ class Import2020Wizard(models.TransientModel):
         return [data for node, data in data_node.items() if xpath in node]
 
     @api.model
-    def search_data(self, value, model, attr=False, name=False):
+    def search_data(self, value, model, attr=False, name=False, buy=True):
         item = self.env[model].search([('name', '=', str(value))])
         if model in ['res.partner', 'product.attribute']:
             if not item:
@@ -92,6 +92,8 @@ class Import2020Wizard(models.TransientModel):
                     'default_code': value,
                     'list_price': 1.0,
                 })
+            item.sale_ok = not buy
+            item.purchase_ok = buy
         elif model == 'product.attribute.value':
             item = self.env[model].search([
                 ('name', '=', str(value)),
@@ -140,9 +142,10 @@ class Import2020Wizard(models.TransientModel):
                 'product.attribute.value', attr=catalog)
             attributes.append(cat_value.id)
             product = obj_prod_prod.search([
-                ('name', '=', str(line['SpecItem']['Description'])),
+                ('default_code', '=', str(
+                    line['SpecItem']['Alias']['Number'])),
                 ('product_tmpl_id', '=', product_template.id)])
-            if not product or product.attribute_value_ids.ids != attributes:
+            if not product:
                 product = obj_prod_prod.create({
                     'name': str(line['SpecItem']['Description']),
                     'product_tmpl_id': product_template.id,
@@ -156,7 +159,7 @@ class Import2020Wizard(models.TransientModel):
                         'price': 0,
                     })],
                     'code': str(line['SpecItem']['Alias']['Number']),
-                    'default_code': line['SpecItem']['Number'],
+                    'default_code': str(line['SpecItem']['Alias']['Number']),
                 })
             if tag_alias not in bom_elements.keys():
                 bom_elements[tag_alias] = []
@@ -171,7 +174,7 @@ class Import2020Wizard(models.TransientModel):
                     obj_prod_prod.browse(bom[2].get('product_id')).list_price *
                     bom[2].get('product_qty'))
             product_template_bom = self.search_data(
-                tag, 'product.template', name=tag)
+                tag, 'product.template', name=tag, buy=False)
             if not obj_bom.search(
                     [('product_tmpl_id', '=', product_template_bom.id)]):
                 product_template_bom.name = tag
