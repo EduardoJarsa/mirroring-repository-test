@@ -19,10 +19,55 @@ class ExportSifWizard(models.TransientModel):
     state = fields.Selection(
         [('choose', 'Get'), ('download', 'Download')], default='choose')
 
+    @api.model
+    def _prepare_lines_items(self, line):
+        import ipdb; ipdb.set_trace()
+        datas = {
+            'PN': line.product_id.default_code,
+            'PD': line.product_id.name,
+            # 'TG': ,
+            # 'MC': ,
+            # 'QT': ,
+            # 'ZO': ,
+            # 'PL': ,
+            # 'WT': ,
+            # 'VO': ,
+            # 'V1': ,
+            # 'V2': ,
+            # 'V3': ,
+            # 'S-': ,
+            # 'P%': ,
+            # 'GC': ,
+            # 'PV': ,
+            # 'EV': ,
+            # '3D': ,
+            # 'L1': ,
+            # 'L2': ,
+            # 'L3': ,
+            # 'ON': ,
+            # 'OD': ,
+            # 'ON': ,
+            # 'OD': ,
+            # 'ON': ,
+            # 'OD': ,
+            # 'ON': ,
+            # 'OD': ,
+            # 'ON': ,
+            # 'OD': ,
+            # 'ON': ,
+            # 'OD': ,
+        }
+        return datas
+
     @api.multi
     def generate_file(self):
         self.ensure_one()
-        lines = ['hola', 'como', 'estas']
+        purchase_order = self.env[
+            self._context.get('active_model')].browse(
+                self._context.get('active_id'))
+        lines = []
+        for line in purchase_order.order_line:
+            lines.append(self._prepare_lines_items(line))
         sif_data = ""
         if not lines:
             raise ValidationError(
