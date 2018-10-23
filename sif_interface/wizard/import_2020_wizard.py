@@ -84,16 +84,16 @@ class Import2020Wizard(models.TransientModel):
                 item = self.env[model].create({'name': str(value)})
         elif model == 'product.template':
             item = self.env[model].search([
-                ('default_code', '=', str(value)),
-                ('name', '=', str(name))])
+                ('default_code', '=', str(value))])
             if not item:
                 item = self.env[model].create({
                     'name': str(name),
-                    'default_code': value,
+                    'default_code': str(value),
                     'list_price': 1.0,
+                    'type': 'product',
+                    'sale_ok': not buy,
+                    'purchase_ok': buy,
                 })
-            item.sale_ok = not buy
-            item.purchase_ok = buy
         elif model == 'product.attribute.value':
             item = self.env[model].search([
                 ('name', '=', str(value)),
