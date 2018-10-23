@@ -125,7 +125,7 @@ class Import2020Wizard(models.TransientModel):
         for line in order_lines:
             tags = self.get_data_info('Tag', line)
             tag_alias = [
-                str(tag.get('Value'))
+                str(tag.get('Value')) + ' - ' + sale_order.name
                 for tag in tags
                 if 'Alias' in str(tag.get('Type'))
             ][0]
