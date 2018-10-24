@@ -79,20 +79,21 @@ class Import2020Wizard(models.TransientModel):
     @api.model
     def search_data(self, value, model, attr=False, name=False, buy=True):
         item = self.env[model].search([('name', '=', str(value))])
-        if model in ['res.partner', 'product.attribute']:
+        if model == 'res.partner':
             if not item:
                 item = self.env[model].create({'name': str(value)})
         elif model == 'product.template':
             item = self.env[model].search([
                 ('default_code', '=', str(value))])
+            optional_product_id = self.env[model].search([], limit=1).id
             if not item:
                 item = self.env[model].create({
                     'name': str(name),
                     'default_code': str(value),
                     'list_price': 1.0,
                     'type': 'product',
-                    'sale_ok': not buy,
                     'purchase_ok': buy,
+                    'optional_product_ids': [(4, optional_product_id)],
                 })
         elif model == 'product.attribute.value':
             item = self.env[model].search([
@@ -101,7 +102,14 @@ class Import2020Wizard(models.TransientModel):
             if not item:
                 item = self.env[model].create({
                     'name': str(value),
-                    'attribute_id': attr.id})
+                    'attribute_id': attr.id, })
+        elif model == 'product.attribute':
+            if not item:
+                item = self.env[model].create({
+                    'name': str(value),
+                    'type': 'select',
+                    'create_variant': 'dynamic',
+                })
         return item
 
     @api.multi

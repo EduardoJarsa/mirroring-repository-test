@@ -8,7 +8,7 @@ from odoo import fields, models
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    """We need to override the original field from Odoo because is a
+    """We need to override the original field from Odoo because it is a
     compute field and the behavior do not satisfy the requiriments
     of this module"""
     default_code = fields.Char(
