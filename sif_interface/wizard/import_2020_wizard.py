@@ -85,7 +85,8 @@ class Import2020Wizard(models.TransientModel):
         return [data for node, data in data_node.items() if xpath in node]
 
     @api.model
-    def search_data(self, value, model, attr=False, name=False, buy=True):
+    def search_data(self, value, model,
+                    attr=False, name=False, buy=True, vendor=False):
         item = self.env[model].search([('name', '=', str(value))])
         if model == 'res.partner':
             if not item:
@@ -103,6 +104,14 @@ class Import2020Wizard(models.TransientModel):
                     'purchase_ok': buy,
                     'optional_product_ids': [(4, optional_product_id)],
                 })
+                if vendor:
+                    self.env['product.supplierinfo'].create({
+                        'name': vendor.id,
+                        'delay': 1,
+                        'min_qty': 0,
+                        'price': 0,
+                        'product_tmpl_id': item.id,
+                    })
         elif model == 'product.attribute.value':
             item = self.env[model].search([
                 ('name', '=', str(value)),
@@ -149,7 +158,7 @@ class Import2020Wizard(models.TransientModel):
                 line.get('VendorRef'), 'res.partner')
             product_template = self.search_data(
                 line['SpecItem']['Number'], 'product.template',
-                name=line['SpecItem']['Description'])
+                name=line['SpecItem']['Description'], vendor=vendor)
             attributes = self.get_attributes(
                 self.get_data_info('Option', line['SpecItem']))
             catalog = self.search_data('Catalog', 'product.attribute')
@@ -168,12 +177,6 @@ class Import2020Wizard(models.TransientModel):
                     'attribute_value_ids': [(6, 0, attributes)],
                     'price': line['Price']['PublishedPrice'],
                     'route_ids': [(6, 0, routes)],
-                    'seller_ids': [(0, 0, {
-                        'name': vendor.id,
-                        'delay': 1,
-                        'min_qty': 0,
-                        'price': 0,
-                    })],
                     'code': str(line['SpecItem']['Alias']['Number']),
                     'default_code': str(line['SpecItem']['Alias']['Number']),
                 })
@@ -211,6 +214,10 @@ class Import2020Wizard(models.TransientModel):
                 'product_uom': product_bom.uom_id.id,
 
             })
+            product_trash = obj_prod_prod.search([
+                ('attribute_value_ids', '=', False),
+                ('default_code', '=', False)])
+            product_trash.write({'active': False})
         return file_data
 
     @api.model
