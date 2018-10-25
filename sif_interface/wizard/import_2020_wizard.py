@@ -66,6 +66,14 @@ class Import2020Wizard(models.TransientModel):
         try:
             xml = objectify.fromstring(xml_string)
             file_data = self.xml2dict(xml)
+            self.env["ir.attachment"].create({
+                'res_model': self._context.get('active_model'),
+                'name': self.xml_name,
+                'res_id': self._context.get('active_id'),
+                'type': 'binary',
+                'datas': self.file_xml,
+                'datas_fname': self.xml_name,
+            })
         except(SyntaxError, ValueError) as err:
             raise ValidationError(
                 _('The XML file has an error, please check your data. \n '

@@ -14,6 +14,7 @@
         'purchase',
         'sale_management',
         'mrp',
+        'document',
     ],
     'data': [
         'wizard/import_2020_wizard_view.xml',
