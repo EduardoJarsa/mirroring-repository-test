@@ -90,7 +90,11 @@ class Import2020Wizard(models.TransientModel):
         item = self.env[model].search([('name', '=', str(value))])
         if model == 'res.partner':
             if not item:
-                item = self.env[model].create({'name': str(value)})
+                item = self.env[model].create({
+                    'name': str(value),
+                    'company_type': 'company',
+                    'customer': False,
+                    'supplier': True, })
         elif model == 'product.template':
             item = self.env[model].search([
                 ('default_code', '=', str(value))])
@@ -216,8 +220,13 @@ class Import2020Wizard(models.TransientModel):
             })
             product_trash = obj_prod_prod.search([
                 ('attribute_value_ids', '=', False),
-                ('default_code', '=', False)])
+                ('default_code', '=', False),
+                ('id', 'not in',
+                    sale_order.order_line.mapped('product_id.id'))])
             product_trash.write({'active': False})
+        message = _(
+            "The file %s was correctly loaded. " % (self.xml_name))
+        sale_order.message_post(body=message)
         return file_data
 
     @api.model
