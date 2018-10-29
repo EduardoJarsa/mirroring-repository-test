@@ -225,7 +225,7 @@ class Import2020Wizard(models.TransientModel):
                     sale_order.order_line.mapped('product_id.id'))])
             product_trash.write({'active': False})
         message = _(
-            "The file %s was correctly loaded. " % (self.xml_name))
+            "The file %s was correctly loaded. ") % (self.xml_name)
         sale_order.message_post(body=message)
         return file_data
 
