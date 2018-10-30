@@ -208,7 +208,7 @@ class Import2020Wizard(models.TransientModel):
                 })
             product_bom = obj_prod_prod.search([
                 ('product_tmpl_id', '=', product_template_bom.id)])
-            sale_order.order_line.create({
+            sale_order_line = sale_order.order_line.create({
                 'product_id': product_bom.id,
                 'product_uom_qty': 1.0,
                 'name': product_bom.display_name,
@@ -218,6 +218,9 @@ class Import2020Wizard(models.TransientModel):
                 'product_uom': product_bom.uom_id.id,
 
             })
+            sale_order_line._compute_sell_1()
+            sale_order_line._compute_sell_2()
+            sale_order_line._compute_sell_3()
             product_trash = obj_prod_prod.search([
                 ('attribute_value_ids', '=', False),
                 ('default_code', '=', False),
