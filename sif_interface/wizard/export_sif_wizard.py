@@ -20,44 +20,41 @@ class ExportSifWizard(models.TransientModel):
         [('choose', 'Get'), ('download', 'Download')], default='choose')
 
     @api.model
-    def _prepare_lines_items(self, line):
-        import ipdb; ipdb.set_trace()
-        datas = {
-            'PN': line.product_id.default_code,
-            'PD': line.product_id.name,
-            # 'TG': ,
-            # 'MC': ,
-            # 'QT': ,
-            # 'ZO': ,
-            # 'PL': ,
-            # 'WT': ,
-            # 'VO': ,
-            # 'V1': ,
-            # 'V2': ,
-            # 'V3': ,
-            # 'S-': ,
-            # 'P%': ,
-            # 'GC': ,
-            # 'PV': ,
-            # 'EV': ,
-            # '3D': ,
-            # 'L1': ,
-            # 'L2': ,
-            # 'L3': ,
-            # 'ON': ,
-            # 'OD': ,
-            # 'ON': ,
-            # 'OD': ,
-            # 'ON': ,
-            # 'OD': ,
-            # 'ON': ,
-            # 'OD': ,
-            # 'ON': ,
-            # 'OD': ,
-            # 'ON': ,
-            # 'OD': ,
-        }
-        return datas
+    def _prepare_lines_items(self, line, sif_data):
+        sif_data += 'PN=' + line.product_id.default_code + '\n'
+        sif_data += 'PD=' + line.product_id.name + '\n'
+        sif_data += 'TG=' + "Aun no se que lleva." + '\n'
+        sif_data += 'MC=' + (line.product_id.attribute_value_ids.filtered(
+            lambda r: r.attribute_id.name == 'Catalog').name or "sin code"
+        ) + '\n'
+        sif_data += 'QT=' + str(line.product_qty) + '\n'
+        sif_data += 'ZO=' + "Sequence" + '\n'
+        sif_data += 'PL=' + str(line.price_unit) + '\n'
+        sif_data += 'WT=' + "Aun no se que lleva." + '\n'
+        sif_data += 'VO=' + "Aun no se que lleva." + '\n'
+        sif_data += 'V1=' + "Aun no se que lleva." + '\n'
+        sif_data += 'V2=' + "Aun no se que lleva." + '\n'
+        sif_data += 'V3=' + "Aun no se que lleva." + '\n'
+        sif_data += 'S-=' + "ofda:EndCustomerDiscount" + '\n'
+        sif_data += 'P%=' + "ofda:OrderDealerDiscount" + '\n'
+        sif_data += 'GC=' + (line.product_id.attribute_value_ids.filtered(
+            lambda r: r.attribute_id.name == 'Catalog').name or "sin code"
+        ) + '\n'
+        sif_data += 'PV=' + line.product_id.default_code + '\n'
+        sif_data += 'EV=' + "" + '\n'
+        sif_data += '3D=' + line.product_id.default_code + '\n'
+        sif_data += 'L1=' + (
+            line.sale_line_id.product_id.name or "Alias") + '\n'
+        sif_data += 'L2=' + "Vacios hasta el momento" + '\n'
+        sif_data += 'L3=' + "Vacios hasta el momento" + '\n'
+        for attribute in line.product_id.attribute_value_ids.filtered(
+                lambda r: r.attribute_id.name != 'Catalog'):
+            on_code = attribute.attribute_id.name.split("-")
+            sif_data += 'ON=' + on_code[0] + '\n'
+            sif_data += 'OD=' + (
+                on_code[1] + ":" + attribute.name
+                if len(on_code) == 2 else attribute.name) + '\n'
+        return sif_data
 
     @api.multi
     def generate_file(self):
@@ -65,21 +62,14 @@ class ExportSifWizard(models.TransientModel):
         purchase_order = self.env[
             self._context.get('active_model')].browse(
                 self._context.get('active_id'))
-        lines = []
+        sif_data = 'SF=\nST=\n'
         for line in purchase_order.order_line:
-            lines.append(self._prepare_lines_items(line))
-        sif_data = ""
-        if not lines:
-            raise ValidationError(
-                _("No results with requested information \n"
-                  "Please check!"))
-        for line in lines:
-            sif_data += ('').join(line) + '\n\n'
+            sif_data = self._prepare_lines_items(line, sif_data)
         self.sif_binary = base64.b64encode(
             bytes(sif_data.encode('UTF-8')))
         self.write({
             'state': 'download',
-            'name': 'test.sif',
+            'name': purchase_order.name + '.sif',
             })
         return {
             'type': 'ir.actions.act_window',
