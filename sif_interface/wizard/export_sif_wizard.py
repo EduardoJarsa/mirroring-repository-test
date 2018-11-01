@@ -21,14 +21,14 @@ class ExportSifWizard(models.TransientModel):
 
     @api.model
     def _prepare_lines_items(self, line, sif_data):
-        sif_data += 'PN=' + line.product_id.default_code + '\n'
+        sif_data += 'PN=' + line.product_id.product_tmpl_id.default_code + '\n'
         sif_data += 'PD=' + line.product_id.name + '\n'
         sif_data += 'TG=' + "Aun no se que lleva." + '\n'
         sif_data += 'MC=' + (line.product_id.attribute_value_ids.filtered(
             lambda r: r.attribute_id.name == 'Catalog').name or "sin code"
         ) + '\n'
         sif_data += 'QT=' + str(line.product_qty) + '\n'
-        sif_data += 'ZO=' + "Sequence" + '\n'
+        sif_data += 'ZO=' + line.sequence + '\n'
         sif_data += 'PL=' + str(line.price_unit) + '\n'
         sif_data += 'WT=' + "Aun no se que lleva." + '\n'
         sif_data += 'VO=' + "Aun no se que lleva." + '\n'
@@ -40,9 +40,9 @@ class ExportSifWizard(models.TransientModel):
         sif_data += 'GC=' + (line.product_id.attribute_value_ids.filtered(
             lambda r: r.attribute_id.name == 'Catalog').name or "sin code"
         ) + '\n'
-        sif_data += 'PV=' + line.product_id.default_code + '\n'
+        sif_data += 'PV=' + line.product_id.product_tmpl_id.default_code + '\n'
         sif_data += 'EV=' + "" + '\n'
-        sif_data += '3D=' + line.product_id.default_code + '\n'
+        sif_data += '3D=' + "Aun no se que lleva. no viene xml" + '\n'
         sif_data += 'L1=' + (
             line.sale_line_id.product_id.name or "Alias") + '\n'
         sif_data += 'L2=' + "Vacios hasta el momento" + '\n'
