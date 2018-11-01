@@ -87,6 +87,9 @@ class Import2020Wizard(models.TransientModel):
     @api.model
     def search_data(self, value, model,
                     attr=False, name=False, buy=True, vendor=False):
+        routes = [
+            self.env.ref('stock.route_warehouse0_mto').id,
+            self.env.ref('purchase_stock.route_warehouse0_buy').id]
         item = self.env[model].search([('name', '=', str(value))])
         if model == 'res.partner':
             if not item:
@@ -98,7 +101,9 @@ class Import2020Wizard(models.TransientModel):
         elif model == 'product.template':
             item = self.env[model].search([
                 ('default_code', '=', str(value))])
-            optional_product_id = self.env[model].search([], limit=1).id
+            with_id = self.env[model].search([], limit=1).id
+            optional_product_id = (
+                [(4, with_id)] if with_id else self.env[model])
             if not item:
                 item = self.env[model].create({
                     'name': str(name),
@@ -106,7 +111,8 @@ class Import2020Wizard(models.TransientModel):
                     'list_price': 1.0,
                     'type': 'product',
                     'purchase_ok': buy,
-                    'optional_product_ids': [(4, optional_product_id)],
+                    'optional_product_ids': optional_product_id,
+                    'route_ids': [(6, 0, routes)],
                 })
                 if vendor:
                     self.env['product.supplierinfo'].create({
@@ -152,17 +158,23 @@ class Import2020Wizard(models.TransientModel):
         order_lines = self.get_data_info(
             'OrderLineItem', file_data['Envelope']['PurchaseOrder'])
         for line in order_lines:
-            tags = self.get_data_info('Tag', line)
-            tag_alias = [
-                str(tag.get('Value')) + ' - ' + sale_order.name
-                for tag in tags
-                if 'Alias' in str(tag.get('Type'))
-            ][0]
             vendor = self.search_data(
                 line.get('VendorRef'), 'res.partner')
             product_template = self.search_data(
                 line['SpecItem']['Number'], 'product.template',
                 name=line['SpecItem']['Description'], vendor=vendor)
+            tags = self.get_data_info('Tag', line)
+            tag_alias = [
+                str(tag.get('Value')) + ' - ' + sale_order.name
+                for tag in tags
+                if 'Alias' in str(tag.get('Type'))
+            ]
+            if not tag_alias:
+                name_product = (line['SpecItem']['Number'])
+                raise ValidationError(
+                    _('The %s product does '
+                      'not have a configured Alias.'
+                      '\nPlease verify the data of the xml.') % (name_product))
             attributes = self.get_attributes(
                 self.get_data_info('Option', line['SpecItem']))
             catalog = self.search_data('Catalog', 'product.attribute')
@@ -184,9 +196,9 @@ class Import2020Wizard(models.TransientModel):
                     'code': str(line['SpecItem']['Alias']['Number']),
                     'default_code': str(line['SpecItem']['Alias']['Number']),
                 })
-            if tag_alias not in bom_elements.keys():
-                bom_elements[tag_alias] = []
-            bom_elements[tag_alias].append((0, 0, {
+            if tag_alias[0] not in bom_elements.keys():
+                bom_elements[tag_alias[0]] = []
+            bom_elements[tag_alias[0]].append((0, 0, {
                 'product_id': product.id,
                 'product_qty': line.get('Quantity'),
             }))
