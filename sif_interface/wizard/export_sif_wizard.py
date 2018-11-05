@@ -28,10 +28,10 @@ class ExportSifWizard(models.TransientModel):
             lambda r: r.attribute_id.name == 'Catalog').name or "sin code"
         ) + '\n'
         sif_data += 'QT=' + str(line.product_qty) + '\n'
-        sif_data += 'ZO=' + line.sequence + '\n'
+        sif_data += 'ZO=' + str(line.sequence) + '\n'
         sif_data += 'PL=' + str(line.price_unit) + '\n'
-        sif_data += 'WT=' + "Aun no se que lleva." + '\n'
-        sif_data += 'VO=' + "Aun no se que lleva." + '\n'
+        sif_data += 'WT=' + "Aun no se que lleva. 0" + '\n'
+        sif_data += 'VO=' + "Aun no se que lleva. 0" + '\n'
         sif_data += 'V1=' + "Aun no se que lleva." + '\n'
         sif_data += 'V2=' + "Aun no se que lleva." + '\n'
         sif_data += 'V3=' + "Aun no se que lleva." + '\n'
