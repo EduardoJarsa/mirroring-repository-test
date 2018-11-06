@@ -115,12 +115,16 @@ class Import2020Wizard(models.TransientModel):
                     'route_ids': [(6, 0, routes)],
                 })
                 if vendor:
+                    sale_order = self.env[
+                        self._context.get('active_model')].browse(
+                            self._context.get('active_id'))
                     self.env['product.supplierinfo'].create({
                         'name': vendor.id,
                         'delay': 1,
                         'min_qty': 0,
                         'price': 0,
                         'product_tmpl_id': item.id,
+                        'sale_order_id': sale_order.id,
                     })
         elif model == 'product.attribute.value':
             item = self.env[model].search([
@@ -145,6 +149,7 @@ class Import2020Wizard(models.TransientModel):
         obj_bom = self.env['mrp.bom']
         obj_prod_prod = self.env['product.product']
         bom_elements = {}
+        bom_discounts = {}
         sale_order = self.env[
             self._context.get('active_model')].browse(
                 self._context.get('active_id'))
@@ -201,7 +206,13 @@ class Import2020Wizard(models.TransientModel):
             bom_elements[tag_alias[0]].append((0, 0, {
                 'product_id': product.id,
                 'product_qty': line.get('Quantity'),
+                'iho_purchase_discount': line['Price']['OrderDealerDiscount'],
+                'iho_purchase_cost': line['Price']['OrderDealerPrice'],
             }))
+            if tag_alias[0] not in bom_discounts.keys():
+                bom_discounts[tag_alias[0]] = []
+            bom_discounts[tag_alias[0]].append(float(
+                line['Price']['EndCustomerPrice']))
         for tag, boms in bom_elements.items():
             list_price_total = []
             for bom in boms:
@@ -228,7 +239,8 @@ class Import2020Wizard(models.TransientModel):
                 'iho_price_list': sum(list_price_total),
                 'discount': 0.0,
                 'product_uom': product_bom.uom_id.id,
-
+                'iho_discount': 1 - (
+                    sum(bom_discounts[tag]) / sum(list_price_total)),
             })
             sale_order_line._compute_sell_1()
             sale_order_line._compute_sell_2()

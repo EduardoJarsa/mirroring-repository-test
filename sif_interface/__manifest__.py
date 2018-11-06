@@ -12,12 +12,13 @@
     'license': 'AGPL-3',
     'depends': [
         'purchase',
-        'sale_management',
         'mrp',
+        'sale_management',
         'document',
     ],
     'data': [
         'wizard/import_2020_wizard_view.xml',
+        'views/mrp_bom_view.xml',
         'views/sale_order_view.xml',
     ],
 }
