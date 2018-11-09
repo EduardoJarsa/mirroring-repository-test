@@ -15,6 +15,7 @@
         'stock_move_quantity_limit',
         'sale_authorization',
         'sif_interface',
+        'sale_stock',
     ],
     'data': [
         'views/res_partner_view.xml',

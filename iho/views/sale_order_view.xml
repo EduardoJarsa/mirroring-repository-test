@@ -12,6 +12,9 @@
                     </group>
                 </page>
             </xpath>
+            <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                <field name="route_id" groups="sale_stock.group_route_so_lines" options="{'no_create': True}"/>
+            </xpath>
         </field>
     </record>
 </odoo>
