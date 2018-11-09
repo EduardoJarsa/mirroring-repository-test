@@ -21,6 +21,9 @@ class ExportSifWizard(models.TransientModel):
 
     @api.model
     def _prepare_lines_items(self, line, sif_data):
+        customer_price = (line.sale_line_id.product_id.bom_ids.bom_line_ids.with_context(product=line.product_id).filtered(lambda r: r.product_id == r._context.get('product')).iho_customer_cost)
+        product_price = line.product_id.list_price if line.product_id.list_price != 0 else 1
+        dealer_price = line.product_id.seller_ids.with_context(order=line.sale_line_id.order_id).filtered(lambda r: r.sale_order_id == r._context.get('order')).price
         sif_data += 'PN=' + line.product_id.product_tmpl_id.default_code + '\n'
         sif_data += 'PD=' + line.product_id.name + '\n'
         sif_data += 'TG=' + "Aun no se que lleva." + '\n'
@@ -30,13 +33,13 @@ class ExportSifWizard(models.TransientModel):
         sif_data += 'QT=' + str(line.product_qty) + '\n'
         sif_data += 'ZO=' + str(line.sequence) + '\n'
         sif_data += 'PL=' + str(line.price_unit) + '\n'
-        sif_data += 'WT=' + "Aun no se que lleva. 0" + '\n'
-        sif_data += 'VO=' + "Aun no se que lleva. 0" + '\n'
+        sif_data += 'WT=' + str(line.product_id.weight) + '\n'
+        sif_data += 'VO=' + str(line.product_id.volume) + '\n'
         sif_data += 'V1=' + "Aun no se que lleva." + '\n'
         sif_data += 'V2=' + "Aun no se que lleva." + '\n'
         sif_data += 'V3=' + "Aun no se que lleva." + '\n'
-        sif_data += 'S-=' + "ofda:EndCustomerDiscount" + '\n'
-        sif_data += 'P%=' + "ofda:OrderDealerDiscount" + '\n'
+        sif_data += 'S-=' + str((product_price - customer_price) * 100 / product_price) + '\n'
+        sif_data += 'P%=' + str((product_price - dealer_price) * 100 / product_price) + '\n'
         sif_data += 'GC=' + (line.product_id.attribute_value_ids.filtered(
             lambda r: r.attribute_id.name == 'Catalog').name or "sin code"
         ) + '\n'

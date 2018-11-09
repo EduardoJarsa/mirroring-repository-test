@@ -20,5 +20,5 @@ class StockRule(models.Model):
             self, product_id, product_qty, product_uom, values, po, partner):
         res = super(StockRule, self)._prepare_purchase_order_line(
             product_id, product_qty, product_uom, values, po, partner)
-        res['sale_line_id'] = values.get('sale_line_id')
+        res['sale_line_id'] = values.get('sale_line_id').id
         return res
