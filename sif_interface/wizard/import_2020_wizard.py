@@ -86,7 +86,8 @@ class Import2020Wizard(models.TransientModel):
 
     @api.model
     def search_data(self, value, model,
-                    attr=False, name=False, buy=True, vendor=False):
+                    attr=False, name=False, buy=True, vendor=False,
+                    delear_price=False):
         routes = [
             self.env.ref('stock.route_warehouse0_mto').id,
             self.env.ref('purchase_stock.route_warehouse0_buy').id]
@@ -122,7 +123,7 @@ class Import2020Wizard(models.TransientModel):
                         'name': vendor.id,
                         'delay': 1,
                         'min_qty': 0,
-                        'price': 0,
+                        'price': delear_price,
                         'product_tmpl_id': item.id,
                         'sale_order_id': sale_order.id,
                     })
@@ -162,12 +163,14 @@ class Import2020Wizard(models.TransientModel):
         file_data = self.get_file_data()
         order_lines = self.get_data_info(
             'OrderLineItem', file_data['Envelope']['PurchaseOrder'])
+        currency = file_data['Envelope']['Header']['Currency']
         for line in order_lines:
             vendor = self.search_data(
                 line.get('VendorRef'), 'res.partner')
             product_template = self.search_data(
                 line['SpecItem']['Number'], 'product.template',
-                name=line['SpecItem']['Description'], vendor=vendor)
+                name=line['SpecItem']['Description'], vendor=vendor,
+                delear_price=line['Price']['OrderDealerPrice'])
             tags = self.get_data_info('Tag', line)
             tag_alias = [
                 str(tag.get('Value')) + ' - ' + sale_order.name
@@ -206,8 +209,11 @@ class Import2020Wizard(models.TransientModel):
             bom_elements[tag_alias[0]].append((0, 0, {
                 'product_id': product.id,
                 'product_qty': line.get('Quantity'),
-                'iho_purchase_discount': line['Price']['OrderDealerDiscount'],
                 'iho_purchase_cost': line['Price']['OrderDealerPrice'],
+                'partner_id': vendor.id,
+                'iho_currency_id': self.env['res.currency'].search(
+                    [('name', '=', currency)]).id,
+                'iho_customer_cost': line['Price']['EndCustomerPrice'],
             }))
             if tag_alias[0] not in bom_discounts.keys():
                 bom_discounts[tag_alias[0]] = []
