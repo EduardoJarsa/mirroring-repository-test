@@ -4,15 +4,10 @@ import base64
 
 from odoo import api, fields, models
 
-MAPPING = {
-    'default_code': 'PN',
-    'description': 'OD',
-    'product_id.seller_ids': 'L'
-}
-
 
 class ExportSifWizard(models.TransientModel):
     _name = "export.sif.wizard"
+    _description = "Export SIF Files from Purchase Order(s)"
 
     name = fields.Char()
     sif_binary = fields.Binary(string="Download File")
@@ -21,35 +16,49 @@ class ExportSifWizard(models.TransientModel):
 
     @api.model
     def _prepare_lines_items(self, line, sif_data):
-        customer_price = (line.sale_line_id.product_id.bom_ids.bom_line_ids.with_context(product=line.product_id).filtered(lambda r: r.product_id == r._context.get('product')).iho_customer_cost)
-        product_price = line.product_id.list_price if line.product_id.list_price != 0 else 1
-        dealer_price = line.product_id.seller_ids.with_context(order=line.sale_line_id.order_id).filtered(lambda r: r.sale_order_id == r._context.get('order')).price
-        sif_data += 'PN=' + line.product_id.product_tmpl_id.default_code + '\n'
-        sif_data += 'PD=' + line.product_id.name + '\n'
-        sif_data += 'TG=' + "Aun no se que lleva." + '\n'
+        bom_product_tmpl_id = line.sale_line_id.product_id.product_tmpl_id
+        bom_line = self.env['mrp.bom.line'].search(
+            [('product_id', '=', line.product_id.id),
+             ('parent_product_tmpl_id', '=', bom_product_tmpl_id.id)],
+            limit=1)
+        customer_price = bom_line.iho_customer_cost
+        product_price = line.product_id.list_price or 1
+        dealer_price = line.product_id.seller_ids.with_context(
+            order=line.sale_line_id.order_id).filtered(
+            lambda r: r.sale_order_id == r._context.get('order')).price
+        sif_data += 'PN=' + (
+            line.product_id.
+            product_tmpl_id.default_code) + '\n'  # Product Code
+        sif_data += 'PD=' + line.product_id.name + '\n'  # Product Name
+        sif_data += 'TG=\n'  # unknown
         sif_data += 'MC=' + (line.product_id.attribute_value_ids.filtered(
-            lambda r: r.attribute_id.name == 'Catalog').name or "sin code"
+            lambda r: r.attribute_id.name == 'Catalog').name or " "  # Catalog
         ) + '\n'
-        sif_data += 'QT=' + str(line.product_qty) + '\n'
-        sif_data += 'ZO=' + str(line.sequence) + '\n'
-        sif_data += 'PL=' + str(line.price_unit) + '\n'
-        sif_data += 'WT=' + str(line.product_id.weight) + '\n'
-        sif_data += 'VO=' + str(line.product_id.volume) + '\n'
-        sif_data += 'V1=' + "Aun no se que lleva." + '\n'
-        sif_data += 'V2=' + "Aun no se que lleva." + '\n'
-        sif_data += 'V3=' + "Aun no se que lleva." + '\n'
-        sif_data += 'S-=' + str((product_price - customer_price) * 100 / product_price) + '\n'
-        sif_data += 'P%=' + str((product_price - dealer_price) * 100 / product_price) + '\n'
+        sif_data += 'QT=' + str(line.product_qty) + '\n'  # Product Quantity
+        sif_data += 'ZO=' + str(line.sequence) + '\n'  # Sequence
+        sif_data += 'PL=' + str(product_price) + '\n'  # Product List Price
+        sif_data += 'WT=' + str(line.product_id.weight) + '\n'  # Weight
+        sif_data += 'VO=' + str(line.product_id.volume) + '\n'  # Volume
+        sif_data += 'V1= \n'  # unknown
+        sif_data += 'V2= \n'  # unknown
+        sif_data += 'V3= \n'  # unknown
+        sif_data += 'S-=' + str(round(
+            (product_price - customer_price) * 100 /
+            product_price, 2)) + '\n'  # Sale Discount
+        sif_data += 'P%=' + str(round(
+            product_price - dealer_price * 100 /
+            product_price, 2)) + '\n'  # Purchase Discount
         sif_data += 'GC=' + (line.product_id.attribute_value_ids.filtered(
-            lambda r: r.attribute_id.name == 'Catalog').name or "sin code"
-        ) + '\n'
+            lambda r: r.attribute_id.name == 'Generic').name or " "
+        ) + '\n'  # Generic Tag
         sif_data += 'PV=' + line.product_id.product_tmpl_id.default_code + '\n'
         sif_data += 'EV=' + "" + '\n'
-        sif_data += '3D=' + "Aun no se que lleva. no viene xml" + '\n'
+        sif_data += '3D=\n'  # unknown
         sif_data += 'L1=' + (
-            line.sale_line_id.product_id.name or "Alias") + '\n'
-        sif_data += 'L2=' + "Vacios hasta el momento" + '\n'
-        sif_data += 'L3=' + "Vacios hasta el momento" + '\n'
+            line.sale_line_id.product_id.name.split(
+                ' - ')[0] or "Alias") + '\n'
+        sif_data += 'L2= \n'
+        sif_data += 'L3= \n'
         for attribute in line.product_id.attribute_value_ids.filtered(
                 lambda r: r.attribute_id.name != 'Catalog'):
             on_code = attribute.attribute_id.name.split("-")

@@ -14,6 +14,7 @@ BOM_UTF8U = BOM_UTF8.decode('UTF-8')
 
 class Import2020Wizard(models.TransientModel):
     _name = "import.2020.wizard"
+    _description = "Export XML Files from 2020 to Sale Orders"
 
     xml_name = fields.Char(help='Save the file name, to verify that is .xml',)
     file_xml = fields.Binary(
@@ -154,6 +155,8 @@ class Import2020Wizard(models.TransientModel):
         sale_order = self.env[
             self._context.get('active_model')].browse(
                 self._context.get('active_id'))
+        iho_currency_id = self.env['res.currency'].search(
+            [('name', '=', currency)])
         routes = [
             self.env.ref('stock.route_warehouse0_mto').id,
             self.env.ref('purchase_stock.route_warehouse0_buy').id]
@@ -165,6 +168,7 @@ class Import2020Wizard(models.TransientModel):
             'OrderLineItem', file_data['Envelope']['PurchaseOrder'])
         currency = file_data['Envelope']['Header']['Currency']
         for line in order_lines:
+            generic_value = ''
             vendor = self.search_data(
                 line.get('VendorRef'), 'res.partner')
             product_template = self.search_data(
@@ -190,6 +194,18 @@ class Import2020Wizard(models.TransientModel):
                 line['SpecItem']['Catalog']['Code'],
                 'product.attribute.value', attr=catalog)
             attributes.append(cat_value.id)
+            generic = self.search_data('Generic', 'product.attribute')
+            tags_data = {
+                tag: value for tag, value in line.items() if tag.startswith(
+                    'Tag')}
+            generic_node = [
+                value.get('Value')
+                for tag, value in tags_data.items() if
+                value.get('Type') == 'Generic']
+            generic_value = self.search_data(
+                generic_node[0],
+                'product.attribute.value', attr=generic)
+            attributes.append(generic_value.id)
             product = obj_prod_prod.search([
                 ('default_code', '=', str(
                     line['SpecItem']['Alias']['Number'])),
@@ -211,8 +227,7 @@ class Import2020Wizard(models.TransientModel):
                 'product_qty': line.get('Quantity'),
                 'iho_purchase_cost': line['Price']['OrderDealerPrice'],
                 'partner_id': vendor.id,
-                'iho_currency_id': self.env['res.currency'].search(
-                    [('name', '=', currency)]).id,
+                'iho_currency_id': iho_currency_id.id,
                 'iho_customer_cost': line['Price']['EndCustomerPrice'],
             }))
             if tag_alias[0] not in bom_discounts.keys():
@@ -260,6 +275,13 @@ class Import2020Wizard(models.TransientModel):
         message = _(
             "The file %s was correctly loaded. ") % (self.xml_name)
         sale_order.message_post(body=message)
+        pricelist = self.env['product.pricelist'].search(
+            [('currency_id', '=', iho_currency_id.id)])
+        if pricelist and pricelist != sale_order.pricelist_id:
+            sale_order.write({
+                'pricelist_id': pricelist.id,
+                'currency_id': pricelist.currency_id.id,
+            })
         return file_data
 
     @api.model

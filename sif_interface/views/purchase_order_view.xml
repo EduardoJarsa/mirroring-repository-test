@@ -7,7 +7,7 @@
         <field name="inherit_id" ref="purchase.purchase_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//header/button[@name='button_unlock']" position="before">
-                <button class="btn-primary" name="%(action_report_export_sif_wizard)d" string="Export Sif" type="action"/>
+                <button class="btn-primary" name="%(action_report_export_sif_wizard)d" string="Export Sif" type="action" states="purchase,done"/>
             </xpath>
         </field>
     </record>

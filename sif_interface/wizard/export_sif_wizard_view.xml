@@ -15,7 +15,7 @@
                         <field invisible="1" name="state"/>
                     </group>
                     <group states="choose">
-                        <h2>Message for download</h2>
+                        <h2>Are you sure to export the SIF file?</h2>
                     </group>
                 </sheet>
                 <footer>

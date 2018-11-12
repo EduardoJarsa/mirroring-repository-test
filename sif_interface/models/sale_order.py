@@ -47,7 +47,7 @@ class SaleOrderLine(models.Model):
     )
     iho_currency_id = fields.Many2one(
         'res.currency',
-        string='Currency',
+        string='IHO Currency',
     )
     is_bom_line = fields.Boolean(
         string="Is Bom?",
