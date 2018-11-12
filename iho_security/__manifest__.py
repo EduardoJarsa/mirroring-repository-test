@@ -12,7 +12,6 @@
     'depends': [
         'crm',
         'sale_crm',
-        'iho',
     ],
     'data': [
         'security/crm_security.xml',

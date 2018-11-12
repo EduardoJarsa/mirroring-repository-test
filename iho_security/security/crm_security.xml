@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-     <record id="group_sale_salesman_readonly" model="res.groups">
+    <record id="group_sale_salesman_readonly" model="res.groups">
         <field name="name">ReadOnly</field>
         <field name="category_id" ref="base.module_category_sales_management"/>
         <field name="comment">The user will have access to his own people data.</field>
@@ -66,5 +66,12 @@
         <field name="perm_write" eval="False"/>
         <field name="perm_unlink" eval="False"/>
         <field name="perm_read" eval="True"/>
+    </record>
+    <record id="group_sale_projector" model="res.groups">
+        <field name="name">Projector</field>
+        <field name="category_id" ref="base.module_category_sales_management"/>
+        <field name="comment">The user will have access to the whole information on readonly.</field>
+        <field name="menu_access" eval="[(4, ref('crm.crm_menu_root')), (4, ref('crm.crm_activity_report_menu')), (4, ref('crm.crm_menu_report'))]"/>
+        <field name="rule_groups" eval="[(4, ref('iho_security.sales_senior_only_follower')), (4, ref('iho_security.crm_senior_only_follower'))]"/>
     </record>
 </odoo>

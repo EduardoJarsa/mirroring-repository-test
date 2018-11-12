@@ -16,6 +16,7 @@
         'sale_authorization',
         'sif_interface',
         'sale_stock',
+        'iho_security',
     ],
     'data': [
         'views/res_partner_view.xml',

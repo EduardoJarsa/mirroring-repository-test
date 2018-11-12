@@ -1,9 +1,7 @@
-Sale Percentage Warning
-=======================
+IHO Security
+============
 
-This module allows:
-
-- Customs
+This module allows the security to Iho module:
 
 
 Installation
@@ -18,4 +16,5 @@ Credits
 
 **Contributors**
 * Sarai Osorio <sarai.osorio@jarsa.com.mx> (Developer)
+* Miguel Ruiz <miguel.ruiz@jarsa.com.mx> (Developer)
 * Jarsa Sistemas SA de CV <info@jarsa.com.mx>
