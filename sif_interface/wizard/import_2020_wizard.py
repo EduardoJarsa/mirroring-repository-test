@@ -155,8 +155,6 @@ class Import2020Wizard(models.TransientModel):
         sale_order = self.env[
             self._context.get('active_model')].browse(
                 self._context.get('active_id'))
-        iho_currency_id = self.env['res.currency'].search(
-            [('name', '=', currency)])
         routes = [
             self.env.ref('stock.route_warehouse0_mto').id,
             self.env.ref('purchase_stock.route_warehouse0_buy').id]
@@ -167,6 +165,8 @@ class Import2020Wizard(models.TransientModel):
         order_lines = self.get_data_info(
             'OrderLineItem', file_data['Envelope']['PurchaseOrder'])
         currency = file_data['Envelope']['Header']['Currency']
+        iho_currency_id = self.env['res.currency'].search(
+            [('name', '=', currency)])
         for line in order_lines:
             generic_value = ''
             vendor = self.search_data(

@@ -1,6 +1,8 @@
 # Copyright 2018, Jarsa Sistemas, S.A. de C.V.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+# pylint: disable=C0103
+
 from odoo import api, models
 
 
@@ -16,9 +18,9 @@ class StockRule(models.Model):
         return supplier
 
     @api.multi
-    def _prepare_purchase_order_line(
-            self, product_id, product_qty, product_uom, values, po, partner):
-        res = super(StockRule, self)._prepare_purchase_order_line(
+    def _prepare_purchase_order_line(self, product_id, product_qty,
+                                     product_uom, values, po, partner):
+        res = super()._prepare_purchase_order_line(
             product_id, product_qty, product_uom, values, po, partner)
         res['sale_line_id'] = values.get('sale_line_id').id
         return res
