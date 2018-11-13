@@ -52,6 +52,7 @@ class SaleOrderLine(models.Model):
     is_bom_line = fields.Boolean(
         string="Is Bom?",
         compute="_compute_is_bom_line",
+        store=True,
     )
 
     @api.model

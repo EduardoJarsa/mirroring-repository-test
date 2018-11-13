@@ -42,9 +42,10 @@
                 </group>
                 <group>
                     <group>
-                        <field name="iho_purchase_cost"/>
-                        <field name="partner_id"/>
-                        <field name="iho_currency_id"/>
+                        <field name="is_bom_line" invisible="1"/>
+                        <field name="iho_purchase_cost" attrs="{'invisible': [('is_bom_line', '!=', False)]}"/>
+                        <field name="partner_id" attrs="{'invisible': [('is_bom_line', '!=', False)]}"/>
+                        <field name="iho_currency_id" attrs="{'invisible': [('is_bom_line', '!=', False)]}"/>
                     </group>
                 </group>
             </xpath>
