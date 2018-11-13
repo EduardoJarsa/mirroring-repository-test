@@ -22,7 +22,7 @@ class SaleOrder(models.Model):
     @api.onchange('route_id')
     def _onchange_route_id(self):
         if self.route_id:
-            self.order_line.write({
+            self.order_line.update({
                 'route_id': self.route_id.id,
             })
 
