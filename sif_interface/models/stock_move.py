@@ -9,5 +9,8 @@ class StockMove(models.Model):
 
     def _prepare_procurement_values(self):
         res = super(StockMove, self)._prepare_procurement_values()
-        res['sale_line_id'] = self.sale_line_id
+        if isinstance(self.sale_line_id, int):
+            res['sale_line_id'] = self.sale_line_id
+        else:
+            res['sale_line_id'] = self.sale_line_id.id
         return res
