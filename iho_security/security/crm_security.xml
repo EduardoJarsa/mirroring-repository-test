@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="group_sale_salesman_readonly" model="res.groups">
-        <field name="name">ReadOnly</field>
+        <field name="name">Branch Manager</field>
         <field name="category_id" ref="base.module_category_sales_management"/>
         <field name="comment">The user will have access to his own people data.</field>
         <field name="implied_ids" eval="[(6, 0, [ref('sales_team.group_sale_salesman')])]"/>
         <field name="menu_access" eval="[(4, ref('crm.crm_menu_root')), (4, ref('crm.crm_activity_report_menu')), (4, ref('crm.crm_menu_report'))]"/>
+    </record>
+    <record id="sales_team.group_sale_salesman_all_leads" model="res.groups">
+        <field name="name">Senior Salesman</field>
+    </record>
+    <record id="sales_team.group_sale_salesman" model="res.groups">
+        <field name="name">Salesman</field>
+    </record>
+    <record id="sales_team.group_sale_manager" model="res.groups">
+        <field name="name">CRM coordinator</field>
     </record>
     <record id="crm_senior_only_follower" model="ir.rule">
         <field name="name">CRM Senior Only Follower </field>
