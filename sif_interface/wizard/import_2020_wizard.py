@@ -101,6 +101,7 @@ class Import2020Wizard(models.TransientModel):
                     'customer': False,
                     'supplier': True, })
         elif model == 'product.template':
+            psi_obj = self.env['product.supplierinfo']
             item = self.env[model].search([
                 ('default_code', '=', str(value))])
             with_id = self.env[model].search([], limit=1).id
@@ -116,11 +117,14 @@ class Import2020Wizard(models.TransientModel):
                     'optional_product_ids': optional_product_id,
                     'route_ids': [(6, 0, routes)],
                 })
-                if vendor:
-                    sale_order = self.env[
-                        self._context.get('active_model')].browse(
-                            self._context.get('active_id'))
-                    self.env['product.supplierinfo'].create({
+            if vendor:
+                sale_order = self.env[
+                    self._context.get('active_model')].browse(
+                        self._context.get('active_id'))
+                if not psi_obj.search(
+                        [('product_tmpl_id', '=', item.id),
+                         ('sale_order_id', '=', sale_order.id)]):
+                    psi_obj.create({
                         'name': vendor.id,
                         'delay': 1,
                         'min_qty': 0,
