@@ -25,17 +25,21 @@ class SaleOrder(models.Model):
 
     @api.onchange('route_id')
     def _onchange_route_id(self):
-        if self.route_id:
-            self.order_line.update({
-                'route_id': self.route_id.id,
-            })
+        self.order_line.update({
+            'route_id': self.route_id.id,
+        })
 
     @api.onchange('analytic_tag_ids')
     def _onchange_analytic_ids(self):
-        if self.analytic_tag_ids:
-            self.order_line.update({
-                'analytic_tag_ids': self.analytic_tag_ids.ids,
-            })
+        self.order_line.update({
+            'analytic_tag_ids': False,
+        })
+        # We need to clear the cache to see correctly the tags in front-end
+        self.order_line.invalidate_cache(
+            fnames=['analytic_tag_ids'], ids=self.order_line.ids)
+        self.order_line.update({
+            'analytic_tag_ids': [(6, 0, self.analytic_tag_ids.ids)],
+        })
 
 
 class SaleOrderLine(models.Model):
@@ -43,10 +47,12 @@ class SaleOrderLine(models.Model):
 
     @api.onchange('product_id')
     def _onchange_product_id_set_route(self):
-        if self.order_id.route_id:
-            self.route_id = self.order_id.route_id.id
+        self.route_id = self.order_id.route_id.id
 
     @api.onchange('product_id')
     def _onchange_product_id_set_analytic_tags(self):
-        if self.order_id.route_id:
-            self.analytic_tag_ids = self.order_id.analytic_tag_ids.ids
+        self.analytic_tag_ids = False
+        # We need to clear the cache to see correctly the tags in front-end
+        self.invalidate_cache(
+            fnames=['analytic_tag_ids'], ids=[self.id])
+        self.analytic_tag_ids = self.order_id.analytic_tag_ids.ids
