@@ -88,7 +88,7 @@ class Import2020Wizard(models.TransientModel):
     @api.model
     def search_data(self, value, model,
                     attr=False, name=False, buy=True, vendor=False,
-                    delear_price=False):
+                    delear_price=False, currency=False):
         routes = [
             self.env.ref('stock.route_warehouse0_mto').id,
             self.env.ref('purchase_stock.route_warehouse0_buy').id]
@@ -133,6 +133,7 @@ class Import2020Wizard(models.TransientModel):
                         'price': delear_price,
                         'product_tmpl_id': item.id,
                         'sale_order_id': sale_order.id,
+                        'currency_id': currency.id,
                     })
         elif model == 'product.attribute.value':
             item = self.env[model].search([
@@ -181,7 +182,8 @@ class Import2020Wizard(models.TransientModel):
             product_template = self.search_data(
                 line['SpecItem']['Number'], 'product.template',
                 name=line['SpecItem']['Description'], vendor=vendor,
-                delear_price=line['Price']['OrderDealerPrice'])
+                delear_price=line['Price']['OrderDealerPrice'],
+                currency=iho_currency_id)
             tags = self.get_data_info('Tag', line)
             tag_alias = [
                 str(tag.get('Value')) + ' - ' + sale_order.name
