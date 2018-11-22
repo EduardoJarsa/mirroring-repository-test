@@ -92,14 +92,16 @@ class Import2020Wizard(models.TransientModel):
         routes = [
             self.env.ref('stock.route_warehouse0_mto').id,
             self.env.ref('purchase_stock.route_warehouse0_buy').id]
-        item = self.env[model].search([('name', '=', str(value))])
         if model == 'res.partner':
+            item = self.env[model].search([('ref', '=ilike', str(value))])
             if not item:
                 item = self.env[model].create({
                     'name': str(value),
                     'company_type': 'company',
                     'customer': False,
-                    'supplier': True, })
+                    'supplier': True,
+                    'ref': str(value),
+                })
         elif model == 'product.template':
             psi_obj = self.env['product.supplierinfo']
             item = self.env[model].search([
@@ -141,6 +143,7 @@ class Import2020Wizard(models.TransientModel):
                     'name': str(value),
                     'attribute_id': attr.id, })
         elif model == 'product.attribute':
+            item = self.env[model].search([('name', '=', str(value))])
             if not item:
                 item = self.env[model].create({
                     'name': str(value),
