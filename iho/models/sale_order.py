@@ -7,10 +7,6 @@ from odoo import api, fields, models
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    designer_ids = fields.Many2many(
-        'res.users',
-        string='Designer',
-    )
     route_id = fields.Many2one(
         'stock.location.route',
         string='Route',
