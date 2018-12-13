@@ -14,21 +14,21 @@
                 <field name="is_bom" invisible="1"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="before">
-                <field name="iho_price_list"/>
-                <field name="iho_discount"/>
-                <field name="iho_sell_1"/>
-                <field name="iho_factor"/>
-                <field name="iho_sell_2"/>
-                <field name="iho_sell_3"/>
+                <field name="iho_price_list" attrs="{'invisible': [('display_type', '!=', False)]}"/>
+                <field name="iho_discount" attrs="{'invisible': [('display_type', '!=', False)]}"/>
+                <field name="iho_sell_1" attrs="{'invisible': [('display_type', '!=', False)]}"/>
+                <field name="iho_factor" attrs="{'invisible': [('display_type', '!=', False)]}"/>
+                <field name="iho_sell_2" attrs="{'invisible': [('display_type', '!=', False)]}"/>
+                <field name="iho_sell_3" attrs="{'invisible': [('display_type', '!=', False)]}"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after" >
                 <field name="is_bom_line" invisible="1"/>
-                <field name="iho_purchase_cost" attrs="{'invisible': [('is_bom_line', '!=', False)], 'column_invisible': [('parent.is_bom', '!=', False)]}"/>
-                <field name="partner_id" attrs="{'invisible': [('is_bom_line', '!=', False)], 'column_invisible': [('parent.is_bom', '!=', False)]}"/>
-                <field name="iho_currency_id" attrs="{'invisible': [('is_bom_line', '!=', False)], 'column_invisible': [('parent.is_bom', '!=', False)]}"/>
+                <field name="iho_purchase_cost" attrs="{'invisible': ['|', ('is_bom_line', '!=', False), ('display_type', '!=', False)], 'column_invisible': [('parent.is_bom', '!=', False)]}"/>
+                <field name="partner_id" attrs="{'invisible': ['|', ('is_bom_line', '!=', False), ('display_type', '!=', False)], 'column_invisible': [('parent.is_bom', '!=', False)]}"/>
+                <field name="iho_currency_id" attrs="{'invisible': ['|', ('is_bom_line', '!=', False), ('display_type', '!=', False)], 'column_invisible': [('parent.is_bom', '!=', False)  ]}"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/form/label[1]" position="before">
-                <group>
+                <group attrs="{'invisible': [('display_type', '!=', False)]}">
                     <group>
                         <field name="iho_price_list"/>
                         <field name="iho_discount"/>
@@ -40,12 +40,12 @@
                         <field name="iho_sell_3"/>
                     </group>
                 </group>
-                <group>
+                <group attrs="{'invisible': ['|', ('is_bom_line', '!=', False), ('display_type', '!=', False)]}">
                     <group>
                         <field name="is_bom_line" invisible="1"/>
-                        <field name="iho_purchase_cost" attrs="{'invisible': [('is_bom_line', '!=', False)]}"/>
-                        <field name="partner_id" attrs="{'invisible': [('is_bom_line', '!=', False)]}"/>
-                        <field name="iho_currency_id" attrs="{'invisible': [('is_bom_line', '!=', False)]}"/>
+                        <field name="iho_purchase_cost"/>
+                        <field name="partner_id"/>
+                        <field name="iho_currency_id"/>
                     </group>
                 </group>
             </xpath>

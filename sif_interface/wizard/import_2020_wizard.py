@@ -220,15 +220,22 @@ class Import2020Wizard(models.TransientModel):
                     line['SpecItem']['Alias']['Number'])),
                 ('product_tmpl_id', '=', product_template.id)])
             if not product:
-                product = obj_prod_prod.create({
-                    'name': str(line['SpecItem']['Description']),
-                    'product_tmpl_id': product_template.id,
-                    'attribute_value_ids': [(6, 0, attributes)],
-                    'price': line['Price']['PublishedPrice'],
-                    'route_ids': [(6, 0, routes)],
-                    'code': str(line['SpecItem']['Alias']['Number']),
-                    'default_code': str(line['SpecItem']['Alias']['Number']),
-                })
+                try:
+                    product = obj_prod_prod.create({
+                        'name': str(line['SpecItem']['Description']),
+                        'product_tmpl_id': product_template.id,
+                        'attribute_value_ids': [(6, 0, attributes)],
+                        'price': line['Price']['PublishedPrice'],
+                        'route_ids': [(6, 0, routes)],
+                        'code': str(line['SpecItem']['Alias']['Number']),
+                        'default_code': str(
+                            line['SpecItem']['Alias']['Number']),
+                    })
+                except Exception as exc:
+                    raise ValidationError(exc.name + _(
+                        '\n\n Product: [%s] - %s') % (
+                        str(line['SpecItem']['Alias']['Number']),
+                        str(line['SpecItem']['Description'])))
             if tag_alias[0] not in bom_elements.keys():
                 bom_elements[tag_alias[0]] = []
             bom_elements[tag_alias[0]].append((0, 0, {
