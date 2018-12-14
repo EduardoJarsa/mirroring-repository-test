@@ -19,6 +19,7 @@
         'sif_interface',
         'sale_stock',
         'iho_security',
+        'sale_order_report',
     ],
     'data': [
         'views/res_partner_view.xml',
