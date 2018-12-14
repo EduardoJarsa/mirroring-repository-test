@@ -13,6 +13,7 @@
         'sale_percentage_warning',
         'stock_move_quantity_limit',
         'sale_authorization',
+        'sale_order_report',
     ],
     'data': [
         'views/res_partner_view.xml',
