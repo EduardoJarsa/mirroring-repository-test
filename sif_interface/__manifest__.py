@@ -2,27 +2,26 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
-    'name': 'IHO customs',
-    'summary': 'Customs',
+    'name': 'Sif Interface',
+    'summary': '''Create Bill of Materials by XML files
+                 and export it as SIF files''',
     'version': '12.0.1.0.0',
     'category': 'Customs',
     'author': 'Jarsa Sistemas, Vauxoo, Odoo Community Association (OCA)',
     'website': 'https://www.jarsa.com.mx',
     'license': 'AGPL-3',
     'depends': [
-        'res_currency_rate_custom_decimals',
-        'sale_fleet_service',
-        'sale_percentage_warning',
-        'stock_move_quantity_limit',
-        'sale_authorization',
         'purchase_sale_currency',
-        'sif_interface',
-        'sale_stock',
-        'iho_security',
-        'sale_order_report',
+        'mrp',
+        'sale_management',
+        'document',
     ],
     'data': [
-        'views/res_partner_view.xml',
+        'wizard/import_2020_wizard_view.xml',
+        'views/mrp_bom_view.xml',
+        'views/product_supplierinfo_view.xml',
+        'wizard/export_sif_wizard_view.xml',
         'views/sale_order_view.xml',
+        'views/purchase_order_view.xml',
     ],
 }

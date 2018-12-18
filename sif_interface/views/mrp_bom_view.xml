@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_mrp_bom_inherit_form_sif_interface" model="ir.ui.view">
+        <field name="name">mrp.bom.inherit.form.sif.interface</field>
+        <field name="model">mrp.bom</field>
+        <field name="priority">101</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='bom_line_ids']/tree/field[@name='product_qty']" position="after" >
+                <field name="iho_purchase_cost" required="1"/>
+                <field name="partner_id" required="1"/>
+                <field name="iho_currency_id" required="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

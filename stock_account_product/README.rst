@@ -1,9 +1,7 @@
-Sale Percentage Warning
-=======================
+Stock Account Product
+=====================
 
-This module allows:
-
-- Customs
+This module change the account_move_line names
 
 
 Installation
@@ -17,5 +15,5 @@ Credits
 =======
 
 **Contributors**
-* Sarai Osorio <sarai.osorio@jarsa.com.mx> (Developer)
+* Miguel Ruiz <miguel.ruiz@jarsa.com.mx> (Developer)
 * Jarsa Sistemas SA de CV <info@jarsa.com.mx>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_supplierinfo_inherit_tree_sif_interface" model="ir.ui.view">
+        <field name="name">product.supplierinfo.inherit.tree.sif.interface</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="priority">101</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_end']" position="after">
+                    <field name="sale_order_id"></field>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_product_supplierinfo_inherit_form_sif_interface" model="ir.ui.view">
+        <field name="name">product.supplierinfo.inherit.form.sif.interface</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="priority">101</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/group/group[1]/field[@name='name']" position="after">
+                    <field name="sale_order_id"></field>
+            </xpath>
+        </field>
+    </record>
+</odoo>
