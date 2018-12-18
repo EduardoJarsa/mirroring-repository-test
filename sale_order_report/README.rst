@@ -1,5 +1,5 @@
 Custom sale order report
-=================
+========================
 
 This module allows:
 
