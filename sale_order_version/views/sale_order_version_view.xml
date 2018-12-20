@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_order_version_form_iho" model="ir.ui.view">
+        <field name="name">sale.order.version.form.iho</field>
+        <field name="model">sale.order.version</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name" readonly="1"/>
+                        <field name="sale_id" readonly="1" string="Sale Order"/>
+                        <field name="prefix" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Order Lines">
+                            <field name="line_ids" readonly="1" nolabel="1">
+                                <tree>
+                                    <field name="product_id"/>
+                                    <field name="name"/>
+                                    <field name="iho_price_list"/>
+                                    <field name="iho_discount"/>
+                                    <field name="iho_sell_1"/>
+                                    <field name="iho_factor"/>
+                                    <field name="iho_sell_2"/>
+                                    <field name="iho_sell_3"/>
+                                    <field name="product_uom_qty"/>
+                                    <field name="qty_delivered"/>
+                                    <field name="qty_invoiced"/>
+                                    <field name="analytic_tag_ids" groups="analytic.group_analytic_tags"/>
+                                    <field name="route_id"/>
+                                    <field name="price_unit"/>
+                                    <field name="tax_id"/>
+                                    <field name="price_subtotal"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

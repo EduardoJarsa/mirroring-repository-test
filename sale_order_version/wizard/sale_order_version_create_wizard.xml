@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_sale_order_version_create_wizard" model="ir.ui.view">
+        <field name="name">Sale Order Version Create Wizard</field>
+        <field name="model">sale.order.version.create.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="sale_id" invisible="1"/>
+                        <field name="name"/>
+                        <field name="boolean_switch" invisible="1"/>
+                        <field name="use_same_prefix" attrs="{'invisible': [('boolean_switch', '=', False)]}"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button class="oe_highlight" name="create_version" string="Create Versions" type="object"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_sale_order_version_create_wizard" model="ir.actions.act_window">
+        <field name="name">Sale Order Version</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order.version.create.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

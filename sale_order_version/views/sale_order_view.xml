@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_order_version_inherit_form_iho" model="ir.ui.view">
+        <field name="name">sale.order.version.inherit.form.iho</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="has_lines" invisible="1"/>
+            </xpath>
+            <xpath expr="//header/field[@name='state']" position="before">
+                <button name="%(sale_order_version.action_sale_order_version_wizard)d" type="action" string="Restore Version" class="btn-primary" context="{'default_sale_id': active_id}"/>
+                <button name="%(sale_order_version.action_sale_order_version_create_wizard)d" type="action" string="Create Versionx" class="btn-primary" context="{'default_sale_id': active_id}" attrs="{'invisible': [('has_lines', '!=' , True)]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
