@@ -5,16 +5,13 @@
         <field name="sale_note"><![CDATA[<div>
 <h3>Terms and Conditions.</h3><br/>
 <h4>Delivery time.</h4><br/><p>*Delivery time: datetime_del approximately from the receipt of the purchase order and advance payment.<br/>
-                                    * Product free A Bordo en place_name</p>
-<h4>Pago.</h4>
-<p>* All prices are in <strong t-esc="doc.pricelist_id.currency_id.currency_unit_label"/><br/>
+                                    * Product free on place_name</p>
+<h4>Pay.</h4>
+<p>* All prices are in currency_id<br/>
                                     * Prices plus VAT <br/>
                                     * In case of paying in pesos,bank exchange rate for sale will be taken as a reference of payday.<br/></p>
-<p style="color:red;">*Payment conditions:<br/>
-                                        {<strong>50%</strong> anticipo sobre el total del producto, 50% contra aviso de llegada a Frontera, 100% sobre el total de los servicios al terminar la instalación.<br/>
-    <strong>100%</strong> anticipo<br/>
-    <strong>100%</strong> contra entrega<br/>}
-                                        OTRO:</p>
+<p>*Payment conditions:<br/>
+ conditions_id</p>
 <p>*LosPayments must be made within the first 10 calendar days after the corresponding invoice has been issued.<br/>
                                     * IHO reserves the right not to deliver and install in case the customer is behind in his payments.<br/>
                                     * In case that for reasons attributable to the client, the product can not be delivered, it does not limit the collection thereof.<br/>

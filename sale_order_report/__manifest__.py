@@ -16,8 +16,8 @@
         'data/default_template.xml',
         'views/sale_order_view.xml',
         'views/sale_order_template.xml',
-        #'views/sale_order_internal_template.xml',
+        'views/sale_order_internal_template.xml',
         'reports/report_papaerformat.xml',
-        #'reports/report_action.xml',
+        'reports/report_action.xml',
     ],
 }
