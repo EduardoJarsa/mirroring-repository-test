@@ -16,10 +16,10 @@
         'stock_move_quantity_limit',
         'sale_authorization',
         'purchase_sale_currency',
-        'sif_interface',
         'sale_stock',
         'iho_security',
         'sale_order_report',
+        'sale_order_version',
     ],
     'data': [
         'views/res_partner_view.xml',
