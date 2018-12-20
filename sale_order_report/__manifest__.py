@@ -6,7 +6,7 @@
     'summary': 'Custom module for sale order report',
     'version': '12.0.1.0.0',
     'category': 'Report',
-    'author': 'Jarsa Sistemas, Odoo Community Association (OCA)',
+    'author': 'Jarsa Sistemas',
     'website': 'https://www.jarsa.com.mx',
     'license': 'AGPL-3',
     'depends': [
@@ -16,8 +16,6 @@
         'data/default_template.xml',
         'views/sale_order_view.xml',
         'views/sale_order_template.xml',
-        'views/sale_order_internal_template.xml',
         'reports/report_papaerformat.xml',
-        'reports/report_action.xml',
     ],
 }

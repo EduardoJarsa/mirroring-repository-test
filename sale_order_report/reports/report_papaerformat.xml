@@ -15,4 +15,7 @@
         <field name="header_spacing">45</field>
         <field name="dpi">90</field>
     </record>
+    <record id="sale.action_report_saleorder" model="ir.actions.report">
+        <field name="paperformat_id" ref="sale_order_report.paperformat_sale_order_iho"/>
+    </record>
 </odoo>
