@@ -110,6 +110,8 @@ class Import2020Wizard(models.TransientModel):
             optional_product_id = (
                 [(4, with_id)] if with_id else self.env[model])
             if not item:
+                sat_code = self.env['ir.default'].get(
+                    model, 'l10n_mx_edi_code_sat_id')
                 item = self.env[model].create({
                     'name': str(name),
                     'default_code': str(value),
@@ -118,6 +120,7 @@ class Import2020Wizard(models.TransientModel):
                     'purchase_ok': buy,
                     'optional_product_ids': optional_product_id,
                     'route_ids': [(6, 0, routes)],
+                    'l10n_mx_edi_code_sat_id': sat_code or False,
                 })
             if vendor:
                 sale_order = self.env[
@@ -292,7 +295,7 @@ class Import2020Wizard(models.TransientModel):
             "The file %s was correctly loaded. ") % (self.xml_name)
         sale_order.message_post(body=message)
         pricelist = self.env['product.pricelist'].search(
-            [('currency_id', '=', iho_currency_id.id)])
+            [('currency_id', '=', iho_currency_id.id)], limit=1)
         if pricelist and pricelist != sale_order.pricelist_id:
             sale_order.write({
                 'pricelist_id': pricelist.id,

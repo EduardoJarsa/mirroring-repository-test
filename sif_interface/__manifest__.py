@@ -15,8 +15,10 @@
         'mrp',
         'sale_management',
         'document',
+        'l10n_mx_edi',
     ],
     'data': [
+        'data/ir_default_data.xml',
         'wizard/import_2020_wizard_view.xml',
         'views/mrp_bom_view.xml',
         'views/product_supplierinfo_view.xml',

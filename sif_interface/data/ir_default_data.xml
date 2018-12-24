@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+    <record id="furniture_product_default_sat_code" model="ir.default">
+        <field name="field_id" ref="l10n_mx_edi.field_product_template__l10n_mx_edi_code_sat_id"/>
+        <field name="json_value" ref="l10n_mx_edi.prod_code_sat_56101900"/>
+    </record>
+</odoo>
