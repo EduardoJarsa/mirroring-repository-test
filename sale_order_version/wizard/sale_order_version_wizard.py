@@ -18,6 +18,12 @@ class SaleOrderVersionWizard(models.TransientModel):
         string="Sale Order",
     )
 
+    @api.model
+    def default_get(self, res_fields):
+        res = super().default_get(res_fields)
+        res['sale_id'] = self._context.get('active_id', False)
+        return res
+
     @api.multi
     def back_previous_version(self):
         self.ensure_one()

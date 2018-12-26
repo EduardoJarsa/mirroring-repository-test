@@ -37,6 +37,12 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
         for rec in self:
             rec.boolean_switch = bool(rec.sale_id.order_version_ids)
 
+    @api.model
+    def default_get(self, res_fields):
+        res = super().default_get(res_fields)
+        res['sale_id'] = self._context.get('active_id', False)
+        return res
+
     @api.multi
     def create_version(self):
         self.ensure_one()
@@ -51,12 +57,16 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
             prefix = index.prefix
         else:
             prefix = (index.prefix) + 1
+        name = alphabet[prefix]
+        if self.name:
+            name = alphabet[prefix] + ' ' + self.name
         version = sov_obj.create({
-            'name': alphabet[prefix] + ' ' + self.name,
+            'name': name,
             'prefix': prefix,
             'line_ids': (
                 [(0, 0, line) for line in self.sale_id.order_line.read(
                     load='without_name_get')]),
+            'sale_id': self.sale_id.id,
         })
         message = _("The <a href=# data-oe-model=sale.order.version"
                     " data-oe-id=%d>%s</a> version was created.") % (

@@ -9,8 +9,8 @@
                 <field name="has_lines" invisible="1"/>
             </xpath>
             <xpath expr="//header/field[@name='state']" position="before">
-                <button name="%(sale_order_version.action_sale_order_version_wizard)d" type="action" string="Restore Version" class="btn-primary" context="{'default_sale_id': active_id}"/>
-                <button name="%(sale_order_version.action_sale_order_version_create_wizard)d" type="action" string="Create Versionx" class="btn-primary" context="{'default_sale_id': active_id}" attrs="{'invisible': [('has_lines', '!=' , True)]}"/>
+                <button name="%(sale_order_version.action_sale_order_version_wizard)d" type="action" string="Restore Version" class="btn-primary" attrs="{'invisible': [('state','!=','draft')]}"/>
+                <button name="%(sale_order_version.action_sale_order_version_create_wizard)d" type="action" string="Create Versionx" class="btn-primary" attrs="{'invisible': ['|',('has_lines', '!=', True), ('state','!=','draft')]}"/>
             </xpath>
         </field>
     </record>
