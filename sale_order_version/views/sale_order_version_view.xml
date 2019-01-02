@@ -7,9 +7,17 @@
             <form>
                 <sheet>
                     <group>
-                        <field name="name" readonly="1"/>
-                        <field name="sale_id" readonly="1" string="Sale Order"/>
-                        <field name="prefix" readonly="1"/>
+                        <group>
+                            <field name="name" readonly="1"/>
+                            <field name="sale_id" readonly="1" string="Sale Order"/>
+                            <field name="prefix" readonly="1"/>
+                            <field name="partner_id" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="validity_date" readonly="1"/>
+                            <field name="payment_term_id" readonly="1"/>
+                            <field name="currency_agreed_rate" readonly="1"/>
+                        </group>
                     </group>
                     <notebook>
                         <page string="Order Lines">
@@ -33,6 +41,32 @@
                                     <field name="price_subtotal"/>
                                 </tree>
                             </field>
+                        </page>
+                        <page string="Other Information">
+                            <field name="state" invisible="1"/>
+                            <group>
+                                <group string="Shipping Information" name="sale_shipping" groups="sale.group_sale_order_dates">
+                                    <field name="expected_date" groups="sale.group_sale_order_dates"/>
+                                    <field name="commitment_date" groups="sale.group_sale_order_dates"/>
+                                </group>
+                                <group string="Sales Information" name="sales_person">
+                                    <field name="user_id" readonly="1"/>
+                                    <field name="team_id" readonly="1" options="{'no_create': True}"/>
+                                    <field name="client_order_ref" readonly="1"/>
+                                    <field name="reference" readonly="1" attrs="{'invisible': [('reference', '=', False)]}"/>
+                                    <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                                    <field name="analytic_account_id" attrs="{'readonly': [('state','=','sale')]}" groups="analytic.group_analytic_accounting" force_save="1" readonly="1"/>
+                                </group>
+                                <group name="sale_pay" string="Invoicing">
+                                    <field name="date_order" attrs="{'invisible': [('state', 'in', ['sale', 'done', 'cancel'])]}" readonly="1"/>
+                                    <field name="fiscal_position_id" options="{'no_create': True}" readonly="1"/>
+                                    <field name="invoice_status" states="sale,done" invisible="1"/>
+                                </group>
+                                <group string="Reporting" name="technical" groups="base.group_no_one">
+                                    <field groups="base.group_no_one" name="origin" readonly="1"/>
+                                </group>
+                                <group name="utm_link" groups="base.group_no_one"/>
+                            </group>
                         </page>
                     </notebook>
                 </sheet>

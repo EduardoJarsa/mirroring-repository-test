@@ -11,9 +11,10 @@
     'license': 'AGPL-3',
     'depends': [
         'sale',
-        'sif_interface'
+        'sif_interface',
     ],
     'data': [
+        'security/security.xml',
         'wizard/sale_order_version_wizard_view.xml',
         'wizard/sale_order_version_create_wizard.xml',
         'views/sale_order_view.xml',

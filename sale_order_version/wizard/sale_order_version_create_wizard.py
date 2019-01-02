@@ -62,6 +62,26 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
             name = alphabet[prefix] + ' ' + self.name
         version = sov_obj.create({
             'name': name,
+            'partner_id': self.sale_id.partner_id.id,
+            'validity_date': self.sale_id.validity_date,
+            'payment_term_id': self.sale_id.payment_term_id.id,
+            'picking_policy': self.sale_id.picking_policy,
+            'user_id': self.sale_id.user_id.id,
+            'team_id': self.sale_id.team_id.id,
+            'currency_agreed_rate': self.sale_id.currency_agreed_rate,
+            'warehouse_id': self.sale_id.warehouse_id.id,
+            'pricelist_id': self.sale_id.pricelist_id.id,
+            'incoterm': self.sale_id.incoterm,
+            'expected_date': self.sale_id.expected_date,
+            'commitment_date': self.sale_id.commitment_date,
+            'date_order': self.sale_id.date_order,
+            'origin': self.sale_id.origin,
+            'client_order_ref': self.sale_id.client_order_ref,
+            'analytic_account_id': self.sale_id.analytic_account_id.id,
+            'analytic_tag_ids': [(6, 0, self.sale_id.analytic_tag_ids.ids)],
+            'tag_ids': [(6, 0, self.sale_id.tag_ids.ids)],
+            'route_id': self.sale_id.route_id.id,
+            'fiscal_position_id': self.sale_id.fiscal_position_id.id,
             'prefix': prefix,
             'line_ids': (
                 [(0, 0, line) for line in self.sale_id.order_line.read(

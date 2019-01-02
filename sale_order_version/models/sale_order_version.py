@@ -7,6 +7,7 @@ from odoo import fields, models
 
 class SaleOrderVersion(models.Model):
     _name = 'sale.order.version'
+    _inherit = 'sale.order'
 
     name = fields.Char(
         string='Version',

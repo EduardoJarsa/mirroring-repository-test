@@ -6,14 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-20 15:44+0000\n"
-"PO-Revision-Date: 2018-12-20 15:44+0000\n"
+"POT-Creation-Date: 2019-01-02 22:08+0000\n"
+"PO-Revision-Date: 2019-01-02 22:08+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__access_warning
+msgid "Access warning"
+msgstr "Alerta de acceso"
 
 #. module: sale_order_version
 #: model:ir.model.fields,help:sale_order_version.field_sale_order_version_line__qty_delivered_method
@@ -24,6 +29,36 @@ msgid "According to product configuration, the delivered quantity can be automat
 "  - Stock Moves: the quantity comes from confirmed pickings\n"
 ""
 msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__message_needaction
+msgid "Action Needed"
+msgstr "Acción Necesaria"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__activity_ids
+msgid "Activities"
+msgstr "Actividades"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__activity_state
+msgid "Activity State"
+msgstr "Estado de la actividad"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__image_sol
+msgid "Add image"
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__amount_undiscounted
+msgid "Amount Before Discount"
+msgstr "Importe antes del descuento"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__analytic_account_id
+msgid "Analytic Account"
+msgstr "Cuenta analítica"
 
 #. module: sale_order_version
 #: selection:sale.order.version.line,qty_delivered_method:0
@@ -41,14 +76,39 @@ msgid "Analytic lines"
 msgstr "Líneas analíticas"
 
 #. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__message_attachment_count
+msgid "Attachment Count"
+msgstr "Conteo de archivos adjuntos"
+
+#. module: sale_order_version
+#: selection:sale.order.version,kanban_state:0
+msgid "Authorized"
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__authorized_transaction_ids
+msgid "Authorized Transactions"
+msgstr ""
+
+#. module: sale_order_version
 #: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_wizard
 msgid "Back to previous version"
 msgstr "Volver a otra version"
 
 #. module: sale_order_version
+#: selection:sale.order.version,kanban_state:0
+msgid "Blocked"
+msgstr ""
+
+#. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_create_wizard__boolean_switch
 msgid "Boolean Switch"
 msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__campaign_id
+msgid "Campaign"
+msgstr "Campaña"
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__product_updatable
@@ -62,9 +122,30 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: sale_order_version
+#: selection:sale.order.version,state:0
+msgid "Cancelled"
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__commitment_date
+msgid "Commitment Date"
+msgstr "Fecha de compromiso"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__company_id
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__company_id
 msgid "Company"
 msgstr "Compañía"
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__effective_date
+msgid "Completion date of the first delivery order."
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__confirmation_date
+msgid "Confirmation Date"
+msgstr "Fecha confirmación"
 
 #. module: sale_order_version
 #: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_inherit_form_iho
@@ -77,6 +158,11 @@ msgid "Create Versions"
 msgstr "Crear Versiones"
 
 #. module: sale_order_version
+#: model:res.groups,name:sale_order_version.group_create_quotations
+msgid "Create and Keep Quotation's Versions"
+msgstr "Crear y Mantener versiones de Cotizaciones"
+
+#. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__create_uid
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_create_wizard__create_uid
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__create_uid
@@ -85,7 +171,6 @@ msgid "Created by"
 msgstr "Creado por"
 
 #. module: sale_order_version
-#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__create_date
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_create_wizard__create_date
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__create_date
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_wizard__create_date
@@ -93,14 +178,61 @@ msgid "Created on"
 msgstr "Creado el"
 
 #. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__create_date
+msgid "Creation Date"
+msgstr "Fecha de Creación"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__currency_id
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__currency_id
 msgid "Currency"
 msgstr "Moneda"
 
 #. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__currency_agreed_rate
+msgid "Currency Agreed Rate"
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__currency_rate
+msgid "Currency Rate"
+msgstr "Tasa monetaria"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__partner_id
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__order_partner_id
 msgid "Customer"
 msgstr "Cliente"
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__access_url
+msgid "Customer Portal URL"
+msgstr "URL para portal"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__client_order_ref
+msgid "Customer Reference"
+msgstr "Referencia cliente"
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__create_date
+msgid "Date on which sales order is created."
+msgstr "Fecha en la que se crea el pedido de venta."
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__confirmation_date
+msgid "Date on which the sales order is confirmed."
+msgstr "Fecha en que se confirma la orden de venta."
+
+#. module: sale_order_version
+#: selection:sale.order.version,picking_policy:0
+msgid "Deliver all products at once"
+msgstr ""
+
+#. module: sale_order_version
+#: selection:sale.order.version,picking_policy:0
+msgid "Deliver each product when available"
+msgstr ""
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__qty_delivered_manual
@@ -113,9 +245,29 @@ msgid "Delivered Quantity"
 msgstr "Cantidad Entregada"
 
 #. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__partner_shipping_id
+msgid "Delivery Address"
+msgstr "Dirección de entrega"
+
+#. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__customer_lead
 msgid "Delivery Lead Time"
 msgstr "Tiempo inicial entrega"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__delivery_count
+msgid "Delivery Orders"
+msgstr "Órdenes de entrega"
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__partner_shipping_id
+msgid "Delivery address for current sales order."
+msgstr "Dirección de envío para el pedido de ventas actual."
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__expected_date
+msgid "Delivery date you can promise to the customer, computed from product lead times and from the shipping policy of the order."
+msgstr ""
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__name
@@ -146,13 +298,49 @@ msgid "Down payments are made when creating invoices from a sales order. They ar
 msgstr "Los anticipos se realizan al crear facturas a partir de un pedido de cliente. No se copian al duplicar un pedido de cliente."
 
 #. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__effective_date
+msgid "Effective Date"
+msgstr "Fecha efectiva"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__expected_date
+msgid "Expected Date"
+msgstr "Fecha prevista"
+
+#. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__iho_factor
 msgid "Factor"
 msgstr ""
 
 #. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__fiscal_position_id
+msgid "Fiscal Position"
+msgstr "Posición fiscal"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Seguidores (Canales)"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguidores (Empresas)"
+
+#. module: sale_order_version
+#: selection:sale.order.version,invoice_status:0
 #: selection:sale.order.version.line,invoice_status:0
 msgid "Fully Invoiced"
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__project_id
+msgid "Generated Project"
 msgstr ""
 
 #. module: sale_order_version
@@ -161,7 +349,13 @@ msgid "Generated Purchase Lines"
 msgstr ""
 
 #. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__task_id
+msgid "Generated Task"
+msgstr ""
+
+#. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order__has_lines
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__has_lines
 msgid "Has Lines"
 msgstr ""
 
@@ -184,9 +378,29 @@ msgid "IHO Discount (%)"
 msgstr ""
 
 #. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__message_unread
+msgid "If checked new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención"
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Si está marcado, hay nuevos mensajes que requieren su atención."
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Si se encuentra marcado, algunos mensajes tienen error de envío."
+
+#. module: sale_order_version
 #: model:ir.model.fields,help:sale_order_version.field_sale_order_version_create_wizard__use_same_prefix
 msgid "If this field is checked, it allows you to use the same prefix in different versions, in other way, the prefix will be increased to the next letter of the alphabet."
 msgstr "Si este campo es seleccionado, permite usar el mismo prefijo para diferentes versiones, de otra manera, el prefijo será incrementado a la siguiente letra del alfabeto."
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__picking_policy
+msgid "If you deliver all products at once, the delivery order will be scheduled based on the greatest product lead time. Otherwise, it will be based on the shortest."
+msgstr ""
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__iho_purchase_cost
@@ -199,14 +413,40 @@ msgid "Image of the product variant (Big-sized image of product template if fals
 msgstr "Imagen de la variante del producto (Imagen grande de la plantilla del producto en caso de que esté vacía). Se redimensionará automáticamente como una imagen 1024x1024px, manteniendo la proporción."
 
 #. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__incoterm
+msgid "Incoterms"
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__incoterm
+msgid "International Commercial Terms are a series of predefined commercial terms used in international transactions."
+msgstr "Los términos de comercio internacional son una serie de condiciones comerciales usadas en las transacciones internacionales."
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__partner_invoice_id
+msgid "Invoice Address"
+msgstr "Dirección de factura"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__invoice_count
+msgid "Invoice Count"
+msgstr "Recuento de facturas"
+
+#. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__invoice_lines
 msgid "Invoice Lines"
 msgstr "Líneas de factura"
 
 #. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__invoice_status
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__invoice_status
 msgid "Invoice Status"
 msgstr "Estado factura"
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__partner_invoice_id
+msgid "Invoice address for current sales order."
+msgstr "Dirección de facturación para el pedido de venta actual."
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__qty_invoiced
@@ -214,9 +454,30 @@ msgid "Invoiced Quantity"
 msgstr "Cantidad Facturada"
 
 #. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__invoice_ids
+msgid "Invoices"
+msgstr "Facturas"
+
+#. module: sale_order_version
+#: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_form_iho
+msgid "Invoicing"
+msgstr "Facturación"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__is_bom
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__is_bom_line
 msgid "Is Bom?"
 msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__message_is_follower
+msgid "Is Follower"
+msgstr "Es un seguidor"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__is_service
+msgid "Is a Service"
+msgstr "Es un servicio"
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__is_downpayment
@@ -229,6 +490,11 @@ msgid "Is expense"
 msgstr ""
 
 #. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__is_expired
+msgid "Is expired"
+msgstr "Esta expirado"
+
+#. module: sale_order_version
 #: model:ir.model.fields,help:sale_order_version.field_sale_order_version_line__is_expense
 msgid "Is true if the sales order line comes from an expense or a vendor bills"
 msgstr ""
@@ -237,6 +503,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_create_wizard__json
 msgid "Json"
 msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__kanban_state
+msgid "Kanban State"
+msgstr "Estado de Kanban"
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version____last_update
@@ -263,9 +534,44 @@ msgid "Last Updated on"
 msgstr "Última actualización el"
 
 #. module: sale_order_version
+#: selection:sale.order.version,state:0
+msgid "Locked"
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__low_fleet_flag
+msgid "Low Fleet Flag"
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Adjuntos principales"
+
+#. module: sale_order_version
 #: selection:sale.order.version.line,qty_delivered_method:0
 msgid "Manual"
 msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__max_percentage
+msgid "Max Percentage"
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__medium_id
+msgid "Medium"
+msgstr "Media"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__message_has_error
+msgid "Message Delivery error"
+msgstr "Error de Envío de Mensaje"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__message_ids
+msgid "Messages"
+msgstr "Mensajes"
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__qty_delivered_method
@@ -278,13 +584,44 @@ msgid "Name"
 msgstr "Nombre"
 
 #. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__signed_by
+msgid "Name of the person that signed the SO."
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Siguiente plazo de actividad"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__activity_summary
+msgid "Next Activity Summary"
+msgstr "Resumen de la siguiente actividad"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__activity_type_id
+msgid "Next Activity Type"
+msgstr "Siguiente tipo de actividad"
+
+#. module: sale_order_version
 #: selection:sale.order.version.line,display_type:0
 msgid "Note"
 msgstr ""
 
 #. module: sale_order_version
+#: selection:sale.order.version,invoice_status:0
 #: selection:sale.order.version.line,invoice_status:0
 msgid "Nothing to Invoice"
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Número de acciones"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__purchase_order_count
+msgid "Number of Purchase Order"
 msgstr ""
 
 #. module: sale_order_version
@@ -293,16 +630,58 @@ msgid "Number of days between the order confirmation and the shipping of the pro
 msgstr "Número de días entre la confirmación del pedido y la entrega de los productos al cliente"
 
 #. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__message_has_error_counter
+msgid "Number of error"
+msgstr "Número de error"
+
+#. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__purchase_line_count
 msgid "Number of generated purchase items"
 msgstr ""
 
 #. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Número de mensajes que requieren una acción"
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Número de mensajes con error de envío"
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Número de mensajes no leidos"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__require_payment
+msgid "Online Payment"
+msgstr "Pago en línea"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__require_signature
+msgid "Online Signature"
+msgstr "Firma en línea"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__opportunity_id
+msgid "Opportunity"
+msgstr "Oportunidad"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__sale_order_option_ids
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__sale_order_option_ids
 msgid "Optional Products Lines"
 msgstr "Líneas de productos opcionales"
 
 #. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__date_order
+msgid "Order Date"
+msgstr "Fecha de pedido"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__order_line
 #: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_form_iho
 msgid "Order Lines"
 msgstr "Líneas del pedido"
@@ -323,6 +702,16 @@ msgid "Ordered Quantity"
 msgstr "Cantidad Pedida"
 
 #. module: sale_order_version
+#: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_form_iho
+msgid "Other Information"
+msgstr "Otra información"
+
+#. module: sale_order_version
+#: selection:sale.order.version,activity_state:0
+msgid "Overdue"
+msgstr ""
+
+#. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__product_packaging
 msgid "Package"
 msgstr "Paquete"
@@ -331,6 +720,31 @@ msgstr "Paquete"
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__partner_id
 msgid "Partner"
 msgstr "Empresa"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__reference
+msgid "Payment Ref."
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__payment_term_id
+msgid "Payment Terms"
+msgstr "Términos de pago"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__picking_ids
+msgid "Pickings"
+msgstr "Albaranes"
+
+#. module: sale_order_version
+#: selection:sale.order.version,activity_state:0
+msgid "Planned"
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__access_url
+msgid "Portal Access URL"
+msgstr "URL de acceso al portal"
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__prefix
@@ -358,6 +772,21 @@ msgid "Price Reduce Tax inc"
 msgstr "Precio reducido sin IVA"
 
 #. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__pricelist_id
+msgid "Pricelist"
+msgstr "Tarifa"
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__pricelist_id
+msgid "Pricelist for current sales order."
+msgstr "Tarifa para el pedido de venta actual."
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__procurement_group_id
+msgid "Procurement Group"
+msgstr "Grupo de abastecimiento"
+
+#. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__product_id
 msgid "Product"
 msgstr "Producto"
@@ -373,9 +802,69 @@ msgid "Product attribute values that do not create variants"
 msgstr ""
 
 #. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version_line__project_id
+msgid "Project generated by the sales order item"
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__project_ids
+msgid "Projects"
+msgstr "Proyectos"
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__project_ids
+msgid "Projects used in this sales order."
+msgstr "Proyectos empleados en este pedido de venta."
+
+#. module: sale_order_version
 #: model:ir.model.fields,help:sale_order_version.field_sale_order_version_line__purchase_line_ids
 msgid "Purchase line generated by this Sales item on order confirmation, or when the quantity was increased."
 msgstr ""
+
+#. module: sale_order_version
+#: selection:sale.order.version,state:0
+msgid "Quotation"
+msgstr ""
+
+#. module: sale_order_version
+#: selection:sale.order.version,state:0
+msgid "Quotation Sent"
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__sale_order_template_id
+msgid "Quotation Template"
+msgstr "Plantilla de presupuesto"
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__origin
+msgid "Reference of the document that generated this sales order request."
+msgstr "Referencia del documento que ha generado esta solicitud de pedido de venta."
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__remaining_validity_days
+msgid "Remaining Validity Days"
+msgstr ""
+
+#. module: sale_order_version
+#: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_form_iho
+msgid "Reporting"
+msgstr "Informes"
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__require_signature
+msgid "Request a online signature to the customer in order to confirm orders automatically."
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__require_payment
+msgid "Request an online payment to the customer in order to confirm orders automatically."
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__activity_user_id
+msgid "Responsible User"
+msgstr "Usuario responsable"
 
 #. module: sale_order_version
 #: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_inherit_form_iho
@@ -405,6 +894,7 @@ msgstr "Version de Pedido de Venta"
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order__order_version_ids
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__order_version_ids
 msgid "Sale Order Versions"
 msgstr "Versiones de Pedido de Venta"
 
@@ -419,6 +909,27 @@ msgid "Sale Version Lines"
 msgstr "Version de Lineas de Pedido"
 
 #. module: sale_order_version
+#: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_form_iho
+msgid "Sales Information"
+msgstr "Información de ventas"
+
+#. module: sale_order_version
+#: selection:sale.order.version,state:0
+msgid "Sales Order"
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version_line__is_service
+msgid "Sales Order item should generate a task and/or a project, depending on the product settings."
+msgstr "El elemento del pedido de venta debe generar una tarea o un proyecto en función de la configuración del producto."
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__team_id
+msgid "Sales Team"
+msgstr "Equipo de ventas"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__user_id
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__salesman_id
 msgid "Salesperson"
 msgstr "Comercial"
@@ -427,6 +938,11 @@ msgstr "Comercial"
 #: selection:sale.order.version.line,display_type:0
 msgid "Section"
 msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__access_token
+msgid "Security Token"
+msgstr "Token de seguridad"
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__iho_sell_1
@@ -449,6 +965,57 @@ msgid "Sequence"
 msgstr "Secuencia"
 
 #. module: sale_order_version
+#: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_form_iho
+msgid "Shipping Information"
+msgstr "Información de envio"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__picking_policy
+msgid "Shipping Policy"
+msgstr "Política de entrega"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__signature
+msgid "Signature"
+msgstr "Firma"
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__signature
+msgid "Signature received through the portal."
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__signed_by
+msgid "Signed by"
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__source_id
+msgid "Source"
+msgstr "Fuente"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__origin
+msgid "Source Document"
+msgstr "Documento origen"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__state
+msgid "Status"
+msgstr "Estado"
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__activity_state
+msgid "Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr "Estado basado en actividades\n"
+"Vencida: la fecha tope ya ha pasado\n"
+"Hoy: La fecha tope es hoy\n"
+"Planificada: futuras actividades."
+
+#. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__move_ids
 #: selection:sale.order.version.line,qty_delivered_method:0
 msgid "Stock Moves"
@@ -460,9 +1027,42 @@ msgid "Subtotal"
 msgstr ""
 
 #. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__tag_ids
+msgid "Tags"
+msgstr "Etiquetas"
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version_line__task_id
+msgid "Task generated by the sales order item"
+msgstr "Tarea generada por el elemento del pedido de venta"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__tasks_count
+msgid "Tasks"
+msgstr "Tareas"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__tasks_ids
+msgid "Tasks associated to this sale"
+msgstr "Tareas asociadas a esta etapa"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__amount_by_group
+msgid "Tax amount by group"
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__amount_tax
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__tax_id
 msgid "Taxes"
 msgstr "Impuestos"
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__low_fleet_flag
+msgid "Techical field used to determine if the cost of the fleet\n"
+"        service is lower than the price configured on the\n"
+"        main config."
+msgstr ""
 
 #. module: sale_order_version
 #: model:ir.model.fields,help:sale_order_version.field_sale_order_version_line__display_type
@@ -470,18 +1070,84 @@ msgid "Technical field for UX purpose."
 msgstr ""
 
 #. module: sale_order_version
-#: code:addons/sale_order_version/wizard/sale_order_version_create_wizard.py:56
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__note
+msgid "Terms and conditions"
+msgstr "Términos y condiciones"
+
+#. module: sale_order_version
+#: code:addons/sale_order_version/wizard/sale_order_version_create_wizard.py:91
 #, python-format
 msgid "The <a href=# data-oe-model=sale.order.version data-oe-id=%d>%s</a> version was created."
 msgstr "La version <a href=# data-oe-model=sale.order.version data-oe-id=%d>%s</a> fue creada."
 
 #. module: sale_order_version
-#: code:addons/sale_order_version/wizard/sale_order_version_wizard.py:35
+#: code:addons/sale_order_version/wizard/sale_order_version_wizard.py:64
 #, python-format
 msgid "The <a href=# data-oe-model=sale.order.version data-oe-id=%d>%s</a> version was selected to reset the Sale Order"
 msgstr "La version <a href=# data-oe-model=sale.order.version data-oe-id=%d>%s</a> fue seleccionada para restaurar la Orden de Venta"
 
 #. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__analytic_account_id
+msgid "The analytic account related to a sales order."
+msgstr "La cuenta analítica relacionada con un pedido de venta."
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__reference
+msgid "The payment communication of this sale order."
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__currency_rate
+msgid "The rate of the currency to the currency of rate 1 applicable at the date of the order"
+msgstr ""
+
+#. module: sale_order_version
+#: model:res.groups,comment:sale_order_version.group_create_quotations
+msgid "The user will have access to create and keep quotation's versions."
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version_create_wizard__boolean_switch
+msgid "This field helps to control the invisible property of the field below \"use_same_prefix\". If there is any line, the field will appear, in other way, the field will remain hidden."
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__campaign_id
+msgid "This is a name that helps you keep track of your different campaign efforts, e.g. Fall_Drive, Christmas_Special"
+msgstr "Esto es un nombre que facilita el seguimiento de sus diferentes proyectos de campaña. Por ejemplo: Rebajas_de_otoño, Especial_de_Navidad"
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__commitment_date
+msgid "This is the delivery date promised to the customer. If set, the delivery order will be scheduled based on this date rather than product lead times."
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__medium_id
+msgid "This is the method of delivery, e.g. Postcard, Email, or Banner Ad"
+msgstr "Esto es el método de entrega. Por ejemplo: correo postal, correo electrónico, publicidad web"
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__source_id
+msgid "This is the source of the link, e.g. Search Engine, another domain, or name of email list"
+msgstr "Esto es la fuente del enlace. Por ejemplo: motor de búsqueda, otro dominio o nombre en listado de correos electrónicos"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__timesheet_count
+msgid "Timesheet activities"
+msgstr "Actividades del parte de horas"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__timesheet_ids
+msgid "Timesheet activities associated to this sale"
+msgstr "Actividades del parte de horas asociadas a esta venta"
+
+#. module: sale_order_version
+#: selection:sale.order.version.line,qty_delivered_method:0
+msgid "Timesheets"
+msgstr ""
+
+#. module: sale_order_version
+#: selection:sale.order.version,invoice_status:0
 #: selection:sale.order.version.line,invoice_status:0
 msgid "To Invoice"
 msgstr ""
@@ -492,6 +1158,12 @@ msgid "To Invoice Quantity"
 msgstr ""
 
 #. module: sale_order_version
+#: selection:sale.order.version,activity_state:0
+msgid "Today"
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__amount_total
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__price_total
 msgid "Total"
 msgstr ""
@@ -499,6 +1171,21 @@ msgstr ""
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__price_tax
 msgid "Total Tax"
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__transaction_ids
+msgid "Transactions"
+msgstr "Transacciones"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__type_name
+msgid "Type Name"
+msgstr ""
+
+#. module: sale_order_version
+#: selection:sale.order.version,kanban_state:0
+msgid "Unauthored"
 msgstr ""
 
 #. module: sale_order_version
@@ -512,6 +1199,21 @@ msgid "Unit of Measure"
 msgstr "Unidad de medida"
 
 #. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__message_unread
+msgid "Unread Messages"
+msgstr "Mensajes por leer"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Contador de mensajes sin leer"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__amount_untaxed
+msgid "Untaxed Amount"
+msgstr "Base imponible"
+
+#. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__untaxed_amount_to_invoice
 msgid "Untaxed Amount To Invoice"
 msgstr ""
@@ -522,6 +1224,7 @@ msgid "Untaxed Invoiced Amount"
 msgstr ""
 
 #. module: sale_order_version
+#: selection:sale.order.version,invoice_status:0
 #: selection:sale.order.version.line,invoice_status:0
 msgid "Upselling Opportunity"
 msgstr ""
@@ -537,11 +1240,37 @@ msgid "User entered custom product attribute values"
 msgstr ""
 
 #. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__validity_date
+msgid "Validity"
+msgstr "Validez"
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__validity_date
+msgid "Validity date of the quotation, after this date, the customer won't be able to validate the quotation online."
+msgstr ""
+
+#. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__name
 msgid "Version"
 msgstr ""
 
 #. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__warehouse_id
+msgid "Warehouse"
+msgstr "Almacén"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__website_message_ids
+msgid "Website Messages"
+msgstr "Mensajes del sitio web"
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__website_message_ids
+msgid "Website communication history"
+msgstr "Historial de comunicaciones del sitio web"
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__partner_id
 #: model:ir.model.fields,help:sale_order_version.field_sale_order_version_line__order_partner_id
 msgid "You can find a customer by its Name, TIN, Email or Internal Reference."
 msgstr ""
@@ -564,5 +1293,10 @@ msgstr ""
 #. module: sale_order_version
 #: model:ir.model,name:sale_order_version.model_sale_order_version_wizard
 msgid "sale.order.version.wizard"
+msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,help:sale_order_version.field_sale_order_version__amount_by_group
+msgid "type: [(name, amount, base, formated amount, formated base)]"
 msgstr ""
 
