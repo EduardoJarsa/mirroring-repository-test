@@ -31,35 +31,24 @@ class SaleOrderVersionWizard(models.TransientModel):
         lines = self.sale_version_id.line_ids.read(
             load='without_name_get'
         )
-        order = self.sale_version_id.read(
-            load='without_name_get'
-        )
-        # Delete useless fields of lines
+        order_fields = ['partner_id', 'validity_date',
+                        'payment_term_id', 'picking_policy', 'user_id',
+                        'team_id', 'currency_agreed_rate', 'warehouse_id',
+                        'pricelist_id', 'incoterm', 'expected_date',
+                        'commitment_date', 'date_order', 'origin',
+                        'client_order_ref', 'analytic_account_id',
+                        'analytic_tag_ids', 'tag_ids', 'route_id',
+                        'fiscal_position_id']
+        order = self.sale_version_id.read(order_fields, 'without_name_get')[0]
         for line in lines:
-            del line['create_date']
-            del line['write_date']
-            del line['create_uid']
-            del line['write_uid']
-            del line['sale_version_id']
-            del line['id']
             # Apply format to analytic_tag_ids because is a M2M field
             # and need it to get the desire value from sale order version line
             line['analytic_tag_ids'] = [(6, 0, line['analytic_tag_ids'])]
-        # Delete useless fields from sale order version
-        del order[0]['order_version_ids']
-        del order[0]['order_line']
-        del order[0]['message_follower_ids']
-        del order[0]['message_ids']
-        del order[0]['name']
-        del order[0]['line_ids']
-        del order[0]['prefix']
-        del order[0]['sale_id']
-        del order[0]['id']
         # Apply format to analytic_tag_ids and tag_ids fields because they are
         # M2M fields and need it to get the desire value sale_order_version
-        order[0]['analytic_tag_ids'] = [(6, 0, order[0]['analytic_tag_ids'])]
-        order[0]['tag_ids'] = [(6, 0, order[0]['tag_ids'])]
-        self.sale_id.write(order[0])
+        order['analytic_tag_ids'] = [(6, 0, order['analytic_tag_ids'])]
+        order['tag_ids'] = [(6, 0, order['tag_ids'])]
+        self.sale_id.write(order)
         self.sale_id.order_line.create(lines)
         message = _("The <a href=# data-oe-model=sale.order.version"
                     " data-oe-id=%d>%s</a> version was selected to reset"

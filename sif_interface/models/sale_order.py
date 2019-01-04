@@ -85,27 +85,28 @@ class SaleOrderLine(models.Model):
     @api.multi
     def write(self, vals):
         res = super().write(vals)
-        if self.partner_id:
-            partner = self.product_id.seller_ids.with_context(
-                partner=self.partner_id, order=self.order_id).filtered(
-                lambda r: r.name == r._context.get('partner') and
-                r.sale_order_id == r._context.get('order'))
-            if not partner:
-                self.product_id.seller_ids.create({
-                    'name': self.partner_id.id,
-                    'delay': 1,
-                    'min_qty': 0,
-                    'price': self.iho_purchase_cost,
-                    'currency_id': self.iho_currency_id.id,
-                    'product_tmpl_id': self.product_id.product_tmpl_id.id,
-                    'sale_order_id': self.order_id.id,
-                })
-                return res
-            else:
-                partner.write({
-                    'price': self.iho_purchase_cost,
-                    'currency_id': self.iho_currency_id.id,
-                })
+        for rec in self:
+            if rec.partner_id:
+                partner = rec.product_id.seller_ids.with_context(
+                    partner=rec.partner_id, order=rec.order_id).filtered(
+                    lambda r: r.name == r._context.get('partner') and
+                    r.sale_order_id == r._context.get('order'))
+                if not partner:
+                    rec.product_id.seller_ids.create({
+                        'name': rec.partner_id.id,
+                        'delay': 1,
+                        'min_qty': 0,
+                        'price': rec.iho_purchase_cost,
+                        'currency_id': rec.iho_currency_id.id,
+                        'product_tmpl_id': rec.product_id.product_tmpl_id.id,
+                        'sale_order_id': rec.order_id.id,
+                    })
+                    return res
+                else:
+                    partner.write({
+                        'price': rec.iho_purchase_cost,
+                        'currency_id': rec.iho_currency_id.id,
+                    })
         return res
 
     @api.multi

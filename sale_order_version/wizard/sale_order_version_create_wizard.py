@@ -43,6 +43,20 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
         res['sale_id'] = self._context.get('active_id', False)
         return res
 
+    @api.model
+    def _prepare_sov_lines(self, lines):
+        res = []
+        line_fields = ["product_id", "name", "iho_price_list", "iho_discount",
+                       "iho_sell_1", "iho_factor", "iho_sell_2", "iho_sell_3",
+                       "product_uom_qty", "qty_delivered", "qty_invoiced",
+                       "analytic_tag_ids", "route_id", "price_unit", "tax_id",
+                       "price_subtotal", "order_id"]
+        for line in lines:
+            data = line.read(line_fields, 'without_name_get')[0]
+            data['sale_line_id'] = line.id
+            res.append((0, 0, data))
+        return res
+
     @api.multi
     def create_version(self):
         self.ensure_one()
@@ -83,9 +97,7 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
             'route_id': self.sale_id.route_id.id,
             'fiscal_position_id': self.sale_id.fiscal_position_id.id,
             'prefix': prefix,
-            'line_ids': (
-                [(0, 0, line) for line in self.sale_id.order_line.read(
-                    load='without_name_get')]),
+            'line_ids': self._prepare_sov_lines(self.sale_id.order_line),
             'sale_id': self.sale_id.id,
         })
         message = _("The <a href=# data-oe-model=sale.order.version"
