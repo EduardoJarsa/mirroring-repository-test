@@ -9,9 +9,9 @@
                 <field name="has_lines" invisible="1"/>
             </xpath>
             <xpath expr="//header/field[@name='state']" position="before">
-                <button name="%(sale_order_version.action_sale_order_version_wizard)d" type="action" string="Restore Version" class="btn-primary" attrs="{'invisible': [('state','!=','draft')]}" groups="sale_order_version.group_create_quotations"/>
-                <button name="%(sale_order_version.action_sale_order_version_create_wizard)d" type="action" string="Create Version" class="btn-primary" attrs="{'invisible': ['|',('has_lines', '!=', True), ('state','!=','draft')]}" groups="sale_order_version.group_create_quotations"/>
+                <button name="%(sale_order_version.action_sale_order_version_wizard)d" type="action" string="Restore Version" class="btn-primary" attrs="{'invisible': [('state','not in',('draft', 'sent'))]}" groups="sale_order_version.group_create_quotations"/>
+                <button name="%(sale_order_version.action_sale_order_version_create_wizard)d" type="action" string="Create Version" class="btn-primary" attrs="{'invisible': ['|',('has_lines', '!=', True), ('state','not in',('draft', 'sent'))]}" groups="sale_order_version.group_create_quotations"/>
             </xpath>
-        </field>
+        </field> 
     </record>
 </odoo>

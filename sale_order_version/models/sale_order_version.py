@@ -152,3 +152,7 @@ class SaleOrderVersionLine(models.Model):
     price_subtotal = fields.Float(string='Subtotal',)
     order_id = fields.Many2one(
         'sale.order', string='Order Reference',)
+    display_type = fields.Selection([
+        ('line_section', "Section"),
+        ('line_note', "Note")], help="Technical field for UX purpose.")
+    image_sol = fields.Binary('Add image', attachment=True)
