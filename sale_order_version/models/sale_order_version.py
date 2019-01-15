@@ -110,6 +110,10 @@ class SaleOrderVersion(models.Model):
         ('done', 'Done'),
         ('cancel', 'Cancelled'),
     ], string='Order Status',)
+    partner_invoice_id = fields.Many2one(
+        'res.partner', string='Invoice Address',)
+    partner_shipping_id = fields.Many2one(
+        'res.partner', string='Delivery Address',)
 
 
 class SaleOrderVersionLine(models.Model):
@@ -156,3 +160,13 @@ class SaleOrderVersionLine(models.Model):
         ('line_section', "Section"),
         ('line_note', "Note")], help="Technical field for UX purpose.")
     image_sol = fields.Binary('Add image', attachment=True)
+    partner_id = fields.Many2one(
+        'res.partner',
+        string='Partner',
+    )
+    iho_currency_id = fields.Many2one(
+        'res.currency',
+        string='IHO Currency',
+    )
+    iho_purchase_cost = fields.Float()
+    discount = fields.Float(string='Discount (%)',)

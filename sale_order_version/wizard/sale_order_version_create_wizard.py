@@ -51,10 +51,12 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
                        "product_uom_qty", "qty_delivered", "qty_invoiced",
                        "analytic_tag_ids", "route_id", "price_unit", "tax_id",
                        "price_subtotal", "order_id", "display_type",
-                       "image_sol"]
+                       "image_sol", "partner_id", "iho_currency_id",
+                       "iho_purchase_cost", "discount"]
         for line in lines:
             data = line.read(line_fields, 'without_name_get')[0]
-            data['sale_line_id'] = line.id
+            data['tax_id'] = [(6, 0, data['tax_id'])]
+            data['analytic_tag_ids'] = [(6, 0, data['analytic_tag_ids'])]
             res.append((0, 0, data))
         return res
 
@@ -78,6 +80,8 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
         version = sov_obj.create({
             'name': name,
             'partner_id': self.sale_id.partner_id.id,
+            'partner_invoice_id': self.sale_id.partner_invoice_id.id,
+            'partner_shipping_id': self.sale_id.partner_shipping_id.id,
             'validity_date': self.sale_id.validity_date,
             'payment_term_id': self.sale_id.payment_term_id.id,
             'picking_policy': self.sale_id.picking_policy,
