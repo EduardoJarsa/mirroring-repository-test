@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0+e\n"
+"Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-12 16:27+0000\n"
-"PO-Revision-Date: 2018-09-12 16:27+0000\n"
+"POT-Creation-Date: 2019-01-15 17:32+0000\n"
+"PO-Revision-Date: 2019-01-15 17:32+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,14 +16,24 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: sale_fleet_service
-#: model:ir.ui.view,arch_db:sale_fleet_service.view_sale_order_inherit_form_fleet_service
+#: model_terms:ir.ui.view,arch_db:sale_fleet_service.view_sale_order_inherit_form_fleet_service
 msgid ", The amount of this sale order is lower than the limit defined."
-msgstr ", El monto the este pedido de venta es menor que el limite definido."
+msgstr ", El monto de este pedido es menor que el limite definido"
+
+#. module: sale_fleet_service
+#: model_terms:ir.ui.view,arch_db:sale_fleet_service.res_config_settings_view_sale_fleet_service_form
+msgid "<span class=\"o_form_label\">Sale Lower Total</span>"
+msgstr "<span class=\"o_form_label\">Monto Mínimo de Flete</span>"
 
 #. module: sale_fleet_service
 #: model:ir.model,name:sale_fleet_service.model_res_company
 msgid "Companies"
 msgstr "Compañías"
+
+#. module: sale_fleet_service
+#: model:ir.model,name:sale_fleet_service.model_res_config_settings
+msgid "Config Settings"
+msgstr "Opciones de Configuración"
 
 #. module: sale_fleet_service
 #: model:product.product,name:sale_fleet_service.product_product_fleet_service
@@ -32,49 +42,66 @@ msgid "Fleet Service"
 msgstr "Servicio de Flete"
 
 #. module: sale_fleet_service
-#: model:ir.model.fields,field_description:sale_fleet_service.field_sale_order_low_fleet_flag
+#: model:ir.model.fields,field_description:sale_fleet_service.field_sale_order__low_fleet_flag
 msgid "Low Fleet Flag"
-msgstr "Bandera para Flete"
+msgstr "Bandera Flete Mínimo"
+
+#. module: sale_fleet_service
+#: model:ir.model.fields,field_description:sale_fleet_service.field_res_company__sale_lower_total
+#: model:ir.model.fields,field_description:sale_fleet_service.field_res_config_settings__sale_lower_total
+msgid "Sale Lower Total"
+msgstr "Monto Mínimo de Flete"
 
 #. module: sale_fleet_service
 #: model:ir.model,name:sale_fleet_service.model_sale_order
-msgid "Quotation"
-msgstr "Presupuesto"
+msgid "Sale Order"
+msgstr "Pedido de venta"
 
 #. module: sale_fleet_service
-#: model:ir.model.fields,field_description:sale_fleet_service.field_res_company_sale_lower_total
-#: model:ir.model.fields,field_description:sale_fleet_service.field_res_config_settings_sale_lower_total
-msgid "Sale Lower Total"
-msgstr "Total mínimo para Perdidos"
-
-#. module: sale_fleet_service
-#: model:ir.ui.view,arch_db:sale_fleet_service.res_config_settings_view_sale_fleet_service_form
+#: model_terms:ir.ui.view,arch_db:sale_fleet_service.res_config_settings_view_sale_fleet_service_form
 msgid "Set of the lower price for the sale orders to compute the fleet service. If the sale total is lower / equal than this value the fleet service price will be the value of this field. Otherwise the price will be 8% of the total order"
-msgstr "Establezca el precio mínimo para los pedidos de venta para calcular el servicio de flete. Si el total del pedido es menor / igual que este valor el precio del servicio de flete será el valor de este campo. En caso contrario el precio será el 8 por ciento del total del pedido."
+msgstr "Asigne el precio mínimo de flete para los pedidos de venta. Si el total del flete calculado en el pedido es menor o igual que este valor, el precio del servicio de flete será el valor de este campo. De otro modo, el precio será el 8% del total de la orden antes de impuestos"
 
 #. module: sale_fleet_service
-#: model:ir.model.fields,help:sale_fleet_service.field_sale_order_low_fleet_flag
+#: model:project.project,label_tasks:sale_fleet_service.project_project_services
+msgid "Tasks"
+msgstr "Tareas"
+
+#. module: sale_fleet_service
+#: model:ir.model.fields,help:sale_fleet_service.field_sale_order__low_fleet_flag
 msgid "Techical field used to determine if the cost of the fleet\n"
 "        service is lower than the price configured on the\n"
 "        main config."
-msgstr "Campo técnico usado para determinar si el costo del servicio de flete\n"
-"es menor que el precio configurado en la\n"
-"configuración principal."
+msgstr "Campo técnico usado para determinar si el costo del flete\n"
+"		  es menor que el precio configurado en la\n"
+"		  configuración principal."
 
 #. module: sale_fleet_service
-#: model:ir.model.fields,help:sale_fleet_service.field_res_config_settings_sale_lower_total
+#: model:ir.model.fields,help:sale_fleet_service.field_res_config_settings__sale_lower_total
 msgid "Technical field to determine the lower total for the\n"
 "        quotations used to create the fleet service line. If the amount\n"
 "        total of one sale order is lower / equal than this total\n"
 "        the price of the fleet service will be the value of this field.\n"
 "        Otherwise the price will be 8 percent of the total order."
-msgstr "Campo técnico usado para determinar si el precio es menor que el precio mínimo de los\n"
-"        pedidos utilizado para crear la linea del servicio de flete. Si el total\n"
-"        de un pedido es menor / igual que este total\n"
-"        el precio del servicio de flete será el valor de este campo.\n"
-"        En caso contrario el precio será el 8 por ciento del total del pedido."
+msgstr "Campo técnico para determinar el precio mínimo de flete\n"
+"        en los pedidos de venta usado para cread la línea de servicio de flete. Si el monto\n"
+"        total de flete de un pedido es menor o igual que el valor de este campo\n"
+"        el precio del servicio del flete será el valor de este campo.\n"
+"        De otro modo, el precio será el 8% del total del pedido."
 
 #. module: sale_fleet_service
-#: model:ir.ui.view,arch_db:sale_fleet_service.view_sale_order_inherit_form_fleet_service
+#: model:product.product,uom_name:sale_fleet_service.product_product_fleet_service
+#: model:product.template,uom_name:sale_fleet_service.product_product_fleet_service_product_template
+msgid "Unit(s)"
+msgstr "Unidad(es)"
+
+#. module: sale_fleet_service
+#: model_terms:ir.ui.view,arch_db:sale_fleet_service.view_sale_order_inherit_form_fleet_service
 msgid "Warning!"
 msgstr "¡Advertencia!"
+
+#. module: sale_fleet_service
+#: model:product.product,weight_uom_name:sale_fleet_service.product_product_fleet_service
+#: model:product.template,weight_uom_name:sale_fleet_service.product_product_fleet_service_product_template
+msgid "kg"
+msgstr "kg"

@@ -11,6 +11,7 @@
     'license': 'AGPL-3',
     'depends': [
         'sale_timesheet',
+        'sif_interface',
     ],
     'data': [
         'data/project_project.xml',

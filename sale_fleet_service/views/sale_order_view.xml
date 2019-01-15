@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <xpath expr="//header" position="after">
                 <div class="alert alert-danger" role="alert" style="margin-bottom:0px;" attrs="{'invisible': [('low_fleet_flag','=',False)]}">
-                    <blod>Warning!</blod>, The amount of this sale order is lower than the limit defined.
+                    <blod>Warning!</blod>, The fleet amount of this sale order is lower than the fleet amount defined in the configuration, the fleet price will be that amount.
                 </div>
                 <field name="low_fleet_flag" invisible="1"/>
             </xpath>

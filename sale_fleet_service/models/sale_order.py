@@ -15,18 +15,34 @@ class SaleOrder(models.Model):
         main config.""",
     )
 
-    @api.depends('amount_total')
+    @api.depends('amount_untaxed', 'currency_id', 'currency_agreed_rate')
     def _compute_low_fleet_flag(self):
         for rec in self:
-            fleet_price = round(rec.amount_total * 0.08, 2)
-            if (rec.amount_total and fleet_price <
-                    rec.company_id.sale_lower_total):
+            if not rec.amount_untaxed:
+                rec.low_fleet_flag = False
+                return True
+            fleet_product = self.env.ref(
+                'sale_fleet_service.product_product_fleet_service')
+            fleet_sol = self.order_line.filtered(
+                lambda l: l.product_id == fleet_product)
+            if rec.currency_agreed_rate > 1:
+                amount_untaxed = round(
+                    (rec.amount_untaxed - fleet_sol.price_subtotal) *
+                    rec.currency_agreed_rate, 2)
+            else:
+                amount_untaxed = self.currency_id._convert(
+                    rec.amount_untaxed, self.company_id.currency_id,
+                    self.company_id, self.date_order)
+            # Compute the fleet amount and validate if the fleet price
+            # is lower than the price defined on the config
+            fleet_price = round(amount_untaxed * .08, 2)
+            if fleet_price < rec.company_id.sale_lower_total:
                 rec.low_fleet_flag = True
             return True
 
-    @api.onchange('amount_total')
-    def _onchange_amount_total_fleet_service(self):
-        if not self.amount_total:
+    @api.onchange('order_line', 'currency_agreed_rate')
+    def _onchange_amount_untaxed_fleet_service(self):
+        if not self.amount_untaxed:
             return {}
         create_method = self.order_line.new
         if isinstance(self.id, int):
@@ -35,9 +51,20 @@ class SaleOrder(models.Model):
             'sale_fleet_service.product_product_fleet_service')
         fleet_sol = self.order_line.filtered(
             lambda l: l.product_id == fleet_product)
-        fleet_price = round(self.amount_total * 0.08, 2)
+        if self.currency_agreed_rate > 1:
+            amount_untaxed = round(
+                (self.amount_untaxed - fleet_sol.price_subtotal) *
+                self.currency_agreed_rate, 2)
+        else:
+            amount_untaxed = self.company_id.currency_id._convert(
+                (self.amount_untaxed - fleet_sol.price_subtotal),
+                self.currency_id, self.company_id, self.date_order)
+        fleet_price = round(amount_untaxed * 0.08, 2)
         if fleet_price < self.company_id.sale_lower_total:
             fleet_price = self.company_id.sale_lower_total
+        fleet_price = self.company_id.currency_id._convert(
+            fleet_price, self.currency_id,
+            self.company_id, self.date_order)
         if not fleet_sol:
             create_method({
                 'product_id': fleet_product.id,
@@ -46,9 +73,13 @@ class SaleOrder(models.Model):
                 'price_unit': fleet_price,
                 'order_id': self.id,
                 'product_uom': fleet_product.uom_id.id,
+                'iho_price_list': fleet_price,
+                'iho_factor': 1,
             })
             return {}
         fleet_sol.update({
             'price_unit': fleet_price,
+            'iho_price_list': fleet_price,
+            'iho_factor': 1,
         })
         return {}
