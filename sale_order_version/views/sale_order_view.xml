@@ -6,6 +6,8 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
+                <span> - </span>
+                <field name="active_version_name"/>
                 <field name="has_lines" invisible="1"/>
             </xpath>
             <xpath expr="//header/field[@name='state']" position="before">

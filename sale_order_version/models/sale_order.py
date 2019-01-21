@@ -15,6 +15,8 @@ class SaleOrder(models.Model):
     has_lines = fields.Boolean(
         compute='_compute_has_lines',
     )
+    active_version_name = fields.Char(
+        readonly=True,)
 
     @api.multi
     @api.depends('order_line')

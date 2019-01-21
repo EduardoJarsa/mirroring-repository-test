@@ -77,7 +77,7 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
         name = alphabet[prefix]
         if self.name:
             name = alphabet[prefix] + ' ' + self.name
-        version = sov_obj.create({
+        version = sov_obj.sudo().create({
             'name': name,
             'partner_id': self.sale_id.partner_id.id,
             'partner_invoice_id': self.sale_id.partner_invoice_id.id,
@@ -104,6 +104,7 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
             'prefix': prefix,
             'line_ids': self._prepare_sov_lines(self.sale_id.order_line),
             'sale_id': self.sale_id.id,
+            'active_version_name': name,
         })
         message = _("The <a href=# data-oe-model=sale.order.version"
                     " data-oe-id=%d>%s</a> version was created.") % (

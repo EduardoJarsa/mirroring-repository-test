@@ -114,6 +114,8 @@ class SaleOrderVersion(models.Model):
         'res.partner', string='Invoice Address',)
     partner_shipping_id = fields.Many2one(
         'res.partner', string='Delivery Address',)
+    active_version_name = fields.Char(
+        readonly=True,)
 
 
 class SaleOrderVersionLine(models.Model):
