@@ -1,5 +1,5 @@
 # Copyright 2018, Jarsa Sistemas, S.A. de C.V.
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 from odoo import api, fields, models
 
@@ -9,10 +9,28 @@ class SaleOrderLine(models.Model):
 
     image_sol = fields.Binary('Add image', attachment=True)
 
+
+class SaleOrder(models.Model):
+    _inherit = "sale.order"
+
+    delivery = fields.Text('Delivery time')
+
     @api.multi
-    def _get_product_freight(self):
-        for rec in self:
+    def get_product_freight(self):
+        for rec in self.mapped('order_line'):
             fleet_product = self.env.ref(
                 'sale_fleet_service.product_product_fleet_service')
             if rec.product_id.id == fleet_product.id:
-                return rec.product_id.price_unit
+                return {
+                    'unit_price': rec.price_unit,
+                    'product_id': rec.product_id.id
+                }
+
+    @api.multi
+    def find_images(self):
+        images = []
+        for rec in self.mapped('order_line'):
+            if rec.image_sol:
+                images.append(rec.product_id)
+        if not images:
+            return False

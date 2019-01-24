@@ -7,14 +7,17 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="before">
-                <field name="image_sol" attrs="{'invisible': [('display_type', '!=', 'line_section')]}"/>
+                <field name="image_sol"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/form/label[1]" position="before">
-                <group attrs="{'invisible': [('display_type', '!=', 'line_section')]}">
+                <group>
                     <group>
                         <field name="image_sol"  widget="image"/>
                     </group>
                 </group>
+            </xpath>
+            <xpath expr="//field[@name='picking_policy']" position="after">
+                <field name="delivery"/>
             </xpath>
         </field>
     </record>
