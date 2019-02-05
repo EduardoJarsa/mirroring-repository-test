@@ -104,12 +104,11 @@ class SaleOrderVersion(models.Model):
         'to all the sale order lines of this quotation.',)
     tag_ids = fields.Many2many('crm.lead.tag', string='Tags')
     state = fields.Selection([
-        ('draft', 'Quotation'),
-        ('sent', 'Quotation Sent'),
-        ('sale', 'Sales Order'),
-        ('done', 'Done'),
-        ('cancel', 'Cancelled'),
-    ], string='Order Status',)
+        ('draft', 'Draft'),
+        ('confirm', 'Confirmed')],
+        string='Order Status',
+        default='draft',
+    )
     partner_invoice_id = fields.Many2one(
         'res.partner', string='Invoice Address',)
     partner_shipping_id = fields.Many2one(

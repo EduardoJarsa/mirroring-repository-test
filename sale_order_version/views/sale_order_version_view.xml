@@ -5,6 +5,9 @@
         <field name="model">sale.order.version</field>
         <field name="arch" type="xml">
             <form>
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
                 <sheet>
                     <group>
                         <group>
@@ -49,7 +52,6 @@
                             </field>
                         </page>
                         <page string="Other Information">
-                            <field name="state" invisible="1"/>
                             <group>
                                 <group string="Shipping Information" name="sale_shipping" groups="sale.group_sale_order_dates">
                                     <field name="expected_date" groups="sale.group_sale_order_dates"/>
