@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_stock_picking_manual_route_form" model="ir.ui.view">
+        <field name="name">view.stock.picking.manual.route.form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_assign']" position="after">
+                <button class="btn-primary" name="%(action_stock_create_manual_route_wizard)d" string="Create Route" type="action" icon="fa-truck" attrs="{'invisible': [('state', '!=', 'done')]}"/>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="no_route" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_stock_picking_manual_route_tree" model="ir.ui.view">
+        <field name="name">view.stock.picking.manual.route.tree</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="before">
+                <field name="no_route" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_stock_picking_manual_route_search" model="ir.ui.view">
+        <field name="name">view.stock.picking.manual.route.search</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='draft']" position="before">
+                <filter name="no_route" string="No Route" domain="[('no_route','=', True)]" help="Moves Without Route"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
