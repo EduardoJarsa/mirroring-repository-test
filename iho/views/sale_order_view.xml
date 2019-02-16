@@ -6,7 +6,6 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='partner_shipping_id']" position="after">
-                <field name="route_id" groups="sale_stock.group_route_so_lines" options="{'no_create': True}"/>
                 <field name="analytic_tag_ids" groups="analytic.group_analytic_tags" options="{'no_create': True}" widget="many2many_tags"/>
             </xpath>
         </field>

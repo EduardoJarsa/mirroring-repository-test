@@ -7,23 +7,10 @@ from odoo import api, fields, models
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    route_id = fields.Many2one(
-        'stock.location.route',
-        string='Route',
-        domain=[('sale_selectable', '=', True)],
-        ondelete='restrict',
-        help='The route selected on this field will be passed '
-        'to all the sale order lines of this quotation.',)
     analytic_tag_ids = fields.Many2many(
         'account.analytic.tag',
         string='Analytic Tags',
     )
-
-    @api.onchange('route_id')
-    def _onchange_route_id(self):
-        self.order_line.update({
-            'route_id': self.route_id.id,
-        })
 
     @api.onchange('analytic_tag_ids')
     def _onchange_analytic_ids(self):
@@ -40,10 +27,6 @@ class SaleOrder(models.Model):
 
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
-
-    @api.onchange('product_id')
-    def _onchange_product_id_set_route(self):
-        self.route_id = self.order_id.route_id.id
 
     @api.onchange('product_id')
     def _onchange_product_id_set_analytic_tags(self):
