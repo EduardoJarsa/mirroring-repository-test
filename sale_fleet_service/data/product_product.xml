@@ -8,7 +8,5 @@
         <field name="uom_id" ref="uom.product_uom_unit"/>
         <field name="sale_ok" eval="True"/>
         <field name="purchase_ok" eval="False"/>
-        <field name="service_tracking">task_global_project</field>
-        <field name="project_id" ref="sale_fleet_service.project_project_services"/>
     </record>
 </odoo>

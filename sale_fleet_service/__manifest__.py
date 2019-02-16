@@ -14,7 +14,6 @@
         'sif_interface',
     ],
     'data': [
-        'data/project_project.xml',
         'data/product_product.xml',
         'views/res_config_settings_view.xml',
         'views/sale_order_view.xml',
