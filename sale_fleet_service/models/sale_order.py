@@ -8,40 +8,15 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     low_fleet_flag = fields.Boolean(
-        compute="_compute_low_fleet_flag",
         copy=False,
         help="""Techical field used to determine if the cost of the fleet
         service is lower than the price configured on the
         main config.""",
     )
 
-    @api.depends('amount_untaxed', 'currency_id', 'currency_agreed_rate')
-    def _compute_low_fleet_flag(self):
-        for rec in self:
-            if not rec.amount_untaxed:
-                rec.low_fleet_flag = False
-                return True
-            fleet_product = self.env.ref(
-                'sale_fleet_service.product_product_fleet_service')
-            fleet_sol = self.order_line.filtered(
-                lambda l: l.product_id == fleet_product)
-            if rec.currency_agreed_rate > 1:
-                amount_untaxed = round(
-                    (rec.amount_untaxed - fleet_sol.price_subtotal) *
-                    rec.currency_agreed_rate, 2)
-            else:
-                amount_untaxed = self.currency_id._convert(
-                    rec.amount_untaxed, self.company_id.currency_id,
-                    self.company_id, self.date_order)
-            # Compute the fleet amount and validate if the fleet price
-            # is lower than the price defined on the config
-            fleet_price = round(amount_untaxed * .08, 2)
-            if fleet_price < rec.company_id.sale_lower_total:
-                rec.low_fleet_flag = True
-            return True
-
-    @api.onchange('order_line', 'currency_agreed_rate')
+    @api.onchange('order_line', 'currency_agreed_rate', 'currency_id')
     def _onchange_amount_untaxed_fleet_service(self):
+        self.low_fleet_flag = False
         if not self.amount_untaxed:
             return {}
         create_method = self.order_line.new
@@ -49,23 +24,28 @@ class SaleOrder(models.Model):
             create_method = self.order_line.create
         fleet_product = self.env.ref(
             'sale_fleet_service.product_product_fleet_service')
-        fleet_sol = self.order_line.filtered(
+        fleet_line = self.order_line.filtered(
             lambda l: l.product_id == fleet_product)
-        if self.currency_agreed_rate > 1:
-            amount_untaxed = round(
-                (self.amount_untaxed - fleet_sol.price_subtotal) *
-                self.currency_agreed_rate, 2)
-        else:
-            amount_untaxed = self.company_id.currency_id._convert(
-                (self.amount_untaxed - fleet_sol.price_subtotal),
-                self.currency_id, self.company_id, self.date_order)
+        amount_untaxed = round(
+            self.amount_untaxed - fleet_line.price_subtotal, 2)
         fleet_price = round(amount_untaxed * 0.08, 2)
-        if fleet_price < self.company_id.sale_lower_total:
-            fleet_price = self.company_id.sale_lower_total
-        fleet_price = self.company_id.currency_id._convert(
-            fleet_price, self.currency_id,
-            self.company_id, self.date_order)
-        if not fleet_sol:
+        sale_lower_total = self.company_id.sale_lower_total
+        if self.currency_agreed_rate == 1:
+            currency = self.currency_id
+            usd = self.env.ref('base.USD')
+            if currency != usd:
+                sale_lower_total = usd._convert(
+                    sale_lower_total, currency,
+                    self.company_id, self.date_order)
+        elif self.currency_agreed_rate > 1:
+            sale_lower_total = sale_lower_total * self.currency_agreed_rate
+        if fleet_price < sale_lower_total:
+            fleet_price = sale_lower_total
+            self.low_fleet_flag = True
+        # Divide with currency_agreed_rate to get the amount that is computed
+        # by other method.
+        fleet_price = fleet_price / self.currency_agreed_rate
+        if not fleet_line:
             create_method({
                 'product_id': fleet_product.id,
                 'product_uom_qty': 1,
@@ -75,11 +55,13 @@ class SaleOrder(models.Model):
                 'product_uom': fleet_product.uom_id.id,
                 'iho_price_list': fleet_price,
                 'iho_factor': 1,
+                'sequence': 10000,
             })
             return {}
-        fleet_sol.update({
+        fleet_line.update({
             'price_unit': fleet_price,
             'iho_price_list': fleet_price,
             'iho_factor': 1,
+            'sequence': 10000,
         })
         return {}

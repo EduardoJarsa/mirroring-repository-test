@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* sale_fleet_service
+#   * sale_fleet_service
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-15 17:32+0000\n"
-"PO-Revision-Date: 2019-01-15 17:32+0000\n"
+"POT-Creation-Date: 2019-02-16 20:27+0000\n"
+"PO-Revision-Date: 2019-02-16 20:27+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -17,8 +17,8 @@ msgstr ""
 
 #. module: sale_fleet_service
 #: model_terms:ir.ui.view,arch_db:sale_fleet_service.view_sale_order_inherit_form_fleet_service
-msgid ", The amount of this sale order is lower than the limit defined."
-msgstr ", El monto de este pedido es menor que el limite definido"
+msgid ", The fleet amount of this sale order is lower than the fleet amount defined in the configuration, the fleet price will be that amount."
+msgstr ", El precio de flete de esta orden de venta es inferior al precio definido en la configuración, el precio de flete será esa cantidad."
 
 #. module: sale_fleet_service
 #: model_terms:ir.ui.view,arch_db:sale_fleet_service.res_config_settings_view_sale_fleet_service_form
@@ -63,18 +63,13 @@ msgid "Set of the lower price for the sale orders to compute the fleet service. 
 msgstr "Asigne el precio mínimo de flete para los pedidos de venta. Si el total del flete calculado en el pedido es menor o igual que este valor, el precio del servicio de flete será el valor de este campo. De otro modo, el precio será el 8% del total de la orden antes de impuestos"
 
 #. module: sale_fleet_service
-#: model:project.project,label_tasks:sale_fleet_service.project_project_services
-msgid "Tasks"
-msgstr "Tareas"
-
-#. module: sale_fleet_service
 #: model:ir.model.fields,help:sale_fleet_service.field_sale_order__low_fleet_flag
 msgid "Techical field used to determine if the cost of the fleet\n"
 "        service is lower than the price configured on the\n"
 "        main config."
 msgstr "Campo técnico usado para determinar si el costo del flete\n"
-"		  es menor que el precio configurado en la\n"
-"		  configuración principal."
+"         es menor que el precio configurado en la\n"
+"         configuración principal."
 
 #. module: sale_fleet_service
 #: model:ir.model.fields,help:sale_fleet_service.field_res_config_settings__sale_lower_total
@@ -105,3 +100,4 @@ msgstr "¡Advertencia!"
 #: model:product.template,weight_uom_name:sale_fleet_service.product_product_fleet_service_product_template
 msgid "kg"
 msgstr "kg"
+
