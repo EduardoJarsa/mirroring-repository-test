@@ -131,7 +131,8 @@ class SaleOrderLine(models.Model):
     @api.depends('order_id.currency_agreed_rate', 'iho_sell_2')
     def _compute_sell_3(self):
         for rec in self:
+            amount = rec.iho_sell_2 * rec.order_id.currency_agreed_rate
             rec.update({
-                'iho_sell_3': rec.iho_sell_2,
-                'price_unit': rec.iho_sell_2,
+                'iho_sell_3': amount,
+                'price_unit': amount,
             })
