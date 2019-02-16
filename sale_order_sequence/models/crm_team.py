@@ -12,4 +12,10 @@ class SaleOrder(models.Model):
         string='Sequence',
         ondelete='restrict',
         help='The sequence selected on this field will be passed '
-        'to the sale team selected in the Sale Order.',)
+        'to the sale team selected in the Sale Order.')
+    confirmed_sequence_id = fields.Many2one(
+        'ir.sequence',
+        string='Confirmed Sequence',
+        ondelete='restrict',
+        help='The sequence selected on this field will be passed '
+        'to the Sale Order when is confirmed')

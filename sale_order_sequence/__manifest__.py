@@ -10,7 +10,7 @@
     'website': 'https://www.jarsa.com.mx',
     'license': 'AGPL-3',
     'depends': [
-        'sale',
+        'sale_management',
     ],
     'data': [
         'views/crm_team_view.xml',

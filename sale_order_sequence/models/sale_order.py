@@ -15,3 +15,9 @@ class SaleOrder(models.Model):
             if team.sequence_id:
                 vals['name'] = team.sequence_id.next_by_id()
         return super().create(vals)
+
+    @api.multi
+    def action_confirm(self):
+        for rec in self:
+            rec.name = rec.team_id.confirmed_sequence_id.next_by_id()
+        return super(SaleOrder, self).action_confirm()
