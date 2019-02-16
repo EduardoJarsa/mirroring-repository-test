@@ -95,13 +95,6 @@ class SaleOrderVersion(models.Model):
     pricelist_id = fields.Many2one(
         'product.pricelist', string='Pricelist', required=True, readonly=True,
         help="Pricelist for current sales order.")
-    route_id = fields.Many2one(
-        'stock.location.route',
-        string='Route',
-        domain=[('sale_selectable', '=', True)],
-        ondelete='restrict',
-        help='The route selected on this field will be passed '
-        'to all the sale order lines of this quotation.',)
     tag_ids = fields.Many2many('crm.lead.tag', string='Tags')
     state = fields.Selection([
         ('draft', 'Draft'),

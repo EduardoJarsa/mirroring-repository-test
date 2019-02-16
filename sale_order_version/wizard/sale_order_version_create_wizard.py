@@ -99,7 +99,6 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
             'analytic_account_id': self.sale_id.analytic_account_id.id,
             'analytic_tag_ids': [(6, 0, self.sale_id.analytic_tag_ids.ids)],
             'tag_ids': [(6, 0, self.sale_id.tag_ids.ids)],
-            'route_id': self.sale_id.route_id.id,
             'fiscal_position_id': self.sale_id.fiscal_position_id.id,
             'prefix': prefix,
             'line_ids': self._prepare_sov_lines(self.sale_id.order_line),
