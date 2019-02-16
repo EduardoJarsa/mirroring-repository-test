@@ -45,6 +45,8 @@ class SaleOrder(models.Model):
         # Divide with currency_agreed_rate to get the amount that is computed
         # by other method.
         fleet_price = fleet_price / self.currency_agreed_rate
+        taxes = self.fiscal_position_id.map_tax(
+            fleet_product.taxes_id, fleet_product, self.partner_id)
         if not fleet_line:
             create_method({
                 'product_id': fleet_product.id,
@@ -55,6 +57,7 @@ class SaleOrder(models.Model):
                 'product_uom': fleet_product.uom_id.id,
                 'iho_price_list': fleet_price,
                 'iho_factor': 1,
+                'tax_id': taxes,
                 'sequence': 10000,
             })
             return {}
