@@ -1,7 +1,8 @@
 # Copyright 2018, Jarsa Sistemas, S.A. de C.V.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class SaleOrder(models.Model):
@@ -12,6 +13,22 @@ class SaleOrder(models.Model):
         string="Is Bom?",
         compute="_compute_is_bom",
     )
+
+    @api.onchange('currency_agreed_rate', 'pricelist_id', 'company_id')
+    def _onchange_currency_agreed_rate(self):
+        if (self.currency_agreed_rate > 1 and
+                self.pricelist_id.currency_id != self.company_id.currency_id):
+            raise ValidationError(
+                _('You cannot set an agreed rate when the Sale Order currency '
+                  'is different from the company currency'))
+
+    @api.constrains('pricelist_id', 'currency_agreed_rate')
+    def _check_currency_agreed_rate(self):
+        if (self.currency_agreed_rate > 1 and
+                self.pricelist_id.currency_id != self.company_id.currency_id):
+            raise ValidationError(
+                _('You cannot set an agreed rate when the Sale Order currency '
+                  'is different from the company currency'))
 
     @api.multi
     @api.depends('order_line')
