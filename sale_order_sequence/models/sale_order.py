@@ -9,15 +9,9 @@ class SaleOrder(models.Model):
 
     @api.model
     def create(self, vals):
-        if vals['team_id']:
+        if vals['team_id'] and not vals.get('name'):
             team_obj = self.env['crm.team']
             team = team_obj.browse(vals['team_id'])
             if team.sequence_id:
                 vals['name'] = team.sequence_id.next_by_id()
         return super().create(vals)
-
-    @api.multi
-    def action_confirm(self):
-        for rec in self:
-            rec.name = rec.team_id.confirmed_sequence_id.next_by_id()
-        return super(SaleOrder, self).action_confirm()
