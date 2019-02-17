@@ -37,7 +37,7 @@ class SaleOrderVersionWizard(models.TransientModel):
                         'pricelist_id', 'incoterm', 'expected_date',
                         'commitment_date', 'date_order', 'origin',
                         'client_order_ref', 'analytic_account_id',
-                        'analytic_tag_ids', 'tag_ids', 'route_id',
+                        'analytic_tag_ids', 'tag_ids',
                         'fiscal_position_id', 'partner_invoice_id',
                         'partner_shipping_id', 'active_version_name']
         order = self.sale_version_id.read(order_fields, 'without_name_get')[0]

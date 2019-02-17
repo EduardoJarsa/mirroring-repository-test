@@ -58,7 +58,7 @@ class SaleOrderLine(models.Model):
         compute='_compute_sell_3',
         store=True,)
     iho_purchase_cost = fields.Float()
-    partner_id = fields.Many2one(
+    vendor_id = fields.Many2one(
         'res.partner',
         string='Partner',
     )
@@ -75,15 +75,15 @@ class SaleOrderLine(models.Model):
     @api.model
     def create(self, vals_list):
         res = super().create(vals_list)
-        if self.filtered('partner_id'):
-            for rec in self.filtered('partner_id'):
+        if self.filtered('vendor_id'):
+            for rec in self.filtered('vendor_id'):
                 partner = rec.product_id.seller_ids.with_context(
-                    partner=rec.partner_id, order=rec.order_id).filtered(
+                    partner=rec.vendor_id, order=rec.order_id).filtered(
                     lambda r: r.name == r._context.get('partner') and
                     r.sale_order_id == r._context.get('order'))
                 if not partner:
                     rec.product_id.seller_ids.create({
-                        'name': rec.partner_id.id,
+                        'name': rec.vendor_id.id,
                         'delay': 1,
                         'min_qty': 0,
                         'price': rec.iho_purchase_cost,
@@ -103,14 +103,14 @@ class SaleOrderLine(models.Model):
     def write(self, vals):
         res = super().write(vals)
         for rec in self:
-            if rec.partner_id:
+            if rec.vendor_id:
                 partner = rec.product_id.seller_ids.with_context(
-                    partner=rec.partner_id, order=rec.order_id).filtered(
+                    partner=rec.vendor_id, order=rec.order_id).filtered(
                     lambda r: r.name == r._context.get('partner') and
                     r.sale_order_id == r._context.get('order'))
                 if not partner:
                     rec.product_id.seller_ids.create({
-                        'name': rec.partner_id.id,
+                        'name': rec.vendor_id.id,
                         'delay': 1,
                         'min_qty': 0,
                         'price': rec.iho_purchase_cost,

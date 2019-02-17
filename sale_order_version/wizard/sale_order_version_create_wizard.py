@@ -51,7 +51,7 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
                        "product_uom_qty", "qty_delivered", "qty_invoiced",
                        "analytic_tag_ids", "route_id", "price_unit", "tax_id",
                        "price_subtotal", "order_id", "display_type",
-                       "image_sol", "partner_id", "iho_currency_id",
+                       "image_sol", "vendor_id", "iho_currency_id",
                        "iho_purchase_cost", "discount"]
         for line in lines:
             data = line.read(line_fields, 'without_name_get')[0]
@@ -90,7 +90,7 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
             'currency_agreed_rate': self.sale_id.currency_agreed_rate,
             'warehouse_id': self.sale_id.warehouse_id.id,
             'pricelist_id': self.sale_id.pricelist_id.id,
-            'incoterm': self.sale_id.incoterm,
+            'incoterm': self.sale_id.incoterm.id,
             'expected_date': self.sale_id.expected_date,
             'commitment_date': self.sale_id.commitment_date,
             'date_order': self.sale_id.date_order,

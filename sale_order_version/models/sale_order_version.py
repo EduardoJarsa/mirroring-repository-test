@@ -154,7 +154,7 @@ class SaleOrderVersionLine(models.Model):
         ('line_section', "Section"),
         ('line_note', "Note")], help="Technical field for UX purpose.")
     image_sol = fields.Binary('Add image', attachment=True)
-    partner_id = fields.Many2one(
+    vendor_id = fields.Many2one(
         'res.partner',
         string='Partner',
     )

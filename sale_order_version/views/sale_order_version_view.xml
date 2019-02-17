@@ -44,7 +44,7 @@
                                     <field name="route_id"/>
                                     <field name="price_unit"/>
                                     <field name="iho_purchase_cost"/>
-                                    <field name="partner_id"/>
+                                    <field name="vendor_id"/>
                                     <field name="iho_currency_id"/>
                                     <field name="tax_id"/>
                                     <field name="price_subtotal"/>

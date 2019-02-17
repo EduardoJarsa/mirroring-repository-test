@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='bom_line_ids']/tree/field[@name='product_qty']" position="after" >
                 <field name="iho_purchase_cost" required="1"/>
-                <field name="partner_id" required="1"/>
+                <field name="vendor_id" required="1"/>
                 <field name="iho_currency_id" required="1"/>
             </xpath>
         </field>

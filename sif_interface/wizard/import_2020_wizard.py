@@ -245,7 +245,7 @@ class Import2020Wizard(models.TransientModel):
                 'product_id': product.id,
                 'product_qty': line.get('Quantity'),
                 'iho_purchase_cost': line['Price']['OrderDealerPrice'],
-                'partner_id': vendor.id,
+                'vendor_id': vendor.id,
                 'iho_currency_id': iho_currency_id.id,
                 'iho_customer_cost': line['Price']['EndCustomerPrice'],
             }))
