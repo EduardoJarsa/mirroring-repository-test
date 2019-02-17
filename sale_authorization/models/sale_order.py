@@ -27,6 +27,9 @@ class SaleOrder(models.Model):
             'origin': '%s %s' % (self.name, self.active_version_id.name),
             'name': new_name,
         })
+        message = _('Version %s %s confirmed.') % (
+            self.name, self.active_version_id.name)
+        self.message_post(body=message)
         return {
             'name': _('Sale Order'),
             'type': 'ir.actions.act_window',

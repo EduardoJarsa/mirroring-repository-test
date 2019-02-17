@@ -46,10 +46,12 @@ class SaleOrderVersionWizard(models.TransientModel):
             # and need it to get the desire value from sale order version line
             line['analytic_tag_ids'] = [(6, 0, line['analytic_tag_ids'])]
             line['tax_id'] = [(6, 0, line['tax_id'])]
+            line.pop('sale_version_id')
         # Apply format to analytic_tag_ids and tag_ids fields because they are
         # M2M fields and need it to get the desire value sale_order_version
         order['analytic_tag_ids'] = [(6, 0, order['analytic_tag_ids'])]
         order['tag_ids'] = [(6, 0, order['tag_ids'])]
+        order['active_version_id'] = self.sale_version_id.id
         self.sale_id.write(order)
         self.sale_id.order_line.create(lines)
         message = _("The <a href=# data-oe-model=sale.order.version"

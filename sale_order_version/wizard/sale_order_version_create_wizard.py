@@ -15,7 +15,6 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
         comodel_name='sale.order',
         string="Sale Order",
     )
-    json = fields.Char()
     boolean_switch = fields.Boolean(
         compute='_compute_same_prefix_boolean',
         help='This field helps to control the invisible'
