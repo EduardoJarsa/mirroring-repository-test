@@ -15,7 +15,7 @@ class SaleOrder(models.Model):
         new_name = self.team_id.confirmed_sequence_id.next_by_id()
         new_order = self.copy({
             'authorized': True,
-            'origin': self.name,
+            'origin': '%s %s' % (self.name, self.active_version_name),
             'name': new_name,
         })
         return {
