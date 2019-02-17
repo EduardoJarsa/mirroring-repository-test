@@ -4,7 +4,7 @@
 {
     'name': 'Percentage Warning',
     'summary': 'Module to limit the discount on each line of the sale order',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'category': 'Sale',
     'author': 'Jarsa Sistemas, Vauxoo, Odoo Community Association (OCA)',
     'website': 'https://www.jarsa.com.mx',
