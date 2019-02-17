@@ -98,7 +98,7 @@ class SaleOrderVersion(models.Model):
     tag_ids = fields.Many2many('crm.lead.tag', string='Tags')
     state = fields.Selection([
         ('draft', 'Draft'),
-        ('confirm', 'Confirmed')],
+        ('confirmed', 'Confirmed')],
         string='Order Status',
         default='draft',
     )

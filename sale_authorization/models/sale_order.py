@@ -16,12 +16,12 @@ class SaleOrder(models.Model):
         if not self.active_version_id:
             raise ValidationError(
                 _('You cannot confirm a quotation with no version defined'))
-        if self.active_version_id.state == 'confirm':
+        if self.active_version_id.state == 'confirmed':
             raise ValidationError(
                 _('You cannot confirm a quotation with a version that is '
                   'already authorized.'))
         new_name = self.team_id.confirmed_sequence_id.next_by_id()
-        self.active_version_id.sudo().state = 'confirm'
+        self.active_version_id.sudo().state = 'confirmed'
         new_order = self.copy({
             'authorized': True,
             'origin': '%s %s' % (self.name, self.active_version_id.name),
