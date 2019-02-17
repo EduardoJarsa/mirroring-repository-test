@@ -14,6 +14,7 @@
         'sale_order_sequence',
     ],
     'data': [
+        'security/security.xml',
         'views/sale_order_view.xml',
     ],
 }
