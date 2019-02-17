@@ -13,6 +13,9 @@ class SaleOrder(models.Model):
     @api.multi
     def authorize_sale_order(self):
         self.ensure_one()
+        if not self.message_is_follower:
+            raise ValidationError(
+                _('You are not allowed to authorize this Sale Order'))
         if not self.active_version_id:
             raise ValidationError(
                 _('You cannot confirm a quotation with no version defined'))
