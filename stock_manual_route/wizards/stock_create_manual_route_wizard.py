@@ -70,7 +70,7 @@ class StockCreateManualRouteWizard(models.TransientModel):
         picking_obj = self.env['stock.picking']
         active_id = self._context.get('active_id')
         src_picking = picking_obj.browse(active_id)
-        picking_type_out = self.warehouse_id.out_type_id
+        picking_type_out = src_picking.picking_type_id.warehouse_id.out_type_id
         picking_type_in = self.warehouse_id.in_type_id
         transit_location = src_picking.company_id.internal_transit_location_id
         dest_location = self.warehouse_id.lot_stock_id
@@ -141,7 +141,7 @@ class StockCreateManualRouteWizard(models.TransientModel):
         sm_obj = self.env['stock.move']
         active_id = self._context.get('active_id')
         src_picking = picking_obj.browse(active_id)
-        picking_type_out = self.warehouse_id.out_type_id
+        picking_type_out = src_picking.picking_type_id.warehouse_id.out_type_id
         transit_location = src_picking.company_id.internal_transit_location_id
         # Create the out picking
         out_picking = picking_obj.create(
@@ -177,19 +177,19 @@ class StockCreateManualRouteWizard(models.TransientModel):
             out_picking.action_assign()
             in_picking.action_confirm()
             in_picking.action_assign()
-            pickings = [out_picking.id, in_picking.id]
+            picking_ids = [out_picking.id, in_picking.id]
         else:
             pickings = src_picking.move_lines.mapped(
                 'move_dest_ids.picking_id')
             pickings.action_assign()
+            picking_ids = pickings.ids
             (out_picking + in_picking).unlink()
         # Return the action to see the pickings created
         res = self.prepare_action()
         res.update({
-            'domain': [('id', 'in', pickings.ids)],
+            'domain': [('id', 'in', picking_ids)],
             'view_mode': 'tree,form',
         })
-        res['domain'] = [('id', 'in', pickings.ids)]
         return res
 
     @api.multi
