@@ -39,7 +39,7 @@ class SaleOrderVersionWizard(models.TransientModel):
                         'client_order_ref', 'analytic_account_id',
                         'analytic_tag_ids', 'tag_ids',
                         'fiscal_position_id', 'partner_invoice_id',
-                        'partner_shipping_id', 'active_version_name']
+                        'partner_shipping_id']
         order = self.sale_version_id.read(order_fields, 'without_name_get')[0]
         for line in lines:
             # Apply format to analytic_tag_ids because is a M2M field

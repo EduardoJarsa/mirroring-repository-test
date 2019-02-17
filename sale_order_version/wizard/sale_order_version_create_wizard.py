@@ -103,9 +103,10 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
             'prefix': prefix,
             'line_ids': self._prepare_sov_lines(self.sale_id.order_line),
             'sale_id': self.sale_id.id,
-            'active_version_name': name,
         })
-        self.sale_id.active_version_name = name
+        self.sale_id.write({
+            'active_version_id': version.id,
+        })
         message = _("The <a href=# data-oe-model=sale.order.version"
                     " data-oe-id=%d>%s</a> version was created.") % (
                         version.id, version.name)

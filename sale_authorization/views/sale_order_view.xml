@@ -6,8 +6,9 @@
         <field name="priority">100</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='partner_id']" position="after">
-                <field name="authorized"/>
+            <xpath expr="//field[@name='client_order_ref']" position="after">
+                <field name="authorized" invisible="1"/>
+                <field name="active_version_id"/>
             </xpath>
             <xpath expr="//header/button[@name='action_quotation_send']" position="replace">
                 <button name="action_quotation_send" string="Send by Email" type="object" attrs="{'invisible': ['|', ('state', 'not in', ['draft']), ('authorized', '=', False)]}" class="btn-primary"/>

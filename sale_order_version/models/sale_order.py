@@ -9,33 +9,15 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     order_version_ids = fields.One2many(
-        'sale.order.version',
-        'sale_id',
-        'Sale Order Versions',
-        copy=False,
-    )
-    has_lines = fields.Boolean(
-        compute='_compute_has_lines',
-    )
-    active_version_name = fields.Char(
-        readonly=True,
-        copy=False,
-    )
+        'sale.order.version', 'sale_id',
+        'Sale Order Versions', copy=False)
+    has_lines = fields.Boolean(compute='_compute_has_lines')
+    active_version_name = fields.Char(related='active_version_id.name')
+    active_version_id = fields.Many2one(
+        'sale.order.version', string='Active Version', readonly=True)
 
     @api.multi
     @api.depends('order_line')
     def _compute_has_lines(self):
         for rec in self:
             rec.has_lines = bool(rec.order_line)
-
-    @api.multi
-    def action_confirm(self):
-        res = super(SaleOrder, self).action_confirm()
-        for order in self:
-            if order.active_version_name:
-                order.order_version_ids.filtered(
-                    lambda v: v.name ==
-                    order.active_version_name).sudo().write({
-                        'state': 'confirm',
-                    })
-        return res
