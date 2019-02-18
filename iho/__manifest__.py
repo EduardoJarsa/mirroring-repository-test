@@ -15,7 +15,6 @@
         'sale_percentage_warning',
         'stock_move_quantity_limit',
         'sale_authorization',
-        'purchase_sale_currency',
         'sale_stock',
         'iho_security',
         'sale_order_report',
