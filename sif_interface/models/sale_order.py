@@ -73,58 +73,50 @@ class SaleOrderLine(models.Model):
         store=True,
     )
 
+    @api.multi
+    def _process_product_supplierinfo(self):
+        for rec in self:
+            if not rec.vendor_id:
+                continue
+            if not rec.iho_currency_id:
+                raise ValidationError(_(
+                    'You need to define a purchase currency for the '
+                    'product [%s]%s') % (
+                        rec.product_id.default_code, rec.product_id.name))
+            context = {
+                'partner': rec.vendor_id,
+                'order': rec.order_id,
+            }
+            partner = rec.product_id.seller_ids.with_context(
+                context).filtered(
+                lambda r: r.name == r._context.get('partner') and
+                r.sale_order_id == r._context.get('order'))
+            if not partner:
+                rec.product_id.seller_ids.create({
+                    'name': rec.vendor_id.id,
+                    'delay': 1,
+                    'min_qty': 0,
+                    'price': rec.iho_purchase_cost,
+                    'currency_id': rec.iho_currency_id.id,
+                    'product_tmpl_id': rec.product_id.product_tmpl_id.id,
+                    'sale_order_id': rec.order_id.id,
+                })
+            else:
+                partner.write({
+                    'price': rec.iho_purchase_cost,
+                    'currency_id': rec.iho_currency_id.id,
+                })
+
     @api.model
     def create(self, vals_list):
         res = super().create(vals_list)
-        if self.filtered('vendor_id'):
-            for rec in self.filtered('vendor_id'):
-                partner = rec.product_id.seller_ids.with_context(
-                    partner=rec.vendor_id, order=rec.order_id).filtered(
-                    lambda r: r.name == r._context.get('partner') and
-                    r.sale_order_id == r._context.get('order'))
-                if not partner:
-                    rec.product_id.seller_ids.create({
-                        'name': rec.vendor_id.id,
-                        'delay': 1,
-                        'min_qty': 0,
-                        'price': rec.iho_purchase_cost,
-                        'currency_id': rec.iho_currency_id.id,
-                        'product_tmpl_id': rec.product_id.product_tmpl_id.id,
-                        'sale_order_id': rec.order_id.id,
-                    })
-                    return res
-                else:
-                    partner.write({
-                        'price': rec.iho_purchase_cost,
-                        'currency_id': rec.iho_currency_id.id,
-                    })
+        res._process_product_supplierinfo()
         return res
 
     @api.multi
     def write(self, vals):
         res = super().write(vals)
-        for rec in self:
-            if rec.vendor_id:
-                partner = rec.product_id.seller_ids.with_context(
-                    partner=rec.vendor_id, order=rec.order_id).filtered(
-                    lambda r: r.name == r._context.get('partner') and
-                    r.sale_order_id == r._context.get('order'))
-                if not partner:
-                    rec.product_id.seller_ids.create({
-                        'name': rec.vendor_id.id,
-                        'delay': 1,
-                        'min_qty': 0,
-                        'price': rec.iho_purchase_cost,
-                        'currency_id': rec.iho_currency_id.id,
-                        'product_tmpl_id': rec.product_id.product_tmpl_id.id,
-                        'sale_order_id': rec.order_id.id,
-                    })
-                    return res
-                else:
-                    partner.write({
-                        'price': rec.iho_purchase_cost,
-                        'currency_id': rec.iho_currency_id.id,
-                    })
+        self._process_product_supplierinfo()
         return res
 
     @api.multi

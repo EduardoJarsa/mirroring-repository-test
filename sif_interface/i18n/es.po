@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-16 15:28+0000\n"
-"PO-Revision-Date: 2019-02-16 15:28+0000\n"
+"POT-Creation-Date: 2019-02-18 18:54+0000\n"
+"PO-Revision-Date: 2019-02-18 18:54+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -194,8 +194,8 @@ msgid "Name"
 msgstr "Nombre"
 
 #. module: sif_interface
-#: model:ir.model.fields,field_description:sif_interface.field_mrp_bom_line__partner_id
-#: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__partner_id
+#: model:ir.model.fields,field_description:sif_interface.field_mrp_bom_line__vendor_id
+#: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__vendor_id
 msgid "Partner"
 msgstr "Empresa"
 
@@ -233,17 +233,17 @@ msgstr "Guarde el nombre del archivo, para verificar que es .xml"
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__iho_sell_1
 msgid "Sell 1"
-msgstr "Sell 1"
+msgstr ""
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__iho_sell_2
 msgid "Sell 2"
-msgstr "Sell 2"
+msgstr ""
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__iho_sell_3
 msgid "Sell 3"
-msgstr "Sell 3"
+msgstr ""
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_export_sif_wizard__state
@@ -314,6 +314,12 @@ msgstr "Nombre XML"
 #, python-format
 msgid "You cannot set an agreed rate when the Sale Order currency is different from the company currency"
 msgstr "No puedes definir un tipo de cambio acordado cuando la moneda de un pedido de venta es diferente a la moneda de la compañía"
+
+#. module: sif_interface
+#: code:addons/sif_interface/models/sale_order.py:82
+#, python-format
+msgid "You need to define a purchase currency for the product [%s]%s"
+msgstr "Necesitas definir una moneda de compra para el producto [%s]%s"
 
 #. module: sif_interface
 #: model_terms:ir.ui.view,arch_db:sif_interface.view_export_sif_wizard
