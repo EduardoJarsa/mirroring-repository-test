@@ -61,6 +61,7 @@ class SaleOrderLine(models.Model):
     vendor_id = fields.Many2one(
         'res.partner',
         string='Partner',
+        domain=[('supplier', '=', True), ('is_company', '=', True)],
     )
     iho_currency_id = fields.Many2one(
         'res.currency',
