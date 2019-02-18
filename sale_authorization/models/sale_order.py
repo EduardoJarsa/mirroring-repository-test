@@ -23,6 +23,10 @@ class SaleOrder(models.Model):
             raise ValidationError(
                 _('You cannot confirm a quotation with a version that is '
                   'already authorized.'))
+        if not self.team_id.confirmed_sequence_id:
+            raise ValidationError(
+                _('You need to define a confirmation sequence to the '
+                  'Sales Team'))
         new_name = self.team_id.confirmed_sequence_id.next_by_id()
         self.active_version_id.sudo().state = 'confirmed'
         new_order = self.copy({
