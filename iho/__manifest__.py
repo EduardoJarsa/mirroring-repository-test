@@ -19,6 +19,8 @@
         'iho_security',
         'sale_order_report',
         'sale_order_version',
+        'crm_team_analytic',
+        'sale_name_to_purchase',
     ],
     'data': [
         'views/res_partner_view.xml',

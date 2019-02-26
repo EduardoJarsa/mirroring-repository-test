@@ -13,7 +13,8 @@ class SaleOrder(models.Model):
 
     @api.depends('order_line.discount')
     def _compute_max_percentage(self):
-        discounts = self.order_line.mapped('discount')
-        max_percentage = self.company_id.max_percentage
-        if any(discount > max_percentage for discount in discounts):
-            self.max_percentage = True
+        for rec in self:
+            discounts = rec.order_line.mapped('discount')
+            max_percentage = rec.company_id.max_percentage
+            if any(discount > max_percentage for discount in discounts):
+                rec.max_percentage = True

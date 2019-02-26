@@ -1,22 +1,21 @@
-IHO customs
-===========
+Sale Name To Purchase
+=======================
 
-This module allows:
-
-- Customs
-
+This module allow change name to purchase order
+on base a prefix of letter of alphabet and
+the name of Sale Order
 
 Installation
 ============
 
 - This module depends on:
 
-  No extra depends
+account_accountant
+purchase
 
 Credits
 =======
 
 **Contributors**
-* Sarai Osorio <sarai.osorio@jarsa.com.mx> (Developer)
 * Jesus Alcala <jesus.alcala@jarsa.com.mx> (Developer)
 * Jarsa Sistemas SA de CV <info@jarsa.com.mx>

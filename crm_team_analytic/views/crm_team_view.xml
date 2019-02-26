@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_crm_sale_analitic_reference_inherit_form_iho" model="ir.ui.view">
+        <field name="name">crm.team.analitic.reference</field>
+        <field name="model">crm.team</field>
+        <field name="inherit_id" ref="sales_team.crm_team_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='team_type']" position="after">
+                <field name="analytic_tag_ids" groups="analytic.group_analytic_tags" options="{'no_create': True}" widget="many2many_tags"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

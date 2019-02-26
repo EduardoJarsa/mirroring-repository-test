@@ -34,7 +34,7 @@ class SaleOrder(models.Model):
     @api.depends('order_line')
     def _compute_is_bom(self):
         for rec in self:
-            rec.is_bom = any(self.order_line.mapped('product_id.bom_ids'))
+            rec.is_bom = any(rec.order_line.mapped('product_id.bom_ids'))
 
 
 class SaleOrderLine(models.Model):
