@@ -33,7 +33,7 @@ msgstr "Autorizado"
 #. module: sale_authorization
 #: model_terms:ir.ui.view,arch_db:sale_authorization.view_sale_order_inherit_form_sale_authorization
 msgid "Confirm Sale"
-msgstr "Confirmar Venta"
+msgstr "Confirmar pedido"
 
 #. module: sale_authorization
 #: code:addons/sale_authorization/models/sale_order.py:41

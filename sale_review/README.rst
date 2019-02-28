@@ -1,9 +1,9 @@
-Sale Authorization
-==================
+Sale Review
+===========
 
 This module allows:
 
-- Module for the authorization of third parties in quotes
+- Module for to review quotes
 
 
 Installation
@@ -17,6 +17,6 @@ Credits
 =======
 
 **Contributors**
-* Sarai Osorio <sarai.osorio@jarsa.com.mx> (Developer)
+* Isabel Avila Esparza <isabel.esparza@jarsa.com.mx> (Developer)
 * Jarsa Sistemas SA de CV <info@jarsa.com.mx>
 

@@ -21,6 +21,7 @@
         'sale_order_version',
         'crm_team_analytic',
         'sale_name_to_purchase',
+        'sale_review',
     ],
     'data': [
         'views/res_partner_view.xml',
