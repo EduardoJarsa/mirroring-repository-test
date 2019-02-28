@@ -5,7 +5,7 @@ from odoo import _, api, models
 from odoo.exceptions import ValidationError
 
 
-class Lead(models.Model):
++class CrmLead(models.Model):
     _inherit = "crm.lead"
 
     @api.multi
