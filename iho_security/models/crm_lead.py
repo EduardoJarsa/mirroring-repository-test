@@ -17,4 +17,4 @@ class Lead(models.Model):
                     'iho_security.group_sale_salesman_opportunities'):
                 raise ValidationError(_(
                     'You cannot modify the name, contact to your admin.'))
-        return super(Lead, self).write(vals)
+        return super().write(vals)
