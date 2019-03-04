@@ -7,7 +7,7 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//header/button[@name='action_unlock']" position="before">
-                <button class="btn-primary" name="%(action_import_2020_wizard)d" string="Import From 2020" type="action"/>
+                <button class="btn-primary" name="%(action_import_2020_wizard)d" attrs="{'invisible': [('state', '!=', 'sale')]}" string="Import From 2020" type="action"/>
             </xpath>
             <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="currency_agreed_rate"/>

@@ -18,4 +18,4 @@ projector.crm.lead,projector.crm.lead,crm.model_crm_lead,iho_security.group_sale
 projector.product.attribute,projector.product.attribute,sale.model_product_attribute_custom_value,iho_security.group_sale_projector,1,0,0,0
 projector.stock.move,projector.stock.move,stock.model_stock_move,iho_security.group_sale_projector,1,0,0,0
 projector.account.invoice.tax,projector.account.invoice.tax,account.model_account_invoice_tax,iho_security.group_sale_projector,1,0,0,0
-
+salesman.crm.lead,salesman.crm.lead,crm.model_crm_lead,iho_security.group_sale_salesman_no_create_leads,1,1,1,0
