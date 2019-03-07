@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-07 20:26+0000\n"
-"PO-Revision-Date: 2019-02-07 20:26+0000\n"
+"POT-Creation-Date: 2019-03-07 16:57+0000\n"
+"PO-Revision-Date: 2019-03-07 16:57+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -37,14 +37,34 @@ msgid "Create Route"
 msgstr "Crear Ruta"
 
 #. module: stock_manual_route
+#: model:ir.model.fields,field_description:stock_manual_route.field_stock_create_manual_route_wizard__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: stock_manual_route
+#: model:ir.model.fields,field_description:stock_manual_route.field_stock_create_manual_route_wizard__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: stock_manual_route
 #: selection:stock.create.manual.route.wizard,move_type:0
 msgid "Customer"
 msgstr "Cliente"
 
 #. module: stock_manual_route
+#: model:ir.model.fields,field_description:stock_manual_route.field_stock_create_manual_route_wizard__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: stock_manual_route
 #: model:ir.model.fields,help:stock_manual_route.field_stock_picking__no_route
 msgid "Field used to identify pickings without destination moves."
 msgstr "Campo utilizado para identificar transferencias sin movimientos destino."
+
+#. module: stock_manual_route
+#: model:ir.model.fields,field_description:stock_manual_route.field_stock_create_manual_route_wizard__id
+msgid "ID"
+msgstr ""
 
 #. module: stock_manual_route
 #: selection:stock.create.manual.route.wizard,move_type:0
@@ -55,13 +75,28 @@ msgstr "Interno"
 #: code:addons/stock_manual_route/models/stock_picking.py:27
 #, python-format
 msgid "Invalid domain operator %s"
-msgstr "Operador de dominio inválido"
+msgstr ""
 
 #. module: stock_manual_route
 #: code:addons/stock_manual_route/models/stock_picking.py:29
 #, python-format
 msgid "Invalid domain right operand %s"
-msgstr "Operador derecha de dominio inválido"
+msgstr ""
+
+#. module: stock_manual_route
+#: model:ir.model.fields,field_description:stock_manual_route.field_stock_create_manual_route_wizard____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: stock_manual_route
+#: model:ir.model.fields,field_description:stock_manual_route.field_stock_create_manual_route_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: stock_manual_route
+#: model:ir.model.fields,field_description:stock_manual_route.field_stock_create_manual_route_wizard__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
 
 #. module: stock_manual_route
 #: model:ir.model.fields,field_description:stock_manual_route.field_stock_create_manual_route_wizard__move_type
@@ -80,12 +115,17 @@ msgid "No Route"
 msgstr "Sin Ruta"
 
 #. module: stock_manual_route
-#: model:ir.model,name:stock_manual_route.model_purchase_order_line
-msgid "Purchase Order Line"
-msgstr "Línea de pedido de compra"
+#: model:ir.model.fields,field_description:stock_manual_route.field_stock_create_manual_route_wizard__programed_date
+msgid "Programed Date"
+msgstr "Fecha programada"
 
 #. module: stock_manual_route
-#: code:addons/stock_manual_route/wizards/stock_create_manual_route_wizard.py:127
+#: model:ir.model,name:stock_manual_route.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "Línea pedido de compra"
+
+#. module: stock_manual_route
+#: code:addons/stock_manual_route/wizards/stock_create_manual_route_wizard.py:131
 #, python-format
 msgid "Stock Picking"
 msgstr "Transferencias"
@@ -99,3 +139,9 @@ msgstr "Transferir"
 #: model:ir.model.fields,field_description:stock_manual_route.field_stock_create_manual_route_wizard__warehouse_id
 msgid "Warehouse"
 msgstr "Almacén"
+
+#. module: stock_manual_route
+#: model:ir.model.fields,help:stock_manual_route.field_stock_create_manual_route_wizard__programed_date
+msgid "field to indicate when it leaves the warehouse to transit and when it will be received from the other side."
+msgstr "Campo para indicar cuando sale del almacén a tránsito y cuando se va a recibir del otro lado."
+

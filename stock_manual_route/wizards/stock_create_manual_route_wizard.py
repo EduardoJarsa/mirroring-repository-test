@@ -21,6 +21,10 @@ class StockCreateManualRouteWizard(models.TransientModel):
             [('company_id', '=', self.env.user.company_id.id)], limit=1),
         required=True,
     )
+    programed_date = fields.Datetime(
+        required=True,
+        help='field to indicate when it leaves the warehouse to transit '
+             'and when it will be received from the other side.')
 
     @api.multi
     def _prepare_stock_move(self, move, picking):
@@ -34,7 +38,7 @@ class StockCreateManualRouteWizard(models.TransientModel):
             'product_id': move.product_id.id,
             'product_uom_qty': move.product_uom_qty,
             'product_uom': move.product_uom.id,
-            'date': move.date,
+            'date': self.programed_date,
             'date_expected': move.date_expected,
             'location_id': picking.location_id.id,
             'location_dest_id': picking.location_dest_id.id,
@@ -58,7 +62,7 @@ class StockCreateManualRouteWizard(models.TransientModel):
         return {
             'picking_type_id': picking_type.id,
             'partner_id': picking.partner_id.id,
-            'date': fields.Date.today(),
+            'date': self.programed_date,
             'origin': picking.origin,
             'location_dest_id': dest_location.id,
             'location_id': src_location.id,

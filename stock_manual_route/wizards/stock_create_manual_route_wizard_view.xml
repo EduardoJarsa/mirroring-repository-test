@@ -10,6 +10,7 @@
                         <group>
                             <field name="move_type" widget="radio"/>
                             <field name="warehouse_id" options="{'no_create_edit': 1, 'no_open': 1, 'no_create': 1}" attrs="{'invisible': [('move_type', '=', 'customer')]}" groups="stock.group_stock_multi_locations"/>
+                            <field name="programed_date" widget="date"/>
                         </group>
                     </group>
                 </sheet>
