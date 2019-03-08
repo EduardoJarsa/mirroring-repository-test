@@ -41,11 +41,10 @@ class MrpBomLine(models.Model):
                     'sale_order_id': order.id,
                 })
                 return res
-            else:
-                partner.write({
-                    'price': self.iho_purchase_cost,
-                    'currency_id': self.iho_currency_id.id,
-                })
+            partner.write({
+                'price': self.iho_purchase_cost,
+                'currency_id': self.iho_currency_id.id,
+            })
         return res
 
     @api.multi
@@ -70,9 +69,8 @@ class MrpBomLine(models.Model):
                     'sale_order_id': order.id,
                 })
                 return res
-            else:
-                partner.write({
-                    'price': self.iho_purchase_cost,
-                    'currency_id': self.iho_currency_id.id,
-                })
+            partner.write({
+                'price': self.iho_purchase_cost,
+                'currency_id': self.iho_currency_id.id,
+            })
         return res

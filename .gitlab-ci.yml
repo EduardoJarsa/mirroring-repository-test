@@ -36,7 +36,7 @@ test:
     - odoo
     - test
   variables:
-    LINT_CHECK: "1"
+    LINT_CHECK: "0"
     TESTS: "1"
     INCLUDE: "iho,company_country"
     INSTALL: "iho"
