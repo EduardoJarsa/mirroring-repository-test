@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_import_sale_order_version_inherit_form_iho" model="ir.ui.view">
+        <field name="name">import.sale.order.version.inherit.form.iho</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/field[@name='state']" position="before">
+                <button name="%(import_sale_order.import_sale_order_iho_action)d" type="action" string="Import Sale Order" class="btn-primary"/>
+            </xpath>
+           
+        </field> 
+    </record>
+</odoo>
