@@ -8,8 +8,8 @@ from io import StringIO
 from odoo import api, fields, models
 
 
-class ImportSaleOrder(models.TransientModel):
-    _name = 'import.sale.order.iho'
+class ImportSaleOrderLineIHO(models.TransientModel):
+    _name = 'import.sale.order.line.iho'
     _description = "import sale orders from CSV"
 
     upload_file = fields.Binary(string="Upload File")
@@ -21,7 +21,8 @@ class ImportSaleOrder(models.TransientModel):
         if default_code == '':
             default_code = False
         if not default_code:
-            product_id = self.env.ref('import_sale_order.product_product_dummy') 
+            product_id = self.env.ref(
+                'import_sale_line_order.product_product_dummy')
         if not product_id:
             return False
         product_qty = float(sale_order_line['Cantidad'])
@@ -60,13 +61,13 @@ class ImportSaleOrder(models.TransientModel):
         }
 
     @api.multi
-    def import_sale_order_iho(self):
+    def import_sale_order_line_iho(self):
         self.ensure_one()
         data = base64.b64decode(self.upload_file).decode('utf-8')
         data = StringIO(data)
         reader = csv.DictReader(data)
         sale_order_id = self._context.get('active_id')
-        sale_order = self.env['sale.order'].search(
+        sale_order = self.env['sale.order'].browse(
             [('id', '=', sale_order_id)])
         sale_line_list = []
         for line in reader:
