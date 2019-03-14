@@ -21,6 +21,7 @@
         'sale_order_version',
         'crm_team_analytic',
         'sale_name_to_purchase',
+        'import_sale_order_line',
         'sale_review',
     ],
     'data': [

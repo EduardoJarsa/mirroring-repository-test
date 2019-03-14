@@ -12,8 +12,8 @@ class ImportSaleOrderLineIHO(models.TransientModel):
     _name = 'import.sale.order.line.iho'
     _description = "import sale orders from CSV"
 
-    upload_file = fields.Binary(string="Upload File")
-    file_name = fields.Char(string="File Name")
+    upload_file = fields.Binary()
+    file_name = fields.Char()
 
     @api.model
     def _prepare_sale_order_line(self, sale_order_line, sale_order):
