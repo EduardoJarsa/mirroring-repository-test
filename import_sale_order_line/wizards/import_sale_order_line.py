@@ -17,38 +17,29 @@ class ImportSaleOrderLineIHO(models.TransientModel):
 
     @api.model
     def _prepare_sale_order_line(self, sale_order_line, sale_order):
-        default_code = sale_order_line['CodigoProducto']
-        if default_code == '':
-            default_code = False
-        if not default_code:
+        default_code = sale_order_line.get('CodigoProducto', False)
+        description = sale_order_line['Descrip']
+        if default_code:
+            product_id = self.env['product.product'].search([(
+                'default_code', '=', default_code)])
+            if not product_id:
+                product_id = self.env.ref(
+                    'import_sale_line_order.product_product_dummy')
+        else:
             product_id = self.env.ref(
-                'import_sale_line_order.product_product_dummy')
-        if not product_id:
-            return False
-        product_qty = float(sale_order_line['Cantidad'])
-        if product_qty == '':
-            product_qty = False
-        price_unit = int(sale_order_line['PriceList'])
-        if price_unit == '':
-            price_unit = False
-        factor = sale_order_line['Factor']
-        if factor == '':
-            factor = False
-        discount = float(sale_order_line['CustomerDiscount'])
-        if discount == '':
-            discount = False
-        iho_currency = sale_order_line['IHOCurrency']
-        if iho_currency == '':
-            iho_currency = False
+                    'import_sale_line_order.product_product_dummy')
+        product_qty = sale_order_line.get('Cantidad', False)
+        price_unit = sale_order_line.get('PriceList', False)
+        factor = sale_order_line.get('Factor', False)
+        discount = sale_order_line['CustomerDiscount']
+        if discount:
+            discount = float(discount)
+        iho_currency = sale_order_line.get('IHOCurrency', False)
         iho_discount = sale_order_line['IHODiscount']
-        if iho_discount == '':
-            iho_discount = False
         iho_currency_id = self.env['res.currency'].search(
             [('name', '=', iho_currency)])
-        if iho_currency_id == '':
-            iho_currency_id = False
         return {
-            'name': product_id.name,
+            'name': description,
             'product_id': product_id.id,
             'product_uom_qty': product_qty,
             'price_unit': price_unit,
