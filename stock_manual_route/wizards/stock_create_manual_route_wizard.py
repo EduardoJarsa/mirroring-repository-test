@@ -63,6 +63,7 @@ class StockCreateManualRouteWizard(models.TransientModel):
             'picking_type_id': picking_type.id,
             'partner_id': picking.partner_id.id,
             'date': self.programed_date,
+            'scheduled_date': self.programed_date,
             'origin': picking.origin,
             'location_dest_id': dest_location.id,
             'location_id': src_location.id,
