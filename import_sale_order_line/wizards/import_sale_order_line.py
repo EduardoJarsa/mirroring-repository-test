@@ -27,7 +27,7 @@ class ImportSaleOrderLineIHO(models.TransientModel):
                     'import_sale_order_line.product_product_dummy')
         else:
             product_id = self.env.ref(
-                    'import_sale_order_line.product_product_dummy')
+                'import_sale_order_line.product_product_dummy')
         product_qty = sale_order_line.get('Cantidad', False)
         price_unit = sale_order_line.get('PriceList', False)
         factor = sale_order_line.get('Factor', False)
