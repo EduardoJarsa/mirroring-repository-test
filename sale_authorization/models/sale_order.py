@@ -45,3 +45,16 @@ class SaleOrder(models.Model):
             'res_model': 'sale.order',
             'res_id': new_order.id,
         }
+
+    @api.multi
+    def action_confirm(self):
+        account_analityc = self.env['account.analytic.account']
+        object_account_analytic = account_analityc.create({
+            'name': self.name+"-"+self.active_version_name,
+            'partner_id': self.partner_id.id,
+        })
+
+        self.write({
+            'analytic_account_id': object_account_analytic.id
+        })
+        return super(SaleOrder, self).action_confirm()
