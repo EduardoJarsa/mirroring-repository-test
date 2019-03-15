@@ -17,10 +17,13 @@ class PurchaseOrder(models.Model):
 
             for letter in alphabet:
                 next_code = vals['origin']
-                name_purchase = next_code+'-'+str(letter)
-                purchase_order = self.env['purchase.order'].search(
-                    [('name', '=', name_purchase)])
-                if not purchase_order:
+                if next_code:
+                    name_purchase = next_code+'-'+str(letter)
+                    purchase_order = self.env['purchase.order'].search(
+                        [('name', '=', name_purchase)])
+                    if not purchase_order:
+                        break
+                    vals['name'] = name_purchase
+                else:
                     break
-            vals['name'] = name_purchase
         return super(PurchaseOrder, self).create(vals)
