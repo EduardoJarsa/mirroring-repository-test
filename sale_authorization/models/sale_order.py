@@ -48,6 +48,7 @@ class SaleOrder(models.Model):
 
     @api.multi
     def action_confirm(self):
+
         account_analityc = self.env['account.analytic.account']
         object_account_analytic = account_analityc.create({
             'name': self.name+"-"+self.active_version_name,
