@@ -18,7 +18,7 @@ class PurchaseOrder(models.Model):
             for letter in alphabet:
                 next_code = vals['origin']
                 if next_code:
-                    name_purchase = next_code+'-'+str(letter)
+                    name_purchase = '%s - %s' % (next_code, letter)
                     purchase_order = self.env['purchase.order'].search(
                         [('name', '=', name_purchase)])
                     if not purchase_order:
@@ -26,4 +26,4 @@ class PurchaseOrder(models.Model):
                     vals['name'] = name_purchase
                 else:
                     break
-        return super(PurchaseOrder, self).create(vals)
+        return super().create(vals)
