@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* import_purchase_order_sai
+#	* import_sale_order_line
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-01 15:35+0000\n"
-"PO-Revision-Date: 2019-03-01 15:35+0000\n"
+"POT-Creation-Date: 2019-03-15 17:03+0000\n"
+"PO-Revision-Date: 2019-03-15 17:03+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,120 +15,100 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: import_purchase_order_sai
-#: model_terms:ir.ui.view,arch_db:import_purchase_order_sai.xls_import_purchase_order_view
+#. module: import_sale_order_line
+#: model_terms:ir.ui.view,arch_db:import_sale_order_line.xls_import_sale_order_iho_view
 msgid "Cancel"
 msgstr "Cancelar"
 
-#. module: import_purchase_order_sai
-#: model_terms:ir.ui.view,arch_db:import_purchase_order_sai.xls_import_purchase_order_view
+#. module: import_sale_order_line
+#: model_terms:ir.ui.view,arch_db:import_sale_order_line.xls_import_sale_order_iho_view
 msgid "Confirm"
 msgstr "Confirmar"
 
-#. module: import_purchase_order_sai
-#: model:ir.model.fields,field_description:import_purchase_order_sai.field_import_sai_purchase_order__create_uid
+#. module: import_sale_order_line
+#: model:ir.model.fields,field_description:import_sale_order_line.field_import_sale_order_line_iho__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
-#. module: import_purchase_order_sai
-#: model:ir.model.fields,field_description:import_purchase_order_sai.field_import_sai_purchase_order__create_date
+#. module: import_sale_order_line
+#: model:ir.model.fields,field_description:import_sale_order_line.field_import_sale_order_line_iho__create_date
 msgid "Created on"
 msgstr "Creado el"
 
-#. module: import_purchase_order_sai
-#: model:ir.model.fields,field_description:import_purchase_order_sai.field_import_sai_purchase_order__display_name
+#. module: import_sale_order_line
+#: model:ir.model.fields,field_description:import_sale_order_line.field_import_sale_order_line_iho__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
-#. module: import_purchase_order_sai
-#: model:ir.model.fields,field_description:import_purchase_order_sai.field_import_sai_purchase_order__file_name
+#. module: import_sale_order_line
+#: model:ir.model.fields,field_description:import_sale_order_line.field_import_sale_order_line_iho__file_name
 msgid "File Name"
 msgstr "Nombre del archivo"
 
-#. module: import_purchase_order_sai
-#: model:ir.model.fields,field_description:import_purchase_order_sai.field_import_sai_purchase_order__id
+#. module: import_sale_order_line
+#: model:ir.model.fields,field_description:import_sale_order_line.field_import_sale_order_line_iho__id
 msgid "ID"
 msgstr ""
 
-#. module: import_purchase_order_sai
-#: model_terms:ir.ui.view,arch_db:import_purchase_order_sai.xls_import_purchase_order_view
-msgid "Import Purchase Order"
-msgstr "Importar Orden de Compra"
+#. module: import_sale_order_line
+#: model_terms:ir.ui.view,arch_db:import_sale_order_line.view_import_sale_order_line_version_inherit_form_iho
+msgid "Import Sale Order Line"
+msgstr "Importar Lineas Orden de Venta"
 
-#. module: import_purchase_order_sai
-#: model:ir.actions.act_window,name:import_purchase_order_sai.import_sai_purchase_order_action
-#: model:ir.ui.menu,name:import_purchase_order_sai.import_sai_purchase_order_menu
-msgid "Import Purchase Order from SAI"
-msgstr "Importar Orden de Compra desde SAI"
+#. module: import_sale_order_line
+#: model_terms:ir.ui.view,arch_db:import_sale_order_line.xls_import_sale_order_iho_view
+msgid "Import Sale Order IHO"
+msgstr "IHO Importar Linea de Orden de Venta"
 
-#. module: import_purchase_order_sai
-#: model:ir.model.fields,field_description:import_purchase_order_sai.field_import_sai_purchase_order____last_update
+#. module: import_sale_order_line
+#: model:ir.actions.act_window,name:import_sale_order_line.import_sale_order_line_iho_action
+msgid "Import Sale Order Line IHO"
+msgstr "IHO Importar Linea de Orden de Venta"
+
+#. module: import_sale_order_line
+#: model:ir.model.fields,field_description:import_sale_order_line.field_import_sale_order_line_iho____last_update
 msgid "Last Modified on"
 msgstr "Última modificación en"
 
-#. module: import_purchase_order_sai
-#: model:ir.model.fields,field_description:import_purchase_order_sai.field_import_sai_purchase_order__write_uid
+#. module: import_sale_order_line
+#: model:ir.model.fields,field_description:import_sale_order_line.field_import_sale_order_line_iho__write_uid
 msgid "Last Updated by"
 msgstr "Última actualización por"
 
-#. module: import_purchase_order_sai
-#: model:ir.model.fields,field_description:import_purchase_order_sai.field_import_sai_purchase_order__write_date
+#. module: import_sale_order_line
+#: model:ir.model.fields,field_description:import_sale_order_line.field_import_sale_order_line_iho__write_date
 msgid "Last Updated on"
 msgstr "Última actualización el"
 
-#. module: import_purchase_order_sai
-#: code:addons/import_purchase_order_sai/wizards/import_sai_purchase_order.py:92
-#, python-format
-msgid "Oops! The file is not an excel"
-msgstr "Oops! El archivo seleccionado no es de tipo Excel(xsl)"
+#. module: import_sale_order_line
+#: model_terms:ir.ui.view,arch_db:import_sale_order_line.xls_import_sale_order_iho_view
+msgid "Please upload the CSV file"
+msgstr "Por Favor suba un Archivo Tipo CSV"
 
-#. module: import_purchase_order_sai
-#: model:ir.model.fields,field_description:import_purchase_order_sai.field_import_sai_purchase_order__picking_type_id
-msgid "Picking Type"
-msgstr "Tipo de Operacion"
+#. module: import_sale_order_line
+#: model:product.product,uom_name:import_sale_order_line.product_product_dummy
+#: model:product.template,uom_name:import_sale_order_line.product_product_dummy_product_template
+msgid "Unit(s)"
+msgstr "Unidad(es)"
 
-#. module: import_purchase_order_sai
-#: model_terms:ir.ui.view,arch_db:import_purchase_order_sai.xls_import_purchase_order_view
-msgid "Please upload the XLS file"
-msgstr "Por favor Suba un Archivo con Formato Excel(XLS)"
-
-#. module: import_purchase_order_sai
-#: code:addons/import_purchase_order_sai/wizards/import_sai_purchase_order.py:134
-#, python-format
-msgid "Purchase"
-msgstr "Compra"
-
-#. module: import_purchase_order_sai
-#: code:addons/import_purchase_order_sai/wizards/import_sai_purchase_order.py:46
-#, python-format
-msgid "The supplier %s It does not exists"
-msgstr "El proveedor %s no existe"
-
-#. module: import_purchase_order_sai
-#: code:addons/import_purchase_order_sai/wizards/import_sai_purchase_order.py:128
-#, python-format
-msgid "These products were not found: \n"
-" %s"
-msgstr "Estos productos no fueron encontrados: \n"
-" %s"
-
-#. module: import_purchase_order_sai
-#: code:addons/import_purchase_order_sai/wizards/import_sai_purchase_order.py:117
-#, python-format
-msgid "This purchase order %s already exists"
-msgstr "Esta orden de compra %s ya existe"
-
-#. module: import_purchase_order_sai
-#: model:ir.model.fields,field_description:import_purchase_order_sai.field_import_sai_purchase_order__upload_file
+#. module: import_sale_order_line
+#: model:ir.model.fields,field_description:import_sale_order_line.field_import_sale_order_line_iho__upload_file
 msgid "Upload File"
-msgstr "Subir archivo"
+msgstr "Subir Archivo"
 
-#. module: import_purchase_order_sai
-#: model:ir.model.fields,field_description:import_purchase_order_sai.field_import_sai_purchase_order__partner_id
-msgid "Vendor"
-msgstr "Proveedor"
+#. module: import_sale_order_line
+#: model:product.product,name:import_sale_order_line.product_product_dummy
+#: model:product.template,name:import_sale_order_line.product_product_dummy_product_template
+msgid "dummy"
+msgstr ""
 
-#. module: import_purchase_order_sai
-#: model:ir.model,name:import_purchase_order_sai.model_import_sai_purchase_order
-msgid "import purchase orders from SAI"
-msgstr "Importar Orden de Compra desde SAI"
+#. module: import_sale_order_line
+#: model:ir.model,name:import_sale_order_line.model_import_sale_order_line_iho
+msgid "import sale orders from CSV"
+msgstr "Importar Lines de Venta desde un Archivo CSV"
+
+#. module: import_sale_order_line
+#: model:product.product,weight_uom_name:import_sale_order_line.product_product_dummy
+#: model:product.template,weight_uom_name:import_sale_order_line.product_product_dummy_product_template
+msgid "kg"
+msgstr ""
