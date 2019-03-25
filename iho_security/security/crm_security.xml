@@ -9,6 +9,7 @@
     </record>
     <record id="group_sale_salesman_opportunities" model="res.groups">
         <field name="name">Group Can change Opportunity name</field>
+        <field name="category_id" ref="base.module_category_sales_management"/>
         <field name="comment">This user can edit opportunities name.</field>
     </record>
     <record id="sales_team.group_sale_salesman_all_leads" model="res.groups">
@@ -24,7 +25,7 @@
     <record id="crm_senior_only_follower" model="ir.rule">
         <field name="name">CRM Senior Only Follower </field>
         <field name="model_id" ref="crm.model_crm_lead"/>
-        <field name="domain_force">[('message_partner_ids.user_ids','in',user.ids),('create_uid','!=',user.id)]</field>
+        <field name="domain_force">[('message_partner_ids.user_ids','in',user.ids),('type','=','lead')]</field>
         <field name="groups" eval="[(4, ref('sales_team.group_sale_salesman_all_leads'))]"/>
         <field name="perm_create" eval="False"/>
         <field name="perm_write" eval="False"/>
@@ -32,13 +33,23 @@
         <field name="perm_read" eval="True"/>
     </record>
     <record id="crm_senior_follower_and_creator" model="ir.rule">
-        <field name="name">CRM Senior Follower and Creator</field>
+        <field name="name">CRM Senior Follower</field>
         <field name="model_id" ref="crm.model_crm_lead"/>
-        <field name="domain_force">[('message_partner_ids.user_ids','in',user.ids),('create_uid','=',user.id)]</field>
+        <field name="domain_force">[('message_partner_ids.user_ids','in',user.ids),('type','!=','lead')]</field>
+        <field name="groups" eval="[(4, ref('sales_team.group_sale_salesman_all_leads'))]"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="perm_read" eval="True"/>
+    </record>
+    <record id="crm_senior_salesman_creator" model="ir.rule">
+        <field name="name">CRM Senior Salesman Creator</field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field name="domain_force">[('create_uid','=',user.id),('type','=','opportunity')]</field>
         <field name="groups" eval="[(4, ref('sales_team.group_sale_salesman_all_leads'))]"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_write" eval="True"/>
-        <field name="perm_unlink" eval="False"/>
+        <field name="perm_unlink" eval="True"/>
         <field name="perm_read" eval="True"/>
     </record>
     <record id="sales_senior_only_follower" model="ir.rule">
@@ -52,12 +63,12 @@
         <field name="perm_read" eval="True"/>
     </record>
     <record id="sales_senior_follower_and_creator" model="ir.rule">
-        <field name="name">Sales Senior Follower and Creator</field>
+        <field name="name">Sales Senior Follower</field>
         <field name="model_id" ref="sale.model_sale_order"/>
-        <field name="domain_force">[('opportunity_id', '!=', False), ('opportunity_id.message_partner_ids.user_ids','in',user.ids), ('create_uid','=',user.id)]</field>
+        <field name="domain_force">[('message_partner_ids.user_ids','in',user.ids)]</field>
         <field name="groups" eval="[(4, ref('sales_team.group_sale_salesman_all_leads'))]"/>
-        <field name="perm_create" eval="True"/>
-        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_write" eval="False"/>
         <field name="perm_unlink" eval="False"/>
         <field name="perm_read" eval="True"/>
     </record>
@@ -89,7 +100,6 @@
     <record id="group_sale_salesman_no_create_leads" model="res.groups">
         <field name="name">Only create Opportunities</field>
         <field name="comment">This user can edit opportunities name.</field>
-        <field name="implied_ids" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
     </record>
     <record id="crm_opportunity" model="ir.rule">
         <field name="name">Opportunity Manager</field>
@@ -101,4 +111,47 @@
         <field name="perm_unlink" eval="False"/>
         <field name="perm_read" eval="True"/>
     </record>
+    <record id="crm_salesman_lead" model="ir.rule">
+        <field name="name">CRM salesman Lead</field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field name="domain_force">[('message_partner_ids.user_ids','in',user.ids),('type','=','lead')]</field>
+        <field name="groups" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_read" eval="True"/>
+    </record>
+    <record id="crm_salesman_opportunity" model="ir.rule">
+        <field name="name">CRM salesman opportunity</field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field name="domain_force">[('create_uid','=',user.id),('type','=','opportunity')]</field>
+        <field name="groups" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_read" eval="True"/>
+    </record>
+    <record id="projector_purchase_orders" model="ir.rule">
+        <field name="name">Projector personal Purchase Orders</field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field name="domain_force">['|',('create_uid','=',user.id),('create_uid','=',False)]</field>
+        <field name="groups" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="perm_read" eval="True"/>
+    </record>
+    <record id="projector_purchase_orders_follower" model="ir.rule">
+        <field name="name">Projector Purchase Orders Follower</field>
+        <field name="model_id" ref="crm.model_crm_lead"/>
+        <field name="domain_force">[('message_partner_ids.user_ids','in',user.ids)]</field>
+        <field name="groups" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="perm_read" eval="True"/>
+    </record>
+    <record id="sale.menu_sale_order" model="ir.ui.menu">
+       <field name="groups_id" eval="[(4, ref('iho_security.group_sale_projector'))]"/>
+   </record>
 </odoo>
