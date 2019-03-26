@@ -1,6 +1,7 @@
 # Copyright 2019, Jarsa Sistemas, S.A. de C.V.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
+from datetime import timedelta
 from odoo import _, api, fields, models
 
 
@@ -38,8 +39,8 @@ class StockCreateManualRouteWizard(models.TransientModel):
             'product_id': move.product_id.id,
             'product_uom_qty': move.product_uom_qty,
             'product_uom': move.product_uom.id,
-            'date': self.programed_date,
-            'date_expected': move.date_expected,
+            'date': picking.date,
+            'date_expected': picking.scheduled_date,
             'location_id': picking.location_id.id,
             'location_dest_id': picking.location_dest_id.id,
             'picking_id': picking.id,
@@ -57,13 +58,13 @@ class StockCreateManualRouteWizard(models.TransientModel):
 
     @api.model
     def _prepare_picking(self, picking, picking_type,
-                         src_location, dest_location):
+                         src_location, dest_location, scheduled_date):
         self.ensure_one()
         return {
             'picking_type_id': picking_type.id,
             'partner_id': picking.partner_id.id,
-            'date': self.programed_date,
-            'scheduled_date': self.programed_date,
+            'date': scheduled_date,
+            'scheduled_date': scheduled_date,
             'origin': picking.origin,
             'location_dest_id': dest_location.id,
             'location_id': src_location.id,
@@ -79,18 +80,19 @@ class StockCreateManualRouteWizard(models.TransientModel):
         picking_type_in = self.warehouse_id.in_type_id
         transit_location = src_picking.company_id.internal_transit_location_id
         dest_location = self.warehouse_id.lot_stock_id
+        scheduled_date = self.programed_date + timedelta(days=1)
         # Create the out picking
         out_picking = picking_obj.create(
             self._prepare_picking(
                 src_picking, picking_type_out,
-                src_picking.location_id, transit_location
+                src_picking.location_id, transit_location, scheduled_date
             )
         )
         # Create the In picking
         in_picking = picking_obj.create(
             self._prepare_picking(
                 src_picking, picking_type_in,
-                transit_location, dest_location
+                transit_location, dest_location, scheduled_date
             )
         )
         return src_picking, out_picking, in_picking
@@ -148,17 +150,18 @@ class StockCreateManualRouteWizard(models.TransientModel):
         src_picking = picking_obj.browse(active_id)
         picking_type_out = src_picking.picking_type_id.warehouse_id.out_type_id
         transit_location = src_picking.company_id.internal_transit_location_id
+        scheduled_date = self.programed_date + timedelta(days=1)
         # Create the out picking
         out_picking = picking_obj.create(
             self._prepare_picking(
                 src_picking, picking_type_out,
-                src_picking.location_dest_id, transit_location
+                src_picking.location_dest_id, transit_location, scheduled_date
             )
         )
         for move in src_picking.move_lines:
             # Create the output move
             out_move = sm_obj.create(
-                self._prepare_stock_move(move, out_picking))
+                self._prepare_stock_move(move, out_picking, scheduled_date))
             move_dest_ids = move.purchase_line_id.move_dest_ids
             move_dest_ids.write({
                 'move_orig_ids': [(6, 0, out_move.ids)],
