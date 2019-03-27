@@ -2,3 +2,4 @@ enterprise git@github.com:Jarsa/enterprise.git 12.0
 mexico git@git.vauxoo.com:Vauxoo/mexico.git 12.0
 account-fix-tools git@github.com:Jarsa/account-fix-tools.git 12.0
 purchase-workflow git@github.com:Jarsa/purchase-workflow 12.0
+server-backend git@github.com:Jarsa/server-backend 12.0

@@ -10,6 +10,7 @@
     'website': 'https://www.jarsa.com.mx',
     'license': 'AGPL-3',
     'depends': [
+        'base_user_role',
         'res_currency_rate_custom_decimals',
         'sale_fleet_service',
         'sale_percentage_warning',
