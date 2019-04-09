@@ -29,10 +29,18 @@ class SaleOrder(models.Model):
                   'Sales Team'))
         new_name = self.team_id.confirmed_sequence_id.next_by_id()
         self.active_version_id.sudo().state = 'confirmed'
+        analytic_account = self.env[
+            'account.analytic.account'].create(
+                {
+                    'name': '%s - %s' % (
+                        new_name, self.active_version_name),
+                    'partner_id': self.partner_id.id,
+                })
         new_order = self.copy({
             'authorized': True,
             'origin': '%s %s' % (self.name, self.active_version_id.name),
             'name': new_name,
+            'analytic_account_id': analytic_account.id
         })
         message = _('Version %s %s confirmed.') % (
             self.name, self.active_version_id.name)
@@ -45,19 +53,3 @@ class SaleOrder(models.Model):
             'res_model': 'sale.order',
             'res_id': new_order.id,
         }
-
-    @api.multi
-    def action_confirm(self):
-        for rec in self:
-            analytic_account = self.env[
-                'account.analytic.account'].create(
-                {
-                    'name': '%s - %s' % (
-                        rec.name, rec.active_version_name),
-                    'partner_id': rec.partner_id.id,
-                })
-
-        self.write({
-            'analytic_account_id': analytic_account.id
-        })
-        return super().action_confirm()
