@@ -10,6 +10,7 @@
     'website': 'https://www.jarsa.com.mx',
     'license': 'AGPL-3',
     'depends': [
+        'sale_review',
         'sale_order_version',
         'sale_order_sequence',
     ],

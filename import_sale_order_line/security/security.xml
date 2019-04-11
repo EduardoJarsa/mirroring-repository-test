@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+    <record id="group_charge_csv" model="res.groups">
+        <field name="name">Charge CSV to quotations</field>
+        <field name="category_id" ref="base.module_category_sales_management"/>
+        <field name="comment">This user can charge csv.</field>
+    </record>
+</odoo>

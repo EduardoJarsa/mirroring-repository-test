@@ -17,21 +17,7 @@
             </xpath>
             <xpath expr="//header/button[@name='action_confirm']" position="replace">
                 <button name="action_confirm" string="Confirm Sale"  class="btn-primary" type="object" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent']), ('authorized', '=', False)]}"/>
-                <button name="authorize_sale_order" class="btn-primary" attrs="{'invisible': [('authorized', '=', True)]}" string="Authorize" groups="sale_authorization.group_sale_authorize" type="object"/>
-            </xpath>
-        </field>
-    </record>
-    <record id="view_sale_order_version_inherit_sale_authorization_form_iho" model="ir.ui.view">
-        <field name="name">sale.order.version.form.sale.authorization</field>
-        <field name="model">sale.order</field>
-        <field name="priority">100</field>
-        <field name="inherit_id" ref="sale_order_version.view_sale_order_version_inherit_form_iho"/>
-        <field name="arch" type="xml">
-            <xpath expr="//button[@name='%(sale_order_version.action_sale_order_version_wizard)d']" position="attributes">
-                <attribute name="attrs">{'invisible': [('authorized', '=', True)]}</attribute>
-            </xpath>
-            <xpath expr="//button[@name='%(sale_order_version.action_sale_order_version_create_wizard)d']" position="attributes">
-                <attribute name="attrs">{'invisible': [('authorized', '=', True)]}</attribute>
+                <button name="authorize_sale_order" class="btn-primary" attrs="{'invisible': ['|', ('authorized', '=', True), ('review_so', '=', False)]}" string="Authorize" groups="sale_authorization.group_sale_authorize" type="object"/>
             </xpath>
         </field>
     </record>

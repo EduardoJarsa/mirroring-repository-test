@@ -26,6 +26,14 @@ class Partner(models.Model):
         self.country_id = self.env.ref('base.mx')
         self.state_id = self.env.ref('base.state_mx_df')
 
+    @api.onchange('state_id')
+    def _onchange_country_id(self):
+        res = {'domain': {'city_id': []}}
+        if self.state_id:
+            res['domain']['city_id'] = [
+                ('state_id', 'in', [self.state_id.id, False])]
+        return res
+
     @api.model
     def _fields_view_get_address(self, arch):
         arch = super(Partner, self)._fields_view_get_address(arch)
@@ -57,4 +65,4 @@ class Partner(models.Model):
                 arch = arch.replace(
                     city_id_placeholder,
                     city_id_placeholder_mod)
-            return arch
+        return arch

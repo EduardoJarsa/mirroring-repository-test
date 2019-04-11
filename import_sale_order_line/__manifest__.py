@@ -16,6 +16,7 @@
         'stock',
     ],
     'data': [
+        'security/security.xml',
         'data/product_product.xml',
         'wizards/import_sale_order_line_wizard_view.xml',
         'views/import_sale_order_line_view.xml',

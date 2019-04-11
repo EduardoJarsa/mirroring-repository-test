@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//header/field[@name='state']" position="before">
-                <button name="%(import_sale_order_line.import_sale_order_line_iho_action)d" type="action" string="Import Sale Order Line" class="btn-primary"/>
+                <button name="%(import_sale_order_line.import_sale_order_line_iho_action)d" type="action" string="Import Sale Order Line" class="btn-primary" groups="import_sale_order_line.group_charge_csv"/>
             </xpath>
         </field> 
     </record>
