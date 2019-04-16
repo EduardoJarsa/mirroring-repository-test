@@ -1,12 +1,14 @@
 image: vauxoo/odoo-80-image-shippable-auto
 stages:
   - test
+  - test_build
+  - build
 
 variables:
     PSQL_VERSION: "9.6"
     VERSION: "12.0"
     TRAVIS_PYTHON_VERSION: "3.6"
-    ODOO_REPO: "vauxoo/odoo"
+    ODOO_REPO: "jarsa/odoo"
     ODOO_BRANCH: "12.0"
     BASE_IMAGE: "vauxoo/odoo-120-image"
     COUNTRY: "MX"
@@ -51,4 +53,19 @@ test:
     - travis_install_nightly
     - travis_run_tests
     - travis_after_tests_success || true
-    - coverage report -m --show-missing --rcfile=${TRAVIS_BUILD_DIR}/.coveragerc || true
+    - coverage html --rcfile=${CI_PROJECT_DIR}/.coveragerc -d $CI_COMMIT_REF_SLUG || true
+    - coverage report -m --show-missing --rcfile=${CI_PROJECT_DIR}/.coveragerc || true
+
+build:
+  stage: build
+  image: quay.io/vauxoo/dockerv:latest
+  tags:
+    - build
+  variables:
+    INSTALL: "tecmur"
+    CUSTOMER: "tecmur"
+
+  script:
+    - deployvcmd gitlab_tools check_keys
+    - deployvcmd gitlab_tools test_images --push_image
+
