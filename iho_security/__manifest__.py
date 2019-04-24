@@ -13,7 +13,7 @@
         'sale_crm',
     ],
     'data': [
-        'security/crm_security.xml',
+        'security/security.xml',
         'security/ir.model.access.csv',
         'views/ir_ui_menu_view.xml',
     ],
