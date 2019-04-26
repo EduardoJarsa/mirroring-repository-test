@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
     <record id="group_sale_review" model="res.groups">
-        <field name="name">Review Sale Orders</field>
-        <field name="comment">This user can review sale orders.</field>
+        <field name="name">Request review quotations.</field>
+        <field name="comment">This user can request review quotations.</field>
     </record>
 </odoo>

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-27 21:41+0000\n"
-"PO-Revision-Date: 2019-02-27 21:41+0000\n"
+"POT-Creation-Date: 2019-04-29 15:30+0000\n"
+"PO-Revision-Date: 2019-04-29 15:30+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,30 +16,72 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: sale_review
-#: code:addons/sale_review/models/sale_order.py:17
+#: code:addons/sale_review/models/sale_order.py:33
 #, python-format
-msgid "<strong>%s</strong> canceled review<strong>%s %s</strong>."
-msgstr "<strong>%s</strong> cancelado la revisión<strong>%s %s</strong>."
+msgid "A seller sr has not been defined."
+msgstr "No se ha definido un vendedor sr."
+
+#. module: sale_review
+#: model_terms:ir.ui.view,arch_db:sale_review.view_sale_order_review_wizard
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: sale_review
+#: model:ir.model.fields,field_description:sale_review.field_sale_order_review_wizard__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: sale_review
+#: model:ir.model.fields,field_description:sale_review.field_sale_order_review_wizard__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: sale_review
+#: model:ir.model.fields,field_description:sale_review.field_sale_order_review_wizard__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: sale_review
+#: model:ir.model.fields,field_description:sale_review.field_sale_order_review_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: sale_review
+#: model:ir.model.fields,field_description:sale_review.field_sale_order_review_wizard____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: sale_review
+#: model:ir.model.fields,field_description:sale_review.field_sale_order_review_wizard__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: sale_review
+#: model:ir.model.fields,field_description:sale_review.field_sale_order_review_wizard__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: sale_review
+#: model_terms:ir.ui.view,arch_db:sale_review.view_sale_order_review_wizard
+msgid "Request review"
+msgstr "Solicitar revisión"
 
 #. module: sale_review
 #: model_terms:ir.ui.view,arch_db:sale_review.view_sale_order_inherit_form_sale_review
-msgid "Cancel review"
-msgstr "Cancelar revisión"
+msgid "Request to review"
+msgstr "Solicitar revisión"
+
+#. module: sale_review
+#: code:addons/sale_review/models/sale_order.py:44
+#: code:addons/sale_review/wizard/sale_order_review_wizard.py:33
+#, python-format
+msgid "Request to review quotation."
+msgstr "Solicitar revisión de cotización."
 
 #. module: sale_review
 #: model:res.groups,name:sale_review.group_sale_review
-msgid "Review Sale Orders"
-msgstr "Revisar pedido de venta"
-
-#. module: sale_review
-#: model:ir.model.fields,field_description:sale_review.field_sale_order__review_so
-msgid "Review So"
-msgstr "Revisar SO"
-
-#. module: sale_review
-#: model_terms:ir.ui.view,arch_db:sale_review.view_sale_order_inherit_form_sale_review
-msgid "Reviewed"
-msgstr "Revisada"
+msgid "Request review quotations."
+msgstr "Solicitar revisión de cotización."
 
 #. module: sale_review
 #: model:ir.model,name:sale_review.model_sale_order
@@ -47,18 +89,22 @@ msgid "Sale Order"
 msgstr "Pedido de venta"
 
 #. module: sale_review
-#: code:addons/sale_review/models/sale_order.py:24
+#: code:addons/sale_review/models/sale_order.py:14
 #, python-format
-msgid "The <strong>%s %s</strong> was reviewed by <strong>%s</strong>."
-msgstr "La <strong>%s %s</strong> fué revisada por: <strong>%s</strong>."
+msgid "Select activity user"
+msgstr "Selecciona el usuario asignado a la actividad."
 
 #. module: sale_review
-#: code:addons/sale_review/models/sale_order.py:28
-#, python-format
-msgid "The <strong>%s</strong> was reviewed by <strong>%s</strong>."
-msgstr "La <strong>%s</strong> fué revisada por: <strong>%s</strong>."
+#: model:ir.model.fields,field_description:sale_review.field_sale_order_review_wizard__seller_ids
+msgid "Seller senior"
+msgstr "Vendedor Sr"
 
 #. module: sale_review
 #: model:res.groups,comment:sale_review.group_sale_review
 msgid "This user can review sale orders."
 msgstr "Este usuario puede revisar pedidos de venta"
+
+#. module: sale_review
+#: model:ir.model,name:sale_review.model_sale_order_review_wizard
+msgid "sale.order.review.wizard"
+msgstr ""

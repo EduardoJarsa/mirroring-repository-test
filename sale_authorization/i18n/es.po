@@ -17,8 +17,8 @@ msgstr ""
 
 #. module: sale_authorization
 #: model_terms:ir.ui.view,arch_db:sale_authorization.view_sale_order_inherit_form_sale_authorization
-msgid "Authorize"
-msgstr "Autorizar"
+msgid "Authorized by customer"
+msgstr "Autorizado por el cliente"
 
 #. module: sale_authorization
 #: model:res.groups,name:sale_authorization.group_sale_authorize

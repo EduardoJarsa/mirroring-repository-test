@@ -6,20 +6,8 @@
         <field name="priority">100</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//button[@name='preview_sale_order']" position="after">
-                <field name="review_so" invisible="1"/>
-                <button name="review_sale_order"
-                    groups="sale_review.group_sale_review"
-                    class="btn-primary" type="object" string="Reviewed" attrs="{'invisible': [('review_so', '!=', False)]}"/>
-                <button name="review_sale_order"
-                    groups="sale_review.group_sale_review"
-                    class="btn-primary" type="object" string="Cancel review" attrs="{'invisible': [('review_so', '!=', True)]}"/>
-            </xpath>
-            <xpath expr="//button[@name='%(sale_order_version.action_sale_order_version_create_wizard)d']" position="attributes">
-                <attribute name="attrs">{'invisible': [('review_so', '=', True)]}</attribute>
-            </xpath>
-            <xpath expr="//button[@name='%(sale_order_version.action_sale_order_version_wizard)d']" position="attributes">
-                <attribute name="attrs">{'invisible': [('review_so', '=', True)]}</attribute>
+            <xpath expr="//button[@name='preview_sale_order']" position="after">         
+                <button name="review_sale_order" type="object" string="Request to review" class="btn-primary" groups="sale_review.group_sale_review"/>
             </xpath>
         </field>
     </record>

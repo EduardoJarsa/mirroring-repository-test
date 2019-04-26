@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_sale_order_review_wizard" model="ir.ui.view">
+        <field name="name">Sale Order Review Wizard</field>
+        <field name="model">sale.order.review.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="seller_ids"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button class="oe_highlight" name="request_review_so" string="Request review" type="object"/>
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

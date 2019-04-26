@@ -69,8 +69,8 @@ msgstr "Confirmado"
 
 #. module: sale_order_version
 #: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_inherit_form_iho
-msgid "Create Version"
-msgstr "Crear Version"
+msgid "Version approve"
+msgstr "Aprobar version"
 
 #. module: sale_order_version
 #: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_create_wizard

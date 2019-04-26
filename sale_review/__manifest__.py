@@ -11,9 +11,11 @@
     'license': 'LGPL-3',
     'depends': [
         'sale_order_version',
+        'iho_security',
     ],
     'data': [
         'security/security.xml',
         'views/sale_order_view.xml',
+        'wizard/sale_order_version_wizard_view.xml',
     ],
 }

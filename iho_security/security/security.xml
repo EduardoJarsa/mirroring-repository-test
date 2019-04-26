@@ -75,7 +75,7 @@
     <record id="sales_cell_manager" model="ir.rule">
         <field name="name">Sales Cell Manager</field>
         <field name="model_id" ref="sale.model_sale_order"/>
-        <field name="domain_force">[('opportunity_id', '!=', False), ('opportunity_id.team_id.user_id', '=', user.id)]</field>
+        <field name="domain_force">[('team_id.user_id', '=', user.id)]</field>
         <field name="groups" eval="[(4, ref('iho_security.group_sale_salesman_readonly'))]"/>
         <field name="perm_create" eval="False"/>
         <field name="perm_write" eval="False"/>
