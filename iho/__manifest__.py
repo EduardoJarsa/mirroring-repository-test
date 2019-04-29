@@ -24,6 +24,7 @@
         'sale_name_to_purchase',
         'import_sale_order_line',
         'sale_review',
+        'stock_manual_route',
     ],
     'data': [
         'views/res_partner_view.xml',

@@ -76,23 +76,30 @@ class StockCreateManualRouteWizard(models.TransientModel):
         picking_obj = self.env['stock.picking']
         active_id = self._context.get('active_id')
         src_picking = picking_obj.browse(active_id)
-        picking_type_out = src_picking.picking_type_id.warehouse_id.out_type_id
-        picking_type_in = self.warehouse_id.in_type_id
-        transit_location = src_picking.company_id.internal_transit_location_id
+        picking_type_out = src_picking.picking_type_id.warehouse_id.int_type_id
+        picking_type_in = self.warehouse_id.int_type_id
+        transit_location = (
+            self.env.user.company_id.internal_transit_location_id)
         dest_location = self.warehouse_id.lot_stock_id
         scheduled_date = self.programed_date + timedelta(days=1)
         # Create the out picking
         out_picking = picking_obj.create(
             self._prepare_picking(
-                src_picking, picking_type_out,
-                src_picking.location_id, transit_location, scheduled_date
+                picking=src_picking,
+                picking_type=picking_type_out,
+                src_location=src_picking.location_dest_id,
+                dest_location=transit_location,
+                scheduled_date=scheduled_date,
             )
         )
         # Create the In picking
         in_picking = picking_obj.create(
             self._prepare_picking(
-                src_picking, picking_type_in,
-                transit_location, dest_location, scheduled_date
+                picking=src_picking,
+                picking_type=picking_type_in,
+                src_location=transit_location,
+                dest_location=dest_location,
+                scheduled_date=scheduled_date,
             )
         )
         return src_picking, out_picking, in_picking
