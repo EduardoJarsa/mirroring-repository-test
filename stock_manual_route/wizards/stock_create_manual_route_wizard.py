@@ -112,18 +112,6 @@ class StockCreateManualRouteWizard(models.TransientModel):
             dest_location = self.warehouse_id.lot_stock_id
             move_dest_ids = move.purchase_line_id.move_dest_ids
             orig_dest_location = move_dest_ids.mapped('location_id')
-            # If the destination location is the same location than
-            # the origin location of the delivery order we only
-            # link the moves to complete the delivery
-            if orig_dest_location == dest_location:
-                move_dest_ids.write({
-                    'move_orig_ids': [(6, 0, move.ids)],
-                })
-                move.write({
-                    'move_dest_ids': [(6, 0, move_dest_ids.ids)],
-                })
-                link_move = True
-                continue
             # Create the output move
             out_move = sm_obj.create(
                 self._prepare_stock_move(move, out_picking))
@@ -133,6 +121,17 @@ class StockCreateManualRouteWizard(models.TransientModel):
             # Link Moves
             out_move.write({'move_dest_ids': [(4, in_move.id)]})
             in_move.write({'move_orig_ids': [(4, out_move.id)]})
+            # If the destination location is the same location than
+            # the origin location of the delivery order we only
+            # link the moves to complete the delivery
+            if orig_dest_location == dest_location:
+                move_dest_ids.write({
+                    'move_orig_ids': [(6, 0, in_move.ids)],
+                })
+                in_move.write({
+                    'move_dest_ids': [(6, 0, move_dest_ids.ids)],
+                })
+                link_move = True
         return link_move
 
     @api.model
@@ -168,7 +167,7 @@ class StockCreateManualRouteWizard(models.TransientModel):
         for move in src_picking.move_lines:
             # Create the output move
             out_move = sm_obj.create(
-                self._prepare_stock_move(move, out_picking, scheduled_date))
+                self._prepare_stock_move(move, out_picking))
             move_dest_ids = move.purchase_line_id.move_dest_ids
             move_dest_ids.write({
                 'move_orig_ids': [(6, 0, out_move.ids)],
@@ -185,20 +184,13 @@ class StockCreateManualRouteWizard(models.TransientModel):
         # Process the pickings
         src_picking, out_picking, in_picking = self.create_pickings()
         # Create or Link the moves
-        link_move = self.create_moves(src_picking, out_picking, in_picking)
-        if not link_move:
-            # Confirm the new pickings
-            out_picking.action_confirm()
-            out_picking.action_assign()
-            in_picking.action_confirm()
-            in_picking.action_assign()
-            picking_ids = [out_picking.id, in_picking.id]
-        else:
-            pickings = src_picking.move_lines.mapped(
-                'move_dest_ids.picking_id')
-            pickings.action_assign()
-            picking_ids = pickings.ids
-            (out_picking + in_picking).unlink()
+        self.create_moves(src_picking, out_picking, in_picking)
+        # Confirm the new pickings
+        out_picking.action_confirm()
+        out_picking.action_assign()
+        in_picking.action_confirm()
+        in_picking.action_assign()
+        picking_ids = [out_picking.id, in_picking.id]
         # Return the action to see the pickings created
         res = self.prepare_action()
         res.update({

@@ -8,6 +8,7 @@ from odoo.exceptions import UserError
 
 class StockPicking(models.Model):
     _inherit = "stock.picking"
+    _order = 'id asc'
 
     no_route = fields.Boolean(
         compute='_compute_no_route',
