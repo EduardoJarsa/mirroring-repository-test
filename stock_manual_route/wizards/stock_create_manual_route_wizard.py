@@ -151,32 +151,25 @@ class StockCreateManualRouteWizard(models.TransientModel):
     @api.model
     def run_customer_route(self):
         picking_obj = self.env['stock.picking']
-        sm_obj = self.env['stock.move']
         active_id = self._context.get('active_id')
         src_picking = picking_obj.browse(active_id)
-        picking_type_out = src_picking.picking_type_id.warehouse_id.out_type_id
-        transit_location = src_picking.company_id.internal_transit_location_id
         scheduled_date = self.programed_date + timedelta(days=1)
         # Create the out picking
-        out_picking = picking_obj.create(
-            self._prepare_picking(
-                src_picking, picking_type_out,
-                src_picking.location_dest_id, transit_location, scheduled_date
-            )
-        )
         for move in src_picking.move_lines:
             # Create the output move
-            out_move = sm_obj.create(
-                self._prepare_stock_move(move, out_picking))
             move_dest_ids = move.purchase_line_id.move_dest_ids
             move_dest_ids.write({
-                'move_orig_ids': [(6, 0, out_move.ids)],
-                'location_id': transit_location.id,
+                'move_orig_ids': [(6, 0, move.ids)],
+                'location_id': src_picking.location_dest_id.id,
             })
-        out_picking.action_confirm()
-        out_picking.action_assign()
+        picking = move_dest_ids.picking_id
+        picking.write({
+            'location_id': src_picking.location_dest_id.id,
+            'scheduled_date': scheduled_date,
+        })
+        picking.action_assign()
         res = self.prepare_action()
-        res['res_id'] = out_picking.id
+        res['res_id'] = picking.id
         return res
 
     @api.model
