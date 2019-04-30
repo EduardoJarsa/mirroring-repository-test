@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
     <record id="group_create_quotations" model="res.groups">
-        <field name="name">Create and Keep Quotation's Versions</field>        
+        <field name="name">Create Quotation's Versions</field>        
         <field name="category_id" ref="base.module_category_sales_management"/>
-        <field name="comment">The user will have access to create and keep quotation's versions.</field>
+        <field name="comment">The user will have access to create quotation's versions.</field>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+        <record id="group_restore_quotations" model="res.groups">
+        <field name="name">Restore Quotation's Versions</field>        
+        <field name="category_id" ref="base.module_category_sales_management"/>
+        <field name="comment">The user will have access to restore quotation's versions.</field>
         <field name="users" eval="[(4, ref('base.user_admin'))]"/>
     </record>
 </odoo>

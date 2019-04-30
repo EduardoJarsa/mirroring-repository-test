@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-17 04:59+0000\n"
-"PO-Revision-Date: 2019-02-17 04:59+0000\n"
+"POT-Creation-Date: 2019-05-01 00:01+0000\n"
+"PO-Revision-Date: 2019-05-01 00:01+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr "Versión Activa"
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__image_sol
 msgid "Add image"
-msgstr "Agregar Imagen"
+msgstr "Agregar imagen"
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__analytic_account_id
@@ -68,19 +68,14 @@ msgid "Confirmed"
 msgstr "Confirmado"
 
 #. module: sale_order_version
-#: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_inherit_form_iho
-msgid "Version approve"
-msgstr "Aprobar version"
+#: model:res.groups,name:sale_order_version.group_create_quotations
+msgid "Create Quotation's Versions"
+msgstr "Crear Versión de Cotización"
 
 #. module: sale_order_version
 #: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_create_wizard
 msgid "Create Versions"
 msgstr "Crear Versiones"
-
-#. module: sale_order_version
-#: model:res.groups,name:sale_order_version.group_create_quotations
-msgid "Create and Keep Quotation's Versions"
-msgstr "Crear y Mantener versiones de Cotizaciones"
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__create_uid
@@ -174,7 +169,7 @@ msgstr "Fecha prevista"
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__iho_factor
 msgid "Factor"
-msgstr "Factor"
+msgstr ""
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__fiscal_position_id
@@ -197,7 +192,7 @@ msgstr "Tiene Lineas"
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__id
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_wizard__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__iho_currency_id
@@ -227,7 +222,7 @@ msgstr "Costo de Compra IHO"
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__incoterm
 msgid "Incoterms"
-msgstr "Incoterms"
+msgstr ""
 
 #. module: sale_order_version
 #: model:ir.model.fields,help:sale_order_version.field_sale_order_version__incoterm
@@ -374,6 +369,11 @@ msgid "Reporting"
 msgstr "Informes"
 
 #. module: sale_order_version
+#: model:res.groups,name:sale_order_version.group_restore_quotations
+msgid "Restore Quotation's Versions"
+msgstr "Restaurar Versión de Cotización"
+
+#. module: sale_order_version
 #: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_inherit_form_iho
 msgid "Restore Version"
 msgstr "Restaurar Version"
@@ -437,17 +437,17 @@ msgstr "Sección"
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__iho_sell_1
 msgid "Sell 1"
-msgstr "Sell 1"
+msgstr ""
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__iho_sell_2
 msgid "Sell 2"
-msgstr "Sell 2"
+msgstr ""
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__iho_sell_3
 msgid "Sell 3"
-msgstr "Sell 3"
+msgstr ""
 
 #. module: sale_order_version
 #: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_form_iho
@@ -467,7 +467,7 @@ msgstr "Documento origen"
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__price_subtotal
 msgid "Subtotal"
-msgstr "Subtotal"
+msgstr ""
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__tag_ids
@@ -508,13 +508,18 @@ msgstr "La comunicación de pago de esta orden de venta."
 
 #. module: sale_order_version
 #: model:res.groups,comment:sale_order_version.group_create_quotations
-msgid "The user will have access to create and keep quotation's versions."
-msgstr "El usuario tendrá acceso para crear y mantener las versiones de cotización."
+msgid "The user will have access to create quotation's versions."
+msgstr "El usuario tendrá acceso a crear versiones de cotización."
+
+#. module: sale_order_version
+#: model:res.groups,comment:sale_order_version.group_restore_quotations
+msgid "The user will have access to restore quotation's versions."
+msgstr "EL usuario tendrá acceso a restaurar versiones de cotización."
 
 #. module: sale_order_version
 #: model:ir.model.fields,help:sale_order_version.field_sale_order_version_create_wizard__boolean_switch
 msgid "This field helps to control the invisible property of the field below \"use_same_prefix\". If there is any line, the field will appear, in other way, the field will remain hidden."
-msgstr "Este campo ayuda a controlar la propiedad invisible del campo debajo de "use_same_prefix \". Si hay alguna línea, el campo aparecerá, de otra manera, el campo permanecerá oculto."
+msgstr "Este campo ayuda a controlar la propiedad invisible del campo debajo de \"use_same_prefix \". Si hay alguna línea, el campo aparecerá, de otra manera, el campo permanecerá oculto."
 
 #. module: sale_order_version
 #: model:ir.model.fields,help:sale_order_version.field_sale_order_version__commitment_date
@@ -559,6 +564,11 @@ msgstr "Versión"
 
 #. module: sale_order_version
 #: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_inherit_form_iho
+msgid "Version approve"
+msgstr "Aprobar version"
+
+#. module: sale_order_version
+#: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_inherit_form_iho
 msgid "Versions"
 msgstr "Versiones"
 
@@ -570,20 +580,20 @@ msgstr "Almacén"
 #. module: sale_order_version
 #: model:ir.model,name:sale_order_version.model_sale_order_version
 msgid "sale.order.version"
-msgstr "sale.order.version"
+msgstr ""
 
 #. module: sale_order_version
 #: model:ir.model,name:sale_order_version.model_sale_order_version_create_wizard
 msgid "sale.order.version.create.wizard"
-msgstr "sale.order.version.create.wizard"
+msgstr ""
 
 #. module: sale_order_version
 #: model:ir.model,name:sale_order_version.model_sale_order_version_line
 msgid "sale.order.version.line"
-msgstr "sale.order.version.line"
+msgstr ""
 
 #. module: sale_order_version
 #: model:ir.model,name:sale_order_version.model_sale_order_version_wizard
 msgid "sale.order.version.wizard"
-msgstr "sale.order.version.wizard"
+msgstr ""
 
