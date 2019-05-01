@@ -112,16 +112,22 @@ class Import2020Wizard(models.TransientModel):
             if not item:
                 sat_code = self.env['ir.default'].get(
                     model, 'l10n_mx_edi_code_sat_id')
-                item = self.env[model].create({
+                product_dict = {
                     'name': str(name),
                     'default_code': str(value),
-                    'list_price': 1.0,
+                    'list_price': delear_price,
                     'type': 'product',
                     'purchase_ok': buy,
                     'optional_product_ids': optional_product_id,
                     'route_ids': [(6, 0, routes)],
                     'l10n_mx_edi_code_sat_id': sat_code or False,
-                })
+                }
+                if not delear_price:
+                    category_no_cost = self.env.ref(
+                        'sif_interface.product_category_no_cost_materials'
+                        )
+                    product_dict['categ_id'] = category_no_cost.id
+                item = self.env[model].create(product_dict)
             if vendor:
                 sale_order = self.env[
                     self._context.get('active_model')].browse(

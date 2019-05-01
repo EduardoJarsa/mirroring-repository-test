@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * sif_interface
+#	* sif_interface
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-02-18 18:54+0000\n"
-"PO-Revision-Date: 2019-02-18 18:54+0000\n"
+"POT-Creation-Date: 2019-05-01 17:21+0000\n"
+"PO-Revision-Date: 2019-05-01 17:21+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: sif_interface
-#: code:addons/sif_interface/wizard/import_2020_wizard.py:238
+#: code:addons/sif_interface/wizard/import_2020_wizard.py:254
 #, python-format
 msgid "\n"
 "\n"
@@ -50,6 +50,11 @@ msgstr "Línea de Lista de Materiales"
 #: model_terms:ir.ui.view,arch_db:sif_interface.view_import_2020_wizard_form
 msgid "Cancel"
 msgstr "Cancelar"
+
+#. module: sif_interface
+#: model:product.category,name:sif_interface.product_category_cdv
+msgid "CdV"
+msgstr ""
 
 #. module: sif_interface
 #: model_terms:ir.ui.view,arch_db:sif_interface.view_export_sif_wizard
@@ -119,7 +124,7 @@ msgstr "Exportar archivos XML de 2020 a órdenes de venta"
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__iho_factor
 msgid "Factor"
-msgstr "Factor"
+msgstr ""
 
 #. module: sif_interface
 #: selection:export.sif.wizard,state:0
@@ -130,7 +135,7 @@ msgstr "Obtener"
 #: model:ir.model.fields,field_description:sif_interface.field_export_sif_wizard__id
 #: model:ir.model.fields,field_description:sif_interface.field_import_2020_wizard__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__iho_currency_id
@@ -192,6 +197,11 @@ msgstr "Última actualización el"
 #: model:ir.model.fields,field_description:sif_interface.field_export_sif_wizard__name
 msgid "Name"
 msgstr "Nombre"
+
+#. module: sif_interface
+#: model:product.category,name:sif_interface.product_category_no_cost_materials
+msgid "No cost Materials"
+msgstr "Materiales Sin Costo"
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_mrp_bom_line__vendor_id
@@ -266,7 +276,7 @@ msgid "Supplier Pricelist"
 msgstr "Tarifa de proveedor"
 
 #. module: sif_interface
-#: code:addons/sif_interface/wizard/import_2020_wizard.py:199
+#: code:addons/sif_interface/wizard/import_2020_wizard.py:215
 #, python-format
 msgid "The %s product does not have a configured Alias.\n"
 "Please verify the data of the xml."
@@ -282,7 +292,7 @@ msgstr "El xml tiene un error, por favor compruebe sus datos. \n"
 " Error: %s"
 
 #. module: sif_interface
-#: code:addons/sif_interface/wizard/import_2020_wizard.py:294
+#: code:addons/sif_interface/wizard/import_2020_wizard.py:310
 #, python-format
 msgid "The file %s was correctly loaded. "
 msgstr "El archivo %s fue cargado correctamente."
@@ -293,7 +303,7 @@ msgid "The xml file exported by the system"
 msgstr "El archivo xml exportado por el sistema."
 
 #. module: sif_interface
-#: code:addons/sif_interface/wizard/import_2020_wizard.py:174
+#: code:addons/sif_interface/wizard/import_2020_wizard.py:190
 #, python-format
 msgid "Verify that file is .xml, please!"
 msgstr "¡Verifique que el archivo es .xml por favor!"
@@ -325,4 +335,3 @@ msgstr "Necesitas definir una moneda de compra para el producto [%s]%s"
 #: model_terms:ir.ui.view,arch_db:sif_interface.view_export_sif_wizard
 msgid "Your File is ready to download.!!!"
 msgstr "Su archivo está listo para descargar."
-
