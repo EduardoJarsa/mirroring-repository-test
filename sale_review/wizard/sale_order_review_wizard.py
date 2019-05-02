@@ -27,9 +27,11 @@ class SaleOrderReviewWizard(models.TransientModel):
         activity_data = {
             'res_id': so.id,
             'activity_type_id': self.env.ref(
-                'mail.mail_activity_data_todo').id,
+                'sale_review.activity_type_sale_review_quotations').id,
             'res_model_id': self.env.ref('sale.model_sale_order').id,
             'user_id': self.seller_ids.user_ids.id,
             'summary': _('Request to review quotation.'),
         }
+        so.send_quotation(
+            self.seller_ids.name, self.seller_ids.email, so.id)
         return self.env['mail.activity'].create(activity_data)

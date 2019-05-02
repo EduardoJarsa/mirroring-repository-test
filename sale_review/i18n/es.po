@@ -6,14 +6,33 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-29 15:30+0000\n"
-"PO-Revision-Date: 2019-04-29 15:30+0000\n"
+"POT-Creation-Date: 2019-05-06 19:05+0000\n"
+"PO-Revision-Date: 2019-05-06 19:05+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: sale_review
+#: model:mail.template,body_html:sale_review.email_template_review_sale
+msgid "<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        Dear ${ctx.get('seller_sr_name')},\n"
+"\n"
+"        Please enter to the quote ${object.name}, for review in it case create the new quotation, it will send to the customer ${object.partner_id.name}. If you have questions, can include in the same document.\n"
+"    </p>\n"
+"</div>\n"
+"            "
+msgstr "<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        Estimado ${ctx.get('seller_sr_name')},\n"
+"\n"
+"        Favor de entrar a la cotización ${object.name}, para Revisar y en su caso crear la nueva version de la cotizacion que se va a presentar a ${object.partner_id.name}. Si tiene comentarios, los puede incluir en el mismo documento.\n"
+"    </p>\n"
+"</div>\n"
+"            "
 
 #. module: sale_review
 #: code:addons/sale_review/models/sale_order.py:33
@@ -67,26 +86,36 @@ msgid "Request review"
 msgstr "Solicitar revisión"
 
 #. module: sale_review
+#: model:res.groups,name:sale_review.group_sale_review
+msgid "Request review quotations."
+msgstr "Solicitar revisión de cotización."
+
+#. module: sale_review
 #: model_terms:ir.ui.view,arch_db:sale_review.view_sale_order_inherit_form_sale_review
 msgid "Request to review"
 msgstr "Solicitar revisión"
 
 #. module: sale_review
-#: code:addons/sale_review/models/sale_order.py:44
+#: code:addons/sale_review/models/sale_order.py:47
 #: code:addons/sale_review/wizard/sale_order_review_wizard.py:33
 #, python-format
 msgid "Request to review quotation."
 msgstr "Solicitar revisión de cotización."
 
 #. module: sale_review
-#: model:res.groups,name:sale_review.group_sale_review
-msgid "Request review quotations."
-msgstr "Solicitar revisión de cotización."
+#: model:mail.activity.type,name:sale_review.activity_type_sale_review_quotations
+msgid "Review quotation"
+msgstr "Revisar cotización"
+
+#. module: sale_review
+#: model:mail.template,subject:sale_review.email_template_review_sale
+msgid "Review quote by ${object.user_id.name}"
+msgstr "Revisar cotización de ${object.user_id.name}"
 
 #. module: sale_review
 #: model:ir.model,name:sale_review.model_sale_order
 msgid "Sale Order"
-msgstr "Pedido de venta"
+msgstr "Cotización"
 
 #. module: sale_review
 #: code:addons/sale_review/models/sale_order.py:14
@@ -101,8 +130,8 @@ msgstr "Vendedor Sr"
 
 #. module: sale_review
 #: model:res.groups,comment:sale_review.group_sale_review
-msgid "This user can review sale orders."
-msgstr "Este usuario puede revisar pedidos de venta"
+msgid "This user can request review quotations."
+msgstr "Este usuario puede revisar cotizaciones"
 
 #. module: sale_review
 #: model:ir.model,name:sale_review.model_sale_order_review_wizard

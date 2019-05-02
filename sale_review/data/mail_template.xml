@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="email_template_review_sale" model="mail.template">
+        <field name="name">Sales Order: Send activity by email</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="email_from">${object.user_id.email_formatted |safe}</field>
+        <field name="email_to">${ctx['email']}</field>
+        <field name="subject">Review quote by ${object.user_id.name}</field>
+        <field name="lang">${object.company_id.partner_id.lang}</field>
+        <field name="body_html" type="html">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Dear ${ctx.get('seller_sr_name')},
+
+                    Please enter to the quote ${object.name}, for review in it case create the new quotation, it will send to the customer ${object.partner_id.name}. If you have questions, can include in the same document.
+                </p>
+            </div>
+        </field>
+        <field name="user_signature" eval="False"/>
+        <field name="auto_delete" eval="True"/>
+    </record>
+</odoo>

@@ -44,7 +44,7 @@ msgstr "Aprobada"
 #. module: sale_order_version
 #: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_wizard
 msgid "Back to previous version"
-msgstr "Volver a otra version"
+msgstr "Volver a otra versión"
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_create_wizard__boolean_switch
@@ -366,7 +366,7 @@ msgstr "Restaurar Versión de Cotización"
 #. module: sale_order_version
 #: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_inherit_form_iho
 msgid "Restore Version"
-msgstr "Restaurar Version"
+msgstr "Restaurar Versión"
 
 #. module: sale_order_version
 #: selection:sale.order.version,state:0
@@ -555,7 +555,7 @@ msgstr "Versión"
 #. module: sale_order_version
 #: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_inherit_form_iho
 msgid "Version approve"
-msgstr "Aprobar version"
+msgstr "Aprobar versión"
 
 #. module: sale_order_version
 #: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_inherit_form_iho

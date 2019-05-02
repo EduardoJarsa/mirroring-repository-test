@@ -14,7 +14,10 @@
         'iho_security',
     ],
     'data': [
+        'data/mail_template.xml',
+        'data/activity_type.xml',
         'security/security.xml',
+        'security/ir.model.access.csv',
         'views/sale_order_view.xml',
         'wizard/sale_order_version_wizard_view.xml',
     ],

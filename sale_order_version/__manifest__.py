@@ -12,14 +12,14 @@
     'depends': [
         'sale_stock',
         'sale_crm',
-        'sif_interface',
+        'sif_interface'
     ],
     'data': [
         'security/security.xml',
+        'security/ir.model.access.csv',
         'wizard/sale_order_version_wizard_view.xml',
         'wizard/sale_order_version_create_wizard.xml',
         'views/sale_order_view.xml',
         'views/sale_order_version_view.xml',
-        'security/ir.model.access.csv',
     ],
 }

@@ -21,6 +21,13 @@ class SaleOrder(models.Model):
         }
 
     @api.multi
+    def send_quotation(self, name, email, rec_id):
+        template = self.env.ref('sale_review.email_template_review_sale')
+        return template.with_context(
+            seller_sr_name=name,
+            email=email).send_mail(rec_id)
+
+    @api.multi
     def review_sale_order(self):
         for rec in self:
             users_senior_id = []
@@ -35,12 +42,16 @@ class SaleOrder(models.Model):
             if len(users_senior_id) > 1:
                 return rec.with_context(
                     sellers_sr_id=users_senior_id).call_wizard()
+            user_id = self.env['res.users'].search(
+                [('id', '=', users_senior_id[0])])
             activity_data = {
                 'res_id': rec.id,
                 'activity_type_id':
-                    self.env.ref('mail.mail_activity_data_todo').id,
+                    self.env.ref(
+                        'sale_review.activity_type_sale_review_quotations').id,
                 'res_model_id': self.env.ref('sale.model_sale_order').id,
                 'user_id': users_senior_id[0],
                 'summary': _('Request to review quotation.'),
             }
-            self.env['mail.activity'].create(activity_data)
+            self.send_quotation(user_id.name, user_id.partner_id.email, rec.id)
+            return self.env['mail.activity'].create(activity_data)

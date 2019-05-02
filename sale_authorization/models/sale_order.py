@@ -9,6 +9,14 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     authorized = fields.Boolean()
+    has_version = fields.Boolean(compute='_compute_has_version')
+
+    @api.multi
+    @api.depends('order_version_ids')
+    def _compute_has_version(self):
+        for rec in self:
+            if rec.active_version_id.state == 'draft':
+                self.has_version = True
 
     @api.multi
     def authorize_sale_order(self):
