@@ -30,7 +30,7 @@ class SaleOrder(models.Model):
         new_name = self.team_id.confirmed_sequence_id.next_by_id()
         self.active_version_id.sudo().state = 'approved'
         analytic_account = self.env[
-            'account.analytic.account'].create(
+            'account.analytic.account'].sudo().create(
                 {
                     'name': '%s - %s' % (
                         new_name, self.active_version_name),
