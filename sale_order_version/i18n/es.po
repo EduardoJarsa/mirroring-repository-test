@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-01 00:01+0000\n"
-"PO-Revision-Date: 2019-05-01 00:01+0000\n"
+"POT-Creation-Date: 2019-05-03 12:40+0000\n"
+"PO-Revision-Date: 2019-05-03 12:40+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -37,6 +37,11 @@ msgid "Analytic Tags"
 msgstr "Etiquetas analíticas"
 
 #. module: sale_order_version
+#: selection:sale.order.version,state:0
+msgid "Approved"
+msgstr "Aprobada"
+
+#. module: sale_order_version
 #: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_wizard
 msgid "Back to previous version"
 msgstr "Volver a otra version"
@@ -63,16 +68,6 @@ msgid "Company"
 msgstr "Compañía"
 
 #. module: sale_order_version
-#: selection:sale.order.version,state:0
-msgid "Confirmed"
-msgstr "Confirmado"
-
-#. module: sale_order_version
-#: model:res.groups,name:sale_order_version.group_create_quotations
-msgid "Create Quotation's Versions"
-msgstr "Crear Versión de Cotización"
-
-#. module: sale_order_version
 #: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_create_wizard
 msgid "Create Versions"
 msgstr "Crear Versiones"
@@ -96,7 +91,7 @@ msgstr "Creado el"
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__currency_agreed_rate
 msgid "Currency Agreed Rate"
-msgstr "Tipo de Cambio Convenido"
+msgstr "Tipo de Cambio Acordado"
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__partner_id
@@ -155,11 +150,6 @@ msgstr "Nombre mostrado"
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__display_type
 msgid "Display Type"
 msgstr "Tipo de pantalla"
-
-#. module: sale_order_version
-#: selection:sale.order.version,state:0
-msgid "Draft"
-msgstr "Borrador"
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__expected_date
@@ -247,7 +237,7 @@ msgstr "Cantidad Facturada"
 #. module: sale_order_version
 #: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_form_iho
 msgid "Invoicing"
-msgstr "Facturación"
+msgstr "Contabilidad"
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version____last_update
@@ -321,7 +311,7 @@ msgstr "Otra información"
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__vendor_id
 msgid "Partner"
-msgstr "Empresa"
+msgstr "Socio"
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__reference
@@ -341,7 +331,7 @@ msgstr "Prefijo"
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__iho_price_list
 msgid "Price List"
-msgstr "Precio de Venta"
+msgstr "Precio de Lista"
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__pricelist_id
@@ -377,6 +367,11 @@ msgstr "Restaurar Versión de Cotización"
 #: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_inherit_form_iho
 msgid "Restore Version"
 msgstr "Restaurar Version"
+
+#. module: sale_order_version
+#: selection:sale.order.version,state:0
+msgid "Reviewed"
+msgstr "Revisada"
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__route_id
@@ -505,11 +500,6 @@ msgstr "La cuenta analítica relacionada con un pedido de venta."
 #: model:ir.model.fields,help:sale_order_version.field_sale_order_version__reference
 msgid "The payment communication of this sale order."
 msgstr "La comunicación de pago de esta orden de venta."
-
-#. module: sale_order_version
-#: model:res.groups,comment:sale_order_version.group_create_quotations
-msgid "The user will have access to create quotation's versions."
-msgstr "El usuario tendrá acceso a crear versiones de cotización."
 
 #. module: sale_order_version
 #: model:res.groups,comment:sale_order_version.group_restore_quotations

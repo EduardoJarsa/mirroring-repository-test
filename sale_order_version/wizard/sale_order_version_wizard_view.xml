@@ -8,7 +8,7 @@
                 <sheet>
                     <group>
                         <field name="sale_id" invisible="1"/>
-                        <field name="sale_version_id" domain="[('sale_id', '=', sale_id), ('state', '!=', 'confirmed')]" options="{'no_open': 1,'no_create': 1, 'no_create_edit': 1}"/>
+                        <field name="sale_version_id" domain="[('sale_id', '=', sale_id), ('state', '!=', 'approved')]" options="{'no_open': 1,'no_create': 1, 'no_create_edit': 1}"/>
                     </group>
                 </sheet>
                 <footer>

@@ -97,10 +97,10 @@ class SaleOrderVersion(models.Model):
         help="Pricelist for current sales order.")
     tag_ids = fields.Many2many('crm.lead.tag', string='Tags')
     state = fields.Selection([
-        ('draft', 'Draft'),
-        ('confirmed', 'Confirmed')],
+        ('reviewed', 'Reviewed'),
+        ('approved', 'Approved')],
         string='Order Status',
-        default='draft',
+        default='reviewed',
     )
     partner_invoice_id = fields.Many2one(
         'res.partner', string='Invoice Address',)

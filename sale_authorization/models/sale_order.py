@@ -28,7 +28,7 @@ class SaleOrder(models.Model):
                 _('You need to define a confirmation sequence to the '
                   'Sales Team'))
         new_name = self.team_id.confirmed_sequence_id.next_by_id()
-        self.active_version_id.sudo().state = 'confirmed'
+        self.active_version_id.sudo().state = 'approved'
         analytic_account = self.env[
             'account.analytic.account'].create(
                 {
@@ -42,7 +42,7 @@ class SaleOrder(models.Model):
             'name': new_name,
             'analytic_account_id': analytic_account.id
         })
-        message = _('Version %s %s confirmed.') % (
+        message = _('Version %s %s approved.') % (
             self.name, self.active_version_id.name)
         self.message_post(body=message)
         return {
