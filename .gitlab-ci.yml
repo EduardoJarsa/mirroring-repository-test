@@ -62,8 +62,8 @@ build:
   tags:
     - build
   variables:
-    INSTALL: "tecmur"
-    CUSTOMER: "tecmur"
+    INSTALL: "iho"
+    CUSTOMER: "iho"
 
   script:
     - deployvcmd gitlab_tools check_keys
