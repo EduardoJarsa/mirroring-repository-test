@@ -57,7 +57,16 @@ class SaleOrderLine(models.Model):
         string="Sell 3",
         compute='_compute_sell_3',
         store=True,)
+    iho_sell_4 = fields.Float(
+        string="Sell 4",
+        compute='_compute_sell_4',
+        store=True,)
     iho_purchase_cost = fields.Float()
+
+    iho_service_factor = fields.Float(
+        string='Service Factor',
+        default=1.0,)
+
     vendor_id = fields.Many2one(
         'res.partner',
         string='Partner',
@@ -141,8 +150,14 @@ class SaleOrderLine(models.Model):
     @api.depends('order_id.currency_agreed_rate', 'iho_sell_2')
     def _compute_sell_3(self):
         for rec in self:
-            amount = rec.iho_sell_2 * rec.order_id.currency_agreed_rate
+            rec.iho_sell_3 = rec.iho_sell_2 * rec.order_id.currency_agreed_rate
+
+    @api.multi
+    @api.depends('order_id.currency_agreed_rate', 'iho_sell_3')
+    def _compute_sell_4(self):
+        for rec in self:
+            amount = rec.iho_sell_3 * rec.iho_service_factor
             rec.update({
-                'iho_sell_3': amount,
+                'iho_sell_4': amount,
                 'price_unit': amount,
             })
