@@ -44,25 +44,63 @@ class Partner(models.Model):
             if "es_" in lang:
                 city_placeholder = (
                     '<field name="city" '
-                    'placeholder="Ciudad"'
-                    )
+                    'placeholder="Ciudad" '
+                    'class="o_address_city" '
+                    'attrs="{                         '
+                    "'invisible': [('country_enforce_cities', '=', True), "
+                    "('city_id', '!=', False)],                         "
+                    "'readonly': [('type', '=', 'contact')"
+                    ", ('parent_id', '!=', False)]"
+                    '                     }"/>\n                '
+                    '<field name="city_id" placeholder="Ciudad" '
+                    'string="Ciudad" class="o_address_city"'
+                    ' context="{'
+                    "'default_country_id': country_id,"
+                    "                               "
+                    "'default_name': city,"
+                    "                               "
+                    "'default_zipcode': zip,"
+                    "                               "
+                    "'default_state_id':"
+                    ' state_id}" domain="[('
+                    "'country_id', '=', country_id)]"
+                    '" attrs="{                         '
+                    "'invisible': [('country_enforce_cities', '=', False)],"
+                    "                         'readonly':"
+                    " [('type', '=', 'contact'),"
+                    " ('parent_id', '!=', False)]                     }"
+                    '"/>')
                 city_placeholder_mod = (
+                    '<field name="city_id" placeholder="Delegacion/Ciudad" '
+                    'string="Ciudad" class="o_address_city"'
+                    ' context="{'
+                    "'default_country_id': country_id,"
+                    "                               "
+                    "'default_name': city,"
+                    "                               "
+                    "'default_zipcode': zip,"
+                    "                               "
+                    "'default_state_id':"
+                    ' state_id}" domain="[('
+                    "'country_id', '=', country_id)]"
+                    '" attrs="{                         '
+                    "'invisible': [('country_enforce_cities', '=', False)],"
+                    "                         'readonly':"
+                    " [('type', '=', 'contact'),"
+                    " ('parent_id', '!=', False)]                     }"
+                    '"/>'
+                    '\n                '
                     '<field name="city" '
-                    'placeholder=""'
-                    )
+                    'placeholder="" '
+                    'class="o_address_city" '
+                    'attrs="{                         '
+                    "'invisible': [('country_enforce_cities', '=', True), "
+                    "('city_id', '!=', False)],                         "
+                    "'readonly': [('type', '=', 'contact')"
+                    ", ('parent_id', '!=', False)]"
+                    '                     }"/>')
                 arch = arch.replace(
                     city_placeholder,
                     city_placeholder_mod
                 )
-                city_id_placeholder = (
-                    '<field name="city_id" '
-                    'placeholder="Ciudad"'
-                )
-                city_id_placeholder_mod = (
-                    '<field name="city_id" '
-                    'placeholder="Delegacion/Ciudad"'
-                )
-                arch = arch.replace(
-                    city_id_placeholder,
-                    city_id_placeholder_mod)
         return arch
