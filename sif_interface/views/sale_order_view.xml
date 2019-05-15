@@ -19,29 +19,31 @@
                 <field name="iho_sell_1" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
                 <field name="iho_factor" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
                 <field name="iho_sell_2" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
+                <field name="iho_tc" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
                 <field name="iho_sell_3" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
                 <field name="iho_service_factor" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
                 <field name="iho_sell_4" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after" >
                 <field name="is_bom_line" invisible="1"/>
-                <field name="iho_purchase_cost" attrs="{'invisible': ['|', ('is_bom_line', '!=', False), ('display_type', '!=', False)], 'column_invisible': [('parent.is_bom', '!=', False)]}"/>
-                <field name="vendor_id" attrs="{'invisible': ['|', ('is_bom_line', '!=', False), ('display_type', '!=', False)], 'column_invisible': [('parent.is_bom', '!=', False)]}"/>
-                <field name="iho_currency_id" attrs="{'invisible': ['|', ('is_bom_line', '!=', False), ('display_type', '!=', False)], 'column_invisible': [('parent.is_bom', '!=', False)  ]}"/>
+                <field name="iho_purchase_cost" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
+                <field name="vendor_id" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
+                <field name="iho_currency_id" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/form/label[1]" position="before">
                 <group attrs="{'invisible': [('display_type', '!=', False)]}">
                     <group>
                         <field name="iho_price_list"/>
-                        <field name="iho_discount"/>
                         <field name="iho_sell_1"/>
-                        <field name="iho_service_factor"/>
+                        <field name="iho_sell_2"/>
+                        <field name="iho_sell_3"/>
                         <field name="iho_sell_4"/>
                     </group>
                     <group>
+                        <field name="iho_discount"/>
                         <field name="iho_factor"/>
-                        <field name="iho_sell_2"/>
-                        <field name="iho_sell_3"/>
+                        <field name="iho_tc"/>
+                        <field name="iho_service_factor"/>
                     </group>
                 </group>
                 <group attrs="{'invisible': ['|', ('is_bom_line', '!=', False), ('display_type', '!=', False)]}">

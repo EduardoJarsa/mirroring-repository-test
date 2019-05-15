@@ -57,6 +57,7 @@ class SaleOrderLine(models.Model):
         string="Sell 3",
         compute='_compute_sell_3',
         store=True,)
+
     iho_sell_4 = fields.Float(
         string="Sell 4",
         compute='_compute_sell_4',
@@ -81,6 +82,11 @@ class SaleOrderLine(models.Model):
         compute="_compute_is_bom_line",
         store=True,
     )
+
+    iho_tc = fields.Float(
+        string="TC",
+        default=1.0,
+        store=True,)
 
     @api.multi
     def _process_product_supplierinfo(self):
@@ -128,6 +134,11 @@ class SaleOrderLine(models.Model):
         self._process_product_supplierinfo()
         return res
 
+    @api.onchange('product_id')
+    def _onchange_product_id(self):
+        # set value from sale prder
+        self.iho_tc = self.order_id.currency_agreed_rate
+
     @api.multi
     @api.depends('product_id')
     def _compute_is_bom_line(self):
@@ -147,10 +158,10 @@ class SaleOrderLine(models.Model):
             rec.iho_sell_2 = rec.iho_sell_1 * rec.iho_factor
 
     @api.multi
-    @api.depends('order_id.currency_agreed_rate', 'iho_sell_2')
+    @api.depends('iho_tc', 'iho_sell_2')
     def _compute_sell_3(self):
         for rec in self:
-            rec.iho_sell_3 = rec.iho_sell_2 * rec.order_id.currency_agreed_rate
+            rec.iho_sell_3 = rec.iho_sell_2 * rec.iho_tc
 
     @api.multi
     @api.depends('iho_service_factor', 'iho_sell_3')
