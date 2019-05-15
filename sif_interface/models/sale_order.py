@@ -153,7 +153,7 @@ class SaleOrderLine(models.Model):
             rec.iho_sell_3 = rec.iho_sell_2 * rec.order_id.currency_agreed_rate
 
     @api.multi
-    @api.depends('order_id.currency_agreed_rate', 'iho_sell_3')
+    @api.depends('iho_service_factor', 'iho_sell_3')
     def _compute_sell_4(self):
         for rec in self:
             amount = rec.iho_sell_3 * rec.iho_service_factor
