@@ -21,13 +21,6 @@ class SaleOrder(models.Model):
         }
 
     @api.multi
-    def send_quotation(self, name, email, rec_id):
-        template = self.env.ref('sale_review.email_template_review_sale')
-        return template.with_context(
-            seller_sr_name=name,
-            email=email).send_mail(rec_id)
-
-    @api.multi
     def review_sale_order(self):
         for rec in self:
             users_senior_id = []
@@ -52,6 +45,11 @@ class SaleOrder(models.Model):
                 'res_model_id': self.env.ref('sale.model_sale_order').id,
                 'user_id': users_senior_id[0],
                 'summary': _('Request to review quotation.'),
+                'note': _(
+                        'Dear %s Please enter to the quote %s, for review '
+                        'in it case create the new quotation, it will send '
+                        'to the customer %s. If you have questions,'
+                        ' can include in the same document.') % (
+                        user_id.name, self.name, self.partner_id.name)
             }
-            self.send_quotation(user_id.name, user_id.partner_id.email, rec.id)
             return self.env['mail.activity'].create(activity_data)

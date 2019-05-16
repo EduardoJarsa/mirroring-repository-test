@@ -14,7 +14,6 @@
         'iho_security',
     ],
     'data': [
-        'data/mail_template.xml',
         'data/activity_type.xml',
         'security/security.xml',
         'security/ir.model.access.csv',

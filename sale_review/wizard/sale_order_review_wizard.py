@@ -31,7 +31,11 @@ class SaleOrderReviewWizard(models.TransientModel):
             'res_model_id': self.env.ref('sale.model_sale_order').id,
             'user_id': self.seller_ids.user_ids.id,
             'summary': _('Request to review quotation.'),
+            'note': _(
+                'Dear %s Please enter to the quote %s, for review '
+                'in it case create the new quotation, it will send '
+                'to the customer %s. If you have questions,'
+                ' can include in the same document.') % (
+                self.seller_ids.user_ids.name, so.name, so.partner_id.name)
         }
-        so.send_quotation(
-            self.seller_ids.name, self.seller_ids.email, so.id)
         return self.env['mail.activity'].create(activity_data)

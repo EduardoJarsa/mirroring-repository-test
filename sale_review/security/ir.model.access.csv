@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 review_sale_order_version_line,review_sale_order_version_line,sale_order_version.model_sale_order_version_line,sale_review.group_sale_review,1,0,0,0
+review_sale_order_version,review_sale_order_version,sale_order_version.model_sale_order_version,sale_review.group_sale_review,1,0,0,0
