@@ -29,20 +29,31 @@ class ImportSaleOrderLineIHO(models.TransientModel):
             product_id = self.env.ref(
                 'import_sale_order_line.product_product_dummy')
         product_qty = sale_order_line.get('Cantidad', False)
-        price_unit = sale_order_line.get('PriceList', False)
-        factor = sale_order_line.get('Factor', False)
-        discount = sale_order_line['CustomerDiscount']
+        price_list = float(sale_order_line.get('PriceList', False))
+        order_id = self._context.get('active_id')
+        so_active = self.env['sale.order'].browse(order_id)
+        tc = float(sale_order_line.get(
+            'Factor', so_active.currency_agreed_rate))
+        factor = float(sale_order_line.get('Factor', False))
+        factor_servicio = float(sale_order_line.get('FactorServicio', False))
+        discount = float(sale_order_line['CustomerDiscount'])
         if discount:
             discount = float(discount)
         iho_currency = sale_order_line.get('IHOCurrency', False)
+        if iho_currency:
+            iho_currency = float(iho_currency)
         iho_discount = sale_order_line['IHODiscount']
+        if iho_discount:
+            iho_discount = float(iho_discount)
         iho_currency_id = self.env['res.currency'].search(
             [('name', '=', iho_currency)])
         return {
             'name': description,
             'product_id': product_id.id,
             'product_uom_qty': product_qty,
-            'price_unit': price_unit,
+            'iho_price_list': price_list,
+            'iho_tc': tc,
+            'iho_service_factor': factor_servicio,
             'discount': discount,
             'factor': factor,
             'iho_currency_id': iho_currency_id.id,
@@ -66,5 +77,14 @@ class ImportSaleOrderLineIHO(models.TransientModel):
                 line, sale_order)
             if order_line_element:
                 sale_line_list.append(order_line_element)
-        self.env['sale.order.line'].create(
+        lines = self.env['sale.order.line'].create(
             sale_line_list)
+        # Now is necesary to do this because of
+        # the field price_unit is setted on base,
+        # field value iho_sell_4, and as that field
+        # is computed for that reason not updated value when is
+        # imported directly in method create
+        for rec in lines:
+            rec.write({
+                'price_unit': rec.iho_sell_4,
+                })
