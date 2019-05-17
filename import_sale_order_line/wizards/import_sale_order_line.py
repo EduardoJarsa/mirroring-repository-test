@@ -32,16 +32,18 @@ class ImportSaleOrderLineIHO(models.TransientModel):
         price_list = float(sale_order_line.get('PriceList', False))
         order_id = self._context.get('active_id')
         so_active = self.env['sale.order'].browse(order_id)
-        tc = float(sale_order_line.get(
-            'Factor', so_active.currency_agreed_rate))
+        tc_agreed = sale_order_line.get(
+            'IHOCurrency')
+        if tc_agreed:
+            tc_agreed = float(tc_agreed)
+        else:
+            tc_agreed = so_active.currency_agreed_rate
         factor = float(sale_order_line.get('Factor', False))
         factor_servicio = float(sale_order_line.get('FactorServicio', False))
         discount = float(sale_order_line['CustomerDiscount'])
         if discount:
             discount = float(discount)
         iho_currency = sale_order_line.get('IHOCurrency', False)
-        if iho_currency:
-            iho_currency = float(iho_currency)
         iho_discount = sale_order_line['IHODiscount']
         if iho_discount:
             iho_discount = float(iho_discount)
@@ -52,10 +54,10 @@ class ImportSaleOrderLineIHO(models.TransientModel):
             'product_id': product_id.id,
             'product_uom_qty': product_qty,
             'iho_price_list': price_list,
-            'iho_tc': tc,
+            'iho_tc': tc_agreed,
             'iho_service_factor': factor_servicio,
             'discount': discount,
-            'factor': factor,
+            'iho_factor': factor,
             'iho_currency_id': iho_currency_id.id,
             'iho_discount': iho_discount,
             'order_id': sale_order.id,

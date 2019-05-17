@@ -84,7 +84,7 @@ class SaleOrderLine(models.Model):
     )
 
     iho_tc = fields.Float(
-        string="TC",
+        string="TC Agreed",
         default=1.0,
         store=True,)
 
