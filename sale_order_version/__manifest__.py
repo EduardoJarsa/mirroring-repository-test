@@ -3,12 +3,15 @@
 
 {
     'name': 'Sale Order Version',
-    'summary': 'Allows to have a different versions of sale order',
     'version': '12.0.1.0.0',
     'category': 'sale',
     'author': 'Jarsa Sistemas',
     'website': 'https://www.jarsa.com.mx',
     'license': 'AGPL-3',
+    'summary': """
+        Allows to have a different versions of sale order
+        For this module is necessary unactive the rule Personal Order Lines.
+    """,
     'depends': [
         'sale_stock',
         'sale_crm',

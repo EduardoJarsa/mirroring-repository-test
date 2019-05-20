@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * sale_order_version
+#	* sale_order_version
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-03 12:40+0000\n"
-"PO-Revision-Date: 2019-05-03 12:40+0000\n"
+"POT-Creation-Date: 2019-05-20 22:09+0000\n"
+"PO-Revision-Date: 2019-05-20 22:09+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -66,6 +66,11 @@ msgstr "Fecha de compromiso"
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__company_id
 msgid "Company"
 msgstr "Compañía"
+
+#. module: sale_order_version
+#: model:res.groups,name:sale_order_version.group_create_quotations
+msgid "Create Quotation's Versions"
+msgstr "Crear versión de cotización"
 
 #. module: sale_order_version
 #: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_create_wizard
@@ -152,6 +157,11 @@ msgid "Display Type"
 msgstr "Tipo de pantalla"
 
 #. module: sale_order_version
+#: selection:sale.order.version,state:0
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__expected_date
 msgid "Expected Date"
 msgstr "Fecha prevista"
@@ -192,7 +202,7 @@ msgstr "Moneda IHO"
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__iho_discount
 msgid "IHO Discount (%)"
-msgstr "Descuento IHO (%)"
+msgstr "IHO Descuento (%)"
 
 #. module: sale_order_version
 #: model:ir.model.fields,help:sale_order_version.field_sale_order_version_create_wizard__use_same_prefix
@@ -207,7 +217,7 @@ msgstr "Si entrega todos los productos a la vez, la orden de entrega se programa
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__iho_purchase_cost
 msgid "Iho Purchase Cost"
-msgstr "Costo de Compra IHO"
+msgstr "Costo de compra IHO"
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__incoterm
@@ -311,7 +321,7 @@ msgstr "Otra información"
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__vendor_id
 msgid "Partner"
-msgstr "Socio"
+msgstr "Empresa"
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__reference
@@ -366,7 +376,7 @@ msgstr "Restaurar Versión de Cotización"
 #. module: sale_order_version
 #: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_inherit_form_iho
 msgid "Restore Version"
-msgstr "Restaurar Versión"
+msgstr "Restaurar versión"
 
 #. module: sale_order_version
 #: selection:sale.order.version,state:0
@@ -407,7 +417,7 @@ msgstr "Version de Pedido"
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__line_ids
 msgid "Sale Version Lines"
-msgstr "Version de Lineas de Pedido"
+msgstr "Versión de lineas de pedido"
 
 #. module: sale_order_version
 #: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_form_iho
@@ -447,7 +457,7 @@ msgstr ""
 #. module: sale_order_version
 #: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_form_iho
 msgid "Shipping Information"
-msgstr "Información de envio"
+msgstr "Información de envío"
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__picking_policy
@@ -500,6 +510,11 @@ msgstr "La cuenta analítica relacionada con un pedido de venta."
 #: model:ir.model.fields,help:sale_order_version.field_sale_order_version__reference
 msgid "The payment communication of this sale order."
 msgstr "La comunicación de pago de esta orden de venta."
+
+#. module: sale_order_version
+#: model:res.groups,comment:sale_order_version.group_create_quotations
+msgid "The user will have access to create quotation's versions."
+msgstr "El usuario tendrá acceso a crear versiones de cotización."
 
 #. module: sale_order_version
 #: model:res.groups,comment:sale_order_version.group_restore_quotations
@@ -586,4 +601,3 @@ msgstr ""
 #: model:ir.model,name:sale_order_version.model_sale_order_version_wizard
 msgid "sale.order.version.wizard"
 msgstr ""
-

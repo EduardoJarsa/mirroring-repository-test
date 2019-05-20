@@ -15,7 +15,7 @@ class SaleOrder(models.Model):
     @api.depends('order_version_ids')
     def _compute_has_version(self):
         for rec in self:
-            if rec.active_version_id.state == 'reviewed':
+            if rec.active_version_id.state in ['reviewed', 'draft']:
                 self.has_version = True
 
     @api.multi
