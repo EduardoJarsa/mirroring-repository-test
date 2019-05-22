@@ -5,7 +5,8 @@ import base64
 import csv
 
 from io import StringIO
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class ImportSaleOrderLineIHO(models.TransientModel):
@@ -17,6 +18,14 @@ class ImportSaleOrderLineIHO(models.TransientModel):
 
     @api.model
     def _prepare_sale_order_line(self, sale_order_line, sale_order):
+        internal_reference = sale_order_line.get('Fabricante', False)
+        partner = self.env['res.partner'].search(
+            [('ref', '=', internal_reference), (
+                'supplier', '=', True)], limit=1)
+        if not partner:
+            raise ValidationError(
+                _('This supplier do not exist')
+            )
         default_code = sale_order_line.get('CodigoProducto', False)
         description = sale_order_line['Descrip']
         if default_code:
@@ -33,7 +42,7 @@ class ImportSaleOrderLineIHO(models.TransientModel):
         order_id = self._context.get('active_id')
         so_active = self.env['sale.order'].browse(order_id)
         tc_agreed = sale_order_line.get(
-            'IHOCurrency')
+            'TCAcordado')
         if tc_agreed:
             tc_agreed = float(tc_agreed)
         else:
@@ -58,6 +67,7 @@ class ImportSaleOrderLineIHO(models.TransientModel):
             'iho_service_factor': factor_servicio,
             'discount': discount,
             'iho_factor': factor,
+            'vendor_id': partner.id,
             'iho_currency_id': iho_currency_id.id,
             'iho_discount': iho_discount,
             'order_id': sale_order.id,
@@ -73,6 +83,7 @@ class ImportSaleOrderLineIHO(models.TransientModel):
         sale_order_id = self._context.get('active_id')
         sale_order = self.env['sale.order'].browse(
             [(sale_order_id)])
+
         sale_line_list = []
         for line in reader:
             order_line_element = self._prepare_sale_order_line(

@@ -62,7 +62,8 @@ class SaleOrderLine(models.Model):
         string="Sell 4",
         compute='_compute_sell_4',
         store=True,)
-    iho_purchase_cost = fields.Float()
+    iho_purchase_cost = fields.Float(
+        compute='_compute_iho_purchase_cost')
 
     iho_service_factor = fields.Float(
         string='Service Factor',
@@ -150,6 +151,12 @@ class SaleOrderLine(models.Model):
     def _compute_sell_1(self):
         for rec in self:
             rec.iho_sell_1 = rec.iho_price_list * (1 - rec.iho_discount / 100)
+
+    @api.multi
+    @api.depends('iho_sell_1')
+    def _compute_iho_purchase_cost(self):
+        for rec in self:
+            rec.iho_purchase_cost = rec.iho_sell_1
 
     @api.multi
     @api.depends('iho_sell_1', 'iho_factor')

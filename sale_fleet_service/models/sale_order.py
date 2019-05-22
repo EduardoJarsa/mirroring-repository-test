@@ -60,7 +60,6 @@ class SaleOrder(models.Model):
                 'iho_service_factor': 1.0,
                 'tax_id': taxes,
                 'sequence': 10000,
-                'analytic_tag_ids': self.analytic_tag_ids.ids,
             })
             return {}
         fleet_line.update({
@@ -70,6 +69,5 @@ class SaleOrder(models.Model):
             'iho_factor': 1.0,
             'iho_service_factor': 1.0,
             'sequence': 10000,
-            'analytic_tag_ids': self.analytic_tag_ids.ids,
         })
         return {}

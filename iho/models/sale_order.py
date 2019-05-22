@@ -27,11 +27,3 @@ class SaleOrder(models.Model):
 
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
-
-    @api.onchange('product_id')
-    def _onchange_product_id_set_analytic_tags(self):
-        self.analytic_tag_ids = False
-        # We need to clear the cache to see correctly the tags in front-end
-        self.invalidate_cache(
-            fnames=['analytic_tag_ids'], ids=[self.id])
-        self.analytic_tag_ids = self.order_id.analytic_tag_ids.ids
