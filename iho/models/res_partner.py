@@ -21,11 +21,6 @@ class Partner(models.Model):
         help="Door Number",
         inverse='_set_street', store=True)
 
-    @api.onchange('country_id')
-    def _onchange_default_country_and_state(self):
-        self.country_id = self.env.ref('base.mx')
-        self.state_id = self.env.ref('base.state_mx_df')
-
     @api.onchange('state_id')
     def _onchange_country_id(self):
         res = {'domain': {'city_id': []}}

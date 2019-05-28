@@ -2,10 +2,10 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
-    'name': 'IHO customs',
-    'summary': 'Customs',
+    'name': 'IHO Instance Module',
+    'summary': 'Module to install Instance',
     'version': '12.0.1.0.0',
-    'category': 'Customs',
+    'category': 'Instance',
     'author': 'Jarsa Sistemas, Vauxoo, Odoo Community Association (OCA)',
     'website': 'https://www.jarsa.com.mx',
     'license': 'AGPL-3',
