@@ -157,11 +157,6 @@ msgid "Display Type"
 msgstr "Tipo de pantalla"
 
 #. module: sale_order_version
-#: selection:sale.order.version,state:0
-msgid "Draft"
-msgstr "Borrador"
-
-#. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__expected_date
 msgid "Expected Date"
 msgstr "Fecha prevista"
