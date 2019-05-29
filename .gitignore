@@ -56,3 +56,4 @@ target/
 .coveragerc
 .coveralls.yml
 odoo.tar.gz
+.~lock.*
