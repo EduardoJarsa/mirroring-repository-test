@@ -22,6 +22,21 @@
     <record id="sales_team.group_sale_manager" model="res.groups">
         <field name="name">CRM coordinator</field>
     </record>
+    <record id="group_sale_projector" model="res.groups">
+        <field name="name">Project Designer</field>
+        <field name="category_id" ref="base.module_category_sales_management"/>
+        <field name="comment">The user will have access to the whole information on readonly.</field>
+        <field name="menu_access" eval="[(4, ref('crm.crm_menu_root')), (4, ref('crm.crm_activity_report_menu')), (4, ref('crm.crm_menu_report'))]"/>
+        <field name="rule_groups" eval="[(4, ref('iho_security.sales_senior_only_follower')), (4, ref('iho_security.crm_senior_only_follower'))]"/>
+    </record>
+    <record id="group_sale_salesman_no_create_leads" model="res.groups">
+        <field name="name">Only create Opportunities</field>
+        <field name="comment">This user can edit opportunities name.</field>
+    </record>
+    <record id = "group_manager_catalogs" model="res.groups">
+        <field name="name">Catalog Administrator</field>
+        <field name="comment">The user can will do anything with enought modules.</field>
+    </record>
     <record id="crm_senior_only_follower" model="ir.rule">
         <field name="name">CRM Senior Only Follower </field>
         <field name="model_id" ref="crm.model_crm_lead"/>
@@ -100,17 +115,6 @@
         <field name="perm_unlink" eval="False"/>
         <field name="perm_read" eval="True"/>
     </record>
-    <record id="group_sale_projector" model="res.groups">
-        <field name="name">Project Designer</field>
-        <field name="category_id" ref="base.module_category_sales_management"/>
-        <field name="comment">The user will have access to the whole information on readonly.</field>
-        <field name="menu_access" eval="[(4, ref('crm.crm_menu_root')), (4, ref('crm.crm_activity_report_menu')), (4, ref('crm.crm_menu_report'))]"/>
-        <field name="rule_groups" eval="[(4, ref('iho_security.sales_senior_only_follower')), (4, ref('iho_security.crm_senior_only_follower'))]"/>
-    </record>
-    <record id="group_sale_salesman_no_create_leads" model="res.groups">
-        <field name="name">Only create Opportunities</field>
-        <field name="comment">This user can edit opportunities name.</field>
-    </record>
     <record id="crm_opportunity" model="ir.rule">
         <field name="name">Opportunity Manager</field>
         <field name="model_id" ref="crm.model_crm_lead"/>
@@ -180,8 +184,4 @@
     <record id="sale.sale_order_menu" model="ir.ui.menu">
        <field name="groups_id" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
    </record>
-   <record id = "group_manager_catalogs" model="res.groups">
-        <field name="name">Catalog Administrator</field>
-        <field name="comment">The user can will do anything with enought modules.</field>
-    </record>
 </odoo>
