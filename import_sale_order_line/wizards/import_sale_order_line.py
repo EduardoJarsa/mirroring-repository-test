@@ -71,6 +71,7 @@ class ImportSaleOrderLineIHO(models.TransientModel):
             'iho_currency_id': iho_currency_id.id,
             'iho_discount': iho_discount,
             'order_id': sale_order.id,
+            'analytic_tag_ids': [(6, 0, so_active.analytic_tag_ids.ids)],
             'tax_id': [(6, 0, product_id.taxes_id.ids)],
         }
 
