@@ -9,14 +9,14 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     authorized = fields.Boolean()
-    has_version = fields.Boolean(compute='_compute_has_version')
+    authorized_version = fields.Boolean(compute='_compute_authorized_version')
 
     @api.multi
     @api.depends('order_version_ids')
-    def _compute_has_version(self):
+    def _compute_authorized_version(self):
         for rec in self:
             if rec.active_version_id.state == 'reviewed':
-                self.has_version = True
+                self.authorized_version = True
 
     @api.multi
     def authorize_sale_order(self):
@@ -35,6 +35,9 @@ class SaleOrder(models.Model):
             raise ValidationError(
                 _('You need to define a confirmation sequence to the '
                   'Sales Team'))
+        if self.active_version_modified:
+            raise ValidationError(
+                _('You cannot confirm a quotation without a review.'))
         new_name = self.team_id.confirmed_sequence_id.next_by_id()
         self.active_version_id.sudo().state = 'approved'
         analytic_account = self.env[

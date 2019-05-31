@@ -8,7 +8,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='client_order_ref']" position="after">
                 <field name="authorized" invisible="1"/>
-                <field name="has_version" invisible="1"/>
+                <field name="authorized_version" invisible="1"/>
                 <field name="active_version_id"/>
             </xpath>
             <xpath expr="//header/button[@name='action_quotation_send']" position="replace">
@@ -18,7 +18,11 @@
             </xpath>
             <xpath expr="//header/button[@name='action_confirm']" position="replace">
                 <button name="action_confirm" string="Confirm Sale"  class="btn-primary" type="object" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent']), ('authorized', '=', False)]}"/>
-                <button name="authorize_sale_order" class="btn-primary" attrs="{'invisible': ['|', ('order_version_ids', '=', []), ('has_version', '=', False)]}" string="Authorized by customer" groups="sale_authorization.group_sale_authorize" type="object"/>
+                <button name="authorize_sale_order" class="btn-primary" attrs="{'invisible': ['|', '|', ('order_version_ids', '=', []), ('authorized_version', '=', False), ('active_version_modified', '=', True)]}" string="Authorized by customer" groups="sale_authorization.group_sale_authorize" type="object"/>
+            </xpath>
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="active_version_id" invisible="1"/>
+                <field name="active_version_modified" attrs="{'invisible': ['|', ('active_version_id', '=', False), ('authorized', '=', True)]}"/>
             </xpath>
         </field>
     </record>

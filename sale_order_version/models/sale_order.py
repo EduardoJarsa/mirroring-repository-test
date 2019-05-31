@@ -15,9 +15,23 @@ class SaleOrder(models.Model):
     active_version_name = fields.Char(related='active_version_id.name')
     active_version_id = fields.Many2one(
         'sale.order.version', string='Active Version', readonly=True)
+    active_version_modified = fields.Boolean(
+        string='Different from Active Version', readonly=True,
+        help='This field helps to identify if a sales order was modified and '
+             'is different from the active version.')
 
     @api.multi
     @api.depends('order_line')
     def _compute_has_lines(self):
         for rec in self:
             rec.has_lines = bool(rec.order_line)
+
+    @api.multi
+    def write(self, vals):
+        for rec in self:
+            if rec.active_version_id:
+                if not vals.get('active_version_modified', True):
+                    continue
+                else:
+                    vals['active_version_modified'] = True
+        return super().write(vals)

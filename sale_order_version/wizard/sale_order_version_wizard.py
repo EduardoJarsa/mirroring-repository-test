@@ -52,6 +52,7 @@ class SaleOrderVersionWizard(models.TransientModel):
         order['analytic_tag_ids'] = [(6, 0, order['analytic_tag_ids'])]
         order['tag_ids'] = [(6, 0, order['tag_ids'])]
         order['active_version_id'] = self.sale_version_id.id
+        order['active_version_modified'] = False
         self.sale_id.write(order)
         self.sale_id.order_line.create(lines)
         message = _("The <a href=# data-oe-model=sale.order.version"
