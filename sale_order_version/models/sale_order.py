@@ -19,6 +19,9 @@ class SaleOrder(models.Model):
         string='Different from Active Version', readonly=True,
         help='This field helps to identify if a sales order was modified and '
              'is different from the active version.')
+    origin_sale_order_id = fields.Many2one(
+        'sale.order', related='active_version_id.sale_id',
+        string='Source Quotation')
 
     @api.multi
     @api.depends('order_line')

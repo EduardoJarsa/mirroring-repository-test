@@ -9,6 +9,7 @@
             <xpath expr="//field[@name='client_order_ref']" position="after">
                 <field name="authorized" invisible="1"/>
                 <field name="authorized_version" invisible="1"/>
+                <field name="origin_sale_order_id"/>
                 <field name="active_version_id"/>
             </xpath>
             <xpath expr="//header/button[@name='action_quotation_send']" position="replace">
