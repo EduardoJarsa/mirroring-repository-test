@@ -10,4 +10,8 @@
             </xpath>
         </field>
     </record>
+    <!-- Archive view to hide optional products and templates -->
+    <record id="sale_management.sale_order_form_quote" model="ir.ui.view">
+        <field name="active" eval="0"/>
+    </record>
 </odoo>
