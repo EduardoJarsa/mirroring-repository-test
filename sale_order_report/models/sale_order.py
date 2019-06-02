@@ -9,6 +9,11 @@ class SaleOrderLine(models.Model):
 
     image_sol = fields.Binary('Add image', attachment=True)
 
+    @api.onchange('product_id')
+    def _onchange_product_id(self):
+        if self.product_id.image_medium:
+            self.image_sol = self.product_id.image_medium
+
 
 class SaleOrder(models.Model):
     _inherit = "sale.order"
