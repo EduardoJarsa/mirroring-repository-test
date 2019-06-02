@@ -11,8 +11,8 @@
                 <field name="has_lines" invisible="1"/>
             </xpath>
             <xpath expr="//header/field[@name='state']" position="before">
-                <button name="%(sale_order_version.action_sale_order_version_wizard)d" type="action" string="Restore Version" class="btn-primary" attrs="{'invisible': [('order_version_ids', '=', [])]}" groups="sale_order_version.group_restore_quotations"/>
-                <button name="%(sale_order_version.action_sale_order_version_create_wizard)d" type="action" string="Version approve" class="btn-primary" attrs="{'invisible': ['|',('has_lines', '!=', True), ('state','not in',('draft'))]}" groups="sale_order_version.group_create_quotations"/>
+                <button name="%(sale_order_version.action_sale_order_version_wizard)d" id="restore_version" type="action" string="Restore Version" class="btn-primary" attrs="{'invisible': [('order_version_ids', '=', [])]}" groups="sale_order_version.group_restore_quotations"/>
+                <button name="%(sale_order_version.action_sale_order_version_create_wizard)d" id="approve_version" type="action" string="Version approve" class="btn-primary" attrs="{'invisible': ['|',('has_lines', '!=', True), ('state','not in',('draft'))]}" groups="sale_order_version.group_create_quotations"/>
             </xpath>
             <xpath expr="//page[@name='other_information']" position="after">
                 <page name="versions" string="Versions" attrs="{'invisible': [('order_version_ids', '=', [])]}">
