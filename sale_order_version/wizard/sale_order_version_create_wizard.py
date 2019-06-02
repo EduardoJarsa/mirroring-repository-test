@@ -45,13 +45,14 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
     @api.model
     def _prepare_sov_lines(self, lines):
         res = []
-        line_fields = ["product_id", "name", "iho_price_list", "iho_discount",
-                       "iho_sell_1", "iho_factor", "iho_sell_2", "iho_sell_3",
-                       "product_uom_qty", "qty_delivered", "qty_invoiced",
-                       "analytic_tag_ids", "route_id", "price_unit", "tax_id",
-                       "price_subtotal", "order_id", "display_type",
-                       "image_sol", "vendor_id", "iho_currency_id",
-                       "iho_purchase_cost", "discount"]
+        line_fields = [
+            "product_id", "name", "iho_price_list", "iho_discount",
+            "iho_sell_1", "iho_factor", "iho_sell_2", "iho_sell_3",
+            "product_uom_qty", "qty_delivered", "qty_invoiced",
+            "analytic_tag_ids", "route_id", "price_unit", "tax_id",
+            "price_subtotal", "order_id", "display_type", "image_sol",
+            "vendor_id", "iho_currency_id", "iho_purchase_cost", "discount",
+            "iho_tc", "iho_service_factor", "iho_sell_4"]
         for line in lines:
             data = line.read(line_fields, 'without_name_get')[0]
             data['tax_id'] = [(6, 0, data['tax_id'])]

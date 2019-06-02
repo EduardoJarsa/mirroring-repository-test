@@ -31,15 +31,13 @@ class SaleOrderVersionWizard(models.TransientModel):
         lines = self.sale_version_id.line_ids.read(
             load='without_name_get'
         )
-        order_fields = ['partner_id', 'validity_date',
-                        'payment_term_id', 'picking_policy', 'user_id',
-                        'team_id', 'currency_agreed_rate', 'warehouse_id',
-                        'pricelist_id', 'incoterm', 'expected_date',
-                        'commitment_date', 'date_order', 'origin',
-                        'client_order_ref', 'analytic_account_id',
-                        'analytic_tag_ids', 'tag_ids',
-                        'fiscal_position_id', 'partner_invoice_id',
-                        'partner_shipping_id']
+        order_fields = [
+            'partner_id', 'validity_date', 'payment_term_id', 'picking_policy',
+            'user_id', 'team_id', 'currency_agreed_rate', 'warehouse_id',
+            'pricelist_id', 'incoterm', 'expected_date', 'commitment_date',
+            'date_order', 'origin', 'client_order_ref', 'analytic_account_id',
+            'analytic_tag_ids', 'tag_ids', 'fiscal_position_id',
+            'partner_invoice_id', 'partner_shipping_id']
         order = self.sale_version_id.read(order_fields, 'without_name_get')[0]
         for line in lines:
             # Apply format to analytic_tag_ids because is a M2M field

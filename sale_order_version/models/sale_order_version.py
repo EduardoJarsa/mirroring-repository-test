@@ -162,3 +162,6 @@ class SaleOrderVersionLine(models.Model):
     )
     iho_purchase_cost = fields.Float()
     discount = fields.Float(string='Discount (%)',)
+    iho_tc = fields.Float(string="TC Agreed")
+    iho_service_factor = fields.Float(string='Service Factor')
+    iho_sell_4 = fields.Float(string="Sell 4")

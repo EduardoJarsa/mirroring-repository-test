@@ -87,7 +87,7 @@ class SaleOrderLine(models.Model):
     iho_tc = fields.Float(
         string="TC Agreed",
         default=1.0,
-        store=True,)
+    )
 
     @api.multi
     def _process_product_supplierinfo(self):
