@@ -16,18 +16,42 @@ class ImportSaleOrderLineIHO(models.TransientModel):
     upload_file = fields.Binary()
     file_name = fields.Char()
 
+    def to_float(self, line, column):
+        """format a text to try to find a float in it."""
+        text = line.get(column, '')
+        t_no_space = text.replace(' ', '').replace('$', '').replace('€', '')
+        char = ""
+        for letter in t_no_space:
+            if letter in ['.', ',']:
+                char = letter
+        if char == ",":
+            t_no_space = t_no_space.replace(".", "")
+            t_no_space = t_no_space.replace(",", ".")
+        elif char == ".":
+            t_no_space = t_no_space.replace(",", "")
+        try:
+            return float(t_no_space)
+        except (AttributeError, ValueError):
+            product = line.get('CodigoProducto', 'NA')
+            if not product:
+                product = 'NA'
+            raise ValidationError(_(
+                'There is no number or the format is incorrect for column %s '
+                'of  product\n\nProduct:\n%s\n\nDescription:\n%s\n\nPlease '
+                'validate the format of the whole column.\n\nThe readed value '
+                'is: %s') % (column, product, line.get('Descrip', ''), text))
+
     @api.model
-    def _prepare_sale_order_line(self, sale_order_line, sale_order):
-        internal_reference = sale_order_line.get('Fabricante', False)
+    def _prepare_sale_order_line(self, line, sale_order):
+        supplier_reference = line.get('Fabricante', False)
         partner = self.env['res.partner'].search(
-            [('ref', '=', internal_reference), (
+            [('ref', '=', supplier_reference), (
                 'supplier', '=', True)], limit=1)
         if not partner:
             raise ValidationError(
                 _('This supplier do not exist')
             )
-        default_code = sale_order_line.get('CodigoProducto', False)
-        description = sale_order_line['Descrip']
+        default_code = line.get('CodigoProducto', False)
         if default_code:
             product_id = self.env['product.product'].search([(
                 'default_code', '=', default_code)])
@@ -37,41 +61,26 @@ class ImportSaleOrderLineIHO(models.TransientModel):
         else:
             product_id = self.env.ref(
                 'import_sale_order_line.product_product_dummy')
-        product_qty = sale_order_line.get('Cantidad', False)
-        price_list = float(sale_order_line.get('PriceList', False))
-        order_id = self._context.get('active_id')
-        so_active = self.env['sale.order'].browse(order_id)
-        tc_agreed = sale_order_line.get(
-            'TCAcordado')
-        if tc_agreed:
-            tc_agreed = float(tc_agreed)
-        else:
-            tc_agreed = so_active.currency_agreed_rate
-        factor = float(sale_order_line.get('Factor', False))
-        factor_servicio = float(sale_order_line.get('FactorServicio', False))
-        discount = float(sale_order_line['CustomerDiscount'])
-        if discount:
-            discount = float(discount)
-        iho_currency = sale_order_line.get('IHOCurrency', False)
-        iho_discount = sale_order_line['IHODiscount']
-        if iho_discount:
-            iho_discount = float(iho_discount)
+        tc_agreed = self.to_float(line, 'TCAcordado')
+        if not tc_agreed:
+            tc_agreed = sale_order.currency_agreed_rate
+        iho_currency = line.get('IHOCurrency', False)
         iho_currency_id = self.env['res.currency'].search(
             [('name', '=', iho_currency)])
         return {
-            'name': description,
+            'name': line['Descrip'],
             'product_id': product_id.id,
-            'product_uom_qty': product_qty,
-            'iho_price_list': price_list,
+            'product_uom_qty': self.to_float(line, 'Cantidad'),
+            'iho_price_list': self.to_float(line, 'PriceList'),
             'iho_tc': tc_agreed,
-            'iho_service_factor': factor_servicio,
-            'discount': discount,
-            'iho_factor': factor,
+            'iho_service_factor': self.to_float(line, 'FactorServicio'),
+            'discount': self.to_float(line, 'CustomerDiscount'),
+            'iho_factor': self.to_float(line, 'Factor'),
             'vendor_id': partner.id,
             'iho_currency_id': iho_currency_id.id,
-            'iho_discount': iho_discount,
+            'iho_discount': self.to_float(line, 'IHODiscount'),
             'order_id': sale_order.id,
-            'analytic_tag_ids': [(6, 0, so_active.analytic_tag_ids.ids)],
+            'analytic_tag_ids': [(6, 0, sale_order.analytic_tag_ids.ids)],
             'tax_id': [(6, 0, product_id.taxes_id.ids)],
         }
 
@@ -82,17 +91,13 @@ class ImportSaleOrderLineIHO(models.TransientModel):
         data = StringIO(data)
         reader = csv.DictReader(data)
         sale_order_id = self._context.get('active_id')
-        sale_order = self.env['sale.order'].browse(
-            [(sale_order_id)])
-
+        sale_order = self.env['sale.order'].browse(sale_order_id)
         sale_line_list = []
         for line in reader:
-            order_line_element = self._prepare_sale_order_line(
-                line, sale_order)
-            if order_line_element:
-                sale_line_list.append(order_line_element)
-        lines = self.env['sale.order.line'].create(
-            sale_line_list)
+            element = self._prepare_sale_order_line(line, sale_order)
+            if element:
+                sale_line_list.append(element)
+        lines = self.env['sale.order.line'].create(sale_line_list)
         # Now is necesary to do this because of
         # the field price_unit is setted on base,
         # field value iho_sell_4, and as that field
@@ -101,4 +106,4 @@ class ImportSaleOrderLineIHO(models.TransientModel):
         for rec in lines:
             rec.write({
                 'price_unit': rec.iho_sell_4,
-                })
+            })
