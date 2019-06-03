@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<odoo noupdate="1">
+<odoo>
     <record id="furniture_product_default_sat_code" model="ir.default">
         <field name="field_id" ref="l10n_mx_edi.field_product_template__l10n_mx_edi_code_sat_id"/>
         <field name="json_value" ref="l10n_mx_edi.prod_code_sat_56101900"/>
@@ -17,5 +17,4 @@
         <field name="property_cost_method">standard</field>
         <field name="property_valuation">manual_periodic</field>
      </record>
-
 </odoo>
