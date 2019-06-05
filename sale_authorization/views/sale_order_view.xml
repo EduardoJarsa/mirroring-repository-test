@@ -52,10 +52,12 @@
             </xpath>
         </field>
     </record>
+    <!--add new action to quotations in sales module-->
     <record id="sale.action_quotations_with_onboarding" model="ir.actions.act_window">
-        <field name="domain">[('authorized', '=', False)]</field>
+        <field name="domain">[('state', '!=', 'sale'),('authorized', '=', False)]</field>
     </record>
+    <!--override original domain in this action-->
     <record id="sale.action_orders" model="ir.actions.act_window">
-        <field name="domain">[('authorized', '=', True)]</field>
+        <field name="domain">[('state', '=', 'sale')]</field>
     </record>
 </odoo>

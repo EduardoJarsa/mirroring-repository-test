@@ -175,6 +175,12 @@ class SaleOrderLine(models.Model):
     def _compute_sell_4(self):
         for rec in self:
             amount = rec.iho_sell_3 * rec.iho_service_factor
+            if not amount:
+                amount = rec.price_unit
+                rec.update({
+                    'price_unit': amount,
+                })
+                return False
             rec.update({
                 'iho_sell_4': amount,
                 'price_unit': amount,
