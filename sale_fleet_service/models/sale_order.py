@@ -1,5 +1,5 @@
-# Copyright 2018, Jarsa Sistemas, S.A. de C.V.
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2019, Jarsa Sistemas, S.A. de C.V.
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 from odoo import api, fields, models
 
@@ -51,6 +51,7 @@ class SaleOrder(models.Model):
             create_method({
                 'product_id': fleet_product.id,
                 'product_uom_qty': 1,
+                'price_unit': fleet_price,
                 'name': fleet_product.display_name,
                 'order_id': self.id,
                 'product_uom': fleet_product.uom_id.id,

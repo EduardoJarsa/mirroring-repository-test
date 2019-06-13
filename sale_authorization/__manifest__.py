@@ -16,7 +16,6 @@
     ],
     'data': [
         'security/security.xml',
-        'data/sale_authorization_data.xml',
         'views/sale_order_view.xml',
         'views/crm_lead_view.xml',
     ],

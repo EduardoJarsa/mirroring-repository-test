@@ -185,3 +185,10 @@ class SaleOrderLine(models.Model):
                 'iho_sell_4': amount,
                 'price_unit': amount,
             })
+
+    @api.onchange('product_uom', 'product_uom_qty')
+    def product_uom_change(self):
+        res = super().product_uom_change()
+        if self.iho_sell_4:
+            self.price_unit = self.iho_sell_4
+        return res
