@@ -12,9 +12,12 @@ class CrmLead(models.Model):
     def write(self, vals):
         # Name change: Message for the user
         # if no have the group access to modify.
-        if 'name' in vals:
-            if not self.user_has_groups(
-                    'iho_security.group_sale_salesman_opportunities'):
-                raise ValidationError(_(
-                    'You cannot modify the name, contact to your admin.'))
+        for rec in self:
+            if 'name' in vals:
+                if vals.get('name') == rec.name:
+                    break
+                if not self.user_has_groups(
+                        'iho_security.group_sale_salesman_opportunities'):
+                    raise ValidationError(_(
+                        'You cannot modify the name, contact to your admin.'))
         return super().write(vals)
