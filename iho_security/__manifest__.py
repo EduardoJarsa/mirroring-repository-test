@@ -11,6 +11,9 @@
     'license': 'AGPL-3',
     'depends': [
         'sale_crm',
+        'mrp',
+        'base_address_city',
+        'purchase',
     ],
     'data': [
         'security/security.xml',
