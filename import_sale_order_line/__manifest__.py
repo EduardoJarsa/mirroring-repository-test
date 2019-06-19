@@ -11,9 +11,11 @@
     'license': 'LGPL-3',
     'installable': True,
     'depends': [
+        'l10n_mx',
         'account',
         'sale_management',
         'stock',
+        'sif_interface',
     ],
     'data': [
         'security/security.xml',

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-22 17:05+0000\n"
-"PO-Revision-Date: 2019-05-22 17:05+0000\n"
+"POT-Creation-Date: 2019-06-19 20:29+0000\n"
+"PO-Revision-Date: 2019-06-19 20:29+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -91,10 +91,26 @@ msgid "Please upload the CSV file"
 msgstr "Por Favor suba un Archivo Tipo CSV"
 
 #. module: import_sale_order_line
-#: code:addons/import_sale_order_line/wizards/import_sale_order_line.py:27
+#: code:addons/import_sale_order_line/wizards/import_sale_order_line.py:38
 #, python-format
-msgid "This supplier do not exist"
-msgstr "Este proveedor no existe"
+msgid "There is no number or the format is incorrect for column %s of  product\n"
+"\n"
+"Product:\n"
+"%s\n"
+"\n"
+"Description:\n"
+"%s\n"
+"\n"
+"Please validate the format of the whole column.\n"
+"\n"
+"The readed value is: %s"
+msgstr ""
+
+#. module: import_sale_order_line
+#: code:addons/import_sale_order_line/wizards/import_sale_order_line.py:52
+#, python-format
+msgid "There is not a supplier with internal reference %s"
+msgstr "No existe un proveedor con la referencia interna %s"
 
 #. module: import_sale_order_line
 #: model:res.groups,comment:import_sale_order_line.group_charge_csv

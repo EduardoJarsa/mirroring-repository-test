@@ -16,6 +16,10 @@ class SaleOrder(models.Model):
 
     @api.onchange('order_line', 'currency_agreed_rate', 'currency_id')
     def _onchange_amount_untaxed_fleet_service(self):
+        self._amount_untaxed_fleet_service()
+
+    @api.multi
+    def _amount_untaxed_fleet_service(self):
         self.low_fleet_flag = False
         if not self.amount_untaxed:
             return {}

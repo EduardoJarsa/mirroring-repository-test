@@ -49,7 +49,9 @@ class ImportSaleOrderLineIHO(models.TransientModel):
                 'supplier', '=', True)], limit=1)
         if not partner:
             raise ValidationError(
-                _('This supplier do not exist')
+                _(
+                    'There is not a supplier with internal reference %s')
+                % supplier_reference
             )
         default_code = line.get('CodigoProducto', False)
         if default_code:
@@ -98,12 +100,17 @@ class ImportSaleOrderLineIHO(models.TransientModel):
             if element:
                 sale_line_list.append(element)
         lines = self.env['sale.order.line'].create(sale_line_list)
-        # Now is necesary to do this because of
-        # the field price_unit is setted on base,
-        # field value iho_sell_4, and as that field
-        # is computed for that reason not updated value when is
-        # imported directly in method create
-        for rec in lines:
-            rec.write({
-                'price_unit': rec.iho_sell_4,
-            })
+        # this line execute method than add fleet product
+        # I do this because of a bug with create method
+        sale_order = lines[0].order_id
+        sale_order._amount_untaxed_fleet_service()
+        sale_order_lines = self.env['sale.order.line'].search(
+            [('order_id', '=', sale_order.id)])
+        last_index = len(sale_order_lines)
+        fleet = sale_order_lines[last_index - 1].product_id
+        sale_order_lines[last_index - 1].update(
+            {
+                'analytic_tag_ids': sale_order.analytic_tag_ids.ids,
+                'tax_id': [(6, 0, fleet.taxes_id.ids)],
+            }
+        )

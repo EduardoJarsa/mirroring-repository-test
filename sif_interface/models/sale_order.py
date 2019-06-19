@@ -3,6 +3,7 @@
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
+from odoo.addons import decimal_precision as dp
 
 
 class SaleOrder(models.Model):
@@ -87,6 +88,14 @@ class SaleOrderLine(models.Model):
     iho_tc = fields.Float(
         string="TC Agreed",
         default=1.0,
+    )
+
+    price_unit = fields.Float(
+        'Unit Price',
+        required=True,
+        digits=dp.get_precision('Product Price'),
+        default=0.0,
+        compute="_compute_price_unit"
     )
 
     @api.multi
@@ -175,18 +184,27 @@ class SaleOrderLine(models.Model):
     def _compute_sell_4(self):
         for rec in self:
             amount = rec.iho_sell_3 * rec.iho_service_factor
-            if not amount:
-                amount = rec.price_unit
-                rec.update({
-                    'price_unit': amount,
-                })
-                return False
-            rec.update({
-                'iho_sell_4': amount,
-                'price_unit': amount,
-            })
+            if amount:
+                rec.iho_sell_4 = amount
+                rec.price_unit = rec.iho_sell_4
 
-    @api.onchange('product_uom', 'product_uom_qty')
+    @api.multi
+    @api.depends('product_id')
+    def _compute_price_unit(self):
+        for rec in self:
+            amount_untaxed = 0
+            if rec.iho_sell_4:
+                rec.price_unit = rec.iho_sell_4
+            # This code fix a problem with the calcule of subtotal
+            amount_untaxed += (
+                rec.price_subtotal + rec.price_unit *
+                (
+                    (rec.discount or 0.0) / 100.0
+                ) * rec.product_uom_qty
+            )
+            rec.price_subtotal = amount_untaxed
+
+    @api.onchange('product_uom', 'product_uom_qty', 'product_id')
     def product_uom_change(self):
         res = super().product_uom_change()
         if self.iho_sell_4:
