@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vendor_discounts,access_vendor_discounts,supplier_product_discounts.model_vendor_product_discounts,supplier_product_discounts.group_create_discounts,1,1,1,1
+access_iho_family,access_iho_family,supplier_product_discounts.model_iho_family,supplier_product_discounts.group_create_discounts,1,1,1,1
+access_iho_catalog,access_iho_catalog,supplier_product_discounts.model_iho_catalog,supplier_product_discounts.group_create_discounts,1,1,1,1

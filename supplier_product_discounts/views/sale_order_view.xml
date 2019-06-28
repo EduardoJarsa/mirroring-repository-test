@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_sale_order_discount_inherit_form_iho" model="ir.ui.view">
+        <field name="name">sale.order.discounts.form.iho</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='order_lines']" position="after">
+                <page name="Discounts" string="Versions">
+                    <group>
+                        <field name="discounts_ids" nolabel="1" readonly="1">
+                            <tree>
+                                <field name="name"/>
+                                <field name="partner_id"/>
+                                <field name="catalog_id"/>
+                                <field name="family_id"/>
+                                <field name="discount"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+        </field> 
+    </record>
+</odoo>
