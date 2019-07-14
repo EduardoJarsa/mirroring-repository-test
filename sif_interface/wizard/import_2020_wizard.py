@@ -237,6 +237,12 @@ class Import2020Wizard(models.TransientModel):
                         'default_code': str(
                             line['SpecItem']['Alias']['Number']),
                     })
+                    # Remove the original product created when the
+                    # product.template is created.
+                    obj_prod_prod.search([
+                        ('product_tmpl_id', '=', product_template.id),
+                        ('id', '!=', product.id),
+                        ('attribute_value_ids', '=', False)]).unlink()
                 except Exception as exc:
                     raise ValidationError(exc.name + _(
                         '\n\n Product: [%s] - %s') % (
