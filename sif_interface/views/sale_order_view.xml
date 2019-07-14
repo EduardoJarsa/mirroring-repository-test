@@ -7,7 +7,7 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//header/button[@name='action_unlock']" position="before">
-                <button class="btn-primary" name="%(action_import_2020_wizard)d" attrs="{'invisible': [('state', '!=', 'sale')]}" string="Import From 2020" type="action"/>
+                <button class="btn-primary" name="%(action_import_2020_wizard)d" attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}" string="Import From 2020" type="action"/>
             </xpath>
             <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="currency_agreed_rate"/>
@@ -29,6 +29,9 @@
                 <field name="iho_purchase_cost" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
                 <field name="vendor_id" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
                 <field name="iho_currency_id" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
+            </xpath>
+            <xpath expr="//div[@name='discount']" position="after">
+                <field name="price_subtotal"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/form/label[1]" position="before">
                 <group attrs="{'invisible': [('display_type', '!=', False)]}">
