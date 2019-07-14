@@ -19,7 +19,7 @@
     ],
     'data': [
         'data/sif_interface_data.xml',
-        'wizard/import_2020_wizard_view.xml',
+        'wizard/import_sale_order_wizard.xml',
         'views/mrp_bom_view.xml',
         'views/product_supplierinfo_view.xml',
         'wizard/export_sif_wizard_view.xml',
