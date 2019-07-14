@@ -88,7 +88,7 @@ class Import2020Wizard(models.TransientModel):
     @api.model
     def search_data(self, value, model,
                     attr=False, name=False, buy=True, vendor=False,
-                    delear_price=False, currency=False):
+                    dealer_price=False, currency=False, published_price=False):
         routes = [
             self.env.ref('stock.route_warehouse0_mto').id,
             self.env.ref('purchase_stock.route_warehouse0_buy').id]
@@ -106,42 +106,36 @@ class Import2020Wizard(models.TransientModel):
             psi_obj = self.env['product.supplierinfo']
             item = self.env[model].search([
                 ('default_code', '=', str(value))])
-            with_id = self.env[model].search([], limit=1).id
-            optional_product_id = (
-                [(4, with_id)] if with_id else self.env[model])
             if not item:
                 sat_code = self.env['ir.default'].get(
                     model, 'l10n_mx_edi_code_sat_id')
                 product_dict = {
                     'name': str(name),
                     'default_code': str(value),
-                    'list_price': delear_price,
+                    'list_price': published_price,
                     'type': 'product',
                     'purchase_ok': buy,
-                    'optional_product_ids': optional_product_id,
                     'route_ids': [(6, 0, routes)],
                     'l10n_mx_edi_code_sat_id': sat_code or False,
                 }
-                if not delear_price:
+                if not dealer_price:
                     category_no_cost = self.env.ref(
                         'sif_interface.product_category_no_cost_materials'
                         )
                     product_dict['categ_id'] = category_no_cost.id
                 item = self.env[model].create(product_dict)
             if vendor:
-                sale_order = self.env[
-                    self._context.get('active_model')].browse(
-                        self._context.get('active_id'))
+                sale_order_id = self._context.get('active_id')
                 if not psi_obj.search(
                         [('product_tmpl_id', '=', item.id),
-                         ('sale_order_id', '=', sale_order.id)]):
+                         ('sale_order_id', '=', sale_order_id)]):
                     psi_obj.create({
                         'name': vendor.id,
                         'delay': 1,
                         'min_qty': 0,
-                        'price': delear_price,
+                        'price': dealer_price,
                         'product_tmpl_id': item.id,
-                        'sale_order_id': sale_order.id,
+                        'sale_order_id': sale_order_id,
                         'currency_id': currency.id,
                     })
         elif model == 'product.attribute.value':
@@ -168,7 +162,9 @@ class Import2020Wizard(models.TransientModel):
         obj_bom = self.env['mrp.bom']
         obj_prod_prod = self.env['product.product']
         bom_elements = {}
-        bom_discounts = {}
+        cust_price_total = {}
+        dealer_price_total = {}
+        pub_price_total = {}
         sale_order = self.env[
             self._context.get('active_model')].browse(
                 self._context.get('active_id'))
@@ -191,8 +187,9 @@ class Import2020Wizard(models.TransientModel):
             product_template = self.search_data(
                 line['SpecItem']['Number'], 'product.template',
                 name=line['SpecItem']['Description'], vendor=vendor,
-                delear_price=line['Price']['OrderDealerPrice'],
-                currency=iho_currency_id)
+                dealer_price=line['Price']['OrderDealerPrice'],
+                currency=iho_currency_id,
+                published_price=line['Price']['PublishedPrice'])
             tags = self.get_data_info('Tag', line)
             tag_alias = [
                 str(tag.get('Value')) + ' - ' + sale_order.name
@@ -234,7 +231,7 @@ class Import2020Wizard(models.TransientModel):
                         'name': str(line['SpecItem']['Description']),
                         'product_tmpl_id': product_template.id,
                         'attribute_value_ids': [(6, 0, attributes)],
-                        'price': line['Price']['PublishedPrice'],
+                        'list_price': line['Price']['PublishedPrice'],
                         'route_ids': [(6, 0, routes)],
                         'code': str(line['SpecItem']['Alias']['Number']),
                         'default_code': str(
@@ -245,9 +242,7 @@ class Import2020Wizard(models.TransientModel):
                         '\n\n Product: [%s] - %s') % (
                         str(line['SpecItem']['Alias']['Number']),
                         str(line['SpecItem']['Description'])))
-            if tag_alias[0] not in bom_elements.keys():
-                bom_elements[tag_alias[0]] = []
-            bom_elements[tag_alias[0]].append((0, 0, {
+            bom_elements.setdefault(tag_alias[0], []).append((0, 0, {
                 'product_id': product.id,
                 'product_qty': line.get('Quantity'),
                 'iho_purchase_cost': line['Price']['OrderDealerPrice'],
@@ -255,48 +250,44 @@ class Import2020Wizard(models.TransientModel):
                 'iho_currency_id': iho_currency_id.id,
                 'iho_customer_cost': line['Price']['EndCustomerPrice'],
             }))
-            if tag_alias[0] not in bom_discounts.keys():
-                bom_discounts[tag_alias[0]] = []
-            bom_discounts[tag_alias[0]].append(float(
-                line['Price']['EndCustomerPrice']))
+            pub_price_total[tag_alias[0]] = pub_price_total.setdefault(
+                tag_alias[0], 0.0) + (
+                    line['Price']['PublishedPrice'] * line['Quantity'])
+            cust_price_total[tag_alias[0]] = cust_price_total.setdefault(
+                tag_alias[0], 0.0) + (
+                    line['Price']['EndCustomerPrice'] * line['Quantity'])
+            dealer_price_total[tag_alias[0]] = dealer_price_total.setdefault(
+                tag_alias[0], 0.0) + (
+                line['Price']['OrderDealerPrice'] * line['Quantity'])
         for tag, boms in bom_elements.items():
-            list_price_total = []
-            for bom in boms:
-                list_price_total.append(
-                    obj_prod_prod.browse(bom[2].get('product_id')).list_price *
-                    bom[2].get('product_qty'))
             product_template_bom = self.search_data(
                 tag, 'product.template', name=tag, buy=False)
             if not obj_bom.search(
                     [('product_tmpl_id', '=', product_template_bom.id)]):
-                product_template_bom.name = tag
                 obj_bom.create({
                     'type': 'phantom',
                     'bom_line_ids': boms,
                     'product_tmpl_id': product_template_bom.id,
                 })
-            product_bom = obj_prod_prod.search([
-                ('product_tmpl_id', '=', product_template_bom.id)])
+            product_bom = product_template_bom.product_variant_id
+            customer_discount = (
+                1 - (cust_price_total[tag] / pub_price_total[tag])) * 100
+            iho_discount = (
+                1 - (dealer_price_total[tag] / pub_price_total[tag])) * 100
             sale_order_line = sale_order.order_line.create({
                 'product_id': product_bom.id,
                 'product_uom_qty': 1.0,
                 'name': product_bom.display_name,
                 'order_id': sale_order.id,
-                'iho_price_list': sum(list_price_total),
-                'discount': 0.0,
+                'iho_price_list': pub_price_total[tag],
+                'discount': customer_discount,
                 'product_uom': product_bom.uom_id.id,
-                'iho_discount': 1 - (
-                    sum(bom_discounts[tag]) / sum(list_price_total)),
+                'iho_discount': iho_discount,
             })
             sale_order_line._compute_sell_1()
             sale_order_line._compute_sell_2()
             sale_order_line._compute_sell_3()
-            product_trash = obj_prod_prod.search([
-                ('attribute_value_ids', '=', False),
-                ('default_code', '=', False),
-                ('id', 'not in',
-                    sale_order.order_line.mapped('product_id.id'))])
-            product_trash.write({'active': False})
+            sale_order_line._compute_sell_4()
         message = _(
             "The file %s was correctly loaded. ") % (self.xml_name)
         sale_order.message_post(body=message)
