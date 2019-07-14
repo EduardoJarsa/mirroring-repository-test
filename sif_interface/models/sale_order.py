@@ -186,7 +186,9 @@ class SaleOrderLine(models.Model):
             amount = rec.iho_sell_3 * rec.iho_service_factor
             if amount:
                 rec.iho_sell_4 = amount
-                rec.price_unit = rec.iho_sell_4
+                rec.price_unit = (
+                    rec.iho_price_list * rec.iho_factor *
+                    rec.iho_tc * rec.iho_service_factor)
 
     @api.multi
     @api.depends('product_id')
