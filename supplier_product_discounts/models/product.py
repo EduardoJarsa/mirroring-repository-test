@@ -9,4 +9,10 @@ class ProductTemplate(models.Model):
     _inherit = "product.template"
 
     catalog_id = fields.Many2one('iho.catalog', string='Catalog')
-    family_id = fields.Many2one('iho.family', string='Family')
+    line_id = fields.Many2one('iho.line', string='Line')
+
+class ProductTemplate(models.Model):
+    _inherit = "product.template"
+
+    catalog_id = fields.Many2one('iho.catalog', string='Catalog')
+    line_id = fields.Many2one('iho.line', string='Line')

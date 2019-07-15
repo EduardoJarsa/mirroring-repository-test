@@ -19,6 +19,13 @@ class SaleOrder(models.Model):
                 self.authorized_version = True
 
     @api.multi
+    def _prepare_discounts(self, lines):
+        discounts = []
+        for line in lines:
+            discounts.append((0, 0, line.read(load='withou_name_get')[0]))
+        return discounts
+
+    @api.multi
     def authorize_sale_order(self):
         self.ensure_one()
         if not self.message_is_follower:
@@ -51,7 +58,8 @@ class SaleOrder(models.Model):
             'authorized': True,
             'origin': '%s %s' % (self.name, self.active_version_id.name),
             'name': new_name,
-            'analytic_account_id': analytic_account.id
+            'analytic_account_id': analytic_account.id,
+            'discounts_ids': self._prepare_discounts(self.discounts_ids)
         })
         message = _('Version %s %s approved.') % (
             self.name, self.active_version_id.name)

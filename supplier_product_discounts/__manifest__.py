@@ -17,5 +17,6 @@
         'views/sale_order_view.xml',
         'views/vendor_discount_view.xml',
         'views/product_template_view.xml',
+        'views/product_product_view.xml',
     ],
 }

@@ -12,9 +12,30 @@
                     </div>
                     <group>
                         <group>
-                            <field name="partner_id"/>
+                            <field name="partner_id" domain="[('supplier','=',True), ('ref','!=', False), ('is_company','=',True)]"/>
                             <field name="catalog_id"/>
-                            <field name="family_id"/>
+                            <field name="line_id"/>
+                            <field name="discount"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_vvendor_sale_order_discounts_form_iho" model="ir.ui.view">
+        <field name="name">vendor.sale.order.discounts.form.iho</field>
+        <field name="model">vendor.sale.order.discounts</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" class="oe_inline"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="catalog_id"/>
+                            <field name="line_id"/>
                             <field name="discount"/>
                         </group>
                     </group>
@@ -30,7 +51,7 @@
                 <field name="name"/>
                 <field name="partner_id"/>
                 <field name="catalog_id"/>
-                <field name="family_id"/>
+                <field name="line_id"/>
                 <field name="discount"/>
             </tree>
        </field>

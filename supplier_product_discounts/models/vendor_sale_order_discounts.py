@@ -7,9 +7,12 @@ from odoo import fields, models
 class VendorSaleOrderDiscounts(models.Model):
     _name = 'vendor.sale.order.discounts'
 
-    name = fields.Char()    
-    sale_id = fields.Many2one(comodel_name='sale.order' )
-    partner_id = fields.Many2one('res.partner', string='Partner')
+    name = fields.Char()
+    sale_id = fields.Many2one(comodel_name='sale.order')
+    partner_id = fields.Many2one(
+        'res.partner',
+        string='Partner',
+        related="sale_id.partner_id")
     catalog_id = fields.Many2one('iho.catalog', string='Catalog')
-    family_id = fields.Many2one('iho.family', string='Family')
+    line_id = fields.Many2one('iho.line', string='line')
     discount = fields.Float(string='Discount (%)',)

@@ -4,7 +4,7 @@
 from odoo import fields, models
 
 
-class IhoFamily(models.Model):
-    _name = 'iho.family'
+class IhoLine(models.Model):
+    _name = 'iho.line'
 
     name = fields.Char()

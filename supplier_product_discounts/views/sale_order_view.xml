@@ -5,15 +5,16 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='order_lines']" position="after">
-                <page name="Discounts" string="Versions">
+            <xpath expr="//page[@name='other_information']" position="after">
+                <page name="Discounts" string="Discounts" groups="supplier_product_discounts.group_create_discounts">
                     <group>
-                        <field name="discounts_ids" nolabel="1" readonly="1">
+                        <field name="discounts_ids" widget="section_and_note_one2many" editable="true" nolabel="1">
                             <tree>
+                                <field name="sale_id" invisible="1"/>
                                 <field name="name"/>
                                 <field name="partner_id"/>
                                 <field name="catalog_id"/>
-                                <field name="family_id"/>
+                                <field name="line_id"/>
                                 <field name="discount"/>
                             </tree>
                         </field>
