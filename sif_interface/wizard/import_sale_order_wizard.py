@@ -2,9 +2,11 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import base64
+import csv
 import os
-
 from codecs import BOM_UTF8
+
+from io import StringIO
 from lxml import objectify
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
@@ -12,14 +14,132 @@ from odoo.exceptions import ValidationError
 BOM_UTF8U = BOM_UTF8.decode('UTF-8')
 
 
-class Import2020Wizard(models.TransientModel):
-    _name = "import.2020.wizard"
-    _description = "Export XML Files from 2020 to Sale Orders"
+class ImportSaleOrderWizard(models.TransientModel):
+    _name = "import.sale.order.wizard"
+    _description = "Import sale order from a file."
 
-    xml_name = fields.Char(help='Save the file name, to verify that is .xml',)
-    file_xml = fields.Binary(
-        string='XML File',
-        help='The xml file exported by the system', required=True,)
+    upload_file = fields.Binary(required=True)
+    file_name = fields.Char()
+
+    @api.multi
+    def run_import(self):
+        file_extension = os.path.splitext(self.file_name)[1].lower()
+        if file_extension not in ['.xml', '.csv']:
+            raise ValidationError(
+                _('Verify that file is .xml or .csv, please!'))
+        if file_extension == '.xml':
+            self._run_2020_import()
+        if file_extension == '.csv':
+            self._run_csv_import()
+
+    @api.model
+    def to_float(self, line, column):
+        """format a text to try to find a float in it."""
+        text = line.get(column, '')
+        t_no_space = text.replace(' ', '').replace('$', '').replace('€', '')
+        char = ""
+        for letter in t_no_space:
+            if letter in ['.', ',']:
+                char = letter
+        if char == ",":
+            t_no_space = t_no_space.replace(".", "")
+            t_no_space = t_no_space.replace(",", ".")
+        elif char == ".":
+            t_no_space = t_no_space.replace(",", "")
+        try:
+            return float(t_no_space)
+        except (AttributeError, ValueError):
+            product = line.get('CodigoProducto', 'NA')
+            if not product:
+                product = 'NA'
+            raise ValidationError(_(
+                'There is no number or the format is incorrect for column %s '
+                'of  product\n\nProduct:\n%s\n\nDescription:\n%s\n\nPlease '
+                'validate the format of the whole column.\n\nThe readed value '
+                'is: %s') % (column, product, line.get('Descrip', ''), text))
+
+    @api.model
+    def _prepare_sale_order_line(self, line, sale_order):
+        supplier_reference = line.get('Fabricante', False)
+        partner = self.env['res.partner'].search(
+            [('ref', '=', supplier_reference), (
+                'supplier', '=', True)], limit=1)
+        if not partner:
+            raise ValidationError(
+                _(
+                    'There is not a supplier with internal reference %s')
+                % supplier_reference
+            )
+        default_code = line.get('CodigoProducto', False)
+        if not default_code:
+            raise ValidationError(_(
+                'The product with description %s has not defined a product '
+                'code.') % line['Descrip'])
+        product_id = self.env['product.product'].search([(
+                'default_code', '=', default_code)])
+        if not product_id:
+            product_id = self.env['product.template'].create({
+                'name': line['Descrip'],
+                'default_code': line['CodigoProducto'],
+                'type': 'product',
+                'sale_ok': True,
+                'purchase_ok': True,
+                'categ_id': self.env.ref(
+                    'sif_interface.product_category_cdv').id,
+                'list_price': line['PriceList']
+            }).product_variant_id
+        tc_agreed = self.to_float(line, 'TCAcordado')
+        if not tc_agreed:
+            tc_agreed = sale_order.currency_agreed_rate
+        iho_currency = line.get('IHOCurrency', False)
+        iho_currency_id = self.env['res.currency'].search(
+            [('name', '=', iho_currency)])
+        return {
+            'name': line['Descrip'],
+            'product_id': product_id.id,
+            'product_uom_qty': self.to_float(line, 'Cantidad'),
+            'iho_price_list': self.to_float(line, 'PriceList'),
+            'iho_purchase_cost': self.to_float(line, 'UnitPurchaseCost'),
+            'iho_tc': tc_agreed,
+            'iho_service_factor': self.to_float(line, 'FactorServicio'),
+            'discount': self.to_float(line, 'CustomerDiscount'),
+            'iho_factor': self.to_float(line, 'Factor'),
+            'vendor_id': partner.id,
+            'iho_currency_id': iho_currency_id.id,
+            'iho_discount': self.to_float(line, 'IHODiscount'),
+            'order_id': sale_order.id,
+            'analytic_tag_ids': [(6, 0, sale_order.analytic_tag_ids.ids)],
+            'tax_id': [(6, 0, product_id.taxes_id.ids)],
+        }
+
+    @api.multi
+    def _run_csv_import(self):
+        self.ensure_one()
+        data = base64.b64decode(self.upload_file).decode('utf-8')
+        data = StringIO(data)
+        reader = csv.DictReader(data)
+        sale_order_id = self._context.get('active_id')
+        sale_order = self.env['sale.order'].browse(sale_order_id)
+        sale_line_list = []
+        for line in reader:
+            element = self._prepare_sale_order_line(line, sale_order)
+            if element:
+                sale_line_list.append(element)
+        lines = self.env['sale.order.line'].create(sale_line_list)
+        # this line execute method than add fleet product
+        # I do this because of a bug with create method
+        sale_order = lines[0].order_id
+        # TODO: Verify if we need to add _amount_untaxed_fleet_service function
+        sale_order_lines = self.env['sale.order.line'].search(
+            [('order_id', '=', sale_order.id)])
+        last_index = len(sale_order_lines)
+        fleet = sale_order_lines[last_index - 1].product_id
+        sale_order_lines[last_index - 1].update(
+            {
+                'analytic_tag_ids': sale_order.analytic_tag_ids.ids,
+                'tax_id': [(6, 0, fleet.taxes_id.ids)],
+            }
+        )
 
     @api.model
     def xml2dict(self, xml):
@@ -63,17 +183,17 @@ class Import2020Wizard(models.TransientModel):
            :return: A clean dictionary with the xml data
            :rtype: dict
         """
-        xml_string = base64.b64decode(self.file_xml).lstrip(BOM_UTF8)
+        xml_string = base64.b64decode(self.upload_file).lstrip(BOM_UTF8)
         try:
             xml = objectify.fromstring(xml_string)
             file_data = self.xml2dict(xml)
             self.env["ir.attachment"].create({
                 'res_model': self._context.get('active_model'),
-                'name': self.xml_name,
+                'name': self.file_name,
                 'res_id': self._context.get('active_id'),
                 'type': 'binary',
-                'datas': self.file_xml,
-                'datas_fname': self.xml_name,
+                'datas': self.upload_file,
+                'datas_fname': self.file_name,
             })
         except(SyntaxError, ValueError) as err:
             raise ValidationError(
@@ -88,7 +208,7 @@ class Import2020Wizard(models.TransientModel):
     @api.model
     def search_data(self, value, model,
                     attr=False, name=False, buy=True, vendor=False,
-                    delear_price=False, currency=False):
+                    dealer_price=False, currency=False, published_price=False):
         routes = [
             self.env.ref('stock.route_warehouse0_mto').id,
             self.env.ref('purchase_stock.route_warehouse0_buy').id]
@@ -106,42 +226,36 @@ class Import2020Wizard(models.TransientModel):
             psi_obj = self.env['product.supplierinfo']
             item = self.env[model].search([
                 ('default_code', '=', str(value))])
-            with_id = self.env[model].search([], limit=1).id
-            optional_product_id = (
-                [(4, with_id)] if with_id else self.env[model])
             if not item:
                 sat_code = self.env['ir.default'].get(
                     model, 'l10n_mx_edi_code_sat_id')
                 product_dict = {
                     'name': str(name),
                     'default_code': str(value),
-                    'list_price': delear_price,
+                    'list_price': published_price,
                     'type': 'product',
                     'purchase_ok': buy,
-                    'optional_product_ids': optional_product_id,
                     'route_ids': [(6, 0, routes)],
                     'l10n_mx_edi_code_sat_id': sat_code or False,
                 }
-                if not delear_price:
+                if not dealer_price:
                     category_no_cost = self.env.ref(
                         'sif_interface.product_category_no_cost_materials'
                         )
                     product_dict['categ_id'] = category_no_cost.id
                 item = self.env[model].create(product_dict)
             if vendor:
-                sale_order = self.env[
-                    self._context.get('active_model')].browse(
-                        self._context.get('active_id'))
+                sale_order_id = self._context.get('active_id')
                 if not psi_obj.search(
                         [('product_tmpl_id', '=', item.id),
-                         ('sale_order_id', '=', sale_order.id)]):
+                         ('sale_order_id', '=', sale_order_id)]):
                     psi_obj.create({
                         'name': vendor.id,
                         'delay': 1,
                         'min_qty': 0,
-                        'price': delear_price,
+                        'price': dealer_price,
                         'product_tmpl_id': item.id,
-                        'sale_order_id': sale_order.id,
+                        'sale_order_id': sale_order_id,
                         'currency_id': currency.id,
                     })
         elif model == 'product.attribute.value':
@@ -163,21 +277,20 @@ class Import2020Wizard(models.TransientModel):
         return item
 
     @api.multi
-    def run_product_creation(self):
+    def _run_2020_import(self):
         self.ensure_one()
         obj_bom = self.env['mrp.bom']
         obj_prod_prod = self.env['product.product']
         bom_elements = {}
-        bom_discounts = {}
+        cust_price_total = {}
+        dealer_price_total = {}
+        pub_price_total = {}
         sale_order = self.env[
             self._context.get('active_model')].browse(
                 self._context.get('active_id'))
         routes = [
             self.env.ref('stock.route_warehouse0_mto').id,
             self.env.ref('purchase_stock.route_warehouse0_buy').id]
-        file_extension = os.path.splitext(self.xml_name)[1].lower()
-        if file_extension != '.xml':
-            raise ValidationError(_('Verify that file is .xml, please!'))
         file_data = self.get_file_data()
         order_lines = self.get_data_info(
             'OrderLineItem', file_data['Envelope']['PurchaseOrder'])
@@ -191,8 +304,9 @@ class Import2020Wizard(models.TransientModel):
             product_template = self.search_data(
                 line['SpecItem']['Number'], 'product.template',
                 name=line['SpecItem']['Description'], vendor=vendor,
-                delear_price=line['Price']['OrderDealerPrice'],
-                currency=iho_currency_id)
+                dealer_price=line['Price']['OrderDealerPrice'],
+                currency=iho_currency_id,
+                published_price=line['Price']['PublishedPrice'])
             tags = self.get_data_info('Tag', line)
             tag_alias = [
                 str(tag.get('Value')) + ' - ' + sale_order.name
@@ -234,20 +348,24 @@ class Import2020Wizard(models.TransientModel):
                         'name': str(line['SpecItem']['Description']),
                         'product_tmpl_id': product_template.id,
                         'attribute_value_ids': [(6, 0, attributes)],
-                        'price': line['Price']['PublishedPrice'],
+                        'list_price': line['Price']['PublishedPrice'],
                         'route_ids': [(6, 0, routes)],
                         'code': str(line['SpecItem']['Alias']['Number']),
                         'default_code': str(
                             line['SpecItem']['Alias']['Number']),
                     })
+                    # Remove the original product created when the
+                    # product.template is created.
+                    obj_prod_prod.search([
+                        ('product_tmpl_id', '=', product_template.id),
+                        ('id', '!=', product.id),
+                        ('attribute_value_ids', '=', False)]).unlink()
                 except Exception as exc:
                     raise ValidationError(exc.name + _(
                         '\n\n Product: [%s] - %s') % (
                         str(line['SpecItem']['Alias']['Number']),
                         str(line['SpecItem']['Description'])))
-            if tag_alias[0] not in bom_elements.keys():
-                bom_elements[tag_alias[0]] = []
-            bom_elements[tag_alias[0]].append((0, 0, {
+            bom_elements.setdefault(tag_alias[0], []).append((0, 0, {
                 'product_id': product.id,
                 'product_qty': line.get('Quantity'),
                 'iho_purchase_cost': line['Price']['OrderDealerPrice'],
@@ -255,50 +373,46 @@ class Import2020Wizard(models.TransientModel):
                 'iho_currency_id': iho_currency_id.id,
                 'iho_customer_cost': line['Price']['EndCustomerPrice'],
             }))
-            if tag_alias[0] not in bom_discounts.keys():
-                bom_discounts[tag_alias[0]] = []
-            bom_discounts[tag_alias[0]].append(float(
-                line['Price']['EndCustomerPrice']))
+            pub_price_total[tag_alias[0]] = pub_price_total.setdefault(
+                tag_alias[0], 0.0) + (
+                    line['Price']['PublishedPrice'] * line['Quantity'])
+            cust_price_total[tag_alias[0]] = cust_price_total.setdefault(
+                tag_alias[0], 0.0) + (
+                    line['Price']['EndCustomerPrice'] * line['Quantity'])
+            dealer_price_total[tag_alias[0]] = dealer_price_total.setdefault(
+                tag_alias[0], 0.0) + (
+                line['Price']['OrderDealerPrice'] * line['Quantity'])
         for tag, boms in bom_elements.items():
-            list_price_total = []
-            for bom in boms:
-                list_price_total.append(
-                    obj_prod_prod.browse(bom[2].get('product_id')).list_price *
-                    bom[2].get('product_qty'))
             product_template_bom = self.search_data(
                 tag, 'product.template', name=tag, buy=False)
             if not obj_bom.search(
                     [('product_tmpl_id', '=', product_template_bom.id)]):
-                product_template_bom.name = tag
                 obj_bom.create({
                     'type': 'phantom',
                     'bom_line_ids': boms,
                     'product_tmpl_id': product_template_bom.id,
                 })
-            product_bom = obj_prod_prod.search([
-                ('product_tmpl_id', '=', product_template_bom.id)])
+            product_bom = product_template_bom.product_variant_id
+            customer_discount = (
+                1 - (cust_price_total[tag] / pub_price_total[tag])) * 100
+            iho_discount = (
+                1 - (dealer_price_total[tag] / pub_price_total[tag])) * 100
             sale_order_line = sale_order.order_line.create({
                 'product_id': product_bom.id,
                 'product_uom_qty': 1.0,
                 'name': product_bom.display_name,
                 'order_id': sale_order.id,
-                'iho_price_list': sum(list_price_total),
-                'discount': 0.0,
+                'iho_price_list': pub_price_total[tag],
+                'discount': customer_discount,
                 'product_uom': product_bom.uom_id.id,
-                'iho_discount': 1 - (
-                    sum(bom_discounts[tag]) / sum(list_price_total)),
+                'iho_discount': iho_discount,
             })
             sale_order_line._compute_sell_1()
             sale_order_line._compute_sell_2()
             sale_order_line._compute_sell_3()
-            product_trash = obj_prod_prod.search([
-                ('attribute_value_ids', '=', False),
-                ('default_code', '=', False),
-                ('id', 'not in',
-                    sale_order.order_line.mapped('product_id.id'))])
-            product_trash.write({'active': False})
+            sale_order_line._compute_sell_4()
         message = _(
-            "The file %s was correctly loaded. ") % (self.xml_name)
+            "The file %s was correctly loaded. ") % (self.file_name)
         sale_order.message_post(body=message)
         pricelist = self.env['product.pricelist'].search(
             [('currency_id', '=', iho_currency_id.id)], limit=1)

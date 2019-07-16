@@ -12,6 +12,7 @@
     'depends': [
         'sale_order_version',
         'iho_security',
+        'hr',
     ],
     'data': [
         'data/activity_type.xml',
