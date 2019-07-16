@@ -76,7 +76,7 @@ class ImportSaleOrderWizard(models.TransientModel):
                 'The product with description %s has not defined a product '
                 'code.') % line['Descrip'])
         product_id = self.env['product.product'].search([(
-                'default_code', '=', default_code)])
+            'default_code', '=', default_code)])
         if not product_id:
             product_id = self.env['product.template'].create({
                 'name': line['Descrip'],
@@ -241,7 +241,7 @@ class ImportSaleOrderWizard(models.TransientModel):
                 if not dealer_price:
                     category_no_cost = self.env.ref(
                         'sif_interface.product_category_no_cost_materials'
-                        )
+                    )
                     product_dict['categ_id'] = category_no_cost.id
                 item = self.env[model].create(product_dict)
             if vendor:

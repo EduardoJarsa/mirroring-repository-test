@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='other_information']" position="after">
-                <page name="Discounts" string="Discounts" groups="supplier_product_discounts.group_create_discounts">
+                <page name="Discounts" string="Discounts" groups="supplier_product_discounts.group_create_special_discounts">
                     <group>
                         <field name="discounts_ids" widget="section_and_note_one2many" editable="true" nolabel="1">
                             <tree>
