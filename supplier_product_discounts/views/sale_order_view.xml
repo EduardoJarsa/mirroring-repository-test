@@ -14,12 +14,22 @@
                                 <field name="name"/>
                                 <field name="partner_id"/>
                                 <field name="catalog_id"/>
-                                <field name="line_id"/>
+                                <field name="family_id"/>
                                 <field name="discount"/>
                             </tree>
                         </field>
                     </group>
                 </page>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after" >
+                <field name="vendor_id" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/form/label[1]" position="before">
+                <group attrs="{'invisible': ['|', ('is_bom_line', '!=', False), ('display_type', '!=', False)]}">
+                    <group>
+                        <field name="vendor_id"/>
+                    </group>
+                </group>
             </xpath>
         </field> 
     </record>

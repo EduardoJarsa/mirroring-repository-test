@@ -7,4 +7,4 @@ from odoo import fields, models
 class IhoCatalog(models.Model):
     _name = 'iho.catalog'
 
-    name = fields.Char()
+    name = fields.Char(required=True)

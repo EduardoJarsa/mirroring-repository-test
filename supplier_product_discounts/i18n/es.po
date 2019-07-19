@@ -1,0 +1,211 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* supplier_product_discounts
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-26 19:47+0000\n"
+"PO-Revision-Date: 2019-07-26 19:47+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: supplier_product_discounts
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_product_product__catalog_id
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_product_template__catalog_id
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_product_discounts__catalog_id
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_sale_order_discounts__catalog_id
+msgid "Catalog"
+msgstr "Catálogo"
+
+#. module: supplier_product_discounts
+#: model:res.groups,name:supplier_product_discounts.group_create_special_discounts
+msgid "Create special Discounts"
+msgstr "Crear descuentos especiales"
+
+#. module: supplier_product_discounts
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_iho_catalog__create_uid
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_iho_family__create_uid
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_product_discounts__create_uid
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_sale_order_discounts__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: supplier_product_discounts
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_iho_catalog__create_date
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_iho_family__create_date
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_product_discounts__create_date
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_sale_order_discounts__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: supplier_product_discounts
+#: model_terms:ir.ui.view,arch_db:supplier_product_discounts.view_vendor_product_discounts_tree_iho
+msgid "Customs"
+msgstr "Clientes"
+
+#. module: supplier_product_discounts
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_product_discounts__discount
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_sale_order_discounts__discount
+msgid "Discount (%)"
+msgstr "Descuento (%)"
+
+#. module: supplier_product_discounts
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_sale_order__discounts_ids
+#: model:ir.ui.menu,name:supplier_product_discounts.menu_vendor_products_discount
+#: model_terms:ir.ui.view,arch_db:supplier_product_discounts.product_product_iho_discounts_form_view
+#: model_terms:ir.ui.view,arch_db:supplier_product_discounts.product_template_iho_discounts_form_view
+#: model_terms:ir.ui.view,arch_db:supplier_product_discounts.view_sale_order_discount_inherit_form_iho
+msgid "Discounts"
+msgstr "Descuentos"
+
+#. module: supplier_product_discounts
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_iho_catalog__display_name
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_iho_family__display_name
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_product_discounts__display_name
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_sale_order_discounts__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: supplier_product_discounts
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_product_product__family_id
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_product_template__family_id
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_product_discounts__family_id
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_sale_order_discounts__family_id
+msgid "Family"
+msgstr "Familia"
+
+#. module: supplier_product_discounts
+#: model:res.groups,name:supplier_product_discounts.group_create_discounts
+msgid "General Discounts"
+msgstr "Descuentos generales"
+
+#. module: supplier_product_discounts
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_iho_catalog__id
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_iho_family__id
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_product_discounts__id
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_sale_order_discounts__id
+msgid "ID"
+msgstr ""
+
+#. module: supplier_product_discounts
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_iho_catalog____last_update
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_iho_family____last_update
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_product_discounts____last_update
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_sale_order_discounts____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: supplier_product_discounts
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_iho_catalog__write_uid
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_iho_family__write_uid
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_product_discounts__write_uid
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_sale_order_discounts__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: supplier_product_discounts
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_iho_catalog__write_date
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_iho_family__write_date
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_product_discounts__write_date
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_sale_order_discounts__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: supplier_product_discounts
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_product_product__maker_id
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_product_template__maker_id
+msgid "Maker"
+msgstr "Fabricante"
+
+#. module: supplier_product_discounts
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_iho_catalog__name
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_iho_family__name
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_product_discounts__name
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_sale_order_discounts__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: supplier_product_discounts
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_sale_order_line__vendor_id
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_product_discounts__partner_id
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_sale_order_discounts__partner_id
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: supplier_product_discounts
+#: model:ir.model,name:supplier_product_discounts.model_product_product
+msgid "Product"
+msgstr "Producto"
+
+#. module: supplier_product_discounts
+#: model:ir.model,name:supplier_product_discounts.model_product_template
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: supplier_product_discounts
+#: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_sale_order_discounts__sale_id
+msgid "Sale"
+msgstr "Venta"
+
+#. module: supplier_product_discounts
+#: model:ir.model,name:supplier_product_discounts.model_sale_order
+msgid "Sale Order"
+msgstr "Pedido de venta"
+
+#. module: supplier_product_discounts
+#: model:ir.model,name:supplier_product_discounts.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de pedido de venta"
+
+#. module: supplier_product_discounts
+#: model:res.groups,comment:supplier_product_discounts.group_create_discounts
+#: model:res.groups,comment:supplier_product_discounts.group_create_special_discounts
+msgid "The user will have access to create more discounts."
+msgstr "El usuario tendrá acceso a crear más descuentos."
+
+#. module: supplier_product_discounts
+#: model:ir.actions.act_window,name:supplier_product_discounts.template_vendor_discount
+msgid "Vendor discounts"
+msgstr "Descuentos de proveedor"
+
+#. module: supplier_product_discounts
+#: code:addons/supplier_product_discounts/models/sale_order.py:61
+#, python-format
+msgid "You exceded limit discount for: %s , discount: %s"
+msgstr "Excedió el limite de descuento para: %s , descuento: %s"
+
+#. module: supplier_product_discounts
+#: model:ir.model,name:supplier_product_discounts.model_iho_catalog
+msgid "iho.catalog"
+msgstr ""
+
+#. module: supplier_product_discounts
+#: model:ir.model,name:supplier_product_discounts.model_iho_family
+msgid "iho.family"
+msgstr ""
+
+#. module: supplier_product_discounts
+#: model:ir.model,name:supplier_product_discounts.model_iho_line
+msgid "iho.line"
+msgstr ""
+
+#. module: supplier_product_discounts
+#: model:ir.model,name:supplier_product_discounts.model_sale_order_version_create_wizard
+msgid "sale.order.version.create.wizard"
+msgstr ""
+
+#. module: supplier_product_discounts
+#: model:ir.model,name:supplier_product_discounts.model_vendor_product_discounts
+msgid "vendor.product.discounts"
+msgstr ""
+
+#. module: supplier_product_discounts
+#: model:ir.model,name:supplier_product_discounts.model_vendor_sale_order_discounts
+msgid "vendor.sale.order.discounts"
+msgstr ""

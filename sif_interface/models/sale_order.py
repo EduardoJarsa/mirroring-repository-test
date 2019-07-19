@@ -70,11 +70,6 @@ class SaleOrderLine(models.Model):
         string='Service Factor',
         default=1.0,)
 
-    vendor_id = fields.Many2one(
-        'res.partner',
-        string='Partner',
-        domain=[('supplier', '=', True), ('is_company', '=', True)],
-    )
     iho_currency_id = fields.Many2one(
         'res.currency',
         string='IHO Currency',

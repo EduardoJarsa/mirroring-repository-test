@@ -5,5 +5,5 @@ from . import vendor_product_discounts
 from . import vendor_sale_order_discounts
 from . import product
 from . import iho_catalog
-from . import iho_line
+from . import iho_family
 from . import sale_order

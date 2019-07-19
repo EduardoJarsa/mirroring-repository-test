@@ -11,5 +11,5 @@ class VendorSaleOrderDiscounts(models.Model):
     sale_id = fields.Many2one(comodel_name='sale.order')
     partner_id = fields.Many2one('res.partner', string='Partner')
     catalog_id = fields.Many2one('iho.catalog', string='Catalog')
-    line_id = fields.Many2one('iho.line', string='line')
+    family_id = fields.Many2one('iho.family', string='Family')
     discount = fields.Float(string='Discount (%)',)
