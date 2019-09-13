@@ -21,6 +21,7 @@ lint:
     LINT_CHECK: "1"
     TESTS: "0"
   script:
+    - source variables.sh 
     - export TRAVIS_BUILD_DIR=$(pwd)
     - pip install deployv-addon-gitlab-tools
     - deployvcmd gitlab_tools check_keys
@@ -43,6 +44,7 @@ test:
     INCLUDE: "iho,company_country"
     INSTALL: "iho"
   script:
+    - source variables.sh
     - export TRAVIS_BUILD_DIR=$(pwd)
     - pip install deployv-addon-gitlab-tools
     - deployvcmd gitlab_tools check_keys
@@ -66,6 +68,7 @@ build:
     CUSTOMER: "iho"
 
   script:
+    - source variables.sh
     - deployvcmd gitlab_tools check_keys
     - deployvcmd gitlab_tools test_images --push_image
 
