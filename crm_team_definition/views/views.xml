@@ -1,0 +1,106 @@
+<odoo>
+  <data>
+
+    <!-- window action -->
+    <!--
+        The following tag is an action definition for a "window action",
+        that is an action opening a view or a set of views
+        Add CRM sale followup fields to existing view -->
+
+    <record model="ir.ui.view" id="team_definition_form_view">
+            <field name="name">crm.lead.team_definition.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+              <xpath expr="//notebook" position="inside">
+                <form string="Team" version="7.0">
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                    </div>
+                      <group><field name="total_percentage"/></group>
+                      <field name="employee_ids">
+                          <form string="Form Name">
+                            <field name="name" readonly="1"/>
+                            <field name="team_member"/>
+                            <field name="percentage"/>
+                          </form>
+                          <tree string="Tree String" editable="bottom">
+                            <!--field name="name" readonly="1"-->
+                            <field name="team_member"/>
+                            <field name="percentage"/>
+                            <field name="oppor_percentage" class="oe_inline" widget="monetary" />
+                          </tree>
+                      </field>
+                </sheet>
+                </form>
+              </xpath>
+            </field>
+    </record>
+
+    <!-- actions opening views on models -->
+    <!--<record model="ir.actions.act_window" id="crm_lead.action_window">
+      <field name="name">crm.lead window</field>
+      <field name="res_model">crm.lead</field>
+      <field name="view_mode">tree,form</field>
+    </record> -->
+
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="crm_team_definition.action_server">
+      <field name="name">crm_team_definition server</field>
+      <field name="model_id" ref="model_crm_team_definition_crm_team_definition"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="crm_team_definition" id="crm_team_definition.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="crm_team_definition.menu_1" parent="crm_team_definition.menu_root"/>
+    <menuitem name="Menu 2" id="crm_team_definition.menu_2" parent="crm_team_definition.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="crm_team_definition.menu_1_list" parent="crm_team_definition.menu_1"
+              action="crm_team_definition.action_window"/>
+    <menuitem name="Server to list" id="crm_team_definition" parent="crm_team_definition.menu_2"
+              action="crm_team_definition.action_server"/>
+    -->
+    <record id="crm_team_definition_menu_action" model="ir.actions.act_window">
+    <field name="name">CRM Teams</field>
+    <field name="model">crm.lead</field>
+    <field name="arch" type="xml">
+       <group><field name="total_percentage"/></group>
+          <field name="employee_ids">
+              <form string="Form Name">
+                <field name="name" readonly="1"/>
+                <field name="team_member" visible="true"/>
+                <field name="percentage" visible="true"/>
+              </form>
+              <tree string="Tree String" editable="bottom">
+                <!--field name="name" readonly="1"-->
+                <field name="team_member" readonly="1" visible="true"/>
+                <field name="percentage" readonly="1" visible="true"/>
+                <field name="oppor_percentage" class="oe_inline"  visible="true" widget="monetary" readonly="1"/>
+              </tree>
+          </field>
+    </field>
+   </record>
+
+     <menuitem id="crm.crm_root_team" parent="crm.crm_menu_report" name="Teams" groups="base.group_user" action="crm_team_definition_menu_action" />
+
+  </data>
+</odoo>
