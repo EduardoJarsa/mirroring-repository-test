@@ -4,7 +4,7 @@
 
     'summary':  """
         Adds a team tab on notebook's opportunity for
-        teams management    
+        teams management
     """,
 
     'author': "Jarsa Sistemas",
