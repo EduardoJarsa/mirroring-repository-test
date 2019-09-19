@@ -27,7 +27,7 @@ class CrmTeam(models.Model):
     @api.constrains('employee_ids')
     def _validate_total_percentage(self):
         if self.total_percentage != 100:
-            raise exceptions.ValidationError('The total '
+            raise exceptions.ValidationError_('The total '
                                              'percentage must be '
                                              'equal to 100%, please '
                                              'reorganize')
@@ -65,7 +65,7 @@ class CrmTeamDefMember(models.Model):
     @api.onchange('percentage')
     def __verify_percentage(self):
         if self.percentage > 100.00 or self.percentage < 0.00:
-            raise exceptions.ValidationError('Percentage '
+            raise exceptions.ValidationError_('Percentage '
                                              'must lesser or '
                                              'equal than '
                                              '100 percent or '
