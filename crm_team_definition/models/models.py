@@ -16,7 +16,7 @@ class CrmTeam(models.Model):
     total_percentage = fields.Integer(String="Total Percentage",
                                       compute='_compute_total_'
                                               'percentage')
-s
+
     @api.depends('employee_ids')
     def _compute_total_percentage(self):
         total_percentage = 0.0
