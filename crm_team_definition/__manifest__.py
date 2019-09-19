@@ -7,12 +7,6 @@
         teams management    
     """,
 
-    'description': """
-        This module, adds a new tab to notebook's opportunity
-        for managing teams, each member can have an specific
-        percentage of the pretended revenue
-    """,
-
     'author': "Jarsa Sistemas",
     'website': "https://www.jarsa.com.mx",
     'license': 'LGPL-3',
@@ -21,7 +15,7 @@
     # Check https://github.com/odoo/odoo/blob/12.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'crm',
-    'version': '0.1',
+    'version': '12.0',
 
     # any module necessary for this one to work correctly
     'depends': ['base', 'crm', 'sale', 'hr'],

@@ -79,28 +79,5 @@
     <menuitem name="Server to list" id="crm_team_definition" parent="crm_team_definition.menu_2"
               action="crm_team_definition.action_server"/>
     -->
-    <record id="crm_team_definition_menu_action" model="ir.actions.act_window">
-    <field name="name">CRM Teams</field>
-    <field name="model">crm.lead</field>
-    <field name="arch" type="xml">
-       <group><field name="total_percentage"/></group>
-          <field name="employee_ids">
-              <form string="Form Name">
-                <field name="name" readonly="1"/>
-                <field name="team_member" visible="true"/>
-                <field name="percentage" visible="true"/>
-              </form>
-              <tree string="Tree String" editable="bottom">
-                <!--field name="name" readonly="1"-->
-                <field name="team_member" readonly="1" visible="true"/>
-                <field name="percentage" readonly="1" visible="true"/>
-                <field name="oppor_percentage" class="oe_inline"  visible="true" widget="monetary" readonly="1"/>
-              </tree>
-          </field>
-    </field>
-   </record>
 
-     <menuitem id="crm.crm_root_team" parent="crm.crm_menu_report" name="Teams" groups="base.group_user" action="crm_team_definition_menu_action" />
-
-  </data>
 </odoo>

@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from odoo import http
 
 # class CrmTeamDefinition(http.Controller):
 #     @http.route('/crm_team_definition/crm_team_definition/', auth='public')
@@ -13,7 +12,8 @@ from odoo import http
 #             'objects': http.request.env['crm_team_definition.crm_team_definition'].search([]),
 #         })
 
-#     @http.route('/crm_team_definition/crm_team_definition/objects/<model("crm_team_definition.crm_team_definition"):obj>/', auth='public')
+#     @http.route('/crm_team_definition/crm_team_definition/objects/
+#     <model("crm_team_definition.crm_team_definition"):obj>/', auth='public')
 #     def object(self, obj, **kw):
 #         return http.request.render('crm_team_definition.object', {
 #             'object': obj
