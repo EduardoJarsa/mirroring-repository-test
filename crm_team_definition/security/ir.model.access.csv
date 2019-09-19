@@ -1,2 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-member_read_all,member all,model_crm_team_definition,,1,0,0,0
+Manage CRM Team,Manage CRM Team all,model_crm_team_definition,,1,1,1,1

@@ -39,7 +39,7 @@ class CrmTeam(models.Model):
         self.env['crm_team_definition'].create(
             {'name': new_record.id,
              'team_member':
-                 self.env['hr.employee'].search([('user_id',
+                 self.env['hr.employee'].search([('crm.lead.user_id',
                                                   '=',
                                                   self.env.uid)]).id,
              'percentage': 100})
