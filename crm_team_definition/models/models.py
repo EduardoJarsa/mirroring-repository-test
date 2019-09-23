@@ -27,10 +27,10 @@ class CrmTeam(models.Model):
     def _validate_total_percentage(self):
         if self.total_percentage != 100:
             raise ValidationError(_('The total '
-                                              'percentage must be '
-                                              'equal to 100%, '
-                                              'please '
-                                              'reorganize'))
+                                    'percentage must be '
+                                    'equal to 100%, '
+                                    'please '
+                                    'reorganize'))
 
     @api.model
     def create(self, vals):
@@ -66,11 +66,11 @@ class CrmTeamDefMember(models.Model):
     def __verify_percentage(self):
         if self.percentage > 100.00 or self.percentage < 0.00:
             raise ValidationError(_('Percentage '
-                                              'must lesser or '
-                                              'equal than '
-                                              '100 percent or '
-                                              'greater '
-                                              'than zero'))
+                                    'must lesser or '
+                                    'equal than '
+                                    '100 percent or '
+                                    'greater '
+                                    'than zero'))
 
     oppor_percentage = fields.Float(digits=(6, 2),
                                     string='Opportunity Percentage',
