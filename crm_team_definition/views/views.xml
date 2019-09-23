@@ -1,11 +1,5 @@
 <odoo>
 
-    <!-- window action -->
-    <!--
-        The following tag is an action definition for a "window action",
-        that is an action opening a view or a set of views
-        Add CRM sale followup fields to existing view -->
-
     <record model="ir.ui.view" id="team_definition_form_view">
             <field name="name">crm.lead.team_definition.form</field>
             <field name="model">crm.lead</field>
@@ -26,7 +20,6 @@
                             <field name="percentage"/>
                           </form>
                           <tree string="Tree String" editable="bottom">
-                            <!--field name="name" readonly="1"-->
                             <field name="team_member"/>
                             <field name="percentage"/>
                             <field name="oppor_percentage" class="oe_inline" widget="monetary" />
@@ -37,46 +30,5 @@
               </xpath>
             </field>
     </record>
-
-    <!-- actions opening views on models -->
-    <!--<record model="ir.actions.act_window" id="crm_lead.action_window">
-      <field name="name">crm.lead window</field>
-      <field name="res_model">crm.lead</field>
-      <field name="view_mode">tree,form</field>
-    </record> -->
-
-
-    <!-- server action to the one above -->
-    <!--
-    <record model="ir.actions.server" id="crm_team_definition.action_server">
-      <field name="name">crm_team_definition server</field>
-      <field name="model_id" ref="model_crm_team_definition_crm_team_definition"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": self._name,
-        }
-      </field>
-    </record>
-    -->
-
-    <!-- Top menu item -->
-    <!--
-    <menuitem name="crm_team_definition" id="crm_team_definition.menu_root"/>
-    -->
-    <!-- menu categories -->
-    <!--
-    <menuitem name="Menu 1" id="crm_team_definition.menu_1" parent="crm_team_definition.menu_root"/>
-    <menuitem name="Menu 2" id="crm_team_definition.menu_2" parent="crm_team_definition.menu_root"/>
-    -->
-    <!-- actions -->
-    <!--
-    <menuitem name="List" id="crm_team_definition.menu_1_list" parent="crm_team_definition.menu_1"
-              action="crm_team_definition.action_window"/>
-    <menuitem name="Server to list" id="crm_team_definition" parent="crm_team_definition.menu_2"
-              action="crm_team_definition.action_server"/>
-    -->
 
 </odoo>

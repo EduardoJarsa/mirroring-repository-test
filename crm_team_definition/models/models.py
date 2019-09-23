@@ -1,17 +1,16 @@
-# -*- coding: utf-8 -*-
 
-from odoo import fields, models, api
-from odoo import exceptions
+from odoo.exceptions import ValidationError
+from odoo import _, api, fields, models
 
 
 class CrmTeam(models.Model):
     _inherit = 'crm.lead'
 
-    employee_ids = fields.One2many('crm_team_definition', 'name',
-                                   ondelete='set null',
-                                   string="Employee", index=True,
-                                   help="This is the identifier for "
-                                        "the employee")
+    employee_ids = fields.One2many(
+        'crm.team.definition', 'name',
+        ondelete='set null',
+        index=True,
+        help="This is the identifier for the employee")
 
     total_percentage = fields.Integer(String="Total Percentage",
                                       compute='_compute_total_'
@@ -27,16 +26,16 @@ class CrmTeam(models.Model):
     @api.constrains('employee_ids')
     def _validate_total_percentage(self):
         if self.total_percentage != 100:
-            raise exceptions.ValidationError_('The total '
+            raise ValidationError(_('The total '
                                               'percentage must be '
                                               'equal to 100%, '
                                               'please '
-                                              'reorganize')
+                                              'reorganize'))
 
     @api.model
     def create(self, vals):
-        new_record = super(CrmTeam, self).create(vals)
-        self.env['crm_team_definition'].create(
+        new_record = super().create(vals)
+        self.env['crm.team.definition'].create(
             {'name': new_record.id,
              'team_member':
                  self.env['hr.employee'].search([('crm.lead.user_id',
@@ -48,7 +47,7 @@ class CrmTeam(models.Model):
 
 class CrmTeamDefMember(models.Model):
 
-    _name = 'crm_team_definition'
+    _name = 'crm.team.definition'
     _parent_name = 'name'
     name = fields.Integer(string='Lead Id:',
                           readonly=True,
@@ -66,12 +65,12 @@ class CrmTeamDefMember(models.Model):
     @api.onchange('percentage')
     def __verify_percentage(self):
         if self.percentage > 100.00 or self.percentage < 0.00:
-            raise exceptions.ValidationError_('Percentage '
+            raise ValidationError(_('Percentage '
                                               'must lesser or '
                                               'equal than '
                                               '100 percent or '
                                               'greater '
-                                              'than zero')
+                                              'than zero'))
 
     oppor_percentage = fields.Float(digits=(6, 2),
                                     string='Opportunity Percentage',

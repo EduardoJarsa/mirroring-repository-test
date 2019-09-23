@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 {
     'name': "CRM Team Definition",
 
@@ -19,16 +18,14 @@
     'version': '12.0.1.0.0',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'crm', 'sale', 'hr'],
+    'depends': ['crm',
+                'sale',
+                'hr'],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
         'views/views.xml',
-        'views/templates.xml',
     ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
-    ],
+
 }
