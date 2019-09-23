@@ -16,11 +16,11 @@
                       <field name="employee_ids">
                           <form string="Form Name">
                             <field name="name" readonly="1"/>
-                            <field name="team_member"/>
+                            <field name="team_member_id"/>
                             <field name="percentage"/>
                           </form>
                           <tree string="Tree String" editable="bottom">
-                            <field name="team_member"/>
+                            <field name="team_member_id"/>
                             <field name="percentage"/>
                             <field name="oppor_percentage" class="oe_inline" widget="monetary" />
                           </tree>
