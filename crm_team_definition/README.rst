@@ -18,5 +18,5 @@ Credits
 =======
 
 **Contributors**
-* Angel Solares <angel.solares@jarsa.com.mx> (Developer)
+* Angel Solares <angelsolares@gmail.com> (Developer)
 

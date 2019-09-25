@@ -1,0 +1,129 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* crm_team_definition
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-09-24 22:39+0000\n"
+"PO-Revision-Date: 2019-09-24 22:39+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: crm_team_definition
+#: model:ir.model.fields,field_description:crm_team_definition.field_crm_team_definition__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: crm_team_definition
+#: model:ir.model.fields,field_description:crm_team_definition.field_crm_team_definition__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: crm_team_definition
+#: model:ir.model.fields,field_description:crm_team_definition.field_crm_team_definition__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: crm_team_definition
+#: model:ir.model.fields,field_description:crm_team_definition.field_crm_lead__employee_ids
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: crm_team_definition
+#: model_terms:ir.ui.view,arch_db:crm_team_definition.team_definition_form_view
+msgid "Form Name"
+msgstr "Nombre Forma"
+
+#. module: crm_team_definition
+#: model:ir.model.fields,field_description:crm_team_definition.field_crm_team_definition__id
+msgid "ID"
+msgstr "ID"
+
+#. module: crm_team_definition
+#: model:ir.model.fields,field_description:crm_team_definition.field_crm_team_definition____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: crm_team_definition
+#: model:ir.model.fields,field_description:crm_team_definition.field_crm_team_definition__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: crm_team_definition
+#: model:ir.model.fields,field_description:crm_team_definition.field_crm_team_definition__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: crm_team_definition
+#: model:ir.model.fields,field_description:crm_team_definition.field_crm_team_definition__name
+msgid "Lead Id:"
+msgstr "Lead Id:"
+
+#. module: crm_team_definition
+#: model:ir.model,name:crm_team_definition.model_crm_lead
+msgid "Lead/Opportunity"
+msgstr "Iniciativa/Oportunidad"
+
+#. module: crm_team_definition
+#: model:ir.model.fields,field_description:crm_team_definition.field_crm_team_definition__oppor_percentage
+msgid "Opportunity Percentage"
+msgstr "Porcentaje de Oportunidad"
+
+#. module: crm_team_definition
+#: code:addons/crm_team_definition/models/crm_team_definition.py:26
+#, python-format
+msgid "Percentage must lesser or equal than 100 percent or greater than zero"
+msgstr "El porcentaje debe ser menor o igual que 100 por ciento o mayor a cero"
+
+#. module: crm_team_definition
+#: model:ir.model.fields,field_description:crm_team_definition.field_crm_team_definition__percentage
+msgid "Percentage:"
+msgstr "Porcentaje:"
+
+#. module: crm_team_definition
+#: model_terms:ir.ui.view,arch_db:crm_team_definition.team_definition_form_view
+msgid "Team"
+msgstr "Equipo"
+
+#. module: crm_team_definition
+#: model:ir.model.fields,field_description:crm_team_definition.field_crm_team_definition__team_member_id
+msgid "Team Member:"
+msgstr "Miembro del Equipo:"
+
+#. module: crm_team_definition
+#: sql_constraint:crm.team.definition:0
+msgid "Team members must be unique"
+msgstr "Los miembros del equipo deben de ser unicos"
+
+#. module: crm_team_definition
+#: code:addons/crm_team_definition/models/crm_lead.py:29
+#, python-format
+msgid "The total percentage must be equal to 100%, please reorganize"
+msgstr "El porcentaje total debe ser igual a 100%, favor de reorganizar"
+
+#. module: crm_team_definition
+#: model:ir.model.fields,help:crm_team_definition.field_crm_lead__employee_ids
+msgid "This is the identifier for the employee"
+msgstr "Identificador del empleado"
+
+#. module: crm_team_definition
+#: model:ir.model.fields,field_description:crm_team_definition.field_crm_lead__total_percentage
+msgid "Total Percentage"
+msgstr "Porcentaje Total"
+
+#. module: crm_team_definition
+#: model_terms:ir.ui.view,arch_db:crm_team_definition.team_definition_form_view
+msgid "Tree String"
+msgstr "String Arbol"
+
+#. module: crm_team_definition
+#: model:ir.model,name:crm_team_definition.model_crm_team_definition
+msgid "crm.team.definition"
+msgstr "crm.team.definition"
+

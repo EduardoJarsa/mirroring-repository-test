@@ -1,3 +1,6 @@
+# Copyright 2019, MTNET Services, S.A. de C.V.
+# Copyright 2019, Jarsa Sistemas, S.A. de C.V.
+# License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 from odoo.exceptions import ValidationError
 from odoo import _, api, fields, models
@@ -7,14 +10,13 @@ class CrmTeam(models.Model):
     _inherit = 'crm.lead'
 
     employee_ids = fields.One2many(
-        'crm.team.definition', 'name',
-        ondelete='set null',
-        index=True,
+        'crm.team.definition', 'lead_id',
+        ondelete='set null', delegate=True,
         help="This is the identifier for the employee")
 
-    total_percentage = fields.Integer(String="Total Percentage",
-                                      compute='_compute_total_'
-                                              'percentage')
+    total_percentage = fields.Integer(
+        String="Total Percentage",
+        compute='_compute_total_percentage')
 
     @api.depends('employee_ids')
     def _compute_total_percentage(self):
@@ -32,14 +34,15 @@ class CrmTeam(models.Model):
 
     @api.model
     def create(self, vals):
-        new_record = super().create(vals)
-        if not new_record.user_id:
-            team_member_id = new_record.user_id
+        if self.user_id:
+            team_member_id = self.env['hr.employee'].search(
+                [('user_id', '=', self.user_id)]).id
         else:
             team_member_id = self.env['hr.employee'].search(
                 [('user_id', '=', self.env.uid)]).id
-        self.env['crm.team.definition'].create({
-            'name': new_record.id,
+        vals['employee_ids'] = [(0, 0, {
             'team_member_id': team_member_id,
-            'percentage': 100})
+            'percentage': 100,
+        })]
+        new_record = super().create(vals)
         return new_record

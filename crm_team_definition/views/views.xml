@@ -1,34 +1,29 @@
 <odoo>
 
     <record model="ir.ui.view" id="team_definition_form_view">
-            <field name="name">crm.lead.team_definition.form</field>
-            <field name="model">crm.lead</field>
-            <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
-            <field name="arch" type="xml">
-              <xpath expr="//notebook" position="inside">
-                <form string="Team" version="7.0">
-                <header>
-                </header>
-                <sheet>
-                    <div class="oe_title">
-                    </div>
-                      <group><field name="total_percentage"/></group>
-                      <field name="employee_ids">
-                          <form string="Form Name">
-                            <field name="name" readonly="1"/>
-                            <field name="team_member_id"/>
-                            <field name="percentage"/>
-                          </form>
-                          <tree string="Tree String" editable="bottom">
-                            <field name="team_member_id"/>
-                            <field name="percentage"/>
-                            <field name="oppor_percentage" class="oe_inline" widget="monetary" />
-                          </tree>
-                      </field>
-                </sheet>
+        <field name="name">crm.lead.team_definition.form</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <form string="Team" >
+                    <sheet>
+                        <group><field name="total_percentage"/></group>
+                        <field name="employee_ids">
+                            <form>
+                                <field name="team_member_id"/>
+                                <field name="percentage"/>
+                            </form>
+                            <tree editable="bottom">
+                                <field name="team_member_id"/>
+                                <field name="percentage"/>
+                                <field name="oppor_percentage" class="oe_inline" widget="monetary" />
+                            </tree>
+                        </field>
+                    </sheet>
                 </form>
-              </xpath>
-            </field>
+            </xpath>
+        </field>
     </record>
 
 </odoo>
