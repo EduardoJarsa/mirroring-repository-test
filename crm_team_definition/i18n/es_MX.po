@@ -120,10 +120,10 @@ msgstr "Porcentaje Total"
 #. module: crm_team_definition
 #: model_terms:ir.ui.view,arch_db:crm_team_definition.team_definition_form_view
 msgid "Tree String"
-msgstr "String Arbol"
+msgstr "Cadena del Arbol"
 
 #. module: crm_team_definition
 #: model:ir.model,name:crm_team_definition.model_crm_team_definition
 msgid "crm.team.definition"
-msgstr "crm.team.definition"
+msgstr "crm.equipo.definicion"
 
