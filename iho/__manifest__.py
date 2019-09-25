@@ -23,6 +23,7 @@
         'sale_name_to_purchase',
         'sale_review',
         'stock_manual_route',
+        'crm_team_definition',
     ],
     'data': [
         'views/res_partner_view.xml',
