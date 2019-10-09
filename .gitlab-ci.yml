@@ -4,15 +4,6 @@ stages:
   - test_build
   - build
 
-variables:
-    PSQL_VERSION: "9.6"
-    VERSION: "12.0"
-    TRAVIS_PYTHON_VERSION: "3.6"
-    ODOO_REPO: "jarsa/odoo"
-    ODOO_BRANCH: "12.0"
-    BASE_IMAGE: "vauxoo/odoo-120-image"
-    COUNTRY: "MX"
-
 lint:
   stage: test
   tags:
@@ -21,7 +12,7 @@ lint:
     LINT_CHECK: "1"
     TESTS: "0"
   script:
-    - source variables.sh 
+    - source variables.sh
     - export TRAVIS_BUILD_DIR=$(pwd)
     - pip install deployv-addon-gitlab-tools
     - deployvcmd gitlab_tools check_keys
