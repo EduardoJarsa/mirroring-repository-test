@@ -146,12 +146,6 @@
                                         <span t-esc="float(doc.amount_untaxed - product_freight['unit_price']) if product_freight['unit_price'] else doc.amount_untaxed" t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
                                     </td>
                                 </tr>
-                                <tr class="border-black">
-                                    <td><strong>Export services, freight and instalation</strong></td>
-                                    <td class="text-right o_price_total">
-                                        <span t-esc="float(product_freight['unit_price']) if product_freight['unit_price'] else 0.0" t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
-                                    </td>
-                                </tr>
                                 <tr class="border-black o_total">
                                     <td><strong>Total</strong></td>
                                     <td class="text-right">
