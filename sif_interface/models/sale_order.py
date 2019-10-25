@@ -96,7 +96,7 @@ class SaleOrderLine(models.Model):
     @api.multi
     def _process_product_supplierinfo(self):
         for rec in self:
-            if not rec.vendor_id:
+            if not rec.order_id.partner_id:
                 continue
             if not rec.iho_currency_id:
                 raise ValidationError(_(
@@ -104,7 +104,7 @@ class SaleOrderLine(models.Model):
                     'product [%s]%s') % (
                         rec.product_id.default_code, rec.product_id.name))
             context = {
-                'partner': rec.vendor_id,
+                'partner': rec.order_id.partner_id,
                 'order': rec.order_id,
             }
             partner = rec.product_id.seller_ids.with_context(
@@ -113,7 +113,7 @@ class SaleOrderLine(models.Model):
                 r.sale_order_id == r._context.get('order'))
             if not partner:
                 rec.product_id.seller_ids.create({
-                    'name': rec.vendor_id.id,
+                    'name': rec.order_id.partner_id.id,
                     'delay': 1,
                     'min_qty': 0,
                     'price': rec.iho_purchase_cost,
