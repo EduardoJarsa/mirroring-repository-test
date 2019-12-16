@@ -16,6 +16,9 @@
     'data': [
         'views/sale_order_view.xml',
         'views/sale_order_template.xml',
+        'views/sale_term_view.xml',
+        'views/sale_term_category_view.xml',
         'reports/report_papaerformat.xml',
+        'security/ir.model.access.csv',
     ],
 }

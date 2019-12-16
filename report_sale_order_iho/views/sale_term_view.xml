@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="sale_term_tree">
+        <field name="name">sale_term.tree</field>
+        <field name="model">sale.term</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="category_id"/>
+                <field name="default"/>
+                <field name="invalid_term_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_sale_term" model="ir.actions.act_window">
+        <field name="name">Sale Terms</field>
+        <field name="res_model">sale.term</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+    </record>
+    <menuitem id="sale_term_menu" name="Sale Terms" parent="sale.menu_sales_config" action="action_sale_term"/>
+</odoo>

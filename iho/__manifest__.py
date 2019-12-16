@@ -17,7 +17,7 @@
         'sale_authorization',
         'sale_stock',
         'iho_security',
-        'sale_order_report',
+        'report_sale_order_iho',
         'sale_order_version',
         'crm_team_analytic',
         'sale_name_to_purchase',

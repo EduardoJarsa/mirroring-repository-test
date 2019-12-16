@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_order_term,access_sale_order_term,model_sale_order_term,,1,1,1,1
+access_sale_term,access_sale_term,model_sale_term,,1,1,1,1
+access_sale_term_category,access_sale_term_category,model_sale_term_category,,1,1,1,1

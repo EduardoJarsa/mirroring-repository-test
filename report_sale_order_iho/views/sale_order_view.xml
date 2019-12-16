@@ -16,6 +16,17 @@
             <xpath expr="//field[@name='picking_policy']" position="after">
                 <field name="delivery"/>
             </xpath>
+            <xpath expr="//field[@name='note']" position="after">
+                <field name="sale_order_term_ids">
+                    <tree>
+                        <field name="sequence" widget="handle"/>
+                        <field name="name"/>
+                    </tree>
+                </field>
+            </xpath>
+            <xpath expr="//button[@name='action_unlock']" position="after">
+                <button name="generate_terms" string="Generate Terms" type="object"/>
+            </xpath>
         </field>
     </record>
 </odoo>

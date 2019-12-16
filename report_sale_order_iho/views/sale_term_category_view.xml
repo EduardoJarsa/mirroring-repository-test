@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="sale_term_category_tree">
+        <field name="name">sale_term_category.tree</field>
+        <field name="model">sale.term.category</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+    <record id="action_sale_term_category" model="ir.actions.act_window">
+        <field name="name">Sale Term Categories</field>
+        <field name="res_model">sale.term.category</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+    </record>
+    <menuitem id="sale_term_category_menu" name="Sale Term Categories" parent="sale.menu_sales_config" action="action_sale_term_category"/>
+</odoo>
