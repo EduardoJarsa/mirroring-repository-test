@@ -59,43 +59,89 @@ class ImportSaleOrderWizard(models.TransientModel):
                 'is: %s') % (column, product, line.get('Descrip', ''), text))
 
     @api.model
-    def _prepare_sale_order_line(self, line, sale_order):
+    def _check_value_factor_extra_expense(self, factor_extra_expense, index):
+        try:
+            float(factor_extra_expense)
+        except ValueError:
+            raise ValidationError(
+                _(
+                    'column factor_extra_expense with wrong format in line %s')
+                % index)
+
+    @api.model
+    def _prepare_sale_order_line(self, line, sale_order, index):
+        self._check_col_name(line)
         supplier_reference = line.get('Fabricante', False)
+        factor_extra_expense = line.get('FactorGastosExtra', False)
+        if factor_extra_expense:
+            self._check_value_factor_extra_expense(factor_extra_expense, index)
+        else:
+            raise ValidationError(
+                _(
+                    'the column FactorGastosExtra can not be empty'
+                    ' line number %s') % index)
+        catalog = line.get('Catalogo', False)
+        catalog_id = False
+        if catalog:
+            catalog_id = self.env['iho.catalog'].search(
+                [('name', '=', catalog)])
+            if not catalog_id:
+                new_catalog = {
+                    'name': catalog,
+                }
+                catalog_id = self.env['iho.catalog'].create(new_catalog)
+        family_id = False
+        family = line.get('Familia', False)
+        if family:
+            family_id = self.env['iho.family'].search(
+                [('name', '=', family)])
+            if not family_id:
+                new_family = {
+                    'name': family,
+                }
+                family_id = self.env['iho.family'].create(new_family)
         partner = self.env['res.partner'].search(
             [('ref', '=', supplier_reference), (
                 'supplier', '=', True)], limit=1)
         if not partner:
             raise ValidationError(
                 _(
-                    'There is not a supplier with internal reference %s')
-                % supplier_reference
+                    'There is not a supplier with internal reference [%s]'
+                    ' in line %s to product %s')
+                % (supplier_reference, index, line['Descrip'])
             )
         default_code = line.get('CodigoProducto', False)
-        if not default_code:
-            raise ValidationError(_(
-                'The product with description %s has not defined a product '
-                'code.') % line['Descrip'])
-        product_id = self.env['product.product'].search([(
-            'default_code', '=', default_code)])
-        if not product_id:
-            product_id = self.env['product.template'].create({
-                'name': line['Descrip'],
-                'default_code': line['CodigoProducto'],
-                'type': 'product',
-                'sale_ok': True,
-                'purchase_ok': True,
-                'categ_id': self.env.ref(
-                    'sif_interface.product_category_cdv').id,
-                'list_price': line['PriceList']
-            }).product_variant_id
+        dummy_product = False
+        if default_code:
+            product_id = self.env['product.product'].search([(
+                'default_code', '=', default_code)])
+            if product_id:
+                partner = product_id.maker_id
+                catalog_id = product_id.catalog_id
+                family_id = product_id.family_id
+            if not product_id:
+                dummy_product = self.env.ref(
+                    'sif_interface.product_product_dummy')
+                product_id = dummy_product
+        else:
+            dummy_product = self.env.ref('sif_interface.product_product_dummy')
+            product_id = dummy_product
         tc_agreed = self.to_float(line, 'TCAcordado')
         if not tc_agreed:
             tc_agreed = sale_order.currency_agreed_rate
         iho_currency = line.get('IHOCurrency', False)
         iho_currency_id = self.env['res.currency'].search(
             [('name', '=', iho_currency)])
-        return {
-            'name': line['Descrip'],
+        res = False
+        if dummy_product:
+            res = {
+                'name': '[' + default_code + '] ' + line['Descrip']
+            }
+        else:
+            res = {
+                'name': line['Descrip']
+            }
+        res.update({
             'product_id': product_id.id,
             'product_uom_qty': self.to_float(line, 'Cantidad'),
             'iho_price_list': self.to_float(line, 'PriceList'),
@@ -105,12 +151,57 @@ class ImportSaleOrderWizard(models.TransientModel):
             'discount': self.to_float(line, 'CustomerDiscount'),
             'iho_factor': self.to_float(line, 'Factor'),
             'vendor_id': partner.id,
+            'factor_extra_expense': factor_extra_expense,
             'iho_currency_id': iho_currency_id.id,
             'iho_discount': self.to_float(line, 'IHODiscount'),
             'order_id': sale_order.id,
             'analytic_tag_ids': [(6, 0, sale_order.analytic_tag_ids.ids)],
             'tax_id': [(6, 0, product_id.taxes_id.ids)],
-        }
+        })
+        if family_id:
+            res.update({
+                'family_id': family_id.id,
+            })
+        if catalog_id:
+            res.update({
+                'catalog_id': catalog_id.id,
+            })
+        return res
+
+    def _check_col_name(self, line):
+        file_cols = list(line.keys())
+        required_cols = [
+            'Fabricante',
+            'CodigoProducto',
+            'Descrip',
+            'TCAcordado',
+            'IHOCurrency',
+            'Cantidad',
+            'PriceList',
+            'UnitPurchaseCost',
+            'FactorServicio',
+            'CustomerDiscount',
+            'Factor',
+            'IHODiscount',
+            'FactorGastosExtra',
+            'Catalogo',
+            'Familia',
+        ]
+        cols_error = ''
+        for rec in required_cols:
+            if rec not in file_cols:
+                cols_error = cols_error + rec + ','
+        if cols_error:
+            cols_error = cols_error[:-1]
+            self._return_error_message(cols_error)
+
+    @api.model
+    def _return_error_message(self, cols_error):
+        message = (
+            _('There is not exist the columns [%s] in CSV file, '
+                'please check If you have white spaces or are misspelled.')
+            % (cols_error))
+        raise ValidationError(message)
 
     @api.multi
     def _run_csv_import(self):
@@ -121,8 +212,10 @@ class ImportSaleOrderWizard(models.TransientModel):
         sale_order_id = self._context.get('active_id')
         sale_order = self.env['sale.order'].browse(sale_order_id)
         sale_line_list = []
+        index = 1
         for line in reader:
-            element = self._prepare_sale_order_line(line, sale_order)
+            index = index + 1
+            element = self._prepare_sale_order_line(line, sale_order, index)
             if element:
                 sale_line_list.append(element)
         lines = self.env['sale.order.line'].create(sale_line_list)
@@ -244,6 +337,11 @@ class ImportSaleOrderWizard(models.TransientModel):
                     )
                     product_dict['categ_id'] = category_no_cost.id
                 item = self.env[model].create(product_dict)
+                product_variant_id = self.env['product.product'].search(
+                    [('product_tmpl_id', '=', item.id)])
+                product_variant_id.write({
+                    'default_code': item.default_code,
+                })
             if vendor:
                 sale_order_id = self._context.get('active_id')
                 if not psi_obj.search(
@@ -406,6 +504,8 @@ class ImportSaleOrderWizard(models.TransientModel):
                 'discount': customer_discount,
                 'product_uom': product_bom.uom_id.id,
                 'iho_discount': iho_discount,
+                'iho_currency_id': iho_currency_id.id,
+                'analytic_tag_ids': [(6, 0, sale_order.analytic_tag_ids.ids)],
             })
             sale_order_line._compute_sell_1()
             sale_order_line._compute_sell_2()
