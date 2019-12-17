@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="kno_res_partner" model="res.partner">
+        <field name="name">KNO</field>
+        <field name="ref">KNO</field>
+        <field name="supplier">True</field>
+        <field name="is_company">True</field>
+        <field name="customer">False</field>
+    </record>
+</odoo>
