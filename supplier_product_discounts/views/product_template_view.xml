@@ -7,9 +7,9 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='barcode']" position="after">
                 <separator string="Discounts"/>
-                <field name="maker_id" class="oe_inline" groups="supplier_product_discounts.group_create_discounts" domain="[('supplier','=',True), ('ref','!=', False), ('is_company','=',True)]"/>
-                <field name="catalog_id" class="oe_inline" groups="supplier_product_discounts.group_create_discounts"/>
-                <field name="family_id" class="oe_inline" groups="supplier_product_discounts.group_create_discounts"/>
+                <field name="maker_id" class="oe_inline" groups="supplier_product_discounts.group_manage_global_discount" domain="[('supplier','=',True), ('ref','!=', False), ('is_company','=',True)]"/>
+                <field name="catalog_id" class="oe_inline" groups="supplier_product_discounts.group_manage_global_discount"/>
+                <field name="family_id" class="oe_inline" groups="supplier_product_discounts.group_manage_global_discount"/>
             </xpath>
         </field>
     </record>

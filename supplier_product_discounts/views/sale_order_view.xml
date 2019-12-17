@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='other_information']" position="after">
-                <page name="Discounts" string="Discounts" groups="supplier_product_discounts.group_create_special_discounts">
+                <page name="Discounts" string="Discounts">
                     <group>
                         <field name="discounts_ids" widget="section_and_note_one2many" editable="true" nolabel="1">
                             <tree>
@@ -22,12 +22,12 @@
                 </page>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after" >
-                <field name="vendor_id" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
+                <field name="vendor_id" attrs="{'column_invisible': [('parent.state', '!=', 'sale')], 'required': [('parent.state', '!=', 'sale')]}"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/form/label[1]" position="before">
                 <group attrs="{'invisible': ['|', ('is_bom_line', '!=', False), ('display_type', '!=', False)]}">
                     <group>
-                        <field name="vendor_id"/>
+                        <field name="vendor_id" attrs="{'column_invisible': [('parent.state', '!=', 'sale')], 'required': [('parent.state', '!=', 'sale')]}"/>
                     </group>
                 </group>
             </xpath>

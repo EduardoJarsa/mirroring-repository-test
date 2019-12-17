@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo noupdate="1">
-    <record id="group_create_discounts" model="res.groups">
-        <field name="name">General Discounts</field>        
+    <record id="group_manage_global_discount" model="res.groups">
+        <field name="name">Manage Global Discount</field>
         <field name="category_id" ref="base.module_category_sales_management"/>
         <field name="comment">The user will have access to create more discounts.</field>
         <field name="users" eval="[(4, ref('base.user_admin'))]"/>
     </record>
-    <record id="group_create_special_discounts" model="res.groups">
-        <field name="name">Create special Discounts</field>        
+    <record id="group_manage_special_discounts" model="res.groups">
+        <field name="name">Manage Special Discounts</field>        
         <field name="category_id" ref="base.module_category_sales_management"/>
         <field name="comment">The user will have access to create more discounts.</field>
+        <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+    </record>
+    <record id="group_manage_iho_catalog_family" model="res.groups">
+        <field name="name">Manage IHO Catalogs and Families.</field>     
+        <field name="category_id" ref="base.module_category_sales_management"/>
+        <field name="comment">The user will have access to create iho catalogs and families.</field>
         <field name="users" eval="[(4, ref('base.user_admin'))]"/>
     </record>
 </odoo>
