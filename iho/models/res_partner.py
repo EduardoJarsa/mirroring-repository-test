@@ -4,7 +4,8 @@
 # pylint: disable=C8110
 
 
-from odoo import fields, models, api
+from odoo import _, fields, models, api
+from odoo.exceptions import ValidationError
 from lxml import etree
 
 
@@ -15,7 +16,7 @@ class Partner(models.Model):
         'External', compute='_split_street',
         help="House Number",
         inverse='_set_street', store=True
-        )
+    )
     street_number2 = fields.Char(
         'Internal', compute='_split_street',
         help="Door Number",
@@ -28,6 +29,26 @@ class Partner(models.Model):
             res['domain']['city_id'] = [
                 ('state_id', 'in', [self.state_id.id, False])]
         return res
+
+    @api.constrains('ref')
+    def _the_ref_is_already_exist(self):
+        ref_count = self.search(
+            [
+                ('supplier', '=', True),
+                ('ref', '=', self.ref)
+            ]
+        )
+        if len(ref_count) > 1:
+            supplier = ref_count.filtered(lambda l: l.id != self.id)
+            raise ValidationError(
+                _('This Internal Reference already exist in supplier'
+                    ' with name: %s')
+                % (supplier.name))
+        if self.supplier and ref_count and ref_count.id != self.id:
+            raise ValidationError(
+                _('This Internal Reference already exist in supplier'
+                    ' with name: %s')
+                % self.name)
 
     @api.model
     def _fields_view_get_address(self, arch):
