@@ -39,6 +39,7 @@ Contributors
 
 * Oscar Garza <oscar.garza@jarsa.com.mx>
 * Sarai Osorio <sarai.osorio@jarsa.com.mx>
+* Jesus Alcala <jesus.alcala@jarsa.com.mx> (Developer)
 
 Maintainer
 ----------

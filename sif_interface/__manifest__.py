@@ -19,6 +19,8 @@
     ],
     'data': [
         'data/sif_interface_data.xml',
+        'data/product_product_data.xml',
+        'data/res_partner_data.xml',
         'wizard/import_sale_order_wizard.xml',
         'views/mrp_bom_view.xml',
         'views/product_supplierinfo_view.xml',
