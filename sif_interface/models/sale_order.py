@@ -58,14 +58,19 @@ class SaleOrderLine(models.Model):
         string="Sell 3",
         compute='_compute_sell_3',
         store=True,)
-
     iho_sell_4 = fields.Float(
         string="Sell 4",
         compute='_compute_sell_4',
         store=True,)
+    iho_sell_5 = fields.Float(
+        string="Sell 5",
+        compute='_compute_sell_5',
+        store=True,)
     iho_purchase_cost = fields.Float(
         compute='_compute_iho_purchase_cost')
-
+    factor_extra_expense = fields.Float(
+        default=1.0,
+    )
     iho_service_factor = fields.Float(
         string='Service Factor',
         default=1.0,)
@@ -79,12 +84,10 @@ class SaleOrderLine(models.Model):
         compute="_compute_is_bom_line",
         store=True,
     )
-
     iho_tc = fields.Float(
         string="TC Agreed",
         default=1.0,
     )
-
     price_unit = fields.Float(
         'Unit Price',
         required=True,
@@ -92,6 +95,8 @@ class SaleOrderLine(models.Model):
         default=0.0,
         compute="_compute_price_unit"
     )
+    catalog_id = fields.Many2one('iho.catalog', string='Catalog')
+    family_id = fields.Many2one('iho.family', string='Family')
 
     @api.multi
     def _process_product_supplierinfo(self):
@@ -178,28 +183,33 @@ class SaleOrderLine(models.Model):
     @api.depends('iho_service_factor', 'iho_sell_3')
     def _compute_sell_4(self):
         for rec in self:
-            amount = rec.iho_sell_3 * rec.iho_service_factor
+            rec.iho_sell_4 = rec.iho_sell_3 * rec.iho_service_factor
+
+    @api.multi
+    @api.depends('iho_sell_4', 'factor_extra_expense')
+    def _compute_sell_5(self):
+        for rec in self:
+            amount = rec.iho_sell_4 * rec.factor_extra_expense
             if amount:
-                rec.iho_sell_4 = amount
-                rec.price_unit = (
-                    rec.iho_price_list * rec.iho_factor *
-                    rec.iho_tc * rec.iho_service_factor)
+                rec.iho_sell_5 = amount
+                rec._compute_price_unit()
+            else:
+                rec.price_unit = rec.product_id.lst_price
 
     @api.multi
     @api.depends('product_id')
     def _compute_price_unit(self):
         for rec in self:
-            amount_untaxed = 0
-            if rec.iho_sell_4:
-                rec.price_unit = rec.iho_sell_4
+            if rec.iho_sell_5 and rec.iho_sell_5 != 0.0:
+                rec.price_unit = rec.iho_sell_5
+            else:
+                rec.price_unit = rec.product_id.lst_price
             # This code fix a problem with the calcule of subtotal
-            amount_untaxed += (
-                rec.price_subtotal + rec.price_unit *
-                (
-                    (rec.discount or 0.0) / 100.0
-                ) * rec.product_uom_qty
-            )
-            rec.price_subtotal = amount_untaxed
+            discount = (
+                (rec.product_uom_qty * rec.price_unit) *
+                (rec.discount / 100))
+            subtotal = (rec.product_uom_qty * rec.price_unit) - discount
+            rec.price_subtotal = subtotal
 
     @api.onchange('product_uom', 'product_uom_qty', 'product_id')
     def product_uom_change(self):
