@@ -15,6 +15,7 @@
             </xpath>
             <xpath expr="//field[@name='picking_policy']" position="after">
                 <field name="delivery"/>
+                <field name="amount_services"  invisible="1" readonly="0"/>
             </xpath>
             <xpath expr="//field[@name='note']" position="after">
                 <field name="sale_order_term_ids">

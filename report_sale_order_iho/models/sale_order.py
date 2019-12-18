@@ -75,3 +75,13 @@ class SaleOrder(models.Model):
                 images.append(rec.product_id)
         if not images:
             return False
+
+    amount_services = fields.Float(
+        compute='_compute_amount_services')
+
+    @api.depends('order_line')
+    def _compute_amount_services(self):
+        for rec in self:
+            rec.amount_services = sum(self.order_line.filtered(
+                lambda l: l.product_id.type == 'service').mapped(
+                'price_subtotal'))

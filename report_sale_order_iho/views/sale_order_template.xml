@@ -7,9 +7,9 @@
         <xpath expr="//t/t[1]" position="replace">
             <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})"/>
             <t t-call="web.html_container">
-                <div class="header">
+                <!-- <div class="header">
                     <div/>
-                </div>
+                </div> -->
                 <t t-call="web.internal_layout">
                     <div class="page">
                         <div style="height: 80px; width: 150px;">
@@ -17,9 +17,19 @@
                             <br/>
                             <br/>
                         </div>
-                        <div class="row" style="padding-top:16px;padding-button:16px;">
+                        <div class="row" style="padding-top:80px;padding-button:16px;">
                             <div class="col pull-left">
                                 <table style="font-size:15px;line-height: 16px;">
+                                    <tr>
+                                        <td style="color: gray;">
+                                            <strong>Version: </strong>
+                                        </td>
+                                        <td>
+                                            <span t-field="doc.name"/>
+                                            -
+                                            <span t-field="doc.active_version_name"/>
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td style="color: gray;">
                                             <strong>Partner: </strong>
@@ -200,15 +210,24 @@
                                         <strong>Subtotal</strong>
                                     </td>
                                     <td class="text-right">
-                                        <span t-esc="float(doc.amount_untaxed)" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
+                                        <span t-esc="float(doc.amount_untaxed - doc.amount_services)" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
                                     </td>
                                 </tr>
                                 <tr class="border-black">
                                     <td>
-                                        <strong>Export services, freight and instalation</strong>
+                                        <strong>Export services ,</strong>
                                     </td>
-                                    <td class="text-right o_price_total">
-                                        <span t-esc="float(0)"/>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>   
+                                        <strong>freight and instalation</strong>
+                                    </td>
+                                    
+                                    <td class="text-right o_price_total border-black">
+                                        <span t-esc="float(doc.amount_services)"/>
                                     </td>
                                 </tr>
                                 <tr class="border-black o_total">
@@ -216,7 +235,7 @@
                                         <strong>Total</strong>
                                     </td>
                                     <td class="text-right">
-                                        <span t-field="doc.amount_total"/>
+                                        <span t-esc="float(doc.amount_untaxed + doc.amount_services)" t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
                                     </td>
                                 </tr>
                             </table>
