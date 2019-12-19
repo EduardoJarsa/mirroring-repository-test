@@ -7,9 +7,7 @@
         <xpath expr="//t/t[1]" position="replace">
             <t t-set="doc" t-value="doc.with_context({'lang':doc.partner_id.lang})"/>
             <t t-call="web.html_container">
-                <!-- <div class="header">
-                    <div/>
-                </div> -->
+                <!-- <div class="header"><div/></div>-->
                 <t t-call="web.internal_layout">
                     <div class="page">
                         <div style="height: 80px; width: 150px;">
@@ -20,16 +18,7 @@
                         <div class="row" style="padding-top:80px;padding-button:16px;">
                             <div class="col pull-left">
                                 <table style="font-size:15px;line-height: 16px;">
-                                    <tr>
-                                        <td style="color: gray;">
-                                            <strong>Version: </strong>
-                                        </td>
-                                        <td>
-                                            <span t-field="doc.name"/>
-                                            -
-                                            <span t-field="doc.active_version_name"/>
-                                        </td>
-                                    </tr>
+                                    
                                     <tr>
                                         <td style="color: gray;">
                                             <strong>Partner: </strong>
@@ -67,7 +56,8 @@
                                             <strong>Quotation: &amp;nbsp;</strong>
                                         </td>
                                         <td>
-                                            <span t-esc="doc.name"/>
+                                            <span t-field="doc.name"/>-
+                                            <span t-field="doc.active_version_name"/>
                                         </td>
                                     </tr>
                                     <tr>
@@ -203,39 +193,30 @@
                             </table>
                         </div>
                         <div name="payment_term"/>
-                        <div class="row col-6 pull-right">
+                        <div class="row col-7 pull-right">
                             <table class="table table-xs table-condensed" style="font-size:12px;line-height: 2px;">
                                 <tr class="border-black o_subtotal">
-                                    <td>
+                                    <td class="text-right" colspan="2" style="width:100%">
                                         <strong>Subtotal</strong>
                                     </td>
                                     <td class="text-right">
-                                        <span t-esc="float(doc.amount_untaxed - doc.amount_services)" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
+                                        <span t-esc="float(doc.amount_untaxed)" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
                                     </td>
                                 </tr>
                                 <tr class="border-black">
-                                    <td>
-                                        <strong>Export services ,</strong>
+                                    <td class="text-right" colspan="2" style="width:100%;">
+                                        <strong>Export services, freight and installation</strong>
                                     </td>
-                                    <td>
-                                        
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>   
-                                        <strong>freight and instalation</strong>
-                                    </td>
-                                    
                                     <td class="text-right o_price_total border-black">
-                                        <span t-esc="float(doc.amount_services)"/>
+                                        <span t-esc="float(doc.amount_services)" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/>
                                     </td>
                                 </tr>
                                 <tr class="border-black o_total">
-                                    <td>
+                                    <td class="text-right" colspan="2" style="width:100%">
                                         <strong>Total</strong>
                                     </td>
                                     <td class="text-right">
-                                        <span t-esc="float(doc.amount_untaxed + doc.amount_services)" t-options='{"widget": "monetary", "display_currency": doc.pricelist_id.currency_id}'/>
+                                        <span t-esc="float(doc.amount_untaxed + doc.amount_services)" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
                                     </td>
                                 </tr>
                             </table>
@@ -255,12 +236,15 @@
                                 <div style="font-size:11px; line-height: 1px;">
                                     <p>* Delivery time: &amp;nbsp;
                                         
+                                        
                                         <strong t-esc="doc.delivery"/>
                                         approximately from the receipt of the purchase order and advance payment.</p>
                                     <p>* Product 
                                         
+                                        
                                         <strong t-field="doc.incoterm"/>
                                         &amp;nbsp; in &amp;nbsp;
+                                        
                                         
                                         <strong t-esc="doc.warehouse_id.partner_id.city"/></p>
                                     <br/>
@@ -275,6 +259,7 @@
                                         <p>* In case of paying in pesos, the bank exchange rate on sale will be taken as reference, on the day of payment. </p>
                                     </t>
                                     <p>*  Payment conditions:&amp;nbsp;
+                                        
                                         
                                         <strong t-field="doc.payment_term_id"/>
                                         .</p>
@@ -311,6 +296,7 @@
                                     <br/>
                                     <span>* These prices 
                                         
+                                        
                                         <strong>DO NOT</strong>
                                         include storage or reconfigurations during the installation process.</span>
                                     <br/>
@@ -325,10 +311,12 @@
                                     <p>* Acceptance of this quote implies acceptance of these terms and conditions. </p>
                                     <p>* Quotation valid until 
                                         
+                                        
                                         <strong t-field="doc.validity_date"/>
                                         .</p>
                                     <p>* Prices may change according to the finishes selected by the client and / or changes in the quantities requested. </p>
                                                                          
+                                    
                                     
                                     <p>* The prices of this quote do not include bonds </p>
                                 </div>
@@ -370,6 +358,7 @@
                             <br/>
                             <span t-field="res_company.street"/>,
                                 
+                            
                             
                             <span t-field="res_company.city"/>
                             <span t-field="res_company.zip"/>

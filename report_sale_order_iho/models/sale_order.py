@@ -82,6 +82,5 @@ class SaleOrder(models.Model):
     @api.depends('order_line')
     def _compute_amount_services(self):
         for rec in self:
-            rec.amount_services = sum(self.order_line.filtered(
-                lambda l: l.product_id.type == 'service').mapped(
-                'price_subtotal'))
+            rec.amount_services = sum(rec.order_line.mapped(
+                'iho_service_factor'))
