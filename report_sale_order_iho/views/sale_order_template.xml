@@ -15,7 +15,7 @@
                             <br/>
                             <br/>
                         </div>
-                        <div class="row" style="padding-top:80px;padding-button:16px;">
+                        <div class="row" style="padding-top:10px;padding-button:16px;">
                             <div class="col pull-left">
                                 <table style="font-size:15px;line-height: 16px;">
                                     
@@ -27,14 +27,24 @@
                                             <span t-field="doc.partner_id"/>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr t-if="not doc.partner_id.parent_id">
                                         <td style="color: gray;">
                                             <strong>Address: </strong>
                                         </td>
                                         <td>
-                                            <span t-field="doc.partner_id.street"/>
+                                            <span t-field="doc.partner_id.street"/> <span t-field="doc.partner_id.city_id.name"/> <span t-field="doc.partner_id.state_id.name"/> <span t-field="doc.partner_id.zip"/>
                                         </td>
                                     </tr>
+                                    <tr t-if="doc.partner_id.parent_id">
+                                        <td style="color: gray;">
+                                            <strong>Address: </strong>
+                                        </td>
+                                        <td>
+                                            <span t-field="doc.partner_id.parent_id.street"/> <span t-field="doc.partner_id.parent_id.city_id.name"/> <span t-field="doc.partner_id.parent_id.state_id.name"/> <span t-field="doc.partner_id.parent_id.zip"/>
+                                        </td>
+                                    </tr>
+
+
                                     <tr>
                                         <td style="color: gray;">
                                             <strong>Email: </strong>
@@ -65,7 +75,7 @@
                                             <strong>Date: </strong>
                                         </td>
                                         <td>
-                                            <span t-field="doc.create_date"/>
+                                            <span t-field="doc.active_version_id.date_order" t-field-options="{&quot;format&quot;: &quot;dd/MM/yyyy&quot;}"/>
                                         </td>
                                     </tr>
                                 </table>
@@ -115,7 +125,11 @@
                                                 <td class="text-right">
                                                     <span t-esc="int(line.product_uom_qty)"/>
                                                 </td>
-                                                <td>
+                                                <t t-set="dummy" t-value="doc.env.ref('sif_interface.product_product_dummy').id"/>
+                                                <td t-if="line.product_id.id == dummy">    
+                                                    [<span t-field="line.name"/>]
+                                                </td>
+                                                <td t-if="line.product_id.id != dummy">    
                                                     <span t-field="line.product_id.code"/>
                                                 </td>
                                                 <td>
