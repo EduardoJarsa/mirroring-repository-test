@@ -84,3 +84,22 @@ class SaleOrder(models.Model):
         for rec in self:
             rec.amount_services = sum(rec.order_line.mapped(
                 'iho_service_factor'))
+
+    def _return_code(self, code):
+        str_descr = ''
+        for char in code:
+            if char != "]":
+                str_descr = str_descr + char
+            else:
+                break
+        return str_descr[1:]
+
+    def _return_description(self, descr):
+        count_char = 0
+        for char in descr:
+            if char != "]":
+                count_char = count_char + 1
+            else:
+                break
+        count_char = count_char + 1
+        return descr[count_char:]

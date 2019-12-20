@@ -126,15 +126,32 @@
                                                     <span t-esc="int(line.product_uom_qty)"/>
                                                 </td>
                                                 <t t-set="dummy" t-value="doc.env.ref('sif_interface.product_product_dummy').id"/>
-                                                <td t-if="line.product_id.id == dummy">    
-                                                    [<span t-field="line.name"/>]
-                                                </td>
-                                                <td t-if="line.product_id.id != dummy">    
+
+                                                <t t-if="line.product_id.id == dummy">
+                                                <!-- <td t-if="line.product_id.id == dummy">     -->
+                                                    <td>
+                                                        <t t-set="dummy_code" t-value="doc._return_code(line.name)"/>
+                                                        <span t-esc="dummy_code"/>
+                                                    </td>
+                                                    <td>
+                                                        <t t-set="dummy_descr" t-value="doc._return_description(line.name)"/>
+                                                        <span t-esc="dummy_descr"/>
+                                                    </td>
+                                                </t>
+                                                <t t-if="line.product_id.id != dummy">
+                                                    <td>    
+                                                        <span t-field="line.product_id.code"/>
+                                                    </td>
+                                                    <td>
+                                                        <span t-field="line.name"/>
+                                                    </td>
+                                                </t>
+<!--                                                 <td t-if="line.product_id.id != dummy">    
                                                     <span t-field="line.product_id.code"/>
-                                                </td>
-                                                <td>
+                                                </td> -->
+                                                <!-- <td>
                                                     <span t-field="line.name"/>
-                                                </td>
+                                                </td> -->
                                                 <td t-if="doc.find_images() != False">
                                                     <span role="img" t-field="line.image_sol" t-if="line.image_sol" t-options="{'widget': 'image'}"/>
                                                 </td>
