@@ -226,12 +226,14 @@
                         <div name="payment_term"/>
                         <div class="row col-7 pull-right">
                             <table class="table table-xs table-condensed" style="font-size:12px;line-height: 2px;">
+
+                            <t t-if="doc.amount_services">
                                 <tr class="border-black o_subtotal">
                                     <td class="text-right" colspan="2" style="width:100%">
                                         <strong>Subtotal</strong>
                                     </td>
                                     <td class="text-right">
-                                        <span t-esc="float(doc.amount_untaxed)" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
+                                        <span t-esc="float(doc.amount_untaxed - doc.amount_services)" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
                                     </td>
                                 </tr>
                                 <tr class="border-black">
@@ -242,12 +244,13 @@
                                         <span t-esc="float(doc.amount_services)" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.currency_id}"/>
                                     </td>
                                 </tr>
+                            </t>
                                 <tr class="border-black o_total">
                                     <td class="text-right" colspan="2" style="width:100%">
                                         <strong>Total</strong>
                                     </td>
                                     <td class="text-right">
-                                        <span t-esc="float(doc.amount_untaxed + doc.amount_services)" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
+                                        <span t-esc="float(doc.amount_untaxed)" t-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: doc.pricelist_id.currency_id}"/>
                                     </td>
                                 </tr>
                             </table>

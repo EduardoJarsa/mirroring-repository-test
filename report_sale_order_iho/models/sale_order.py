@@ -100,8 +100,17 @@ class SaleOrder(models.Model):
     @api.depends('order_line')
     def _compute_amount_services(self):
         for rec in self:
-            rec.amount_services = sum(rec.order_line.mapped(
-                'iho_service_factor'))
+            order_lines = rec.order_line
+            services = 0
+            for line in order_lines:
+                percentage_service = line.iho_service_factor - 1
+                if percentage_service:
+                    services += (
+                        line.iho_sell_3 * percentage_service
+                        * line.product_uom_qty
+                        * (1 - (line.discount / 100))
+                    )
+            rec.amount_services = services
 
     def _return_code(self, code):
         str_descr = ''
@@ -116,8 +125,8 @@ class SaleOrder(models.Model):
         count_char = 0
         for char in descr:
             if char != "]":
-                count_char = count_char + 1
+                count_char += 1
             else:
                 break
-        count_char = count_char + 1
+        count_char += 1
         return descr[count_char:]
