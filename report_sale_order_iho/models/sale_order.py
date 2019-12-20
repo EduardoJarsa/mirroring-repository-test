@@ -1,8 +1,9 @@
 # Copyright 2018, Jarsa Sistemas, S.A. de C.V.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.tools.safe_eval import safe_eval
+from odoo.exceptions import ValidationError
 
 
 class SaleOrderLine(models.Model):
@@ -26,6 +27,16 @@ class SaleOrderTerm(models.Model):
     term_id = fields.Many2one('sale.term', required=True)
     sequence = fields.Integer(required=True, default=10)
 
+    @api.model
+    def create(self, values):
+        order = self.order_id.browse(values['order_id'])
+        if values['term_id'] in order.mapped(
+                'sale_order_term_ids.term_id.invalid_term_ids').ids:
+            raise ValidationError(
+                _('Unable to add this term, it is not compatible '
+                    'with the term. %s') % values['name'])
+        return super().create(values)
+
 
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
@@ -37,13 +48,20 @@ class SaleOrder(models.Model):
     @api.multi
     def generate_terms(self):
         for rec in self:
-            terms = self.env['sale.term'].search([('default', '=', True)])
-            rec.sale_order_term_ids.unlink()
-            new_terms = []
-            # Use context to allow to get translation from terms.
             context = {
                 'lang': rec.partner_id.lang
             }
+            if rec.sale_order_term_ids:
+                for term in rec.sale_order_term_ids:
+                    term.name = safe_eval(
+                        term.with_context(context).name, {
+                            'order': rec.with_context(context)
+                        })
+                return True
+            terms = self.env['sale.term'].search(
+                [('default', '=', True)], order='sequence asc')
+            new_terms = []
+            # Use context to allow to get translation from terms.
             for term in terms:
                 new_terms.append({
                     'name': safe_eval(
