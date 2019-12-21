@@ -1,0 +1,470 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* report_sale_order_iho
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-21 17:18+0000\n"
+"PO-Revision-Date: 2019-12-21 17:18+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "&amp;nbsp; in &amp;nbsp;"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "*  Payment conditions:&amp;nbsp;"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "* Acceptance of this quote implies acceptance of these terms and conditions."
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "* After the first 5 calendar days upon receipt of your purchase order, no changes or cancellations will be accepted."
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "* All prices are expressed in&amp;nbsp; American dollars"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "* Delivery time: &amp;nbsp;"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "* IHO reserves the right not to deliver and install in case the Client is late in their payments."
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "* In case of delays in payments to products already delivered, a moratorium charge will be made at a rate of 1% per month and up to 10% maximum."
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "* In case of paying in pesos, the bank exchange rate on sale will be taken as reference, on the day of payment."
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "* In case that for reasons attributable to the client, the product can not be delivered, it does not limit the collection thereof."
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "* Payments must be made within the first 10 calendar days after the corresponding invoice has been issued."
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "* Prices may change according to the finishes selected by the client and / or changes in the quantities requested."
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "* Prices plus tax."
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "* Product"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "* Quotation valid until"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "* The prices of this quote do not include bonds"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "* To place an order requires a purchase order or a signed contract, this signed quote, the signed finish and the advance payment."
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "<span>* IHO Espacios, guarantees all its products against defects in materials and / or manufacture according to the specific product warranty that will be issued directly by each manufacturer, which is delivered to the Customer. </span>\n"
+"                                    <br/>\n"
+"                                    <span>* During the guarantee period, any defect will be repaired by IHO Spaces or by contracted personnel, by means of composing or resposing the defective part (s). </span>\n"
+"                                    <br/>\n"
+"                                    <span>* The guarantee does not cover any of the following cases: a) tapestries with client's cloths, although the same has been accepted by the manufacturer for this purpose. B) Damage to paints or enamels caused by entrainment, negligence or misuse of the product. C) Damages caused to products due to wrong use, storage, installation, inappropriate treatment, influences due to climatic causes, negligence by the customer's personnel or by acts of third parties. </span>\n"
+"                                    <br/>\n"
+"                                    <span>* Warranty replacements are not grounds for withholding payments. Only the amount corresponding to the affected products could be retained. </span>\n"
+"                                    <br/>\n"
+"                                    <br/>"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "<span>* This quote includes: Freight, Maneuver, Download, location and installation according to the approved layout at the time of the order and withdrawal of Packages.</span>\n"
+"                                    <br/>\n"
+"                                    <span>* These prices \n"
+"                                        \n"
+"                                        \n"
+"                                        <strong>DO NOT</strong>\n"
+"                                        include storage or reconfigurations during the installation process.</span>\n"
+"                                    <br/>\n"
+"                                    <span>* It is the responsibility of the client to process the corresponding permits for the entrance of IHO Espacios workers, as well as to facilitate the use of forklifts or service elevators. This quote contemplates that IHO personnel have access to the forklift.</span>\n"
+"                                    <br/>"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "<strong class=\"mr16\">Subtotal</strong>"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "<strong>Address: </strong>"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "<strong>Code</strong>"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "<strong>Date: </strong>"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "<strong>Description</strong>"
+msgstr "<strong>Descripción</strong>"
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "<strong>Email: </strong>"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "<strong>Export services, freight and installation</strong>"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "<strong>Item</strong>"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "<strong>Partner: </strong>"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "<strong>Phone: </strong>"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "<strong>Quantity</strong>"
+msgstr "<strong>Cantidad</strong>"
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "<strong>Quotation: &amp;nbsp;</strong>"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "<strong>Subtotal</strong>"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "<strong>Total Price</strong>"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "<strong>Total</strong>"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "<strong>Unit Price</strong>"
+msgstr "<strong>Precio Unidad</strong>"
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "<strong>photo</strong>"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "<u>Terms and Conditions for the Sale of goods supplied by IHO.</u>"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.view_sale_order_inherit_form_report
+msgid "ADD NEW TERM"
+msgstr "Agregar Termino"
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.view_generate_sale_order_terms_wizard_form
+msgid "Add Term"
+msgstr "Agregar Termino"
+
+#. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_order_line__image_sol
+msgid "Add image"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_order__amount_services
+msgid "Amount Services"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.view_generate_sale_order_terms_wizard_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "Cancellations"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model:ir.model,name:report_sale_order_iho.model_sale_term_category
+msgid "Catalog of Categories for Sale Terms"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model:ir.model,name:report_sale_order_iho.model_sale_term
+msgid "Catalog of Sale Terms"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term__category_id
+msgid "Category"
+msgstr "Categoría"
+
+#. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_generate_sale_order_terms_wizard__create_uid
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_order_term__create_uid
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term__create_uid
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term_category__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_generate_sale_order_terms_wizard__create_date
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_order_term__create_date
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term__create_date
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term_category__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term__default
+msgid "Default"
+msgstr "Por defecto"
+
+#. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_order__delivery
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "Delivery time"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_generate_sale_order_terms_wizard__display_name
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_order_term__display_name
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term__display_name
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term_category__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "Generals"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model:ir.actions.act_window,name:report_sale_order_iho.action_generate_sale_order_terms_wizard
+msgid "Generate Sale Order Terms Wizard"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.view_sale_order_inherit_form_report
+msgid "Generate Terms"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "Guarantee"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "I accept quotation, terms and Conditions"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_generate_sale_order_terms_wizard__id
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_order_term__id
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term__id
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term_category__id
+msgid "ID"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term__invalid_term_ids
+msgid "Invalid Combination"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_generate_sale_order_terms_wizard____last_update
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_order_term____last_update
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term____last_update
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term_category____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_generate_sale_order_terms_wizard__write_uid
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_order_term__write_uid
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term__write_uid
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term_category__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_generate_sale_order_terms_wizard__write_date
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_order_term__write_date
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term__write_date
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term_category__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_order_term__name
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term__name
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term_category__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "Optional Products"
+msgstr "Productos opcionales"
+
+#. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_order_term__order_id
+msgid "Order"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "Payment"
+msgstr "Pagos"
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "Project Manager"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model:ir.model,name:report_sale_order_iho.model_sale_order
+msgid "Sale Order"
+msgstr "Pedido de venta"
+
+#. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_generate_sale_order_terms_wizard__sale_order_term_id
+msgid "Sale Order Term"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model:ir.actions.act_window,name:report_sale_order_iho.action_sale_term_category
+#: model:ir.ui.menu,name:report_sale_order_iho.sale_term_category_menu
+msgid "Sale Term Categories"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model:ir.actions.act_window,name:report_sale_order_iho.action_sale_term
+#: model:ir.ui.menu,name:report_sale_order_iho.sale_term_menu
+msgid "Sale Terms"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model:ir.model,name:report_sale_order_iho.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Línea de pedido de venta"
+
+#. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_order_term__sequence
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term__sequence
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term_category__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "Services"
+msgstr "Servicios"
+
+#. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_order_term__term_id
+msgid "Term"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_order__sale_order_term_ids
+msgid "Terms and Conditions"
+msgstr "Términos y condiciones"
+
+#. module: report_sale_order_iho
+#: model:ir.model,name:report_sale_order_iho.model_sale_order_term
+msgid "Terms and Conditions for Sales Order"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: code:addons/report_sale_order_iho/models/sale_order.py:39
+#, python-format
+msgid "This term is already in Sale Order"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: code:addons/report_sale_order_iho/models/sale_order.py:47
+#: code:addons/report_sale_order_iho/models/sale_order.py:56
+#, python-format
+msgid "Unable to add this term, it is not compatible with the terms. %s"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "_________________________________"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
+msgid "approximately from the receipt of the purchase order and advance payment."
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model:ir.model,name:report_sale_order_iho.model_generate_sale_order_terms_wizard
+msgid "generate.sale.order.terms.wizard"
+msgstr ""
+

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_generate_sale_order_terms_wizard_form" model="ir.ui.view">
+        <field name="name">generate_sale_order_terms_wizard.form</field>
+        <field name="model">generate.sale.order.terms.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="sale_order_term_id"/>
+                </group>
+                <footer>
+                    <button class="oe_highlight" name="add_term_to_sale_order" string="Add Term" type="object"/>
+                    <button class="oe_link" special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_generate_sale_order_terms_wizard" model="ir.actions.act_window">
+        <field name="name">Generate Sale Order Terms Wizard</field>
+        <field name="res_model">generate.sale.order.terms.wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

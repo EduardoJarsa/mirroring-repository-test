@@ -30,11 +30,31 @@ class SaleOrderTerm(models.Model):
     @api.model
     def create(self, values):
         order = self.order_id.browse(values['order_id'])
-        if values['term_id'] in order.mapped(
-                'sale_order_term_ids.term_id.invalid_term_ids').ids:
+        term_to_compare = self.env['sale.term'].browse(
+            values['term_id'])
+        invalid_terms = ''
+        terms_sale_order = order.mapped(
+            'sale_order_term_ids.term_id')
+        if term_to_compare in terms_sale_order:
+            raise ValidationError(_('This term is already in Sale Order'))
+        # Compare with invalid combination of sale order
+        for rec in terms_sale_order:
+            for so_term in rec.invalid_term_ids.ids:
+                if so_term == term_to_compare.id:
+                    invalid_terms = invalid_terms + rec.name + ','
+        if invalid_terms:
             raise ValidationError(
                 _('Unable to add this term, it is not compatible '
-                    'with the term. %s') % values['name'])
+                    'with the terms. %s') % invalid_terms[:-1])
+        # Compare with invalid combination of term than you want add
+        for rec in term_to_compare:
+            for so_term in terms_sale_order:
+                if so_term.id in rec.invalid_term_ids.ids:
+                    invalid_terms = invalid_terms + so_term.name + ','
+        if invalid_terms:
+            raise ValidationError(
+                _('Unable to add this term, it is not compatible '
+                    'with the terms. %s') % invalid_terms[:-1])
         return super().create(values)
 
 
@@ -104,13 +124,15 @@ class SaleOrder(models.Model):
             services = 0
             for line in order_lines:
                 percentage_service = line.iho_service_factor - 1
-                if percentage_service:
-                    services += (
-                        line.iho_sell_3 * percentage_service
-                        * line.product_uom_qty
-                        * (1 - (line.discount / 100))
-                    )
-            rec.amount_services = services
+                # if percentage_service:
+                services = (
+                    line.iho_sell_3 * percentage_service
+                    * line.product_uom_qty
+                    * (1 - (line.discount / 100))
+                )
+                line.services = services
+                services = 0
+            rec.amount_services = sum(self.order_line.mapped('services'))
 
     def _return_code(self, code):
         str_descr = ''

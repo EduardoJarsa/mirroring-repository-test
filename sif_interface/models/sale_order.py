@@ -97,6 +97,9 @@ class SaleOrderLine(models.Model):
     )
     catalog_id = fields.Many2one('iho.catalog', string='Catalog')
     family_id = fields.Many2one('iho.family', string='Family')
+    services = fields.Float(
+        string='Calculo de Servicio',
+    )
 
     @api.multi
     def _process_product_supplierinfo(self):
