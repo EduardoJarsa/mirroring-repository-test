@@ -104,11 +104,32 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
             'line_ids': self._prepare_sov_lines(self.sale_id.order_line),
             'sale_id': self.sale_id.id,
         })
+        self._create_version_terms(
+            self.sale_id.sale_order_term_ids, version)
         self.sale_id.sudo().write({
             'active_version_id': version.id,
             'active_version_modified': False,
         })
+
         message = _("The <a href=# data-oe-model=sale.order.version"
                     " data-oe-id=%d>%s</a> version was created.") % (
                         version.id, version.name)
         self.sale_id.message_post(body=message)
+
+    def _create_version_terms(self, sale_order_terms, version):
+        terms = []
+        for rec in sale_order_terms:
+            element = self._prepare_term(rec, version.id)
+            terms.append(element)
+        if terms:
+            version.version_term_ids.create(terms)
+
+    def _prepare_term(self, term, version):
+        res = {
+            'name': term.name,
+            'sale_version_id': version,
+            'order_id': term.order_id.id,
+            'term_id': term.term_id.id,
+            'sequence': term.sequence,
+        }
+        return res

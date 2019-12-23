@@ -47,6 +47,9 @@ class SaleOrderVersionWizard(models.TransientModel):
             line.pop('sale_version_id')
         # Apply format to analytic_tag_ids and tag_ids fields because they are
         # M2M fields and need it to get the desire value sale_order_version
+        so = self.env['sale.order'].browse(self.sale_version_id.sale_id.id)
+        so.sale_order_term_ids.unlink()
+        self._create_version_terms(self.sale_version_id.version_term_ids, so)
         order['analytic_tag_ids'] = [(6, 0, order['analytic_tag_ids'])]
         order['tag_ids'] = [(6, 0, order['tag_ids'])]
         order['active_version_id'] = self.sale_version_id.id
@@ -58,3 +61,21 @@ class SaleOrderVersionWizard(models.TransientModel):
                     " the Sale Order") % (
                         self.sale_version_id.id, self.sale_version_id.name)
         self.sale_id.message_post(body=message)
+
+    def _create_version_terms(self, sale_order_terms, sale_order):
+        terms = []
+        for rec in sale_order_terms:
+            element = self._prepare_term(rec)
+            terms.append(element)
+        for rec in terms:
+            sale_order.sale_order_term_ids.create(rec)
+
+    def _prepare_term(self, term):
+        res = {
+            'name': term.name,
+            'order_id': term.order_id.id,
+            'term_id': term.term_id.id,
+            'sequence': term.sequence,
+            'sale_version_id': term.sale_version_id.id,
+        }
+        return res

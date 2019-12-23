@@ -29,14 +29,18 @@ class SaleOrderTerm(models.Model):
 
     @api.model
     def create(self, values):
-        order = self.order_id.browse(values['order_id'])
+        res = False
+        order = self.env['sale.order'].browse(values['order_id'])
         term_to_compare = self.env['sale.term'].browse(
             values['term_id'])
         invalid_terms = ''
         terms_sale_order = order.mapped(
             'sale_order_term_ids.term_id')
-        if term_to_compare in terms_sale_order:
-            raise ValidationError(_('This term is already in Sale Order'))
+        if 'sale_version_id' not in values:
+            if term_to_compare in terms_sale_order:
+                raise ValidationError(_('This term is already in Sale Order'))
+        else:
+            values.pop('sale_version_id', None)
         # Compare with invalid combination of sale order
         for rec in terms_sale_order:
             for so_term in rec.invalid_term_ids.ids:
@@ -55,7 +59,8 @@ class SaleOrderTerm(models.Model):
             raise ValidationError(
                 _('Unable to add this term, it is not compatible '
                     'with the terms. %s') % invalid_terms[:-1])
-        return super().create(values)
+        res = super().create(values)
+        return res
 
 
 class SaleOrder(models.Model):

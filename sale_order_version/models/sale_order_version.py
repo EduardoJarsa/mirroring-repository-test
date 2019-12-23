@@ -106,6 +106,11 @@ class SaleOrderVersion(models.Model):
         'res.partner', string='Invoice Address',)
     partner_shipping_id = fields.Many2one(
         'res.partner', string='Delivery Address',)
+    version_term_ids = fields.One2many(
+        'sale.order.version.term',
+        'sale_version_id',
+        string='Field Label',
+    )
 
 
 class SaleOrderVersionLine(models.Model):
@@ -165,3 +170,16 @@ class SaleOrderVersionLine(models.Model):
     iho_tc = fields.Float(string="TC Agreed")
     iho_service_factor = fields.Float(string='Service Factor')
     iho_sell_4 = fields.Float(string="Sell 4")
+
+
+class SaleOrderVersionTerm(models.Model):
+    _name = 'sale.order.version.term'
+
+    name = fields.Html(required=True)
+    sale_version_id = fields.Many2one(
+        comodel_name="sale.order.version",
+        string="Sale Version",
+    )
+    term_id = fields.Many2one('sale.term', required=True)
+    sequence = fields.Integer(required=True, default=10)
+    order_id = fields.Many2one('sale.order', required=True)

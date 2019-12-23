@@ -1,9 +1,8 @@
 # Copyright 2019, Jarsa Sistemas, S.A. de C.V.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).g
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.tools.safe_eval import safe_eval
-from odoo.exceptions import ValidationError
 
 
 class GenerateSaleOrderTermsWizard(models.TransientModel):
