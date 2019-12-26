@@ -42,13 +42,17 @@ class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
     iho_price_list = fields.Float(string='Price List',)
-    iho_discount = fields.Float(string='IHO Discount (%)',)
+    iho_discount = fields.Float(
+        string='IHO Discount (%)',
+        digits=dp.get_precision('Precision Sale Terms'),
+    )
     iho_sell_1 = fields.Float(
         string='Sell 1',
         compute="_compute_sell_1",
         store=True,)
     iho_factor = fields.Float(
         string='Factor',
+        digits=dp.get_precision('Precision Sale Terms'),
         default=1.0,)
     iho_sell_2 = fields.Float(
         string="Sell 2",
@@ -70,10 +74,13 @@ class SaleOrderLine(models.Model):
         compute='_compute_iho_purchase_cost')
     factor_extra_expense = fields.Float(
         default=1.0,
+        digits=dp.get_precision('Precision Sale Terms'),
     )
     iho_service_factor = fields.Float(
         string='Service Factor',
-        default=1.0,)
+        default=1.0,
+        digits=dp.get_precision('Precision Sale Terms'),
+    )
 
     iho_currency_id = fields.Many2one(
         'res.currency',
@@ -87,6 +94,7 @@ class SaleOrderLine(models.Model):
     iho_tc = fields.Float(
         string="TC Agreed",
         default=1.0,
+        digits=dp.get_precision('Precision Sale Terms'),
     )
     price_unit = fields.Float(
         'Unit Price',
@@ -97,9 +105,6 @@ class SaleOrderLine(models.Model):
     )
     catalog_id = fields.Many2one('iho.catalog', string='Catalog')
     family_id = fields.Many2one('iho.family', string='Family')
-    services = fields.Float(
-        string='Calculo de Servicio',
-    )
 
     @api.multi
     def _process_product_supplierinfo(self):

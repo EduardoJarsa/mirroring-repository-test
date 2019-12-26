@@ -19,7 +19,7 @@ class SaleTerm(models.Model):
         column2='col2',
         string='Invalid Combination')
     category_id = fields.Many2one('sale.term.category', required=True)
-    code = fields.Char(required=True)
+    code = fields.Char(required=True,)
 
     @api.multi
     def name_get(self):

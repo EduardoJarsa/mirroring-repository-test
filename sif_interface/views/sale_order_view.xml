@@ -25,7 +25,6 @@
                 <field name="iho_sell_4" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
                 <field name="factor_extra_expense" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
                 <field name="iho_sell_5" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
-                <field name="services"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after" >
                 <field name="is_bom_line" invisible="1"/>
@@ -51,7 +50,6 @@
                         <field name="iho_tc"/>
                         <field name="iho_service_factor"/>
                         <field name="factor_extra_expense"/>
-                        <field name="services"/>
                     </group>
                 </group>
                 <group attrs="{'invisible': ['|', ('is_bom_line', '!=', False), ('display_type', '!=', False)]}">

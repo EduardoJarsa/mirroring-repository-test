@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="decimal_precision_sale_fields" model="decimal.precision">
+        <field name="name">Precision Sale Terms</field>
+        <field name="digits">6</field>
+    </record>
+</odoo>

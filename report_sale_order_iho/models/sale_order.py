@@ -129,15 +129,12 @@ class SaleOrder(models.Model):
             services = 0
             for line in order_lines:
                 percentage_service = line.iho_service_factor - 1
-                # if percentage_service:
-                services = (
+                services += (
                     line.iho_sell_3 * percentage_service
                     * line.product_uom_qty
                     * (1 - (line.discount / 100))
                 )
-                line.services = services
-                services = 0
-            rec.amount_services = sum(self.order_line.mapped('services'))
+            rec.amount_services = services
 
     def _return_code(self, code):
         str_descr = ''
