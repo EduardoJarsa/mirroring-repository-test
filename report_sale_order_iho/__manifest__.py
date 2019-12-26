@@ -20,6 +20,7 @@
         'views/sale_term_view.xml',
         'views/sale_term_category_view.xml',
         'reports/report_papaerformat.xml',
+        'security/security.xml',
         'security/ir.model.access.csv',
     ],
 }

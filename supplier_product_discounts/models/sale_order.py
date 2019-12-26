@@ -217,36 +217,41 @@ class SaleOrder(models.Model):
         self,
         catalog,
         discounts_ids,
-        general_discounts,
+        general_discounts
     ):
-        self._get_three_filter(
+        filter_discounts = False
+        filter_discounts = self._get_three_filter(
             catalog, discounts_ids, general_discounts)
-        self._get_two_filter_comb_1(
-            catalog, discounts_ids, general_discounts)
-        self._get_two_filter_comb_2(
-            catalog, discounts_ids, general_discounts)
-        if catalog['maker_id']:
-            filter_maker_id = self._filter_by_maker(
-                catalog, discounts_ids)
-            if filter_maker_id:
-                return filter_maker_id
-            gral_discounts = self._filter_by_maker(
-                catalog, general_discounts)
-            if gral_discounts:
-                return gral_discounts
-        if (
-            not catalog['maker_id']
-            and not catalog['catalog_id']
-            and not catalog['family_id']
-        ):
-            global_discounts = self._get_global_discounts(
-                catalog, discounts_ids)
-            if global_discounts:
-                return global_discounts
-            gral_discounts_global_disc = self._get_global_discounts(
-                catalog, general_discounts)
-            if gral_discounts_global_disc:
-                return gral_discounts_global_disc
+        if not filter_discounts:
+            filter_discounts = self._get_two_filter_comb_1(
+                catalog, discounts_ids, general_discounts)
+        if not filter_discounts:
+            self._get_two_filter_comb_2(
+                catalog, discounts_ids, general_discounts)
+        if not filter_discounts:
+            if catalog['maker_id']:
+                filter_maker_id = self._filter_by_maker(
+                    catalog, discounts_ids)
+                if filter_maker_id:
+                    return filter_maker_id
+                gral_discounts = self._filter_by_maker(
+                    catalog, general_discounts)
+                if gral_discounts:
+                    return gral_discounts
+            if (
+                not catalog['maker_id']
+                and not catalog['catalog_id']
+                and not catalog['family_id']
+            ):
+                global_discounts = self._get_global_discounts(
+                    catalog, discounts_ids)
+                if global_discounts:
+                    return global_discounts
+                gral_discounts_global_disc = self._get_global_discounts(
+                    catalog, general_discounts)
+                if gral_discounts_global_disc:
+                    return gral_discounts_global_disc
+        return filter_discounts
 
     def _compare_discounts(
         self,

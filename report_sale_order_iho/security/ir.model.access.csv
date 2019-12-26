@@ -1,4 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_sale_order_term,access_sale_order_term,model_sale_order_term,,1,1,1,1
-access_sale_term,access_sale_term,model_sale_term,,1,1,1,1
-access_sale_term_category,access_sale_term_category,model_sale_term_category,,1,1,1,1
+manage_sale_order_term,manage_sale_order_term,model_sale_order_term,report_sale_order_iho.group_manage_quotation_sale_terms,1,1,1,1
+manage_sale_term,manage_sale_term,model_sale_term,report_sale_order_iho.group_manage_sale_terms,1,1,1,1
+manage_sale_term_category,manage_sale_term_category,model_sale_term_category,report_sale_order_iho.group_manage_sale_terms,1,1,1,1
+access_sale_term,access_sale_term,model_sale_term,report_sale_order_iho.group_access_sale_terms,1,0,0,0
+access_sale_term_category,access_sale_term_category,model_sale_term_category,report_sale_order_iho.group_access_sale_terms,1,0,0,0
+access_sale_order_term,access_sale_order_term,model_sale_order_term,report_sale_order_iho.group_access_sale_terms,1,0,0,0

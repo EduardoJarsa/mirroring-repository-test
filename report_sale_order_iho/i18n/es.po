@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-21 17:18+0000\n"
-"PO-Revision-Date: 2019-12-21 17:18+0000\n"
+"POT-Creation-Date: 2019-12-26 20:17+0000\n"
+"PO-Revision-Date: 2019-12-26 20:17+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -223,6 +223,11 @@ msgid "ADD NEW TERM"
 msgstr "Agregar Termino"
 
 #. module: report_sale_order_iho
+#: model:res.groups,name:report_sale_order_iho.group_access_sale_terms
+msgid "Access Sale Terms"
+msgstr ""
+
+#. module: report_sale_order_iho
 #: model_terms:ir.ui.view,arch_db:report_sale_order_iho.view_generate_sale_order_terms_wizard_form
 msgid "Add Term"
 msgstr "Agregar Termino"
@@ -261,6 +266,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term__category_id
 msgid "Category"
 msgstr "Categoría"
+
+#. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term__code
+msgid "Code"
+msgstr "Código"
 
 #. module: report_sale_order_iho
 #: model:ir.model.fields,field_description:report_sale_order_iho.field_generate_sale_order_terms_wizard__create_uid
@@ -360,6 +370,16 @@ msgid "Last Updated on"
 msgstr "Última actualización el"
 
 #. module: report_sale_order_iho
+#: model:res.groups,name:report_sale_order_iho.group_manage_quotation_sale_terms
+msgid "Manage Quotation Sale Terms"
+msgstr "Administrar Terminos de Venta en las Cotizaciones."
+
+#. module: report_sale_order_iho
+#: model:res.groups,name:report_sale_order_iho.group_manage_sale_terms
+msgid "Manage Sale Terms"
+msgstr "Administrar Terminos de Venta"
+
+#. module: report_sale_order_iho
 #: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_order_term__name
 #: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term__name
 #: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term_category__name
@@ -379,7 +399,7 @@ msgstr ""
 #. module: report_sale_order_iho
 #: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
 msgid "Payment"
-msgstr "Pagos"
+msgstr "Pago"
 
 #. module: report_sale_order_iho
 #: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
@@ -394,13 +414,13 @@ msgstr "Pedido de venta"
 #. module: report_sale_order_iho
 #: model:ir.model.fields,field_description:report_sale_order_iho.field_generate_sale_order_terms_wizard__sale_order_term_id
 msgid "Sale Order Term"
-msgstr ""
+msgstr "Terminos de Orden de Venta"
 
 #. module: report_sale_order_iho
 #: model:ir.actions.act_window,name:report_sale_order_iho.action_sale_term_category
 #: model:ir.ui.menu,name:report_sale_order_iho.sale_term_category_menu
 msgid "Sale Term Categories"
-msgstr ""
+msgstr "Categorias de los Terminos de Venta"
 
 #. module: report_sale_order_iho
 #: model:ir.actions.act_window,name:report_sale_order_iho.action_sale_term
@@ -438,20 +458,31 @@ msgstr "Términos y condiciones"
 #. module: report_sale_order_iho
 #: model:ir.model,name:report_sale_order_iho.model_sale_order_term
 msgid "Terms and Conditions for Sales Order"
-msgstr ""
+msgstr "Terminos y Condiciones para Ordenes de Venta"
 
 #. module: report_sale_order_iho
-#: code:addons/report_sale_order_iho/models/sale_order.py:39
+#: model:res.groups,comment:report_sale_order_iho.group_manage_sale_terms
+msgid "The user will have access to manage sale terms and sale terms categoruy."
+msgstr "El usuario tendra acceso a administrar los terminos de venta y las categorias de los terminos de venta."
+
+#. module: report_sale_order_iho
+#: model:res.groups,comment:report_sale_order_iho.group_access_sale_terms
+#: model:res.groups,comment:report_sale_order_iho.group_manage_quotation_sale_terms
+msgid "The user will have access to read sale terms and sale terms categoruy."
+msgstr "El usuario tendra acceso a leer los terminos de venta y las categorias de los terminos de venta."
+
+#. module: report_sale_order_iho
+#: code:addons/report_sale_order_iho/models/sale_order.py:41
 #, python-format
 msgid "This term is already in Sale Order"
-msgstr ""
+msgstr "Este termino ya se encuentra en la Orden de Venta"
 
 #. module: report_sale_order_iho
-#: code:addons/report_sale_order_iho/models/sale_order.py:47
-#: code:addons/report_sale_order_iho/models/sale_order.py:56
+#: code:addons/report_sale_order_iho/models/sale_order.py:51
+#: code:addons/report_sale_order_iho/models/sale_order.py:60
 #, python-format
 msgid "Unable to add this term, it is not compatible with the terms. %s"
-msgstr ""
+msgstr "No se puede agregar este termino, ya que no es compatible con los terminos %s."
 
 #. module: report_sale_order_iho
 #: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
@@ -467,4 +498,3 @@ msgstr ""
 #: model:ir.model,name:report_sale_order_iho.model_generate_sale_order_terms_wizard
 msgid "generate.sale.order.terms.wizard"
 msgstr ""
-
