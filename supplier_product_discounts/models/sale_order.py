@@ -226,7 +226,7 @@ class SaleOrder(models.Model):
             filter_discounts = self._get_two_filter_comb_1(
                 catalog, discounts_ids, general_discounts)
         if not filter_discounts:
-            self._get_two_filter_comb_2(
+            filter_discounts = self._get_two_filter_comb_2(
                 catalog, discounts_ids, general_discounts)
         if not filter_discounts:
             if catalog['maker_id']:
