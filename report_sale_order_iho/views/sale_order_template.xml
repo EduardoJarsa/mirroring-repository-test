@@ -10,15 +10,16 @@
                 <!-- <div class="header"><div/></div>-->
                 <t t-call="web.internal_layout">
                     <div class="page">
-                        <div style="height: 80px; width: 150px;">
-                            <span role="img" t-att-aria-label="'Logo of %s' % res_company.name" t-att-title="res_company.name" t-field="res_company.logo" t-options="{'widget': 'image'}"/>
-                            <br/>
-                            <br/>
-                        </div>
                         <div class="row" style="padding-top:10px;padding-button:16px;">
                             <div class="col pull-left">
                                 <table style="font-size:15px;line-height: 16px;">
-                                    
+                                    <tr>
+                                        <td style="height: 80px; width: 150px;">
+                                            <span role="img" t-att-aria-label="'Logo of %s' % res_company.name" t-att-title="res_company.name" t-field="res_company.logo" t-options="{'widget': 'image'}"/>
+                                            <br/>
+                                            <br/>
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td style="color: gray;">
                                             <strong>Partner: </strong>
