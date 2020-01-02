@@ -8,6 +8,7 @@ class SaleTerm(models.Model):
     _name = 'sale.term'
     _description = 'Catalog of Sale Terms'
     _order = 'sequence asc'
+    _rec_name = 'code'
 
     name = fields.Char(required=True, translate=True)
     sequence = fields.Integer(required=True, default=10)
@@ -25,6 +26,6 @@ class SaleTerm(models.Model):
     def name_get(self):
         result = []
         for rec in self:
-            name = '[%s] %s' % (rec.code, rec.name)
+            name = '[%s] %s' % (rec.category_id.name, rec.code)
             result.append((rec.id, name))
         return result

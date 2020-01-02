@@ -22,9 +22,9 @@
             </xpath>
             <xpath expr="//field[@name='note']" position="after">
                 <field name="sale_order_term_ids">
-                    <tree>
+                    <tree create="0">
                         <field name="sequence" widget="handle"/>
-                        <field name="name"/>
+                        <field name="term_id"/>
                     </tree>
                 </field>
             </xpath>

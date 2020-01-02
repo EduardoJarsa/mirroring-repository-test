@@ -21,11 +21,20 @@ class SaleOrderTerm(models.Model):
     _name = 'sale.order.term'
     _description = 'Terms and Conditions for Sales Order'
     _order = 'sequence asc'
+    _rec_name = 'term_id'
 
     name = fields.Html(required=True)
     order_id = fields.Many2one('sale.order', required=True)
     term_id = fields.Many2one('sale.term', required=True)
     sequence = fields.Integer(required=True, default=10)
+
+    @api.multi
+    def name_get(self):
+        result = []
+        for rec in self:
+            name = '%s' % rec.term_id.code
+            result.append((rec.id, name))
+        return result
 
     @api.model
     def create(self, values):
