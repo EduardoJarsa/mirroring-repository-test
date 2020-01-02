@@ -498,3 +498,8 @@ msgstr ""
 #: model:ir.model,name:report_sale_order_iho.model_generate_sale_order_terms_wizard
 msgid "generate.sale.order.terms.wizard"
 msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.view_sale_order_inherit_form_report
+msgid "Add T&C"
+msgstr "Agregar T&C"

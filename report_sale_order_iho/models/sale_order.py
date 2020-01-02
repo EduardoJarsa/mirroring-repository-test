@@ -54,20 +54,24 @@ class SaleOrderTerm(models.Model):
         for rec in terms_sale_order:
             for so_term in rec.invalid_term_ids.ids:
                 if so_term == term_to_compare.id:
-                    invalid_terms = invalid_terms + rec.name + ','
+                    invalid_terms = (
+                        invalid_terms + '[' + rec.category_id.name + ']'
+                        + rec.code + ', ')
         if invalid_terms:
             raise ValidationError(
                 _('Unable to add this term, it is not compatible '
-                    'with the terms. %s') % invalid_terms[:-1])
+                    'with the terms. %s') % invalid_terms[:-2])
         # Compare with invalid combination of term than you want add
         for rec in term_to_compare:
             for so_term in terms_sale_order:
                 if so_term.id in rec.invalid_term_ids.ids:
-                    invalid_terms = invalid_terms + so_term.name + ','
+                    invalid_terms = (
+                        invalid_terms + '[' + so_term.category_id.name + ']'
+                        + so_term.code + ', ')
         if invalid_terms:
             raise ValidationError(
                 _('Unable to add this term, it is not compatible '
-                    'with the terms. %s') % invalid_terms[:-1])
+                    'with the terms. %s') % invalid_terms[:-2])
         res = super().create(values)
         return res
 
