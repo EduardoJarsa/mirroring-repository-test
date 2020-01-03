@@ -256,6 +256,19 @@
                                 </tr>
                             </table>
                         </div>
+                        <div class="row">
+                            <div class="col">
+                                <strong>
+                                    <h6>
+                                        <u>Terms and Conditions for the Sale of goods supplied by IHO.</u>
+                                    </h6>
+                                </strong>
+                                <br/>
+                                <t t-as="sale_term" t-foreach="doc.sale_order_term_ids">
+                                    <span t-field="sale_term.name"/>
+                                </t>
+                            </div>
+                        </div>
                     </div>
                 </t>
                 <div class="footer">

@@ -27,6 +27,7 @@ class SaleOrderTerm(models.Model):
     order_id = fields.Many2one('sale.order', required=True)
     term_id = fields.Many2one('sale.term', required=True)
     sequence = fields.Integer(required=True, default=10)
+    # name_to_format = fields.Html()
 
     @api.multi
     def name_get(self):
@@ -83,6 +84,12 @@ class SaleOrder(models.Model):
     sale_order_term_ids = fields.One2many(
         'sale.order.term', 'order_id', string='Terms and Conditions')
 
+    @api.model
+    def default_get(self, res_fields):
+        res = super().default_get(res_fields)
+        import ipdb; ipdb.set_trace()
+        return res
+
     @api.multi
     def generate_terms(self):
         for rec in self:
@@ -92,7 +99,7 @@ class SaleOrder(models.Model):
             if rec.sale_order_term_ids:
                 for term in rec.sale_order_term_ids:
                     term.name = safe_eval(
-                        term.with_context(context).name, {
+                        term.term_id.with_context(context).name, {
                             'order': rec.with_context(context)
                         })
                 return True
@@ -109,6 +116,10 @@ class SaleOrder(models.Model):
                     'order_id': rec.id,
                     'term_id': term.id,
                     'sequence': term.sequence,
+                    # 'name_to_format': safe_eval(
+                    #     term.with_context(context).name, {
+                    #         'order': rec.with_context(context)
+                    # }),
                 })
             rec.sale_order_term_ids.create(new_terms)
 

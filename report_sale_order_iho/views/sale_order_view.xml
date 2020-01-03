@@ -25,6 +25,7 @@
                     <tree create="0">
                         <field name="sequence" widget="handle"/>
                         <field name="term_id"/>
+                        <field name="name"/>
                     </tree>
                 </field>
             </xpath>

@@ -8,6 +8,7 @@
                 <field name="code"/>
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
+                <!-- <field name="name_to_format" invisible="1"/> -->
                 <field name="category_id"/>
                 <field name="default"/>
                 <field name="invalid_term_ids" widget="many2many_tags"/>
