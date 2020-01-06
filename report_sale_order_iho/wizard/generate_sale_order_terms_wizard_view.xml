@@ -6,8 +6,8 @@
         <field name="arch" type="xml">
             <form>
                 <group>
-                    <field name="sale_term_category_id"/>
-                    <field name="sale_order_term_id" domain="[('category_id','in',[sale_term_category_id])]" attrs="{'invisible': [('sale_term_category_id', '=', False)]}"/>
+                    <field name="category_id"/>
+                    <field name="term_id" domain="[('category_id','in',[category_id]), ('default', '=', False)]" attrs="{'invisible': [('category_id', '=', False)]}"/>
                 </group>
                 <footer>
                     <button class="oe_highlight" name="add_term_to_sale_order" string="Add Term" type="object"/>

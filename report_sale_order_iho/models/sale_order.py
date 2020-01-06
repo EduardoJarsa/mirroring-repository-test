@@ -27,54 +27,35 @@ class SaleOrderTerm(models.Model):
     order_id = fields.Many2one('sale.order', required=True)
     term_id = fields.Many2one('sale.term', required=True)
     sequence = fields.Integer(required=True, default=10)
-    # name_to_format = fields.Html()
 
     @api.multi
     def name_get(self):
         result = []
         for rec in self:
-            name = '%s' % rec.term_id.code
+            name = rec.term_id.code
             result.append((rec.id, name))
         return result
 
     @api.model
     def create(self, values):
-        res = False
         order = self.env['sale.order'].browse(values['order_id'])
-        term_to_compare = self.env['sale.term'].browse(
-            values['term_id'])
-        invalid_terms = ''
-        terms_sale_order = order.mapped(
-            'sale_order_term_ids.term_id')
-        if 'sale_version_id' not in values:
-            if term_to_compare in terms_sale_order:
-                raise ValidationError(_('This term is already in Sale Order'))
-        else:
-            values.pop('sale_version_id', None)
+        new_term = self.env['sale.term'].browse(values['term_id'])
+        sale_order_terms = order.mapped('sale_order_term_ids.term_id')
+        if new_term in sale_order_terms:
+            raise ValidationError(_('This term is already in Sale Order'))
         # Compare with invalid combination of sale order
-        for rec in terms_sale_order:
-            for so_term in rec.invalid_term_ids.ids:
-                if so_term == term_to_compare.id:
-                    invalid_terms = (
-                        invalid_terms + '[' + rec.category_id.name + ']'
-                        + rec.code + ', ')
+        invalid_terms = sale_order_terms.filtered(
+            lambda term: new_term in term.invalid_term_ids)
+        invalid_terms |= new_term.invalid_term_ids.filtered(
+            lambda term: term in sale_order_terms)
         if invalid_terms:
+            invalid_terms = [
+                '[%s] %s' % (x.category_id.name, x.code)
+                for x in invalid_terms]
             raise ValidationError(
                 _('Unable to add this term, it is not compatible '
-                    'with the terms. %s') % invalid_terms[:-2])
-        # Compare with invalid combination of term than you want add
-        for rec in term_to_compare:
-            for so_term in terms_sale_order:
-                if so_term.id in rec.invalid_term_ids.ids:
-                    invalid_terms = (
-                        invalid_terms + '[' + so_term.category_id.name + ']'
-                        + so_term.code + ', ')
-        if invalid_terms:
-            raise ValidationError(
-                _('Unable to add this term, it is not compatible '
-                    'with the terms. %s') % invalid_terms[:-2])
-        res = super().create(values)
-        return res
+                    'with the terms.\n %s') % '\n'.join(invalid_terms))
+        return super().create(values)
 
 
 class SaleOrder(models.Model):
@@ -85,26 +66,34 @@ class SaleOrder(models.Model):
         'sale.order.term', 'order_id', string='Terms and Conditions')
 
     @api.model
-    def default_get(self, res_fields):
-        res = super().default_get(res_fields)
-        import ipdb; ipdb.set_trace()
+    def create(self, values):
+        res = super().create(values)
+        res._generate_terms()
         return res
 
     @api.multi
-    def generate_terms(self):
+    def write(self, values):
+        res = super().write(values)
+        self._generate_terms()
+        return res
+
+    @api.multi
+    def _generate_terms(self):
         for rec in self:
             context = {
                 'lang': rec.partner_id.lang
             }
+            updated_terms = False
             if rec.sale_order_term_ids:
+                updated_terms = rec.sale_order_term_ids.mapped('term_id').ids
                 for term in rec.sale_order_term_ids:
                     term.name = safe_eval(
                         term.term_id.with_context(context).name, {
                             'order': rec.with_context(context)
                         })
-                return True
             terms = self.env['sale.term'].search(
-                [('default', '=', True)], order='sequence asc')
+                [('default', '=', True), ('id', 'not in', updated_terms)],
+                order='sequence asc')
             new_terms = []
             # Use context to allow to get translation from terms.
             for term in terms:
@@ -116,10 +105,6 @@ class SaleOrder(models.Model):
                     'order_id': rec.id,
                     'term_id': term.id,
                     'sequence': term.sequence,
-                    # 'name_to_format': safe_eval(
-                    #     term.with_context(context).name, {
-                    #         'order': rec.with_context(context)
-                    # }),
                 })
             rec.sale_order_term_ids.create(new_terms)
 

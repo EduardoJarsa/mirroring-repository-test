@@ -6,9 +6,6 @@
         <field name="priority">101</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//header" position="inside">
-                <button name="%(report_sale_order_iho.action_generate_sale_order_terms_wizard)d" string="Add T&amp;C" type="action" class="oe_highlight"/>
-            </xpath>
             <xpath expr="//field[@name='order_line']/form/label[1]" position="before">
                 <group>
                     <group>
@@ -30,7 +27,7 @@
                 </field>
             </xpath>
             <xpath expr="//button[@name='action_unlock']" position="after">
-                <button name="generate_terms" string="Generate Terms" type="object"/>
+                <button name="%(report_sale_order_iho.action_generate_sale_order_terms_wizard)d" string="Add T&amp;C" type="action" class="oe_highlight"/>
             </xpath>
         </field>
     </record>
