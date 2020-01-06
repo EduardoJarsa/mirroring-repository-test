@@ -1,7 +1,7 @@
 # Copyright 2019, Jarsa Sistemas, S.A. de C.V.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.tools.safe_eval import safe_eval
 
 
@@ -21,9 +21,15 @@ class SaleTerm(models.Model):
         relation='invalid_sale_term_rel',
         column1='col1',
         column2='col2',
-        string='Invalid Combination')
+        string='Invalid Combination',
+    )
     category_id = fields.Many2one('sale.term.category', required=True)
     code = fields.Char(required=True,)
+
+    _sql_constraints = [
+        ('sequence_uniq', 'unique(code)',
+            _('The code must be unique !')),
+    ]
 
     @api.multi
     def name_get(self):

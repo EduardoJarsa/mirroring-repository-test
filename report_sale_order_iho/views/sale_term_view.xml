@@ -10,7 +10,8 @@
                 <field name="name"/>
                 <field name="category_id"/>
                 <field name="default"/>
-                <field name="invalid_term_ids" widget="many2many_tags"/>
+                <field name="invalid_term_ids" widget="many2many_tags" domain="[
+                        ('id','not in',[active_id]),]"/>
             </tree>
         </field>
     </record>
@@ -43,7 +44,8 @@
                             <field nolabel="1" name="name_validation"/>
                         </page>
                         <page string="Invalid Terms">
-                            <field nolabel="1" name="invalid_term_ids"/>
+                            <field nolabel="1" name="invalid_term_ids" domain="[
+                        ('id','not in',[active_id]),]"/>
                         </page>
                     </notebook>
                 </sheet>

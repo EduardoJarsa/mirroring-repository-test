@@ -503,3 +503,10 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:report_sale_order_iho.view_sale_order_inherit_form_report
 msgid "Add T&C"
 msgstr "Agregar T&C"
+
+#. module: report_sale_order_iho
+#: code:addons/report_sale_order_iho/models/sale_term.py:31
+#: sql_constraint:sale.term:0
+#, python-format
+msgid "The code must be unique !"
+msgstr "El codigo debe ser unico"
