@@ -4,22 +4,57 @@
         <field name="name">sale_term.tree</field>
         <field name="model">sale.term</field>
         <field name="arch" type="xml">
-            <tree editable="top">
-                <field name="code"/>
+            <tree>
                 <field name="sequence" widget="handle"/>
+                <field name="code"/>
                 <field name="name"/>
-                <!-- <field name="name_to_format" invisible="1"/> -->
                 <field name="category_id"/>
                 <field name="default"/>
                 <field name="invalid_term_ids" widget="many2many_tags"/>
             </tree>
         </field>
     </record>
+    <record model="ir.ui.view" id="sale_term_form">
+        <field name="name">sale_term.form</field>
+        <field name="model">sale.term</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="category_id"/>
+                        </group>
+                        <group>
+                            <field name="default"/>
+                            <field name="sequence"/>
+                        </group>
+                    </group>
+                    <group string="Python Code">
+                        <field name="name" widget="ace" nolabel="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Validation">
+                            <group>
+                                <group>
+                                    <field name="order_id"/>
+                                </group>
+                            </group>
+                            <field nolabel="1" name="name_validation"/>
+                        </page>
+                        <page string="Invalid Terms">
+                            <field nolabel="1" name="invalid_term_ids"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
     <record id="action_sale_term" model="ir.actions.act_window">
         <field name="name">Sale Terms</field>
         <field name="res_model">sale.term</field>
         <field name="view_type">form</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">tree,form</field>
     </record>
     <menuitem id="sale_term_menu" name="Sale Terms" parent="sale.menu_sales_config" action="action_sale_term"/>
 </odoo>

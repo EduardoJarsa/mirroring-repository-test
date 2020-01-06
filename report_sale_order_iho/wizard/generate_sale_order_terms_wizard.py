@@ -11,6 +11,18 @@ class GenerateSaleOrderTermsWizard(models.TransientModel):
 
     term_id = fields.Many2one('sale.term')
     category_id = fields.Many2one('sale.term.category')
+    order_id = fields.Many2one('sale.order')
+    term_ids = fields.Many2many(
+        'sale.term', string='Terms and Conditions')
+
+    @api.model
+    def default_get(self, res_fields):
+        res = super().default_get(res_fields)
+        order = self.env['sale.order'].browse(
+            self._context.get('active_id', False))
+        res['order_id'] = order.id
+        res['term_ids'] = order.mapped('sale_order_term_ids.term_id').ids
+        return res
 
     @api.multi
     def add_term_to_sale_order(self):
@@ -18,19 +30,17 @@ class GenerateSaleOrderTermsWizard(models.TransientModel):
             return False
         if not self.term_id:
             raise ValidationError(_('There is not selected a sale term.'))
-        sale_order = self.env['sale.order'].browse(
-            self._context.get('active_id'))
         context = {
-            'lang': sale_order.partner_id.lang
+            'lang': self.order_id.partner_id.lang
         }
         new_terms = []
         new_terms.append({
-            'order_id': sale_order.id,
+            'order_id': self.order_id.id,
             'term_id': self.term_id.id,
             'sequence': self.term_id.sequence,
             'name': safe_eval(
                 self.term_id.with_context(context).name, {
-                    'order': sale_order.with_context(context),
+                    'order': self.order_id.with_context(context),
                 }),
         })
         self.env['sale.order.term'].create(new_terms)

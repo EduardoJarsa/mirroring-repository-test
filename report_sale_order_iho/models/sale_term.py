@@ -2,6 +2,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 from odoo import api, fields, models
+from odoo.tools.safe_eval import safe_eval
 
 
 class SaleTerm(models.Model):
@@ -10,9 +11,11 @@ class SaleTerm(models.Model):
     _order = 'sequence asc'
     _rec_name = 'code'
 
-    name = fields.Char(required=True, translate=True)
+    name = fields.Text(required=True, translate=True)
     sequence = fields.Integer(required=True, default=10)
     default = fields.Boolean()
+    order_id = fields.Many2one('sale.order')
+    name_validation = fields.Html(readonly=True)
     invalid_term_ids = fields.Many2many(
         comodel_name='sale.term',
         relation='invalid_sale_term_rel',
@@ -29,3 +32,11 @@ class SaleTerm(models.Model):
             name = '[%s] %s' % (rec.category_id.name, rec.code)
             result.append((rec.id, name))
         return result
+
+    @api.onchange('name', 'order_id')
+    def _onchange_name_order_id(self):
+        if self.order_id and self.name:
+            self.name_validation = safe_eval(
+                self.name, {
+                    'order': self.order_id,
+                })

@@ -7,6 +7,7 @@ from odoo import fields, models
 
 class SaleOrderVersion(models.Model):
     _name = 'sale.order.version'
+    _description = 'Sale Order Version'
 
     name = fields.Char(
         string='Version',
@@ -109,12 +110,13 @@ class SaleOrderVersion(models.Model):
     version_term_ids = fields.One2many(
         'sale.order.version.term',
         'sale_version_id',
-        string='Field Label',
+        string='Version Terms',
     )
 
 
 class SaleOrderVersionLine(models.Model):
     _name = 'sale.order.version.line'
+    _description = 'Line of Sale Order Version'
 
     sale_version_id = fields.Many2one(
         comodel_name="sale.order.version",
@@ -174,6 +176,7 @@ class SaleOrderVersionLine(models.Model):
 
 class SaleOrderVersionTerm(models.Model):
     _name = 'sale.order.version.term'
+    _description = 'Sale Order Version Term'
 
     name = fields.Html(required=True)
     sale_version_id = fields.Many2one(
