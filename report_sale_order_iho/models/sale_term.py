@@ -27,8 +27,8 @@ class SaleTerm(models.Model):
     code = fields.Char(required=True,)
 
     _sql_constraints = [
-        ('sequence_uniq', 'unique(code)',
-            _('The code must be unique !')),
+        ('sequence_uniq', 'unique(code,category_id)',
+            _('The code and category must be unique !')),
     ]
 
     @api.multi

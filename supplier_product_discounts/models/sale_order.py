@@ -263,7 +263,7 @@ class SaleOrder(models.Model):
         success = 0
         # major_discount = self._reduce_discounts(discounts, catalog)
         if discount:
-            discount_conv = discount.discount / 100
+            discount_conv = round(discount.discount / 100, 6)
             if discount_conv >= catalog['percentage']:
                 success = success + 1
         else:
@@ -413,7 +413,7 @@ class SaleOrder(models.Model):
             combination = ({
                 'original_sub': subtotal,
                 'new_subtotal': new_subtotal,
-                'percentage': percentage,
+                'percentage': round(percentage, 6),
             })
             if maker:
                 combination.update({

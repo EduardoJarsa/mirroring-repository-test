@@ -508,5 +508,5 @@ msgstr "Agregar T&C"
 #: code:addons/report_sale_order_iho/models/sale_term.py:31
 #: sql_constraint:sale.term:0
 #, python-format
-msgid "The code must be unique !"
-msgstr "El codigo debe ser unico"
+msgid "The code and category must be unique !"
+msgstr "El Codigo y la Categoria deben ser unicos!"
