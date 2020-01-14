@@ -333,7 +333,7 @@ class ImportSaleOrderWizard(models.TransientModel):
                 }
                 if not dealer_price:
                     category_no_cost = self.env.ref(
-                        'sif_interface.product_category_no_cost_materials'
+                        'sif_interface.product_category_cdv'
                     )
                     product_dict['categ_id'] = category_no_cost.id
                 item = self.env[model].create(product_dict)
@@ -395,6 +395,9 @@ class ImportSaleOrderWizard(models.TransientModel):
         currency = file_data['Envelope']['Header']['Currency']
         iho_currency_id = self.env['res.currency'].search(
             [('name', '=', currency)])
+        if not iho_currency_id:
+            raise ValidationError(
+                _('You have not active the currency with code %s') % currency)
         for line in order_lines:
             generic_value = ''
             vendor = self.search_data(
@@ -481,16 +484,24 @@ class ImportSaleOrderWizard(models.TransientModel):
                 tag_alias[0], 0.0) + (
                 line['Price']['OrderDealerPrice'] * line['Quantity'])
         for tag, boms in bom_elements.items():
-            product_template_bom = self.search_data(
-                tag, 'product.template', name=tag, buy=False)
-            if not obj_bom.search(
-                    [('product_tmpl_id', '=', product_template_bom.id)]):
-                obj_bom.create({
-                    'type': 'phantom',
-                    'bom_line_ids': boms,
-                    'product_tmpl_id': product_template_bom.id,
-                })
-            product_bom = product_template_bom.product_variant_id
+            product_bom = False
+            # This conditional is to if boms_ids is only one do not add
+            # the product with bom_id, only add the component of bom_id
+            if len(boms) == 1:
+                product_template_bom = self.env[
+                    'product.product'].browse(boms[0][2]['product_id'])
+                product_bom = product_template_bom
+            else:
+                product_template_bom = self.search_data(
+                    tag, 'product.template', name=tag, buy=False)
+                if not obj_bom.search(
+                        [('product_tmpl_id', '=', product_template_bom.id)]):
+                    obj_bom.create({
+                        'type': 'phantom',
+                        'bom_line_ids': boms,
+                        'product_tmpl_id': product_template_bom.id,
+                    })
+                product_bom = product_template_bom.product_variant_id
             customer_discount = (
                 1 - (cust_price_total[tag] / pub_price_total[tag])) * 100
             iho_discount = (
@@ -508,6 +519,10 @@ class ImportSaleOrderWizard(models.TransientModel):
                 'analytic_tag_ids': [(6, 0, sale_order.analytic_tag_ids.ids)],
             })
             sale_order_line._compute_sell_1()
+            if not sale_order_line.iho_sell_1:
+                sale_order_line.product_id.category_id = (
+                    self.env['product.category'].ref(
+                        'sif_interface.product_category_no_cost_materials'))
             sale_order_line._compute_sell_2()
             sale_order_line._compute_sell_3()
             sale_order_line._compute_sell_4()

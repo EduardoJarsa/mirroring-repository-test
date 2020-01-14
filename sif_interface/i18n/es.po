@@ -350,3 +350,9 @@ msgstr "Necesitas definir una moneda de compra para el producto [%s]%s"
 #: model_terms:ir.ui.view,arch_db:sif_interface.view_export_sif_wizard
 msgid "Your File is ready to download.!!!"
 msgstr "Su archivo está listo para descargar."
+
+#. module: sif_interface
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:400
+#, python-format
+msgid "You have not active the currency with code %s"
+msgstr "No tiene active la moneda con el codigo %s"
