@@ -17,7 +17,9 @@ class StockRule(models.Model):
         supplier = suppliers.with_context(values=values).filtered(
             lambda r: r.sale_order_id == r._context.get(
                 'values').get('group_id').sale_id and r.sale_order_id) or res
-        return supplier
+        if supplier:
+            return supplier
+        return res
 
     @api.multi
     def _prepare_purchase_order_line(self, product_id, product_qty,

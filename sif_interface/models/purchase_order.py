@@ -4,6 +4,22 @@
 from odoo import api, models
 
 
+class PurchaseOrder(models.Model):
+    _inherit = "purchase.order"
+
+    @api.model
+    def create(self, vals):
+        sale_order = False
+        if self._context.get('active_model') == 'sale.order':
+            active_id = self._context.get('active_id')
+            if active_id:
+                sale_order = self.env['sale.order'].browse(active_id)
+        if sale_order:
+            vals['currency_id'] = sale_order.pricelist_id.currency_id.id
+        res = super().create(vals)
+        return res
+
+
 class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"
 
@@ -18,12 +34,14 @@ class PurchaseOrderLine(models.Model):
     def create(self, vals):
         sale_order = False
         if self._context.get('active_model') == 'sale.order':
-            sale_order = self.env['sale.order'].browse(
-                self._context.get('active_id'))
+            active_id = self._context.get('active_id')
+            if active_id:
+                sale_order = self.env['sale.order'].browse(active_id)
         res = super().create(vals)
-        res.write({
-            'account_analytic_id': sale_order.analytic_account_id.id,
-            'analytic_tag_ids': [
-                (6, 0, sale_order.analytic_tag_ids.ids)],
-        })
+        if sale_order:
+            res.write({
+                'account_analytic_id': sale_order.analytic_account_id.id,
+                'analytic_tag_ids': [
+                    (6, 0, sale_order.analytic_tag_ids.ids)],
+            })
         return res

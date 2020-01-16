@@ -301,7 +301,8 @@ class ImportSaleOrderWizard(models.TransientModel):
     @api.model
     def search_data(self, value, model,
                     attr=False, name=False, buy=True, vendor=False,
-                    dealer_price=False, currency=False, published_price=False):
+                    dealer_price=False, currency=False, published_price=False,
+                    is_a_new_prod_tmpl=False):
         routes = [
             self.env.ref('stock.route_warehouse0_mto').id,
             self.env.ref('purchase_stock.route_warehouse0_buy').id]
@@ -342,6 +343,9 @@ class ImportSaleOrderWizard(models.TransientModel):
                 product_variant_id.write({
                     'default_code': item.default_code,
                 })
+                is_a_new_prod_tmpl.append(True)
+            else:
+                is_a_new_prod_tmpl.append(False)
             if vendor:
                 sale_order_id = self._context.get('active_id')
                 if not psi_obj.search(
@@ -398,6 +402,15 @@ class ImportSaleOrderWizard(models.TransientModel):
         if not iho_currency_id:
             raise ValidationError(
                 _('You have not active the currency with code %s') % currency)
+        pricelist = self.env['product.pricelist'].search(
+            [('currency_id', '=', iho_currency_id.id)])
+        if not pricelist:
+            raise ValidationError(
+                _('You have not a pricelist with the currency %s') % currency)
+        sale_order.write({
+            'pricelist': pricelist,
+        })
+        is_a_new_prod_tmpl = []
         for line in order_lines:
             generic_value = ''
             vendor = self.search_data(
@@ -407,7 +420,8 @@ class ImportSaleOrderWizard(models.TransientModel):
                 name=line['SpecItem']['Description'], vendor=vendor,
                 dealer_price=line['Price']['OrderDealerPrice'],
                 currency=iho_currency_id,
-                published_price=line['Price']['PublishedPrice'])
+                published_price=line['Price']['PublishedPrice'],
+                is_a_new_prod_tmpl=is_a_new_prod_tmpl)
             tags = self.get_data_info('Tag', line)
             tag_alias = [
                 str(tag.get('Value')) + ' - ' + sale_order.name
@@ -483,7 +497,9 @@ class ImportSaleOrderWizard(models.TransientModel):
             dealer_price_total[tag_alias[0]] = dealer_price_total.setdefault(
                 tag_alias[0], 0.0) + (
                 line['Price']['OrderDealerPrice'] * line['Quantity'])
+        index = -1
         for tag, boms in bom_elements.items():
+            index += 1
             product_bom = False
             # This conditional is to if boms_ids is only one do not add
             # the product with bom_id, only add the component of bom_id
@@ -500,6 +516,9 @@ class ImportSaleOrderWizard(models.TransientModel):
                         'type': 'phantom',
                         'bom_line_ids': boms,
                         'product_tmpl_id': product_template_bom.id,
+                    })
+                    product_template_bom.write({
+                        'type': 'consu'
                     })
                 product_bom = product_template_bom.product_variant_id
             customer_discount = (
@@ -519,7 +538,9 @@ class ImportSaleOrderWizard(models.TransientModel):
                 'analytic_tag_ids': [(6, 0, sale_order.analytic_tag_ids.ids)],
             })
             sale_order_line._compute_sell_1()
-            if not sale_order_line.iho_sell_1:
+            if (
+                    not sale_order_line.iho_sell_1
+                    and not is_a_new_prod_tmpl[index]):
                 sale_order_line.product_id.category_id = (
                     self.env['product.category'].ref(
                         'sif_interface.product_category_no_cost_materials'))
