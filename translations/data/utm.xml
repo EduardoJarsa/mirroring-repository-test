@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+       <!-- UTM Source -->
+        <record model="utm.source" id="utm_incoming_call">
+            <field name="name">Incoming call</field>
+        </record>
+        <record model="utm.source" id="utm_prospecting">
+            <field name="name">Prospecting</field>
+        </record>
+        <record model="utm.source" id="utm_architect">
+            <field name="name">Architect department</field>
+        </record>
+        <record model="utm.source" id="utm_pmo">
+            <field name="name">PMO</field>
+        </record>
+        <record model="utm.source" id="utm_recommendation">
+            <field name="name">Recommendation</field>
+        </record>
+        <record model="utm.source" id="utm_source_global">
+            <field name="name">Global project</field>
+        </record>
+        <record model="utm.source" id="utm_source_house_customer">
+            <field name="name">House customer</field>
+        </record>
+</odoo>

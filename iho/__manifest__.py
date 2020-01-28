@@ -24,6 +24,7 @@
         'stock_manual_route',
         'crm_team_definition',
         'supplier_product_discounts',
+        'translations',
     ],
     'data': [
         'views/res_partner_view.xml',
