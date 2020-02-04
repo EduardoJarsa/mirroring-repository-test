@@ -14,5 +14,6 @@
     ],
     'data': [
         'data/utm.xml',
+        'views/crm.xml',
     ],
 }
