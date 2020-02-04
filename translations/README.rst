@@ -2,7 +2,7 @@ Translations
 ==================
 
 This module modifies UI hiding many fields to easy data entry for the sales area.
-Modules affected:   CRM
+Modules affected:   CRM, Contacts
 Security group "Show Sales UI" allows the user to restore original UI
 
 Installation
