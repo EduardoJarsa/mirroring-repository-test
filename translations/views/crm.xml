@@ -7,16 +7,17 @@
         <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
         <field name="arch" type="xml">
             <xpath expr="//page[1]" position="attributes">  
-                <attribute name="groups">res_groups.group_show_blocked_fields_CRM</attribute>
+                <attribute name="groups">translations.group_show_blocked_fields_CRM</attribute>
             </xpath>
             <xpath expr="//page[@name='lead']" position="attributes">  
-                <attribute name="groups">res_groups.group_show_blocked_fields_CRM</attribute>
+                <attribute name="groups">translations.group_show_blocked_fields_CRM</attribute>
             </xpath>
-            <xpath expr="//sheet" position="inside">  
-                <group string="Marketing 2">
+            <xpath expr="//notebook" position="before">  
+                <group name="relocated_fields_oppor" attrs="{'invisible': [('block_ui_crm', '=', False)]}">
                     <field name="campaign_id" />
                     <field name="medium_id" />
                     <field name="source_id" />
+                    <field name="block_ui_crm" invisible="1"/>
                 </group>            
             </xpath>
         </field>
@@ -74,13 +75,13 @@
                 <attribute name="readonly">1</attribute>
             </xpath>
             <xpath expr="//page[1]" position="attributes">  
-                <attribute name="groups">res_groups.group_show_blocked_fields_CRM</attribute>
+                <attribute name="groups">translations.group_show_blocked_fields_CRM</attribute>
             </xpath>
             <xpath expr="//page[@name='extra']" position="attributes">  
-                <attribute name="groups">res_groups.group_show_blocked_fields_CRM</attribute>
+                <attribute name="groups">translations.group_show_blocked_fields_CRM</attribute>
             </xpath>
-            <xpath expr="//sheet" position="inside">  
-                <group string="Campos recuperados">
+            <xpath expr="//notebook" position="before">  
+                <group name="relocated_fields_lead" attrs="{'invisible': [('block_ui_crm', '=', False)]}">
                     <group>
                         <field name="campaign_id" />
                         <field name="medium_id" />
@@ -89,6 +90,7 @@
                     <group>
                         <field name="referred" />
                         <field name="probability" />
+                        <field name="block_ui_crm" invisible="1"/>
                     </group>            
                 </group>            
             </xpath>

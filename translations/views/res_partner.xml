@@ -1,13 +1,14 @@
+<!--
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_crm_block_ui_inherit_crm_case_form_view_oppor" model="ir.ui.view">
-        <field name="name">crm.block.ui.inherit.crm.case.form.view.oppor</field>
-        <field name="model">crm.lead</field>
+    <record id="view_res_partner_block_ui_inherit_base_view_partner_form" model="ir.ui.view">
+        <field name="name">res.partner.block.ui.inherit.base.view.partner.form</field>
+        <field name="model">res.partner</field>
         <field name="priority">100</field>
-        <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+        <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//page[1]" position="attributes">  
-                <attribute name="groups">res_groups.group_show_blocked_fields_CRM</attribute>
+            <xpath expr="//field[@name='company_type']" position="attributes">  
+                <attribute name="default">res_groups.group_show_blocked_fields_CRM</attribute>
             </xpath>
             <xpath expr="//page[@name='lead']" position="attributes">  
                 <attribute name="groups">res_groups.group_show_blocked_fields_CRM</attribute>
@@ -22,77 +23,5 @@
         </field>
     </record>
 
-    <record id="view_crm_block_ui_inherit_crm_case_form_view_leads" model="ir.ui.view">
-        <field name="name">crm.block.ui.inherit.crm.case.form.view.leads</field>
-        <field name="model">crm.lead</field>
-        <field name="priority">100</field>
-        <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='partner_id']" position="attributes">  
-                <attribute name="groups"></attribute>
-            </xpath>
-            <xpath expr="//field[@name='partner_name']" position="attributes">
-                <attribute name="readonly">1</attribute>
-            </xpath>
-            <xpath expr="//field[@name='street']" position="attributes">
-                <attribute name="readonly">1</attribute>
-            </xpath>
-            <xpath expr="//field[@name='street2']" position="attributes">
-                <attribute name="readonly">1</attribute>
-            </xpath>
-            <xpath expr="//field[@name='city']" position="attributes">
-                <attribute name="readonly">1</attribute>
-            </xpath>
-            <xpath expr="//field[@name='state_id']" position="attributes">
-                <attribute name="readonly">1</attribute>
-            </xpath>
-            <xpath expr="//field[@name='zip']" position="attributes">
-                <attribute name="readonly">1</attribute>
-            </xpath>
-            <xpath expr="//field[@name='country_id']" position="attributes">
-                <attribute name="readonly">1</attribute>
-            </xpath>
-            <xpath expr="//field[@name='website']" position="attributes">
-                <attribute name="readonly">1</attribute>
-            </xpath>
-            <xpath expr="//field[@name='contact_name']" position="attributes">
-                <attribute name="readonly">1</attribute>
-            </xpath>
-            <xpath expr="//field[@name='title']" position="attributes">
-                <attribute name="readonly">1</attribute>
-            </xpath>
-            <xpath expr="//field[@name='function']" position="attributes">
-                <attribute name="readonly">1</attribute>
-            </xpath>
-            <xpath expr="//field[@name='phone']" position="attributes">
-                <attribute name="readonly">1</attribute>
-            </xpath>
-            <xpath expr="//field[@name='mobile']" position="attributes">
-                <attribute name="readonly">1</attribute>
-            </xpath>
-            <xpath expr="//field[@name='email_from']" position="attributes">
-                <attribute name="readonly">1</attribute>
-            </xpath>
-            <xpath expr="//page[1]" position="attributes">  
-                <attribute name="groups">res_groups.group_show_blocked_fields_CRM</attribute>
-            </xpath>
-            <xpath expr="//page[@name='extra']" position="attributes">  
-                <attribute name="groups">res_groups.group_show_blocked_fields_CRM</attribute>
-            </xpath>
-            <xpath expr="//sheet" position="inside">  
-                <group string="Campos recuperados">
-                    <group>
-                        <field name="campaign_id" />
-                        <field name="medium_id" />
-                        <field name="source_id" />
-                    </group>
-                    <group>
-                        <field name="referred" />
-                        <field name="probability" />
-                    </group>            
-                </group>            
-            </xpath>
-        </field>
-    </record>
-
 </odoo>
+-->
