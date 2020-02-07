@@ -1,4 +1,5 @@
 # Copyright 2019, Jarsa Sistemas, S.A. de C.V.
+# Copyright 2019, MtNet SA de CV, S.A. de C.V.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 {
@@ -15,5 +16,6 @@
     'data': [
         'data/utm.xml',
         'views/crm.xml',
+        'security/security.xml',
     ],
 }
