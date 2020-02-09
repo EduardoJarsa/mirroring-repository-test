@@ -29,18 +29,10 @@
             <xpath expr="//page[@name='accounting']" position="attributes">  
                 <attribute name="groups">translations.group_show_blocked_fields_CRM</attribute>
             </xpath>
-        </field>
-    </record>
-<!--    <record id="view_res_partner_block_ui_inherit_res_partner_form_inherit" model="ir.ui.view">
-        <field name="name">res.partner.block.ui.inherit.res.partner.form.inherit</field>
-        <field name="model">res.partner</field>
-        <field name="priority">100</field>
-        <field name="inherit_id" ref="l10n_mx_edi.res_partner_form_inherit_l10n_mx_edi"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='l10n_mx_edi_addenda']" position="attributes">  
+            <xpath expr="//group[@name='fiscal_information']" position="attributes">  
                 <attribute name="groups">translations.group_show_blocked_fields_CRM</attribute>
             </xpath>
         </field>
-    </record>-->
+    </record>
 
 </odoo>
