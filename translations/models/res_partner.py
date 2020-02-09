@@ -17,3 +17,6 @@ class CrmLeadBlockUI(models.Model):
             record.block_ui_crm = \
                 not self.user_has_groups(
                     'translations.group_show_blocked_fields_CRM')
+
+    # is_company is defaulted to 'company'
+    is_company = fields.Boolean(default=True)
