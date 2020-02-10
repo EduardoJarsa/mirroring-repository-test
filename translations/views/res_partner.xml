@@ -30,7 +30,7 @@
                 <attribute name="groups">translations.group_show_blocked_fields_CRM</attribute>
             </xpath>
             <xpath expr="//group[@name='fiscal_information']" position="attributes">  
-                <attribute name="groups">translations.group_show_blocked_fields_CRM</attribute>
+                <attribute name="groups">account.group_account_invoice, translations.group_show_blocked_fields_CRM</attribute>
             </xpath>
         </field>
     </record>
