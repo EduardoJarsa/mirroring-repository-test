@@ -14,9 +14,9 @@
         'crm',
     ],
     'data': [
+        'security/security.xml',
         'data/utm.xml',
         'views/crm.xml',
         'views/res_partner.xml',
-        'security/security.xml',
     ],
 }
