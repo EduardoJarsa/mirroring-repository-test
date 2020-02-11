@@ -12,11 +12,11 @@ class CrmLeadBlockUI(models.Model):
         string="Block UI CRM",
         compute='_compute_block_ui_crm')
 
+    # is_company is defaulted to 'company'
+    is_company = fields.Boolean(default=True)
+
     def _compute_block_ui_crm(self):
         for record in self:
             record.block_ui_crm = \
                 not self.user_has_groups(
                     'translations.group_show_blocked_fields_CRM')
-
-    # is_company is defaulted to 'company'
-    is_company = fields.Boolean(default=True)
