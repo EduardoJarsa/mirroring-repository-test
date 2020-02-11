@@ -35,7 +35,7 @@
         </field>
     </record>
     <!--    Hides Addenda tab -->
-<!--    <record id="view_res_partner_block_ui_inherit_res_partner_form_inherit" model="ir.ui.view">
+    <record id="view_res_partner_block_ui_inherit_res_partner_form_inherit" model="ir.ui.view">
         <field name="name">res.partner.block.ui.inherit.res.partner.form.inherit</field>
         <field name="model">res.partner</field>
         <field name="priority">100</field>
@@ -45,6 +45,6 @@
                 <attribute name="groups">translations.group_show_blocked_fields_CRM</attribute>
             </xpath>
         </field>
-    </record>-->
+    </record>
 
 </odoo>

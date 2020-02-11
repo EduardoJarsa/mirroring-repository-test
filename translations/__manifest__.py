@@ -12,6 +12,7 @@
     'license': 'LGPL-3',
     'depends': [
         'crm',
+        'l10n_mx_edi',
     ],
     'data': [
         'security/security.xml',
