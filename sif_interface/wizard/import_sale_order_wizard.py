@@ -301,7 +301,8 @@ class ImportSaleOrderWizard(models.TransientModel):
     @api.model
     def search_data(self, value, model,
                     attr=False, name=False, buy=True, vendor=False,
-                    dealer_price=False, currency=False, published_price=False):
+                    dealer_price=False, currency=False, published_price=False,
+                    catalog=False, family=False):
         routes = [
             self.env.ref('stock.route_warehouse0_mto').id,
             self.env.ref('purchase_stock.route_warehouse0_buy').id]
@@ -336,6 +337,21 @@ class ImportSaleOrderWizard(models.TransientModel):
                         'sif_interface.product_category_no_cost_materials'
                     )
                     product_dict['categ_id'] = category_no_cost.id
+                # add maker
+                if vendor:
+                    product_dict['maker_id'] = vendor.id
+                # add catalog
+                if catalog:
+                    catalog_id = self.env['iho.catalog'].search(
+                        [('name', '=', catalog)])
+                    if not catalog_id:
+                        new_catalog = {
+                            'name': catalog,
+                        }
+                        catalog_id = self.env['iho.catalog'].create(
+                            new_catalog)
+                    product_dict['catalog_id'] = catalog_id.id
+                # import ipdb; ipdb.set_trace()
                 item = self.env[model].create(product_dict)
                 product_variant_id = self.env['product.product'].search(
                     [('product_tmpl_id', '=', item.id)])
@@ -404,7 +420,8 @@ class ImportSaleOrderWizard(models.TransientModel):
                 name=line['SpecItem']['Description'], vendor=vendor,
                 dealer_price=line['Price']['OrderDealerPrice'],
                 currency=iho_currency_id,
-                published_price=line['Price']['PublishedPrice'])
+                published_price=line['Price']['PublishedPrice'],
+                catalog=line['SpecItem']['Catalog']['Code'], family=False)
             tags = self.get_data_info('Tag', line)
             tag_alias = [
                 str(tag.get('Value')) + ' - ' + sale_order.name
@@ -451,6 +468,8 @@ class ImportSaleOrderWizard(models.TransientModel):
                         'code': str(line['SpecItem']['Alias']['Number']),
                         'default_code': str(
                             line['SpecItem']['Alias']['Number']),
+                        'maker_id': product_template.maker_id.id,
+                        'catalog_id': product_template.catalog_id.id,
                     })
                     # Remove the original product created when the
                     # product.template is created.
@@ -469,7 +488,6 @@ class ImportSaleOrderWizard(models.TransientModel):
                 'iho_purchase_cost': line['Price']['OrderDealerPrice'],
                 'vendor_id': vendor.id,
                 'iho_currency_id': iho_currency_id.id,
-                'iho_customer_cost': line['Price']['EndCustomerPrice'],
             }))
             pub_price_total[tag_alias[0]] = pub_price_total.setdefault(
                 tag_alias[0], 0.0) + (
