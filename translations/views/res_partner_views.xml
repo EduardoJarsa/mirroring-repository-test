@@ -34,7 +34,7 @@
             </xpath>
         </field>
     </record>
-    <!--    Hides Addenda tab -->
+    <!-- Hides Addenda tab -->
     <record id="view_res_partner_block_ui_inherit_res_partner_form_inherit" model="ir.ui.view">
         <field name="name">res.partner.block.ui.inherit.res.partner.form.inherit</field>
         <field name="model">res.partner</field>
