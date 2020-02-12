@@ -71,6 +71,9 @@ class ImportSaleOrderWizard(models.TransientModel):
     @api.model
     def _prepare_sale_order_line(self, line, sale_order, index):
         self._check_col_name(line)
+        customer_discount = self.to_float(line, 'CustomerDiscount')
+        pricelist = self.to_float(line, 'PriceList')
+        iho_purchase_cost = pricelist * (100 - customer_discount) / 100
         supplier_reference = line.get('Fabricante', False)
         factor_extra_expense = line.get('FactorGastosExtra', False)
         if factor_extra_expense:
@@ -130,8 +133,11 @@ class ImportSaleOrderWizard(models.TransientModel):
         if not tc_agreed:
             tc_agreed = sale_order.currency_agreed_rate
         iho_currency = line.get('IHOCurrency', False)
+        if not iho_currency:
+            iho_currency = 'USD'
         iho_currency_id = self.env['res.currency'].search(
             [('name', '=', iho_currency)])
+
         res = False
         if dummy_product:
             res = {
@@ -141,19 +147,20 @@ class ImportSaleOrderWizard(models.TransientModel):
             res = {
                 'name': line['Descrip']
             }
+
         res.update({
             'product_id': product_id.id,
             'product_uom_qty': self.to_float(line, 'Cantidad'),
-            'iho_price_list': self.to_float(line, 'PriceList'),
-            'iho_purchase_cost': self.to_float(line, 'UnitPurchaseCost'),
+            'iho_price_list': pricelist,
+            'iho_purchase_cost': iho_purchase_cost,
             'iho_tc': tc_agreed,
             'iho_service_factor': self.to_float(line, 'FactorServicio'),
-            'discount': self.to_float(line, 'CustomerDiscount'),
+            'customer_discount': customer_discount,
             'iho_factor': self.to_float(line, 'Factor'),
             'vendor_id': partner.id,
             'factor_extra_expense': factor_extra_expense,
             'iho_currency_id': iho_currency_id.id,
-            'iho_discount': self.to_float(line, 'IHODiscount'),
+            'dealer_discount': self.to_float(line, 'DealerDiscount'),
             'order_id': sale_order.id,
             'analytic_tag_ids': [(6, 0, sale_order.analytic_tag_ids.ids)],
             'tax_id': [(6, 0, product_id.taxes_id.ids)],
@@ -178,12 +185,11 @@ class ImportSaleOrderWizard(models.TransientModel):
             'IHOCurrency',
             'Cantidad',
             'PriceList',
-            'UnitPurchaseCost',
-            'FactorServicio',
             'CustomerDiscount',
+            'FactorServicio',
             'Factor',
-            'IHODiscount',
             'FactorGastosExtra',
+            'DealerDiscount',
             'Catalogo',
             'Familia',
         ]
@@ -493,7 +499,7 @@ class ImportSaleOrderWizard(models.TransientModel):
             product_bom = product_template_bom.product_variant_id
             customer_discount = (
                 1 - (cust_price_total[tag] / pub_price_total[tag])) * 100
-            iho_discount = (
+            customer_discount = (
                 1 - (dealer_price_total[tag] / pub_price_total[tag])) * 100
             sale_order_line = sale_order.order_line.create({
                 'product_id': product_bom.id,
@@ -503,7 +509,7 @@ class ImportSaleOrderWizard(models.TransientModel):
                 'iho_price_list': pub_price_total[tag],
                 'discount': customer_discount,
                 'product_uom': product_bom.uom_id.id,
-                'iho_discount': iho_discount,
+                'customer_discount': customer_discount,
                 'iho_currency_id': iho_currency_id.id,
                 'analytic_tag_ids': [(6, 0, sale_order.analytic_tag_ids.ids)],
             })
