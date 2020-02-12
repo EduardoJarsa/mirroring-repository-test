@@ -144,7 +144,7 @@ class SaleOrder(models.Model):
                 services += (
                     line.iho_sell_3 * percentage_service
                     * line.product_uom_qty
-                    * (1 - (line.discount / 100))
+                    * line.factor_extra_expense
                 )
             rec.amount_services = services
 

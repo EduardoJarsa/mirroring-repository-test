@@ -46,7 +46,7 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
     def _prepare_sov_lines(self, lines):
         res = []
         line_fields = [
-            "product_id", "name", "iho_price_list", "iho_discount",
+            "product_id", "name", "iho_price_list", "customer_discount",
             "iho_sell_1", "iho_factor", "iho_sell_2", "iho_sell_3",
             "product_uom_qty", "qty_delivered", "qty_invoiced",
             "analytic_tag_ids", "route_id", "price_unit", "tax_id",
