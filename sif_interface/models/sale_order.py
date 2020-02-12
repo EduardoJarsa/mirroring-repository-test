@@ -42,8 +42,8 @@ class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
     iho_price_list = fields.Float(string='Price List',)
-    iho_discount = fields.Float(
-        string='IHO Discount (%)',
+    customer_discount = fields.Float(
+        string='Customer Discount (%)',
         digits=dp.get_precision('Precision Sale Terms'),
     )
     iho_sell_1 = fields.Float(
@@ -103,6 +103,23 @@ class SaleOrderLine(models.Model):
         default=0.0,
         compute="_compute_price_unit"
     )
+    dealer_discount = fields.Float(
+        required=True,
+        digits=dp.get_precision('Product Price'),
+        default=0.0,
+    )
+    # temporal code
+    servicio = fields.Float(
+        digits=dp.get_precision('Product Price'),
+        default=0.0,
+        compute="_compute_servicios"
+    )
+    valor_de_descuento = fields.Float(
+        digits=dp.get_precision('Product Price'),
+        default=0.0,
+        compute="_compute_valor_de_descuento"
+    )
+    #
     catalog_id = fields.Many2one('iho.catalog', string='Catalog')
     family_id = fields.Many2one('iho.family', string='Family')
 
@@ -164,10 +181,10 @@ class SaleOrderLine(models.Model):
             rec.is_bom_line = bool(rec.product_id.bom_ids)
 
     @api.multi
-    @api.depends('iho_price_list', 'iho_discount')
+    @api.depends('iho_price_list', 'customer_discount')
     def _compute_sell_1(self):
         for rec in self:
-            rec.iho_sell_1 = rec.iho_price_list * (1 - rec.iho_discount / 100)
+            rec.iho_sell_1 = rec.iho_price_list * (1 - rec.customer_discount / 100)
 
     @api.multi
     @api.depends('iho_sell_1')
@@ -218,6 +235,27 @@ class SaleOrderLine(models.Model):
                 (rec.discount / 100))
             subtotal = (rec.product_uom_qty * rec.price_unit) - discount
             rec.price_subtotal = subtotal
+
+    @api.multi
+    @api.depends('product_id')
+    def _compute_valor_de_descuento(self):
+        for rec in self:
+            valor_de_descuento = (
+                (rec.iho_price_list) * (
+                    (rec.customer_discount) / 100) * rec.product_uom_qty)
+            rec.valor_de_descuento = valor_de_descuento
+
+    @api.multi
+    @api.depends('product_id')
+    def _compute_servicios(self):
+        for rec in self:
+            percentage_service = rec.iho_service_factor - 1
+            servicios = (
+                rec.iho_sell_3 * percentage_service
+                * rec.product_uom_qty
+                * rec.factor_extra_expense
+            )
+            rec.servicio = servicios
 
     @api.onchange('product_uom', 'product_uom_qty', 'product_id')
     def product_uom_change(self):

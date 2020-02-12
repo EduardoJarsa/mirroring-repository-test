@@ -128,7 +128,7 @@ class SaleOrderVersionLine(models.Model):
         ondelete='restrict')
     name = fields.Text(string='Description',)
     iho_price_list = fields.Float(string='Price List',)
-    iho_discount = fields.Float(string='IHO Discount (%)',)
+    customer_discount = fields.Float(string='IHO Discount (%)',)
     iho_sell_1 = fields.Float(
         string='Sell 1')
     iho_factor = fields.Float(
