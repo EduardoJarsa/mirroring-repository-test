@@ -5,7 +5,7 @@
 from odoo import fields, models
 
 
-class CrmLeadBlockUI(models.Model):
+class UtmSource(models.Model):
     _inherit = 'utm.source'
 
     _order = 'name asc'
