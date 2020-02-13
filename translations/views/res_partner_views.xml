@@ -6,20 +6,17 @@
         <field name="priority">100</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='category_id']" position="after">  
-               <field name="block_ui_crm" invisible="0"/>
-            </xpath>
+            <!-- Hides internal notes tab -->
             <xpath expr="//page[2]" position="attributes">  
                 <attribute name="groups">translations.group_show_blocked_fields_CRM</attribute>
             </xpath>
-            <xpath expr="//group[@name='purchase']" position="attributes">
-                <attribute name="groups">translations.group_show_blocked_fields_CRM</attribute>
-            </xpath>
-            <xpath expr="//group[@name='container_row_2']/group[3]" position="attributes">
+            <!-- Hides sales & purch tab -->
+            <xpath expr="//page[@name='sales_purchases']" position="attributes">  
                 <attribute name="groups">translations.group_show_blocked_fields_CRM</attribute>
             </xpath>
         </field>
     </record>
+    <!-- Hides Accounting tab -->
     <record id="view_res_partner_block_ui_inherit_account_view_partner_property_form" model="ir.ui.view">
         <field name="name">res.partner.block.ui.inherit.account.view.partner.property.form</field>
         <field name="model">res.partner</field>
@@ -41,7 +38,7 @@
         <field name="priority">100</field>
         <field name="inherit_id" ref="l10n_mx_edi.res_partner_form_inherit_l10n_mx_edi"/>
         <field name="arch" type="xml">
-            <xpath expr="//notebook[last()]" position="attributes">  
+            <xpath expr="//page[last()]" position="attributes">  
                 <attribute name="groups">translations.group_show_blocked_fields_CRM</attribute>
             </xpath>
         </field>
