@@ -26,27 +26,7 @@ msgstr "Captación de Negocio"
 #. module: crm
 #: model:ir.model.fields,help:crm.field_crm_lead__source_id
 msgid "This is the source of the link, e.g. Search Engine, another domain, or name of email list"
-msgstr "Captaciòn del Negocio. Por ejemplo: Llamada entrante, Prospeccion, etc."
-
-#. module: utm
-#: model:utm.source,name:utm.utm_source_facebook
-msgid "Facebook"
-msgstr "Llamada entrante"
-
-#. module: utm
-#: model:utm.source,name:utm.utm_source_mailing
-msgid "Mailing Partner"
-msgstr "Prospección"
-
-#. module: utm
-#: model:utm.source,name:utm.utm_source_newsletter
-msgid "Newsletter"
-msgstr "Despacho arquitectura"
-
-#. module: utm
-#: model:utm.source,name:utm.utm_source_search_engine
-msgid "Search engine"
-msgstr "PMO"
+msgstr "Captación del Negocio. Por ejemplo: Llamada entrante, Prospeccion, etc."
 
 #. module: utm
 #: model:ir.model.fields,field_description:utm.field_utm_mixin__source_id
@@ -62,8 +42,3 @@ msgstr "Nombre de la fuente"
 #: model:ir.model.fields,help:utm.field_utm_mixin__source_id
 msgid "This is the source of the link, e.g. Search Engine, another domain, or name of email list"
 msgstr "Captaciòn del Negocio. Por ejemplo: Llamada entrante, Prospeccion, etc."
-
-#. module: utm
-#: model:utm.source,name:utm.utm_source_twitter
-msgid "Twitter"
-msgstr "Recomendación"

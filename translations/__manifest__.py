@@ -11,6 +11,7 @@
     'website': 'https://www.jarsa.com.mx',
     'license': 'LGPL-3',
     'depends': [
+        'utm',
         'crm',
         'l10n_mx_edi',
     ],
