@@ -1,15 +1,18 @@
 # Copyright 2018, Jarsa Sistemas, S.A. de C.V.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+
 {
     'name': 'IHO Instance Module',
     'summary': 'Module to install Instance',
     'version': '12.0.1.0.0',
     'category': 'Instance',
-    'author': 'Jarsa Sistemas, Vauxoo, Odoo Community Association (OCA)',
+    'author': 'MtNet, Jarsa Sistemas, Vauxoo, Odoo Community Association (OCA)',
     'website': 'https://www.jarsa.com.mx',
     'license': 'AGPL-3',
     'depends': [
+        'utm',
+        'ui_simplification',
         'base_user_role',
         'res_currency_rate_custom_decimals',
         'stock_move_quantity_limit',
@@ -30,9 +33,9 @@
         'l10n_mx_edi_payment_bank',
         'l10n_mx_reports',
         'l10n_mx_tax_cash_basis',
-        'translations',
     ],
     'data': [
+        'data/utm.xml',
         'views/res_partner_view.xml',
         'views/sale_order_view.xml',
     ],

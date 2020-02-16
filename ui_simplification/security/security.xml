@@ -3,6 +3,6 @@
     <!-- Security groups -->
     <record id="group_show_blocked_fields_CRM" model="res.groups">
         <field name="category_id" ref="base.module_category_sales_management"/>
-        <field name="name">Show blocked fields in CRM</field>
+        <field name="name">Show original UI</field>
     </record>
 </odoo>

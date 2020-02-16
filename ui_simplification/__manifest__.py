@@ -3,21 +3,19 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 {
-    'name': 'Translations',
-    'summary': 'Translations required for Spanish for IHO',
+    'name': 'UI Simplification',
+    'summary': 'Changes in UI such as fields, books, forms to simplify its use',
     'version': '12.0.1.0.0',
-    'category': 'Translation',
-    'author': 'Jarsa Sistemas, Vauxoo, Odoo Community Association (OCA)',
+    'category': 'xxx',
+    'author': 'MtNet, Jarsa Sistemas, Vauxoo, Odoo Community Association (OCA)',
     'website': 'https://www.jarsa.com.mx',
     'license': 'LGPL-3',
     'depends': [
-        'utm',
         'crm',
         'l10n_mx_edi',
     ],
     'data': [
         'security/security.xml',
-        'data/utm.xml',
         'views/crm_lead_views.xml',
         'views/res_partner_views.xml',
     ],

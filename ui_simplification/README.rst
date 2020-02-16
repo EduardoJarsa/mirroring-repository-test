@@ -12,7 +12,7 @@ Installation
 
 - This module depends on:
 
-  CRM, Contacts
+  CRM, Contacts, iho
 
 Credits
 =======

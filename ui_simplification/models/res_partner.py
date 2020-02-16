@@ -1,4 +1,4 @@
-# Copyright 2019, MTNET Services, S.A. de C.V.
+# Copyright 2020, MTNET Services, S.A. de C.V.
 # Copyright 2019, Jarsa Sistemas, S.A. de C.V.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
@@ -19,4 +19,4 @@ class CrmLeadBlockUI(models.Model):
         for record in self:
             record.block_ui_crm = \
                 not self.user_has_groups(
-                    'translations.group_show_blocked_fields_CRM')
+                    'ui_simplification.group_show_blocked_fields_CRM')

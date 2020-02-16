@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- UTM Source -->
-
     <!-- delete installation data fields --> 
     <function name="unlink" eval="[ref('utm.utm_source_search_engine')]" model="utm.source"/>
     <function name="unlink" eval="[ref('utm.utm_source_mailing')]" model="utm.source"/>
