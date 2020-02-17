@@ -141,7 +141,7 @@ msgstr "Nombre"
 #: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_product_discounts__partner_id
 #: model:ir.model.fields,field_description:supplier_product_discounts.field_vendor_sale_order_discounts__partner_id
 msgid "Partner"
-msgstr "Empresa"
+msgstr "Proveedor"
 
 #. module: supplier_product_discounts
 #: model:ir.model,name:supplier_product_discounts.model_product_product

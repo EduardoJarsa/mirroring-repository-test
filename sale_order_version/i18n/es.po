@@ -339,7 +339,7 @@ msgstr "Otra información"
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__vendor_id
 msgid "Partner"
-msgstr "Empresa"
+msgstr "Proveedor"
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__reference

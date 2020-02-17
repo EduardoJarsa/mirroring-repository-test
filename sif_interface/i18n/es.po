@@ -241,7 +241,7 @@ msgstr "Solo se puede importar .xml o .csv"
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_mrp_bom_line__vendor_id
 msgid "Partner"
-msgstr "Empresa"
+msgstr "Proveedor"
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__iho_price_list
