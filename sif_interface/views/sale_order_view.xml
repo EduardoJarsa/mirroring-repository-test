@@ -24,10 +24,8 @@
                 <field name="iho_service_factor" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
                 <field name="iho_sell_4" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
                 <field name="factor_extra_expense" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
-                <field name="dealer_discount" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
                 <field name="iho_sell_5" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
-                <field name="valor_de_descuento"/>
-                <field name="servicio"/>
+                <field name="dealer_discount" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after" >
                 <field name="is_bom_line" invisible="1"/>
@@ -53,16 +51,25 @@
                         <field name="iho_tc"/>
                         <field name="iho_service_factor"/>
                         <field name="factor_extra_expense"/>
+                    </group>
+                    <group>
+                        <field name="iho_price_list"/>
+                        <field name="iho_purchase_cost"/>
+                    </group>
+                    <group>
                         <field name="dealer_discount"/>
+                        <field name="iho_currency_id"/>
+                    </group>
+                    <group>
                         <field name="servicio"/>
+                    </group>
+                    <group>
                         <field name="valor_de_descuento"/>
                     </group>
                 </group>
                 <group attrs="{'invisible': ['|', ('is_bom_line', '!=', False), ('display_type', '!=', False)]}">
                     <group>
                         <field name="is_bom_line" invisible="1"/>
-                        <field name="iho_purchase_cost"/>
-                        <field name="iho_currency_id"/>
                         <field name="catalog_id"/>
                         <field name="family_id"/>
                     </group>
