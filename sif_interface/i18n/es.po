@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-22 17:09+0000\n"
-"PO-Revision-Date: 2019-05-22 17:09+0000\n"
+"POT-Creation-Date: 2020-02-17 18:56+0000\n"
+"PO-Revision-Date: 2020-02-17 18:56+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,24 +16,22 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: sif_interface
-#: code:addons/sif_interface/wizard/import_2020_wizard.py:244
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:468
 #, python-format
 msgid "\n"
 "\n"
 " Product: [%s] - %s"
-msgstr "\n"
-"\n"
-" Producto: [%s] - %s"
+msgstr ""
 
 #. module: sif_interface
-#: model_terms:ir.ui.view,arch_db:sif_interface.view_import_2020_wizard_form
+#: model_terms:ir.ui.view,arch_db:sif_interface.view_import_sale_order_wizard_form
 msgid "<i class=\"fa fa-file-code-o fa-2x text-primary\" aria-label=\"Code\" title=\"Code\"/>"
-msgstr "<i class=\"fa fa-file-code-o fa-2x text-primary\" aria-label=\"Código\" title=\"Código\"/>"
+msgstr ""
 
 #. module: sif_interface
-#: model_terms:ir.ui.view,arch_db:sif_interface.view_import_2020_wizard_form
-msgid "<strong>Please Upload the XML file</strong>"
-msgstr "<strong>Por favor suba el archivo XML</strong>"
+#: model_terms:ir.ui.view,arch_db:sif_interface.view_import_sale_order_wizard_form
+msgid "<strong>Please upload the file to import</strong>"
+msgstr "<strong>Favor de seleccionar el archivo a importar</strong>"
 
 #. module: sif_interface
 #: model_terms:ir.ui.view,arch_db:sif_interface.view_export_sif_wizard
@@ -47,9 +45,14 @@ msgstr "Línea de Lista de Materiales"
 
 #. module: sif_interface
 #: model_terms:ir.ui.view,arch_db:sif_interface.view_export_sif_wizard
-#: model_terms:ir.ui.view,arch_db:sif_interface.view_import_2020_wizard_form
+#: model_terms:ir.ui.view,arch_db:sif_interface.view_import_sale_order_wizard_form
 msgid "Cancel"
 msgstr "Cancelar"
+
+#. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__catalog_id
+msgid "Catalog"
+msgstr "Catalogo"
 
 #. module: sif_interface
 #: model:product.category,name:sif_interface.product_category_cdv
@@ -62,19 +65,25 @@ msgid "Close"
 msgstr "Cerrar"
 
 #. module: sif_interface
-#: model_terms:ir.ui.view,arch_db:sif_interface.view_import_2020_wizard_form
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:207
+#, python-format
+msgid "Columns [%s] are not found in CSV file, please check for misspelling or extra spaces."
+msgstr "Las columnas [%s] no se hallaron en el CSV.   Verifique el nombre de las columnas y si tienen espacios de más"
+
+#. module: sif_interface
+#: model_terms:ir.ui.view,arch_db:sif_interface.view_import_sale_order_wizard_form
 msgid "Confirm"
 msgstr "Confirmar"
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_export_sif_wizard__create_uid
-#: model:ir.model.fields,field_description:sif_interface.field_import_2020_wizard__create_uid
+#: model:ir.model.fields,field_description:sif_interface.field_import_sale_order_wizard__create_uid
 msgid "Created by"
 msgstr "Creado por"
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_export_sif_wizard__create_date
-#: model:ir.model.fields,field_description:sif_interface.field_import_2020_wizard__create_date
+#: model:ir.model.fields,field_description:sif_interface.field_import_sale_order_wizard__create_date
 msgid "Created on"
 msgstr "Creado el"
 
@@ -89,8 +98,18 @@ msgid "Currency Agreed Rate"
 msgstr "Tipo de Cambio Acordado"
 
 #. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__customer_discount
+msgid "Customer Discount (%)"
+msgstr ""
+
+#. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__dealer_discount
+msgid "Dealer Discount"
+msgstr ""
+
+#. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_export_sif_wizard__display_name
-#: model:ir.model.fields,field_description:sif_interface.field_import_2020_wizard__display_name
+#: model:ir.model.fields,field_description:sif_interface.field_import_sale_order_wizard__display_name
 msgid "Display Name"
 msgstr "Nombre mostrado"
 
@@ -107,7 +126,7 @@ msgstr "Descargar Archivo"
 #. module: sif_interface
 #: model:ir.model,name:sif_interface.model_export_sif_wizard
 msgid "Export SIF Files from Purchase Order(s)"
-msgstr "Exportar archivos SIF de las Órdenes de Compra"
+msgstr "Exportar el SIF de la Órden de Compra"
 
 #. module: sif_interface
 #: model:ir.actions.act_window,name:sif_interface.action_report_export_sif_wizard
@@ -117,14 +136,24 @@ msgid "Export Sif"
 msgstr "Exportar SIF"
 
 #. module: sif_interface
-#: model:ir.model,name:sif_interface.model_import_2020_wizard
-msgid "Export XML Files from 2020 to Sale Orders"
-msgstr "Exportar archivos XML de 2020 a órdenes de venta"
-
-#. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__iho_factor
 msgid "Factor"
 msgstr ""
+
+#. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__factor_extra_expense
+msgid "Factor Extra Expense"
+msgstr ""
+
+#. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__family_id
+msgid "Family"
+msgstr ""
+
+#. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_import_sale_order_wizard__file_name
+msgid "File Name"
+msgstr "Nombre del archivo"
 
 #. module: sif_interface
 #: selection:export.sif.wizard,state:0
@@ -133,7 +162,7 @@ msgstr "Obtener"
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_export_sif_wizard__id
-#: model:ir.model.fields,field_description:sif_interface.field_import_2020_wizard__id
+#: model:ir.model.fields,field_description:sif_interface.field_import_sale_order_wizard__id
 msgid "ID"
 msgstr ""
 
@@ -143,26 +172,26 @@ msgid "IHO Currency"
 msgstr "Moneda IHO"
 
 #. module: sif_interface
-#: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__iho_discount
-msgid "IHO Discount (%)"
-msgstr "IHO Descuento (%)"
-
-#. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_mrp_bom_line__iho_customer_cost
 msgid "Iho Customer Cost"
-msgstr "Costo a Cliente IHO"
+msgstr ""
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_mrp_bom_line__iho_purchase_cost
 #: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__iho_purchase_cost
 msgid "Iho Purchase Cost"
-msgstr "Costo de compra IHO"
+msgstr ""
 
 #. module: sif_interface
-#: model:ir.actions.act_window,name:sif_interface.action_import_2020_wizard
+#: model:ir.actions.act_window,name:sif_interface.action_import_sale_order_wizard
 #: model_terms:ir.ui.view,arch_db:sif_interface.view_sale_order_inherit_form_sif_interface
-msgid "Import From 2020"
-msgstr "Importar desde 2020"
+msgid "Import From File"
+msgstr "Importar archivo"
+
+#. module: sif_interface
+#: model:ir.model,name:sif_interface.model_import_sale_order_wizard
+msgid "Import sale order from a file."
+msgstr ""
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_product_template__default_code
@@ -177,19 +206,19 @@ msgstr "¿Es una LdM?"
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_export_sif_wizard____last_update
-#: model:ir.model.fields,field_description:sif_interface.field_import_2020_wizard____last_update
+#: model:ir.model.fields,field_description:sif_interface.field_import_sale_order_wizard____last_update
 msgid "Last Modified on"
 msgstr "Última modificación en"
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_export_sif_wizard__write_uid
-#: model:ir.model.fields,field_description:sif_interface.field_import_2020_wizard__write_uid
+#: model:ir.model.fields,field_description:sif_interface.field_import_sale_order_wizard__write_uid
 msgid "Last Updated by"
 msgstr "Última actualización por"
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_export_sif_wizard__write_date
-#: model:ir.model.fields,field_description:sif_interface.field_import_2020_wizard__write_date
+#: model:ir.model.fields,field_description:sif_interface.field_import_sale_order_wizard__write_date
 msgid "Last Updated on"
 msgstr "Última actualización el"
 
@@ -204,10 +233,15 @@ msgid "No cost Materials"
 msgstr "Materiales Sin Costo"
 
 #. module: sif_interface
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:29
+#, python-format
+msgid "Only .xml or .csv files allowed"
+msgstr "Solo se puede importar .xml o .csv"
+
+#. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_mrp_bom_line__vendor_id
-#: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__vendor_id
 msgid "Partner"
-msgstr "Proveedor"
+msgstr "Empresa"
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__iho_price_list
@@ -222,7 +256,7 @@ msgstr "Plantilla de producto"
 #. module: sif_interface
 #: model:ir.model,name:sif_interface.model_purchase_order_line
 msgid "Purchase Order Line"
-msgstr "Línea pedido de compra"
+msgstr "Línea de pedido de compra"
 
 #. module: sif_interface
 #: model:ir.model,name:sif_interface.model_sale_order
@@ -234,11 +268,6 @@ msgstr "Pedido de venta"
 #: model:ir.model,name:sif_interface.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Línea de pedido de venta"
-
-#. module: sif_interface
-#: model:ir.model.fields,help:sif_interface.field_import_2020_wizard__xml_name
-msgid "Save the file name, to verify that is .xml"
-msgstr "Guarde el nombre del archivo, para verificar que es .xml"
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__iho_sell_1
@@ -261,9 +290,19 @@ msgid "Sell 4"
 msgstr ""
 
 #. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__iho_sell_5
+msgid "Sell 5"
+msgstr ""
+
+#. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__iho_service_factor
 msgid "Service Factor"
-msgstr "Factor Servicio"
+msgstr ""
+
+#. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__servicio
+msgid "Servicio"
+msgstr ""
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_export_sif_wizard__state
@@ -291,57 +330,77 @@ msgid "TC Agreed"
 msgstr "TC Acordado"
 
 #. module: sif_interface
-#: code:addons/sif_interface/wizard/import_2020_wizard.py:205
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:423
 #, python-format
 msgid "The %s product does not have a configured Alias.\n"
 "Please verify the data of the xml."
-msgstr "El producto %s no tiene un Alias configurado.\n"
-"Por favor verifica la información del XML."
+msgstr ""
 
 #. module: sif_interface
-#: code:addons/sif_interface/wizard/import_2020_wizard.py:80
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:299
 #, python-format
 msgid "The XML file has an error, please check your data. \n"
 " Error: %s"
-msgstr "El xml tiene un error, por favor compruebe sus datos. \n"
-" Error: %s"
+msgstr ""
 
 #. module: sif_interface
-#: code:addons/sif_interface/wizard/import_2020_wizard.py:300
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:520
 #, python-format
 msgid "The file %s was correctly loaded. "
-msgstr "El archivo %s fue cargado correctamente."
+msgstr "Archivo %s cargado satisfactoriamente"
 
 #. module: sif_interface
-#: model:ir.model.fields,help:sif_interface.field_import_2020_wizard__file_xml
-msgid "The xml file exported by the system"
-msgstr "El archivo xml exportado por el sistema."
-
-#. module: sif_interface
-#: code:addons/sif_interface/wizard/import_2020_wizard.py:180
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:55
 #, python-format
-msgid "Verify that file is .xml, please!"
-msgstr "¡Verifique que el archivo es .xml por favor!"
+msgid "There is no number or the format is incorrect for column %s of  product\n"
+"\n"
+"Product:\n"
+"%s\n"
+"\n"
+"Description:\n"
+"%s\n"
+"\n"
+"Please validate the format of the whole column.\n"
+"\n"
+"The readed value is: %s"
+msgstr ""
 
 #. module: sif_interface
-#: model:ir.model.fields,field_description:sif_interface.field_import_2020_wizard__file_xml
-msgid "XML File"
-msgstr "Archivo XML"
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:111
+#, python-format
+msgid "There is not a supplier with internal reference [%s] in line %s to product %s"
+msgstr "No hay un proveedor registrado con Referencia Interna [%s] para la linea %s producto %s"
 
 #. module: sif_interface
-#: model:ir.model.fields,field_description:sif_interface.field_import_2020_wizard__xml_name
-msgid "Xml Name"
-msgstr "Nombre XML"
+#: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__price_unit
+msgid "Unit Price"
+msgstr "Precio unitario"
 
 #. module: sif_interface
-#: code:addons/sif_interface/models/sale_order.py:22
-#: code:addons/sif_interface/models/sale_order.py:30
+#: model:product.product,uom_name:sif_interface.product_product_dummy
+#: model:product.template,uom_name:sif_interface.product_product_dummy_product_template
+msgid "Unit(s)"
+msgstr "Unidad(es)"
+
+#. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_import_sale_order_wizard__upload_file
+msgid "Upload File"
+msgstr "Cargar archivo"
+
+#. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__valor_de_descuento
+msgid "Valor De Descuento"
+msgstr ""
+
+#. module: sif_interface
+#: code:addons/sif_interface/models/sale_order.py:23
+#: code:addons/sif_interface/models/sale_order.py:31
 #, python-format
 msgid "You cannot set an agreed rate when the Sale Order currency is different from the company currency"
 msgstr "No puedes definir un tipo de cambio acordado cuando la moneda de un pedido de venta es diferente a la moneda de la compañía"
 
 #. module: sif_interface
-#: code:addons/sif_interface/models/sale_order.py:98
+#: code:addons/sif_interface/models/sale_order.py:132
 #, python-format
 msgid "You need to define a purchase currency for the product [%s]%s"
 msgstr "Necesitas definir una moneda de compra para el producto [%s]%s"
@@ -350,3 +409,27 @@ msgstr "Necesitas definir una moneda de compra para el producto [%s]%s"
 #: model_terms:ir.ui.view,arch_db:sif_interface.view_export_sif_wizard
 msgid "Your File is ready to download.!!!"
 msgstr "Su archivo está listo para descargar."
+
+#. module: sif_interface
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:67
+#, python-format
+msgid "column factor_extra_expense with wrong format in line %s"
+msgstr "Columna factor_extra_expense con formato incorrecto para linea %s"
+
+#. module: sif_interface
+#: model:product.product,name:sif_interface.product_product_dummy
+#: model:product.template,name:sif_interface.product_product_dummy_product_template
+msgid "dummy"
+msgstr ""
+
+#. module: sif_interface
+#: model:product.product,weight_uom_name:sif_interface.product_product_dummy
+#: model:product.template,weight_uom_name:sif_interface.product_product_dummy_product_template
+msgid "kg"
+msgstr ""
+
+#. module: sif_interface
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:83
+#, python-format
+msgid "the column FactorGastosExtra can not be empty line number %s"
+msgstr "Columna FactorGastosExtra no puede estar vacia para linea %s"
