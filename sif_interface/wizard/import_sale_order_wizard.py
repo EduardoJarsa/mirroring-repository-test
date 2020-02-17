@@ -26,7 +26,7 @@ class ImportSaleOrderWizard(models.TransientModel):
         file_extension = os.path.splitext(self.file_name)[1].lower()
         if file_extension not in ['.xml', '.csv']:
             raise ValidationError(
-                _('Verify that file is .xml or .csv, please!'))
+                _('Only .xml or .csv files allowed'))
         if file_extension == '.xml':
             self._run_2020_import()
         if file_extension == '.csv':
@@ -204,8 +204,8 @@ class ImportSaleOrderWizard(models.TransientModel):
     @api.model
     def _return_error_message(self, cols_error):
         message = (
-            _('There is not exist the columns [%s] in CSV file, '
-                'please check If you have white spaces or are misspelled.')
+            _('Columns [%s] are not found in CSV file, '
+                'please check for misspelling or extra spaces.')
             % (cols_error))
         raise ValidationError(message)
 
