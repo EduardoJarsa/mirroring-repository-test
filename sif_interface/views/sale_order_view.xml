@@ -44,6 +44,7 @@
                         <field name="iho_sell_3"/>
                         <field name="iho_sell_4"/>
                         <field name="iho_sell_5"/>
+                        <field name="servicio"/>
                     </group>
                     <group>
                         <field name="customer_discount"/>
@@ -51,6 +52,8 @@
                         <field name="iho_tc"/>
                         <field name="iho_service_factor"/>
                         <field name="factor_extra_expense"/>
+                        <p/>
+                        <field name="valor_de_descuento"/>
                     </group>
                     <group>
                         <field name="iho_price_list"/>
@@ -59,12 +62,6 @@
                     <group>
                         <field name="dealer_discount"/>
                         <field name="iho_currency_id"/>
-                    </group>
-                    <group>
-                        <field name="servicio"/>
-                    </group>
-                    <group>
-                        <field name="valor_de_descuento"/>
                     </group>
                 </group>
                 <group attrs="{'invisible': ['|', ('is_bom_line', '!=', False), ('display_type', '!=', False)]}">
