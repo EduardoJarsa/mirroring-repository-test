@@ -1,9 +1,9 @@
 Translations
 ==================
 
-This module modifies UI hiding many fields and tabs to ease data entry for the sales area users.
+This module modifies UI hiding many fields and tabs to ease data entry mainly for the sales area users.    Changes requested by IHO.
 
-Modules affected:   CRM, Contacts
+Modules affected:   CRM, Contacts.
 
 Security group "Show Sales UI" allows the user to restore original UI
 
