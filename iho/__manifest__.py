@@ -11,8 +11,6 @@
     'website': 'https://www.jarsa.com.mx',
     'license': 'AGPL-3',
     'depends': [
-        'utm',
-        'ui_simplification',
         'base_user_role',
         'res_currency_rate_custom_decimals',
         'stock_move_quantity_limit',
@@ -33,9 +31,9 @@
         'l10n_mx_edi_payment_bank',
         'l10n_mx_reports',
         'l10n_mx_tax_cash_basis',
+        'ui_simplification',
     ],
     'data': [
-        'data/utm.xml',
         'views/res_partner_view.xml',
         'views/sale_order_view.xml',
     ],
