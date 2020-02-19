@@ -6,14 +6,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-13 02:39+0000\n"
-"PO-Revision-Date: 2020-02-13 02:39+0000\n"
+"POT-Creation-Date: 2020-02-19 22:20+0000\n"
+"PO-Revision-Date: 2020-02-19 22:20+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: ui_simplification
+#: model:utm.source,name:ui_simplification.utm_source_architect_department
+msgid "Architect department"
+msgstr "Departamento de Arquitectura"
 
 #. module: ui_simplification
 #: model:ir.model.fields,field_description:ui_simplification.field_crm_lead__block_ui_crm
@@ -34,6 +39,21 @@ msgid "Contact"
 msgstr "Contacto"
 
 #. module: ui_simplification
+#: model:utm.source,name:ui_simplification.utm_source_global
+msgid "Global project"
+msgstr "Proyecto Global"
+
+#. module: ui_simplification
+#: model:utm.source,name:ui_simplification.utm_source_house_customer
+msgid "House customer"
+msgstr "Cliente de la Casa"
+
+#. module: ui_simplification
+#: model:utm.source,name:ui_simplification.utm_source_incoming call
+msgid "Incoming call"
+msgstr "Llamada Entrante"
+
+#. module: ui_simplification
 #: model:ir.model.fields,field_description:ui_simplification.field_res_partner__is_company
 #: model:ir.model.fields,field_description:ui_simplification.field_res_users__is_company
 msgid "Is a Company"
@@ -43,6 +63,21 @@ msgstr "Es una compañia"
 #: model:ir.model,name:ui_simplification.model_crm_lead
 msgid "Lead/Opportunity"
 msgstr "Iniciativa/Oportunidad"
+
+#. module: ui_simplification
+#: model:utm.source,name:ui_simplification.utm_source_pmo
+msgid "PMO"
+msgstr ""
+
+#. module: ui_simplification
+#: model:utm.source,name:ui_simplification.utm_source_prospecting
+msgid "Prospecting"
+msgstr "Prospección"
+
+#. module: ui_simplification
+#: model:utm.source,name:ui_simplification.utm_source_recommendation
+msgid "Recommendation"
+msgstr "Recomendación"
 
 #. module: ui_simplification
 #: model:res.groups,name:ui_simplification.group_show_blocked_fields_CRM

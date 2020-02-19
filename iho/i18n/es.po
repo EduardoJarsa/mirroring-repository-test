@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-16 02:59+0000\n"
-"PO-Revision-Date: 2020-02-16 02:59+0000\n"
+"POT-Creation-Date: 2020-02-19 22:24+0000\n"
+"PO-Revision-Date: 2020-02-19 22:24+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -19,11 +19,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:iho.field_sale_order__analytic_tag_ids
 msgid "Analytic Tags"
 msgstr "Etiquetas analíticas"
-
-#. module: iho
-#: model:utm.source,name:iho.utm_source_architect_department
-msgid "Architect department"
-msgstr "Despacho arquitectos"
 
 #. module: iho
 #: model:ir.model,name:iho.model_res_partner
@@ -43,25 +38,10 @@ msgid "External"
 msgstr "Exterior"
 
 #. module: iho
-#: model:utm.source,name:iho.utm_source_global
-msgid "Global project"
-msgstr "Proyecto global"
-
-#. module: iho
 #: model:ir.model.fields,help:iho.field_res_partner__street_number
 #: model:ir.model.fields,help:iho.field_res_users__street_number
 msgid "House Number"
 msgstr "Número Exterior"
-
-#. module: iho
-#: model:utm.source,name:iho.utm_source_house_customer
-msgid "House customer"
-msgstr "Cliente de la casa"
-
-#. module: iho
-#: model:utm.source,name:iho.utm_source_incoming call
-msgid "Incoming call"
-msgstr ""
 
 #. module: iho
 #: model:ir.model.fields,field_description:iho.field_res_partner__street_number2
@@ -70,24 +50,9 @@ msgid "Internal"
 msgstr "Interior"
 
 #. module: iho
-#: model:utm.source,name:iho.utm_source_pmo
-msgid "PMO"
-msgstr ""
-
-#. module: iho
 #: model:ir.model,name:iho.model_product_product
 msgid "Product"
 msgstr "Producto"
-
-#. module: iho
-#: model:utm.source,name:iho.utm_source_prospecting
-msgid "Prospecting"
-msgstr "Prospección"
-
-#. module: iho
-#: model:utm.source,name:iho.utm_source_recommendation
-msgid "Recommendation"
-msgstr "Recomendación"
 
 #. module: iho
 #: model:ir.model,name:iho.model_sale_order
@@ -100,8 +65,6 @@ msgid "Sales Order Line"
 msgstr "Línea de pedido de venta"
 
 #. module: iho
-#: code:addons/iho/models/res_partner.py:44
-#: code:addons/iho/models/res_partner.py:49
-#, python-format
-msgid "This Internal Reference already exist in supplier with name: %s"
-msgstr ""
+#: model:ir.model,name:iho.model_utm_source
+msgid "UTM Source"
+msgstr "Captación de Negocio"

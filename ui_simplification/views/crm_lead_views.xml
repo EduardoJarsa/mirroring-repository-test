@@ -18,7 +18,7 @@
                     'readonly': [('block_ui_crm', '=', True)]}</attribute>
             </xpath>
             <xpath expr="//field[@name='partner_address_phone']" position="attributes">
-                <attribute name="attrs">{'invisible': [('partner_address_phone', '==', False)], 
+                <attribute name="attrs">{'invisible': [('partner_address_phone', '=', False)], 
                     'readonly': [('block_ui_crm', '=', True)]}</attribute>
             </xpath>
             <xpath expr="//page[1]" position="attributes">  
@@ -43,6 +43,7 @@
         <field name="priority">100</field>
         <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
         <field name="arch" type="xml">
+<!--        removes group no_one, -->
             <xpath expr="//field[@name='partner_id']" position="attributes">  
                 <attribute name="groups"></attribute>
             </xpath>
@@ -68,7 +69,9 @@
                 <attribute name="readonly">1</attribute>
             </xpath>
             <xpath expr="//field[@name='website']" position="attributes">
-                <attribute name="readonly">1</attribute>
+                <attribute name="attrs">{'readonly': True, 
+                    'invisible': [('website', '=', False)]}
+                </attribute>
             </xpath>
             <xpath expr="//field[@name='contact_name']" position="attributes">
                 <attribute name="readonly">1</attribute>
@@ -80,13 +83,17 @@
                 <attribute name="readonly">1</attribute>
             </xpath>
             <xpath expr="//field[@name='phone']" position="attributes">
-                <attribute name="readonly">1</attribute>
+                <attribute name="attrs">{'readonly': True, 
+                    'invisible': [('phone', '=', False)]}
+                </attribute>
             </xpath>
             <xpath expr="//field[@name='mobile']" position="attributes">
                 <attribute name="readonly">1</attribute>
             </xpath>
             <xpath expr="//field[@name='email_from']" position="attributes">
-                <attribute name="readonly">1</attribute>
+                <attribute name="attrs">{'readonly': True, 
+                    'invisible': [('email_from', '=', False)]}
+                </attribute>
             </xpath>
             <xpath expr="//page[1]" position="attributes">  
                 <attribute name="groups">ui_simplification.group_show_blocked_fields_CRM</attribute>
