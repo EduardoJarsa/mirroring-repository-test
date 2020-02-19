@@ -10,7 +10,8 @@ class CrmLeadBlockUI(models.Model):
 
     block_ui_crm = fields.Boolean(
         string="Block UI CRM",
-        compute='_compute_block_ui_crm')
+        compute='_compute_block_ui_crm',
+        default=True)
 
     # is_company is defaulted to 'company'
     is_company = fields.Boolean(default=True)

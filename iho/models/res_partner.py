@@ -30,26 +30,6 @@ class Partner(models.Model):
                 ('state_id', 'in', [self.state_id.id, False])]
         return res
 
-    @api.constrains('ref')
-    def _the_ref_is_already_exist(self):
-        ref_count = self.search(
-            [
-                ('supplier', '=', True),
-                ('ref', '=', self.ref)
-            ]
-        )
-        if len(ref_count) > 1:
-            supplier = ref_count.filtered(lambda l: l.id != self.id)
-            raise ValidationError(
-                _('This Internal Reference already exist in supplier'
-                    ' with name: %s')
-                % (supplier.name))
-        if self.supplier and ref_count and ref_count.id != self.id:
-            raise ValidationError(
-                _('This Internal Reference already exist in supplier'
-                    ' with name: %s')
-                % self.name)
-
     @api.model
     def _fields_view_get_address(self, arch):
         arch = super(Partner, self)._fields_view_get_address(arch)
