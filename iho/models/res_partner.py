@@ -4,7 +4,7 @@
 # pylint: disable=C8110
 
 
-from odoo import _, fields, models, api
+from odoo import fields, models, api
 from lxml import etree
 
 
