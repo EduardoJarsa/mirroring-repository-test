@@ -5,7 +5,6 @@
 
 
 from odoo import _, fields, models, api
-from odoo.exceptions import ValidationError
 from lxml import etree
 
 
