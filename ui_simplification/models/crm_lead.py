@@ -5,7 +5,7 @@
 from odoo import fields, models
 
 
-class CrmLeadBlockUI(models.Model):
+class CrmLead(models.Model):
     _inherit = 'crm.lead'
 
     block_ui_crm = fields.Boolean(
