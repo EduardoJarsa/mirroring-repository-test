@@ -57,7 +57,7 @@ msgstr "Producto"
 #. module: iho
 #: model:ir.model,name:iho.model_sale_order
 msgid "Sale Order"
-msgstr ""
+msgstr "Pedido de venta"
 
 #. module: iho
 #: model:ir.model,name:iho.model_sale_order_line

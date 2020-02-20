@@ -6,7 +6,7 @@
     'name': 'UI Simplification',
     'summary': 'Changes in UI such as fields, books, forms to simplify its use',
     'version': '12.0.1.0.0',
-    'category': 'xxx',
+    'category': 'Sales',
     'author': 'MtNet, Jarsa Sistemas, Vauxoo, Odoo Community Association (OCA)',
     'website': 'https://www.jarsa.com.mx',
     'license': 'LGPL-3',

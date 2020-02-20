@@ -16,21 +16,6 @@
             </xpath>
         </field>
     </record>
-    <!-- Hides Accounting tab -->
-    <record id="view_res_partner_block_ui_inherit_account_view_partner_property_form" model="ir.ui.view">
-        <field name="name">res.partner.block.ui.inherit.account.view.partner.property.form</field>
-        <field name="model">res.partner</field>
-        <field name="priority">100</field>
-        <field name="inherit_id" ref="account.view_partner_property_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//page[@name='accounting']" position="attributes">  
-                <attribute name="groups">ui_simplification.group_show_blocked_fields_CRM</attribute>
-            </xpath>
-            <xpath expr="//group[@name='fiscal_information']" position="attributes">  
-                <attribute name="groups">account.group_account_invoice, ui_simplification.group_show_blocked_fields_CRM</attribute>
-            </xpath>
-        </field>
-    </record>
     <!-- Hides Addenda tab -->
     <record id="view_res_partner_block_ui_inherit_res_partner_form_inherit" model="ir.ui.view">
         <field name="name">res.partner.block.ui.inherit.res.partner.form.inherit</field>
