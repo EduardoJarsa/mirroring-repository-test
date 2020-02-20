@@ -3,7 +3,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 {
-    'name': 'UI Simplification',
+    'name': 'UI Simplification for IHO',
     'summary': 'Changes in UI such as fields, books, forms to simplify its use',
     'version': '12.0.1.0.0',
     'category': 'Sales',
