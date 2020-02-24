@@ -7,7 +7,7 @@
                  and export it as SIF files''',
     'version': '12.0.1.0.0',
     'category': 'Customs',
-    'author': 'Jarsa Sistemas, Vauxoo, Odoo Community Association (OCA)',
+    'author': 'MtNet, Jarsa Sistemas, Vauxoo, Odoo Community Association (OCA)',
     'website': 'https://www.jarsa.com.mx',
     'license': 'AGPL-3',
     'depends': [
