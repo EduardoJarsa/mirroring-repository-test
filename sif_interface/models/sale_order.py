@@ -184,13 +184,15 @@ class SaleOrderLine(models.Model):
     @api.depends('iho_price_list', 'customer_discount')
     def _compute_sell_1(self):
         for rec in self:
-            rec.iho_sell_1 = rec.iho_price_list * (1 - rec.customer_discount / 100)
+            rec.iho_sell_1 = \
+                rec.iho_price_list * (1 - rec.customer_discount / 100)
 
     @api.multi
-    @api.depends('iho_sell_1')
+    @api.depends('iho_price_list', 'dealer_discount')
     def _compute_iho_purchase_cost(self):
         for rec in self:
-            rec.iho_purchase_cost = rec.iho_sell_1
+            rec.iho_purchase_cost = \
+                rec.iho_price_list * (1 - rec.dealer_discount/100)
 
     @api.multi
     @api.depends('iho_sell_1', 'iho_factor')
