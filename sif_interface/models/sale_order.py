@@ -248,7 +248,9 @@ class SaleOrderLine(models.Model):
             rec.valor_de_descuento = valor_de_descuento
 
     @api.multi
-    @api.depends('product_id')
+    @api.depends(
+        'product_id', 'iho_service_factor', 'product_uom_qty',
+        'factor_extra_expense')
     def _compute_servicios(self):
         for rec in self:
             percentage_service = rec.iho_service_factor - 1
