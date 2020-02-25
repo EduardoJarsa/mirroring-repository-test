@@ -81,7 +81,6 @@ class SaleOrderLine(models.Model):
         default=1.0,
         digits=dp.get_precision('Precision Sale Terms'),
     )
-
     iho_currency_id = fields.Many2one(
         'res.currency',
         string='IHO Currency',
@@ -236,7 +235,7 @@ class SaleOrderLine(models.Model):
                 (rec.product_uom_qty * rec.price_unit) *
                 (rec.discount / 100))
             subtotal = (rec.product_uom_qty * rec.price_unit) - discount
-            rec.price_subtotal = subtotal
+            rec.price_price_unit = subtotal
 
     @api.multi
     @api.depends('product_id')
@@ -265,5 +264,5 @@ class SaleOrderLine(models.Model):
     def product_uom_change(self):
         res = super().product_uom_change()
         if self.iho_sell_4:
-            self.price_unit = self.iho_sell_4
+            self.price_unit = self.iho_sell_5
         return res
