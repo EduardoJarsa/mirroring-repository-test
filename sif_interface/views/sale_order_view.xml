@@ -44,7 +44,7 @@
                         <field name="iho_sell_3"/>
                         <field name="iho_sell_4"/>
                         <field name="iho_sell_5"/>
-                        <field name="servicio"/>
+                        <field name="service_extended"/>
                     </group>
                     <group>
                         <field name="customer_discount"/>
@@ -53,7 +53,7 @@
                         <field name="iho_service_factor"/>
                         <field name="factor_extra_expense"/>
                         <p/>
-                        <field name="valor_de_descuento"/>
+                        <field name="discount_extended"/>
                     </group>
                     <group>
                         <field name="iho_price_list"/>
