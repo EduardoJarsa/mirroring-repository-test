@@ -107,18 +107,19 @@ class SaleOrderLine(models.Model):
         digits=dp.get_precision('Product Price'),
         default=0.0,
     )
-    # temporal code
-    servicio = fields.Float(
+    service_extended = fields.Float(
         digits=dp.get_precision('Product Price'),
         default=0.0,
-        compute="_compute_servicios"
+        compute="_compute_service_extended",
+        help="Total cost of the service of the order line",
     )
-    valor_de_descuento = fields.Float(
+    discount_extended = fields.Float(
         digits=dp.get_precision('Product Price'),
         default=0.0,
-        compute="_compute_valor_de_descuento"
+        compute="_compute_discount_extended",
+        help="Total value of the discount offered in the order line",
     )
-    #
+
     catalog_id = fields.Many2one('iho.catalog', string='Catalog')
     family_id = fields.Many2one('iho.family', string='Family')
 
@@ -218,47 +219,39 @@ class SaleOrderLine(models.Model):
             amount = rec.iho_sell_4 * rec.factor_extra_expense
             if amount:
                 rec.iho_sell_5 = amount
-                rec._compute_price_unit()
             else:
                 rec.price_unit = rec.product_id.lst_price
 
     @api.multi
-    @api.depends('product_id')
+    @api.depends('iho_sell_5')
     def _compute_price_unit(self):
         for rec in self:
             if rec.iho_sell_5 and rec.iho_sell_5 != 0.0:
                 rec.price_unit = rec.iho_sell_5
             else:
                 rec.price_unit = rec.product_id.lst_price
-            # This code fix a problem with the calcule of subtotal
-            discount = (
-                (rec.product_uom_qty * rec.price_unit) *
-                (rec.discount / 100))
-            subtotal = (rec.product_uom_qty * rec.price_unit) - discount
-            rec.price_price_unit = subtotal
 
     @api.multi
     @api.depends('product_id')
-    def _compute_valor_de_descuento(self):
+    def _compute_discount_extended(self):
         for rec in self:
-            valor_de_descuento = (
-                (rec.iho_price_list) * (
-                    (rec.customer_discount) / 100) * rec.product_uom_qty)
-            rec.valor_de_descuento = valor_de_descuento
+            discount_calc = \
+                rec.iho_price_list * rec.customer_discount / 100 * \
+                rec.product_uom_qty
+            rec.discount_extended = discount_calc
 
     @api.multi
     @api.depends(
         'product_id', 'iho_service_factor', 'product_uom_qty',
         'factor_extra_expense')
-    def _compute_servicios(self):
+    def _compute_service_extended(self):
         for rec in self:
-            percentage_service = rec.iho_service_factor - 1
             servicios = (
-                rec.iho_sell_3 * percentage_service
+                rec.iho_sell_3 * (rec.iho_service_factor - 1)
                 * rec.product_uom_qty
                 * rec.factor_extra_expense
             )
-            rec.servicio = servicios
+            rec.service_extended = servicios
 
     @api.onchange('product_uom', 'product_uom_qty', 'product_id')
     def product_uom_change(self):
