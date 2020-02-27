@@ -46,6 +46,14 @@ class SaleOrderLine(models.Model):
         string='Customer Discount (%)',
         digits=dp.get_precision('Precision Sale Terms'),
     )
+# go on from here
+    @api.constrains('customer_discount')
+    def _check_customer_discount(self):
+        if self.customer_discount < 1 or \
+                self.customer_discount > 100:
+            raise ValidationError(
+                _('Data error: Invalid Customer_Discount entered'))
+
     iho_sell_1 = fields.Float(
         string='Sell 1',
         compute="_compute_sell_1",
@@ -181,11 +189,11 @@ class SaleOrderLine(models.Model):
             rec.is_bom_line = bool(rec.product_id.bom_ids)
 
     @api.multi
-    @api.depends('iho_price_list', 'customer_discount')
+    @api.depends('iho_price_list', 'iho_factor')
     def _compute_sell_1(self):
         for rec in self:
             rec.iho_sell_1 = \
-                rec.iho_price_list * (1 - rec.customer_discount / 100)
+                rec.iho_price_list * rec.iho_factor
 
     @api.multi
     @api.depends('iho_price_list', 'dealer_discount')
@@ -195,32 +203,29 @@ class SaleOrderLine(models.Model):
                 rec.iho_price_list * (1 - rec.dealer_discount/100)
 
     @api.multi
-    @api.depends('iho_sell_1', 'iho_factor')
+    @api.depends('iho_sell_1', 'customer_discount')
     def _compute_sell_2(self):
         for rec in self:
-            rec.iho_sell_2 = rec.iho_sell_1 * rec.iho_factor
+            rec.iho_sell_2 = \
+                rec.iho_sell_1 * (1-rec.customer_discount/100)
 
     @api.multi
-    @api.depends('iho_tc', 'iho_sell_2')
+    @api.depends('iho_sell_2', 'iho_service_factor')
     def _compute_sell_3(self):
         for rec in self:
-            rec.iho_sell_3 = rec.iho_sell_2 * rec.iho_tc
+            rec.iho_sell_3 = rec.iho_sell_2 * rec.iho_service_factor
 
     @api.multi
-    @api.depends('iho_service_factor', 'iho_sell_3')
+    @api.depends('iho_sell_3', 'factor_extra_expense')
     def _compute_sell_4(self):
         for rec in self:
-            rec.iho_sell_4 = rec.iho_sell_3 * rec.iho_service_factor
+            rec.iho_sell_4 = rec.iho_sell_3 * rec.factor_extra_expense
 
     @api.multi
-    @api.depends('iho_sell_4', 'factor_extra_expense')
+    @api.depends('iho_sell_4', 'iho_tc')
     def _compute_sell_5(self):
         for rec in self:
-            amount = rec.iho_sell_4 * rec.factor_extra_expense
-            if amount:
-                rec.iho_sell_5 = amount
-            else:
-                rec.price_unit = rec.product_id.lst_price
+            rec.iho_sell_5 = rec.iho_sell_4 * rec.iho_tc
 
     @api.multi
     @api.depends('iho_sell_5')
@@ -232,30 +237,27 @@ class SaleOrderLine(models.Model):
                 rec.price_unit = rec.product_id.lst_price
 
     @api.multi
-    @api.depends('product_id')
+    @api.depends('product_id', 'product_uom_qty')
     def _compute_discount_extended(self):
         for rec in self:
-            discount_calc = \
-                rec.iho_price_list * rec.customer_discount / 100 * \
-                rec.product_uom_qty
-            rec.discount_extended = discount_calc
+            rec.discount_extended = \
+                rec.iho_price_list * rec.iho_factor * \
+                rec.customer_discount/100 * rec.iho_tc * rec.product_uom_qty
 
     @api.multi
     @api.depends(
-        'product_id', 'iho_service_factor', 'product_uom_qty',
-        'factor_extra_expense')
+        'product_id', 'iho_price_list',
+        'iho_service_factor', 'product_uom_qty')
     def _compute_service_extended(self):
         for rec in self:
-            servicios = (
-                rec.iho_sell_3 * (rec.iho_service_factor - 1)
-                * rec.product_uom_qty
-                * rec.factor_extra_expense
-            )
-            rec.service_extended = servicios
+            rec.service_extended = \
+                rec.iho_price_list * rec.iho_factor * \
+                (rec.iho_service_factor-1) * \
+                rec.product_uom_qty * rec.iho_tc
 
-    @api.onchange('product_uom', 'product_uom_qty', 'product_id')
-    def product_uom_change(self):
-        res = super().product_uom_change()
-        if self.iho_sell_4:
-            self.price_unit = self.iho_sell_5
-        return res
+    # @api.onchange('product_uom', 'product_uom_qty', 'product_id')
+    # def product_uom_change(self):
+    #     res = super().product_uom_change()
+    #     if self.iho_sell_4:
+    #         self.price_unit = self.iho_sell_5
+    #     return res

@@ -47,11 +47,11 @@
                         <field name="service_extended"/>
                     </group>
                     <group>
-                        <field name="customer_discount"/>
                         <field name="iho_factor"/>
-                        <field name="iho_tc"/>
+                        <field name="customer_discount"/>
                         <field name="iho_service_factor"/>
                         <field name="factor_extra_expense"/>
+                        <field name="iho_tc"/>
                         <p/>
                         <field name="discount_extended"/>
                     </group>
@@ -65,11 +65,9 @@
                     </group>
                 </group>
                 <group attrs="{'invisible': ['|', ('is_bom_line', '!=', False), ('display_type', '!=', False)]}">
-                    <group>
-                        <field name="is_bom_line" invisible="1"/>
-                        <field name="catalog_id"/>
-                        <field name="family_id"/>
-                    </group>
+                    <field name="is_bom_line" invisible="1"/>
+                    <field name="catalog_id"/>
+                    <field name="family_id"/>
                 </group>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree" position="attributes">
