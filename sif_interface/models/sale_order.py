@@ -44,15 +44,13 @@ class SaleOrderLine(models.Model):
     iho_price_list = fields.Float(string='Price List',)
     customer_discount = fields.Float(
         string='Customer Discount (%)',
-        digits=dp.get_precision('Precision Sale Terms'),
-    )
-# go on from here
-    @api.constrains('customer_discount')
-    def _check_customer_discount(self):
-        if self.customer_discount < 1 or \
-                self.customer_discount > 100:
+        digits=dp.get_precision('Precision Sale Terms'),)
+
+    @api.onchange('customer_discount')
+    def _onchange_customer_discount(self):
+        if self.customer_discount < 0 or self.customer_discount > 100:
             raise ValidationError(
-                _('Data error: Invalid Customer_Discount entered'))
+                _('Data error: Invalid Customer discount entered'))
 
     iho_sell_1 = fields.Float(
         string='Sell 1',
