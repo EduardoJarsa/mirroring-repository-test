@@ -154,7 +154,7 @@ class SaleOrderLine(models.Model):
     def _onchange_iho_service_factor(self):
         if self.iho_service_factor < 1 or self.iho_service_factor > 1.99:
             raise ValidationError(
-                _('Error: Factor service factor must be 1-1.99'))
+                _('Error: Service factor must be 1-1.99'))
 
     @api.onchange('iho_tc')
     def _onchange_iho_tc(self):
@@ -162,18 +162,42 @@ class SaleOrderLine(models.Model):
             raise ValidationError(
                 _('Error: TC Agreed must be 1-39.99'))
 
-    @api.onchange('dealer_discount')
+    # Field level validation at saving time
+    @api.constrains('dealer_discount')
     def _onchange_dealer_discount(self):
         if self.dealer_discount < 0 or self.dealer_discount > 100:
             raise ValidationError(
                 _('Error: Dealer discount must be 0-100'))
 
-# aqui voy... como validar antes de grabar?   funciona?   como hacer refresh al campo?
     @api.constrains('customer_discount')
     def _constrains_customer_discount(self):
         if self.customer_discount < 0 or self.customer_discount > 100:
             raise ValidationError(
-                _('Error: xxxxx Customer discount must be 0-100'))
+                _('Error: Customer discount must be 0-100'))
+
+    @api.constrains('iho_factor')
+    def _constrains_iho_factor(self):
+        if self.iho_factor < 1 or self.iho_factor > 10:
+            raise ValidationError(
+                _('Error: Factor must be 1-9.99'))
+
+    @api.constrains('factor_extra_expense')
+    def _constrains_factor_extra_expense(self):
+        if self.factor_extra_expense < 1 or self.factor_extra_expense > 1.99:
+            raise ValidationError(
+                _('Error: Factor Extra expense must be 1-1.99'))
+
+    @api.constrains('iho_service_factor')
+    def _constrains_iho_service_factor(self):
+        if self.iho_service_factor < 1 or self.iho_service_factor > 1.99:
+            raise ValidationError(
+                _('Error: Service factor must be 1-1.99'))
+
+    @api.constrains('iho_tc')
+    def _constrains_iho_tc(self):
+        if self.iho_tc < 1 or self.iho_tc > 39.99:
+            raise ValidationError(
+                _('Error: TC Agreed must be 1-39.99'))
 
     @api.multi
     def _process_product_supplierinfo(self):
