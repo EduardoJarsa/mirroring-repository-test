@@ -44,40 +44,41 @@ class SaleOrderLine(models.Model):
     iho_price_list = fields.Float(string='Price List',)
     customer_discount = fields.Float(
         string='Customer Discount (%)',
-        digits=dp.get_precision('Precision Sale Terms'),)
-
-    @api.onchange('customer_discount')
-    def _onchange_customer_discount(self):
-        if self.customer_discount < 0 or self.customer_discount > 100:
-            raise ValidationError(
-                _('Data error: Invalid Customer discount entered'))
-
+        digits=dp.get_precision('Precision Sale Terms'),
+    )
     iho_sell_1 = fields.Float(
         string='Sell 1',
         compute="_compute_sell_1",
-        store=True,)
+        store=True,
+    )
     iho_factor = fields.Float(
         string='Factor',
         digits=dp.get_precision('Precision Sale Terms'),
-        default=1.0,)
+        default=1.0,
+    )
     iho_sell_2 = fields.Float(
         string="Sell 2",
         compute='_compute_sell_2',
-        store=True,)
+        store=True,
+    )
     iho_sell_3 = fields.Float(
         string="Sell 3",
         compute='_compute_sell_3',
-        store=True,)
+        store=True,
+    )
     iho_sell_4 = fields.Float(
         string="Sell 4",
         compute='_compute_sell_4',
-        store=True,)
+        store=True,
+    )
     iho_sell_5 = fields.Float(
         string="Sell 5",
         compute='_compute_sell_5',
-        store=True,)
+        store=True,
+    )
     iho_purchase_cost = fields.Float(
-        compute='_compute_iho_purchase_cost')
+        compute='_compute_iho_purchase_cost'
+    )
     factor_extra_expense = fields.Float(
         default=1.0,
         digits=dp.get_precision('Precision Sale Terms'),
@@ -109,6 +110,7 @@ class SaleOrderLine(models.Model):
         compute="_compute_price_unit"
     )
     dealer_discount = fields.Float(
+        string="Dealer discount (%)",
         required=True,
         digits=dp.get_precision('Product Price'),
         default=0.0,
@@ -128,6 +130,50 @@ class SaleOrderLine(models.Model):
 
     catalog_id = fields.Many2one('iho.catalog', string='Catalog')
     family_id = fields.Many2one('iho.family', string='Family')
+
+    # Field level validation at entry time
+    @api.onchange('customer_discount')
+    def _onchange_customer_discount(self):
+        if self.customer_discount < 0 or self.customer_discount > 100:
+            raise ValidationError(
+                _('Error: Customer discount must be 0-100'))
+
+    @api.onchange('iho_factor')
+    def _onchange_iho_factor(self):
+        if self.iho_factor < 1 or self.iho_factor > 10:
+            raise ValidationError(
+                _('Error: Factor must be 1-9.99'))
+
+    @api.onchange('factor_extra_expense')
+    def _onchange_factor_extra_expense(self):
+        if self.factor_extra_expense < 1 or self.factor_extra_expense > 1.99:
+            raise ValidationError(
+                _('Error: Factor Extra expense must be 1-1.99'))
+
+    @api.onchange('iho_service_factor')
+    def _onchange_iho_service_factor(self):
+        if self.iho_service_factor < 1 or self.iho_service_factor > 1.99:
+            raise ValidationError(
+                _('Error: Factor service factor must be 1-1.99'))
+
+    @api.onchange('iho_tc')
+    def _onchange_iho_tc(self):
+        if self.iho_tc < 1 or self.iho_tc > 39.99:
+            raise ValidationError(
+                _('Error: TC Agreed must be 1-39.99'))
+
+    @api.onchange('dealer_discount')
+    def _onchange_dealer_discount(self):
+        if self.dealer_discount < 0 or self.dealer_discount > 100:
+            raise ValidationError(
+                _('Error: Dealer discount must be 0-100'))
+
+# aqui voy... como validar antes de grabar?   funciona?   como hacer refresh al campo?
+    @api.constrains('customer_discount')
+    def _constrains_customer_discount(self):
+        if self.customer_discount < 0 or self.customer_discount > 100:
+            raise ValidationError(
+                _('Error: xxxxx Customer discount must be 0-100'))
 
     @api.multi
     def _process_product_supplierinfo(self):
@@ -252,10 +298,3 @@ class SaleOrderLine(models.Model):
                 rec.iho_price_list * rec.iho_factor * \
                 (rec.iho_service_factor-1) * \
                 rec.product_uom_qty * rec.iho_tc
-
-    # @api.onchange('product_uom', 'product_uom_qty', 'product_id')
-    # def product_uom_change(self):
-    #     res = super().product_uom_change()
-    #     if self.iho_sell_4:
-    #         self.price_unit = self.iho_sell_5
-    #     return res
