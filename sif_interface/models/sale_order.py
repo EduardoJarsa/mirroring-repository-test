@@ -41,10 +41,14 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
-    iho_price_list = fields.Float(string='Price List',)
+    iho_price_list = fields.Float(
+        string='Price List',
+        help='Vendor Catalog public price',
+    )
     customer_discount = fields.Float(
         string='Customer Discount (%)',
         digits=dp.get_precision('Precision Sale Terms'),
+        help='Discount (%) to the customer [0 - 100]',
     )
     iho_sell_1 = fields.Float(
         string='Sell 1',
@@ -55,6 +59,7 @@ class SaleOrderLine(models.Model):
         string='Factor',
         digits=dp.get_precision('Precision Sale Terms'),
         default=1.0,
+        help='IHO Factor',
     )
     iho_sell_2 = fields.Float(
         string="Sell 2",
@@ -77,16 +82,19 @@ class SaleOrderLine(models.Model):
         store=True,
     )
     iho_purchase_cost = fields.Float(
-        compute='_compute_iho_purchase_cost'
+        compute='_compute_iho_purchase_cost',
+        help='Calculated purchase cost',
     )
     factor_extra_expense = fields.Float(
         default=1.0,
         digits=dp.get_precision('Precision Sale Terms'),
+        help='Factor Extra expenses [1 - 1.99]',
     )
     iho_service_factor = fields.Float(
         string='Service Factor',
         default=1.0,
         digits=dp.get_precision('Precision Sale Terms'),
+        help='Factor Service expenses [1 - 1.99]',
     )
     iho_currency_id = fields.Many2one(
         'res.currency',

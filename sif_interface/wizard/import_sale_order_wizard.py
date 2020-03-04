@@ -56,8 +56,8 @@ class ImportSaleOrderWizard(models.TransientModel):
             raise ValidationError(_(
                 'There is no number or the format is incorrect for column %s '
                 'of  product\n\nProduct:\n%s\n\nDescription:\n%s\n\nPlease '
-                'validate the format of the whole column.\n\nThe readed value '
-                'is: %s') % (column, product, line.get('Descrip', ''), text))
+                'validate the format of the whole column.\n\nRead value '
+                'is: [%s]') % (column, product, line.get('Descrip', ''), text))
 
     @api.model
     def _check_value_factor_extra_expense(self, factor_extra_expense, index):
@@ -187,8 +187,8 @@ class ImportSaleOrderWizard(models.TransientModel):
             'Cantidad',
             'PriceList',
             'CustomerDiscount',
-            'FactorServicio',
             'Factor',
+            'FactorServicio',
             'FactorGastosExtra',
             'DealerDiscount',
             'Catalogo',
