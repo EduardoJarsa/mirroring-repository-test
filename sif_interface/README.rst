@@ -10,6 +10,7 @@ This module allows to:
 
 * Create Products from XML files exported from 2020 system.
 * Export SIF files from Purchase Orders.
+* Load CSV quotation files into Sales Orders. 
 
 Configuration
 =============
@@ -40,6 +41,7 @@ Contributors
 * Oscar Garza <oscar.garza@jarsa.com.mx>
 * Sarai Osorio <sarai.osorio@jarsa.com.mx>
 * Jesus Alcala <jesus.alcala@jarsa.com.mx> (Developer)
+* Héctor Herrera <hector.herrera.mx@gmail.com>
 
 Maintainer
 ----------
@@ -48,4 +50,4 @@ Maintainer
    :alt: Jarsa Sistemas, S.A. de C.V.
    :target: http://www.jarsa.com.mx
 
-This module is maintained by Jarsa Sistemas, S.A. de C.V.
+This module is maintained by Jarsa Sistemas, S.A. de C.V., MtNet Services, S.A. de C.V.
