@@ -171,6 +171,13 @@ class SaleOrderLine(models.Model):
                 _('Error: TC Agreed must be 1-39.99'))
 
     # Field level validation at saving time
+    @api.model
+    def _product_int_ref(self):
+        int_ref = self.product_id.default_code
+        if not int_ref:
+            int_ref = self.name[:self.name.find(']')]
+        return int_ref
+
     @api.constrains('dealer_discount')
     def _onchange_dealer_discount(self):
         if self.dealer_discount < 0 or self.dealer_discount > 100:
@@ -187,7 +194,9 @@ class SaleOrderLine(models.Model):
     def _constrains_iho_factor(self):
         if self.iho_factor < 1 or self.iho_factor > 10:
             raise ValidationError(
-                _('Error: Factor must be 1-9.99'))
+                _('Error: Column "Factor" at [%s] has value of [%s] '
+                  'and must be [1-9.99]') %
+                (self._product_int_ref(), self.iho_factor))
 
     @api.constrains('factor_extra_expense')
     def _constrains_factor_extra_expense(self):
