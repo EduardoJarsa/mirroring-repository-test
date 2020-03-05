@@ -70,7 +70,22 @@ class ImportSaleOrderWizard(models.TransientModel):
                 % index)
 
     @api.model
+    def _check_and_set_default_values(self, line):
+        default_values_cols = {
+            'TCAcordado': 1,
+            'IHOCurrency': 'USD',
+            'CustomerDiscount': 0,
+            'Factor': 1,
+            'FactorServicio': 1,
+            'FactorGastosExtra': 1,
+            'DealerDiscount': 0,
+        }
+        for columndefault, valuedefault in default_values_cols.items():
+            if line[columndefault] xxx     
+
+    @api.model
     def _prepare_sale_order_line(self, line, sale_order, index):
+        self._check_and_set_default_values(line)
         self._check_col_name(line)
         customer_discount = self.to_float(line, 'CustomerDiscount')
         pricelist = self.to_float(line, 'PriceList')
