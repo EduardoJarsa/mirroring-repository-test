@@ -60,14 +60,30 @@ class ImportSaleOrderWizard(models.TransientModel):
                 'is: [%s]') % (column, product, line.get('Descrip', ''), text))
 
     @api.model
-    def _check_value_factor_extra_expense(self, factor_extra_expense, index):
+    def _check_value_extra_expense(self, extra_expense, index):
         try:
-            float(factor_extra_expense)
+            float(extra_expense)
         except ValueError:
             raise ValidationError(
                 _(
-                    'column factor_extra_expense with wrong format in line %s')
-                % index)
+                    'column extra_expense wrong format '
+                    '[%s] in line %s')
+                % (extra_expense, index))
+
+    @api.model
+    def _check_value_xxxfactor(self, xxxfactor, index):
+        try:
+            to_validate = float(xxxfactor)
+        except ValueError:
+            raise ValidationError(
+                _('column xxxFactor wrong format '
+                  '[%s] in line %s')
+                % (xxxfactor, index)) 
+        if to_validate < 1 or to_validate > 2.99:
+            raise ValidationError(
+                _('column xxxFactor wrong data '
+                  '[%s] has to be [1-2.99] in line %s')
+                % (xxxfactor, index))
 
     @api.model
     def _add_default_values(self, line):
@@ -77,7 +93,8 @@ class ImportSaleOrderWizard(models.TransientModel):
             'CustomerDiscount': '0',
             'Factor': '1',
             'FactorServicio': '1',
-            'FactorGastosExtra': '1',
+            'xxxFactor': '1',
+            'GastosExtra': '0',
             'DealerDiscount': '0',
         }
         for column_default, value_default in default_values_cols.items():
@@ -92,9 +109,12 @@ class ImportSaleOrderWizard(models.TransientModel):
         pricelist = self.to_float(line, 'PriceList')
         iho_purchase_cost = pricelist * (100 - customer_discount) / 100
         supplier_reference = line.get('Fabricante', False)
-        factor_extra_expense = line.get('FactorGastosExtra', False)
-        if factor_extra_expense:
-            self._check_value_factor_extra_expense(factor_extra_expense, index)
+        xxxfactor = self.to_float(line, 'xxxFactor')
+        if xxxfactor:
+            self._check_value_xxxfactor(xxxfactor, index)
+        extra_expense = line.get('GastosExtra', False)
+        if extra_expense:
+            self._check_value_extra_expense(extra_expense, index)
         else:
             raise ValidationError(
                 _(
@@ -175,7 +195,8 @@ class ImportSaleOrderWizard(models.TransientModel):
             'customer_discount': customer_discount,
             'iho_factor': self.to_float(line, 'Factor'),
             'vendor_id': partner.id,
-            'factor_extra_expense': factor_extra_expense,
+            'extra_expense': extra_expense,
+            'xxx_factor': xxxfactor,
             'iho_currency_id': iho_currency_id.id,
             'dealer_discount': self.to_float(line, 'DealerDiscount'),
             'order_id': sale_order.id,
@@ -198,15 +219,9 @@ class ImportSaleOrderWizard(models.TransientModel):
             'Fabricante',
             'CodigoProducto',
             'Descrip',
-            'TCAcordado',
             'IHOCurrency',
             'Cantidad',
             'PriceList',
-            'CustomerDiscount',
-            'Factor',
-            'FactorServicio',
-            'FactorGastosExtra',
-            'DealerDiscount',
             'Catalogo',
             'Familia',
         ]
