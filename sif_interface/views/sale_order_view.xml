@@ -23,9 +23,11 @@
                 <field name="iho_sell_3" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
                 <field name="iho_service_factor" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
                 <field name="iho_sell_4" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
-                <field name="factor_extra_expense" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
+                <field name="extra_expense" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
                 <field name="iho_sell_5" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
                 <field name="dealer_discount" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
+                <field name="iho_sell_6" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
+                <field name="xxx_factor" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after" >
                 <field name="is_bom_line" invisible="1"/>
@@ -44,14 +46,16 @@
                         <field name="iho_sell_3"/>
                         <field name="iho_sell_4"/>
                         <field name="iho_sell_5"/>
+                        <field name="iho_sell_6"/>
                         <field name="service_extended"/>
                     </group>
                     <group>
                         <field name="iho_factor"/>
                         <field name="customer_discount"/>
                         <field name="iho_service_factor"/>
-                        <field name="factor_extra_expense"/>
+                        <field name="extra_expense"/>
                         <field name="iho_tc"/>
+                        <field name="xxx_factor"/>
                         <p/>
                         <field name="discount_extended"/>
                     </group>

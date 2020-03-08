@@ -81,20 +81,32 @@ class SaleOrderLine(models.Model):
         compute='_compute_sell_5',
         store=True,
     )
+    iho_sell_6 = fields.Float(
+        string="Sell 6",
+        compute='_compute_sell_6',
+        store=True,
+    )
     iho_purchase_cost = fields.Float(
         compute='_compute_iho_purchase_cost',
         help='Calculated purchase cost',
     )
-    factor_extra_expense = fields.Float(
-        default=1.0,
+    extra_expense = fields.Float(
+        default=0.0,
         digits=dp.get_precision('Precision Sale Terms'),
-        help='Factor Extra expenses [1 - 1.99]',
+        help='Extra expenses to add to the line',
     )
     iho_service_factor = fields.Float(
         string='Service Factor',
+        default=1.06,
+        digits=dp.get_precision('Precision Sale Terms'),
+        help='Factor Service charges [1 - 1.99] Values: 1.06 or $150 usd;  '
+             'and 12.5% or 250 usd for textiles.',
+    )
+    xxx_factor = fields.Float(
+        string='xxx Factor',
         default=1.0,
         digits=dp.get_precision('Precision Sale Terms'),
-        help='Factor Service expenses [1 - 1.99]',
+        help='Factor xxx',
     )
     iho_currency_id = fields.Many2one(
         'res.currency',
@@ -148,15 +160,15 @@ class SaleOrderLine(models.Model):
 
     @api.onchange('iho_factor')
     def _onchange_iho_factor(self):
-        if self.iho_factor < 1 or self.iho_factor > 10:
+        if self.iho_factor < 1 or self.iho_factor > 3.99:
             raise ValidationError(
                 _('Error: Factor must be 1-9.99'))
 
-    @api.onchange('factor_extra_expense')
-    def _onchange_factor_extra_expense(self):
-        if self.factor_extra_expense < 1 or self.factor_extra_expense > 1.99:
+    @api.onchange('extra_expense')
+    def _onchange_extra_expense(self):
+        if self.extra_expense < 0:
             raise ValidationError(
-                _('Error: Factor Extra expense must be 1-1.99'))
+                _('Error: Extra expense must not be negative'))
 
     @api.onchange('iho_service_factor')
     def _onchange_iho_service_factor(self):
@@ -169,6 +181,12 @@ class SaleOrderLine(models.Model):
         if self.iho_tc < 1 or self.iho_tc > 39.99:
             raise ValidationError(
                 _('Error: TC Agreed must be 1-39.99'))
+
+    @api.onchange('xxx_factor')
+    def _onchange_xxx_factor(self):
+        if self.xxx_factor < 1:
+            raise ValidationError(
+                _('Error: xxx_factor must be 1-xxx'))
 
     # Field level validation at saving time
     @api.model
@@ -192,17 +210,17 @@ class SaleOrderLine(models.Model):
 
     @api.constrains('iho_factor')
     def _constrains_iho_factor(self):
-        if self.iho_factor < 1 or self.iho_factor > 10:
+        if self.iho_factor < 1 or self.iho_factor > 3.99:
             raise ValidationError(
                 _('Error: Column "Factor" at [%s] has value of [%s] '
                   'and must be [1-9.99]') %
                 (self._product_int_ref(), self.iho_factor))
 
-    @api.constrains('factor_extra_expense')
-    def _constrains_factor_extra_expense(self):
-        if self.factor_extra_expense < 1 or self.factor_extra_expense > 1.99:
+    @api.constrains('extra_expense')
+    def _constrains_extra_expense(self):
+        if self.extra_expense < 0:
             raise ValidationError(
-                _('Error: Factor Extra expense must be 1-1.99'))
+                _('Error: Extra expense must not be negative'))
 
     @api.constrains('iho_service_factor')
     def _constrains_iho_service_factor(self):
@@ -301,10 +319,10 @@ class SaleOrderLine(models.Model):
             rec.iho_sell_3 = rec.iho_sell_2 * rec.iho_service_factor
 
     @api.multi
-    @api.depends('iho_sell_3', 'factor_extra_expense')
+    @api.depends('iho_sell_3', 'extra_expense')
     def _compute_sell_4(self):
         for rec in self:
-            rec.iho_sell_4 = rec.iho_sell_3 * rec.factor_extra_expense
+            rec.iho_sell_4 = rec.iho_sell_3 + rec.extra_expense
 
     @api.multi
     @api.depends('iho_sell_4', 'iho_tc')
@@ -313,11 +331,17 @@ class SaleOrderLine(models.Model):
             rec.iho_sell_5 = rec.iho_sell_4 * rec.iho_tc
 
     @api.multi
-    @api.depends('iho_sell_5')
+    @api.depends('iho_sell_5', 'xxx_factor')
+    def _compute_sell_6(self):
+        for rec in self:
+            rec.iho_sell_6 = rec.iho_sell_5 * rec.xxx_factor
+
+    @api.multi
+    @api.depends('iho_sell_6')
     def _compute_price_unit(self):
         for rec in self:
-            if rec.iho_sell_5 and rec.iho_sell_5 != 0.0:
-                rec.price_unit = rec.iho_sell_5
+            if rec.iho_sell_6 and rec.iho_sell_6 != 0.0:
+                rec.price_unit = rec.iho_sell_6
             else:
                 rec.price_unit = rec.product_id.lst_price
 
