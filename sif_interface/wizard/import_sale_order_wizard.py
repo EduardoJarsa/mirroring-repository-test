@@ -61,29 +61,31 @@ class ImportSaleOrderWizard(models.TransientModel):
 
     @api.model
     def _check_value_extra_expense(self, extra_expense, index):
-        try:
-            float(extra_expense)
-        except ValueError:
-            raise ValidationError(
-                _(
-                    'column extra_expense wrong format '
-                    '[%s] in line %s')
-                % (extra_expense, index))
+        if extra_expense:
+            try:
+                float(extra_expense)
+            except ValueError:
+                raise ValidationError(
+                    _(
+                        'column extra_expense wrong format '
+                        '[%s] in line %s')
+                    % (extra_expense, index))
 
     @api.model
     def _check_value_xxxfactor(self, xxxfactor, index):
-        try:
-            to_validate = float(xxxfactor)
-        except ValueError:
-            raise ValidationError(
-                _('column xxxFactor wrong format '
-                  '[%s] in line %s')
-                % (xxxfactor, index)) 
-        if to_validate < 1 or to_validate > 2.99:
-            raise ValidationError(
-                _('column xxxFactor wrong data '
-                  '[%s] has to be [1-2.99] in line %s')
-                % (xxxfactor, index))
+        if xxxfactor:
+            try:
+                to_validate = float(xxxfactor)
+            except ValueError:
+                raise ValidationError(
+                    _('column xxxFactor wrong format '
+                      '[%s] in line %s')
+                    % (xxxfactor, index))
+            if to_validate < 1 or to_validate > 2.99:
+                raise ValidationError(
+                    _('column xxxFactor wrong data '
+                      '[%s] has to be [1-2.99] in line %s')
+                    % (xxxfactor, index))
 
     @api.model
     def _add_default_values(self, line):
@@ -110,16 +112,9 @@ class ImportSaleOrderWizard(models.TransientModel):
         iho_purchase_cost = pricelist * (100 - customer_discount) / 100
         supplier_reference = line.get('Fabricante', False)
         xxxfactor = self.to_float(line, 'xxxFactor')
-        if xxxfactor:
-            self._check_value_xxxfactor(xxxfactor, index)
+        self._check_value_xxxfactor(xxxfactor, index)
         extra_expense = line.get('GastosExtra', False)
-        if extra_expense:
-            self._check_value_extra_expense(extra_expense, index)
-        else:
-            raise ValidationError(
-                _(
-                    'the column FactorGastosExtra can not be empty'
-                    ' line number %s') % index)
+        self._check_value_extra_expense(extra_expense, index)
         catalog = line.get('Catalogo', False)
         catalog_id = False
         if catalog:
@@ -184,7 +179,6 @@ class ImportSaleOrderWizard(models.TransientModel):
             res = {
                 'name': line['Descrip']
             }
-
         res.update({
             'product_id': product_id.id,
             'product_uom_qty': self.to_float(line, 'Cantidad'),
