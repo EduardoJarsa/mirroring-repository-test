@@ -30,8 +30,6 @@ class SaleOrder(models.Model):
         if self.currency_agreed_rate <= 0:
             raise ValidationError(
                 _('Currency Agreed Rate illegal value entered'))
-        else:
-            raise ValidationError('ok')
 
     @api.constrains('currency_agreed_rate', 'extra_expenses')
     def _check_negative_values_header(self):
