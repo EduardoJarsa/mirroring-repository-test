@@ -10,10 +10,35 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     currency_agreed_rate = fields.Float(default=1.0,)
+    extra_expenses = fields.Float(default=0.0, )
+    show_service_cost = fields.Selection(
+        selection=[('not-shown', 'Not shown'), ('at-lines', 'At each line'),
+                   ('sub-total', 'As a subtotal'), ],
+        default='at-lines', required=True, )
     is_bom = fields.Boolean(
         string="Is Bom?",
         compute="_compute_is_bom",
     )
+
+    @api.onchange('extra_expenses')
+    def _onchange_extra_expenses(self):
+        if self.extra_expenses < 0:
+            raise ValidationError(_('Extra Expenses cannot be negative'))
+
+    @api.onchange('currency_agreed_rate')
+    def _onchange_currency_agreed_rate(self):
+        if self.currency_agreed_rate <= 0:
+            raise ValidationError(
+                _('Currency Agreed Rate illegal value entered'))
+        else:
+            raise ValidationError('ok')
+
+    @api.constrains('currency_agreed_rate', 'extra_expenses')
+    def _check_negative_values_header(self):
+        if self.currency_agreed_rate <= 0 or self.extra_expenses < 0:
+            raise ValidationError(
+                _('Negative values are not allowed for Currency'
+                  ' or Extra expenses'))
 
     @api.onchange('currency_agreed_rate', 'pricelist_id', 'company_id')
     def _onchange_currency_agreed_rate(self):
@@ -76,24 +101,9 @@ class SaleOrderLine(models.Model):
         compute='_compute_sell_4',
         store=True,
     )
-    iho_sell_5 = fields.Float(
-        string="Sell 5",
-        compute='_compute_sell_5',
-        store=True,
-    )
-    iho_sell_6 = fields.Float(
-        string="Sell 6",
-        compute='_compute_sell_6',
-        store=True,
-    )
     iho_purchase_cost = fields.Float(
         compute='_compute_iho_purchase_cost',
         help='Calculated purchase cost',
-    )
-    extra_expense = fields.Float(
-        default=0.0,
-        digits=dp.get_precision('Precision Sale Terms'),
-        help='Extra expenses to add to the line',
     )
     iho_service_factor = fields.Float(
         string='Service Factor',
@@ -101,12 +111,6 @@ class SaleOrderLine(models.Model):
         digits=dp.get_precision('Precision Sale Terms'),
         help='Factor Service charges [1 - 1.99] Values: 1.06 or $150 usd;  '
              'and 12.5% or 250 usd for textiles.',
-    )
-    xxx_factor = fields.Float(
-        string='xxx Factor',
-        default=1.0,
-        digits=dp.get_precision('Precision Sale Terms'),
-        help='Factor xxx',
     )
     iho_currency_id = fields.Many2one(
         'res.currency',
@@ -150,6 +154,13 @@ class SaleOrderLine(models.Model):
 
     catalog_id = fields.Many2one('iho.catalog', string='Catalog')
     family_id = fields.Many2one('iho.family', string='Family')
+    # show_service_cost = fields.Char(compute="_compute_show_service_cost")
+
+    # @api.multi
+    # @api.depends('order_line','show_service_cost')
+    # def _compute_show_service_cost(self):
+    #     for rec in self:
+    #         rec.show_service_cost = rec.order_id.show_service_cost
 
     # Field level validation at entry time
     @api.onchange('customer_discount')
@@ -164,12 +175,6 @@ class SaleOrderLine(models.Model):
             raise ValidationError(
                 _('Error: Factor must be 1-9.99'))
 
-    @api.onchange('extra_expense')
-    def _onchange_extra_expense(self):
-        if self.extra_expense < 0:
-            raise ValidationError(
-                _('Error: Extra expense must not be negative'))
-
     @api.onchange('iho_service_factor')
     def _onchange_iho_service_factor(self):
         if self.iho_service_factor < 1 or self.iho_service_factor > 1.99:
@@ -182,13 +187,7 @@ class SaleOrderLine(models.Model):
             raise ValidationError(
                 _('Error: TC Agreed must be 1-39.99'))
 
-    @api.onchange('xxx_factor')
-    def _onchange_xxx_factor(self):
-        if self.xxx_factor < 1:
-            raise ValidationError(
-                _('Error: xxx_factor must be 1-xxx'))
-
-    # Field level validation at saving time
+    #
     @api.model
     def _product_int_ref(self):
         int_ref = self.product_id.default_code
@@ -196,6 +195,7 @@ class SaleOrderLine(models.Model):
             int_ref = self.name[:self.name.find(']')]
         return int_ref
 
+    # Field level validation at saving time
     @api.constrains('dealer_discount')
     def _onchange_dealer_discount(self):
         if self.dealer_discount < 0 or self.dealer_discount > 100:
@@ -215,12 +215,6 @@ class SaleOrderLine(models.Model):
                 _('Error: Column "Factor" at [%s] has value of [%s] '
                   'and must be [1-9.99]') %
                 (self._product_int_ref(), self.iho_factor))
-
-    @api.constrains('extra_expense')
-    def _constrains_extra_expense(self):
-        if self.extra_expense < 0:
-            raise ValidationError(
-                _('Error: Extra expense must not be negative'))
 
     @api.constrains('iho_service_factor')
     def _constrains_iho_service_factor(self):
@@ -319,34 +313,23 @@ class SaleOrderLine(models.Model):
             rec.iho_sell_3 = rec.iho_sell_2 * rec.iho_service_factor
 
     @api.multi
-    @api.depends('iho_sell_3', 'extra_expense')
+    @api.depends('iho_sell_3', 'iho_tc')
     def _compute_sell_4(self):
         for rec in self:
-            rec.iho_sell_4 = rec.iho_sell_3 + rec.extra_expense
+            rec.iho_sell_4 = rec.iho_sell_3 * rec.iho_tc
 
     @api.multi
-    @api.depends('iho_sell_4', 'iho_tc')
-    def _compute_sell_5(self):
-        for rec in self:
-            rec.iho_sell_5 = rec.iho_sell_4 * rec.iho_tc
-
-    @api.multi
-    @api.depends('iho_sell_5', 'xxx_factor')
-    def _compute_sell_6(self):
-        for rec in self:
-            rec.iho_sell_6 = rec.iho_sell_5 * rec.xxx_factor
-
-    @api.multi
-    @api.depends('iho_sell_6')
+    @api.depends('iho_sell_4')
     def _compute_price_unit(self):
         for rec in self:
-            if rec.iho_sell_6 and rec.iho_sell_6 != 0.0:
-                rec.price_unit = rec.iho_sell_6
+            if rec.iho_sell_4 and rec.iho_sell_4 != 0.0:
+                rec.price_unit = rec.iho_sell_4
             else:
                 rec.price_unit = rec.product_id.lst_price
 
     @api.multi
-    @api.depends('product_id', 'product_uom_qty')
+    @api.depends('product_id', 'iho_price_list', 'iho_factor',
+                 'customer_discount', 'product_uom_qty')
     def _compute_discount_extended(self):
         for rec in self:
             rec.discount_extended = \

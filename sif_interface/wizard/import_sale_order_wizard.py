@@ -50,7 +50,7 @@ class ImportSaleOrderWizard(models.TransientModel):
         try:
             return float(t_no_space)
         except (AttributeError, ValueError):
-            product = line.get('CodigoProducto', 'NA')
+            product = line.get('ProductCodeQuotLine', 'NA')
             if not product:
                 product = 'NA'
             raise ValidationError(_(
@@ -72,32 +72,14 @@ class ImportSaleOrderWizard(models.TransientModel):
                     % (extra_expense, index))
 
     @api.model
-    def _check_value_xxxfactor(self, xxxfactor, index):
-        if xxxfactor:
-            try:
-                to_validate = float(xxxfactor)
-            except ValueError:
-                raise ValidationError(
-                    _('column xxxFactor wrong format '
-                      '[%s] in line %s')
-                    % (xxxfactor, index))
-            if to_validate < 1 or to_validate > 2.99:
-                raise ValidationError(
-                    _('column xxxFactor wrong data '
-                      '[%s] has to be [1-2.99] in line %s')
-                    % (xxxfactor, index))
-
-    @api.model
-    def _add_default_values(self, line):
+    def _add_default_values(self, line, sale_order):
         default_values_cols = {
-            'TCAcordado': '1',
-            'IHOCurrency': 'USD',
-            'CustomerDiscount': '0',
-            'Factor': '1',
-            'FactorServicio': '1',
-            'xxxFactor': '1',
-            'GastosExtra': '0',
-            'DealerDiscount': '0',
+            'PurchCurrencyQuotLine': 'USD',
+            'CustomerDiscountQuotLine': '0',
+            'FactorQuotLine': '1',
+            'ServiceFactorQuotLine': '1',
+            'DealerDiscountQuotLine': '0',
+            'ExchRateQuotLine': str(sale_order.currency_agreed_rate),
         }
         for column_default, value_default in default_values_cols.items():
             if not line.get(column_default):
@@ -105,17 +87,13 @@ class ImportSaleOrderWizard(models.TransientModel):
 
     @api.model
     def _prepare_sale_order_line(self, line, sale_order, index):
-        self._add_default_values(line)
+        self._add_default_values(line, sale_order)
         self._check_col_name(line)
-        customer_discount = self.to_float(line, 'CustomerDiscount')
-        pricelist = self.to_float(line, 'PriceList')
+        customer_discount = self.to_float(line, 'CustomerDiscountQuotLine')
+        pricelist = self.to_float(line, 'PriceListQuotLine')
         iho_purchase_cost = pricelist * (100 - customer_discount) / 100
-        supplier_reference = line.get('Fabricante', False)
-        xxxfactor = self.to_float(line, 'xxxFactor')
-        self._check_value_xxxfactor(xxxfactor, index)
-        extra_expense = line.get('GastosExtra', False)
-        self._check_value_extra_expense(extra_expense, index)
-        catalog = line.get('Catalogo', False)
+        supplier_reference = line.get('MakerQuotLine', False)
+        catalog = line.get('CatalogQuotLine', False)
         catalog_id = False
         if catalog:
             catalog_id = self.env['iho.catalog'].search(
@@ -126,7 +104,7 @@ class ImportSaleOrderWizard(models.TransientModel):
                 }
                 catalog_id = self.env['iho.catalog'].create(new_catalog)
         family_id = False
-        family = line.get('Familia', False)
+        family = line.get('FamilyQuotLine', False)
         if family:
             family_id = self.env['iho.family'].search(
                 [('name', '=', family)])
@@ -143,9 +121,9 @@ class ImportSaleOrderWizard(models.TransientModel):
                 _(
                     'There is not a supplier with internal reference [%s]'
                     ' in line %s to product %s')
-                % (supplier_reference, index, line['Descrip'])
+                % (supplier_reference, index, line['ProductDescripQuotLine'])
             )
-        default_code = line.get('CodigoProducto', False)
+        default_code = line.get('ProductCodeQuotLine', False)
         dummy_product = False
         if default_code:
             product_id = self.env['product.product'].search([(
@@ -161,10 +139,7 @@ class ImportSaleOrderWizard(models.TransientModel):
         else:
             dummy_product = self.env.ref('sif_interface.product_product_dummy')
             product_id = dummy_product
-        tc_agreed = self.to_float(line, 'TCAcordado')
-        if not tc_agreed:
-            tc_agreed = sale_order.currency_agreed_rate
-        iho_currency = line.get('IHOCurrency', False)
+        iho_currency = line.get('PurchCurrencyQuotLine', False)
         if not iho_currency:
             iho_currency = 'USD'
         iho_currency_id = self.env['res.currency'].search(
@@ -173,7 +148,8 @@ class ImportSaleOrderWizard(models.TransientModel):
         res = False
         if dummy_product:
             res = {
-                'name': '[' + default_code + '] ' + line['Descrip']
+                'name': '[' + default_code + '] ' +
+                        line['ProductDescripQuotLine']
             }
         else:
             res = {
@@ -181,18 +157,16 @@ class ImportSaleOrderWizard(models.TransientModel):
             }
         res.update({
             'product_id': product_id.id,
-            'product_uom_qty': self.to_float(line, 'Cantidad'),
+            'product_uom_qty': self.to_float(line, 'QttyQuotLine'),
             'iho_price_list': pricelist,
             'iho_purchase_cost': iho_purchase_cost,
-            'iho_tc': tc_agreed,
-            'iho_service_factor': self.to_float(line, 'FactorServicio'),
+            'iho_tc': self.to_float(line, 'ExchRateQuotLine'),
+            'iho_service_factor': self.to_float(line, 'ServiceFactorQuotLine'),
             'customer_discount': customer_discount,
-            'iho_factor': self.to_float(line, 'Factor'),
+            'iho_factor': self.to_float(line, 'FactorQuotLine'),
             'vendor_id': partner.id,
-            'extra_expense': extra_expense,
-            'xxx_factor': xxxfactor,
             'iho_currency_id': iho_currency_id.id,
-            'dealer_discount': self.to_float(line, 'DealerDiscount'),
+            'dealer_discount': self.to_float(line, 'DealerDiscountQuotLine'),
             'order_id': sale_order.id,
             'analytic_tag_ids': [(6, 0, sale_order.analytic_tag_ids.ids)],
             'tax_id': [(6, 0, product_id.taxes_id.ids)],
@@ -210,14 +184,14 @@ class ImportSaleOrderWizard(models.TransientModel):
     def _check_col_name(self, line):
         file_cols = list(line.keys())
         required_cols = [
-            'Fabricante',
-            'CodigoProducto',
-            'Descrip',
-            'IHOCurrency',
-            'Cantidad',
-            'PriceList',
-            'Catalogo',
-            'Familia',
+            'MakerQuotLine',
+            'ProductCodeQuotLine',
+            'ProductDescripQuotLine',
+            'PurchCurrencyQuotLine',
+            'QttyQuotLine',
+            'PriceListQuotLine',
+            'CatalogQuotLine',
+            'FamilyQuotLine',
         ]
         cols_error = ''
         for rec in required_cols:
