@@ -140,8 +140,7 @@ class SaleOrder(models.Model):
                 percentage_service = line.iho_service_factor - 1
                 services += \
                     line.iho_sell_3 * percentage_service \
-                    * line.product_uom_qty \
-                    + line.extra_expense
+                    * line.product_uom_qty
             rec.amount_services = services
 
     def _return_code(self, code):
