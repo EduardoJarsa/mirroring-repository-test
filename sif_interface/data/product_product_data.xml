@@ -10,4 +10,14 @@
         <field name="maker_id" ref="sif_interface.kno_res_partner"/>
         <field name="list_price">0.0</field>
     </record>
+    <record id="product_product_extraexpenses" model="product.product">
+        <field name="name">Extra Expenses</field>
+        <field name="default_code">extraexpenses</field>
+        <field name="type">service</field>
+        <field name="categ_id" ref="sif_interface.product_category_cdv"/>
+        <field eval="True" name="sale_ok"/>
+        <field eval="False" name="purchase_ok"/>
+        <field name="maker_id" ref="sif_interface.iho_res_partner"/>
+        <field name="list_price">0.0</field>
+    </record>
 </odoo>

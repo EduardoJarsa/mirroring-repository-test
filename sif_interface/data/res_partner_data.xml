@@ -7,4 +7,11 @@
         <field name="is_company">True</field>
         <field name="customer">False</field>
     </record>
+    <record id="iho_res_partner" model="res.partner">
+        <field name="name">IHO</field>
+        <field name="ref">IHO</field>
+        <field name="supplier">True</field>
+        <field name="is_company">True</field>
+        <field name="customer">False</field>
+    </record>
 </odoo>
