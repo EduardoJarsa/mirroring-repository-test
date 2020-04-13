@@ -153,7 +153,7 @@ class ImportSaleOrderWizard(models.TransientModel):
             }
         else:
             res = {
-                'name': line['Descrip']
+                'name': line['ProductDescripQuotLine']
             }
         res.update({
             'product_id': product_id.id,
