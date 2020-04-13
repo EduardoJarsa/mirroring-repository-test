@@ -206,7 +206,7 @@ class ImportSaleOrderWizard(models.TransientModel):
         message = (
             _('Columns [%s] are not found in CSV file, '
                 'please check for misspelling or extra spaces.')
-            % (cols_error))
+            % cols_error)
         raise ValidationError(message)
 
     @api.multi

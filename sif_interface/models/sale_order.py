@@ -342,5 +342,6 @@ class SaleOrderLine(models.Model):
         for rec in self:
             rec.service_extended = \
                 rec.iho_price_list * rec.iho_factor * \
+                (1 - (rec.customer_discount / 100)) * \
                 (rec.iho_service_factor-1) * \
                 rec.product_uom_qty * rec.iho_tc
