@@ -11,9 +11,12 @@
             </xpath>
             <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="currency_agreed_rate"/>
-                <field name="extra_expenses"/>
-                <field name="show_service_cost"/>
+                <field name="show_service_total"/>
                 <field name="is_bom" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='amount_untaxed']" position="before">
+                <field name="service_total"/>
+                <field name="extra_expenses"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="before">
                 <field name="iho_price_list" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>

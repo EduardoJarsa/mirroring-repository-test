@@ -10,8 +10,19 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     currency_agreed_rate = fields.Float(default=1.0,)
-    extra_expenses = fields.Float(default=0.0, )
-    show_service_cost = fields.Selection(
+    extra_expenses = fields.Float(
+        digits=dp.get_precision('Product Price'),
+        default=0.0,
+        help="Expenses to add to the total of the order",
+    )
+    service_total = fields.Float(
+        digits=dp.get_precision('Product Price'),
+        default=0.0,
+        compute="_compute_service_total",
+        store=True,
+        help="Total cost of the service of the order",
+    )
+    show_service_total = fields.Selection(
         selection=[('not-shown', 'Not shown'), ('at-lines', 'At each line'),
                    ('sub-total', 'As a subtotal'), ],
         default='at-lines', required=True, )
@@ -59,6 +70,13 @@ class SaleOrder(models.Model):
     def _compute_is_bom(self):
         for rec in self:
             rec.is_bom = any(rec.order_line.mapped('product_id.bom_ids'))
+
+    @api.multi
+    @api.depends('order_line')
+    def _compute_service_total(self):
+        for rec in self:
+            rec.service_total = sum(
+                line.service_extended for line in rec.order_line)
 
 
 class SaleOrderLine(models.Model):
