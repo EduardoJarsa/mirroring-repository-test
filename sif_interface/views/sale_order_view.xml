@@ -46,14 +46,16 @@
                         <field name="iho_sell_2"/>
                         <field name="iho_sell_3"/>
                         <field name="iho_sell_4"/>
+                        <p/>
                         <field name="service_extended"/>
+                        <field name="product_extended"/>
                     </group>
                     <group>
                         <field name="iho_factor"/>
                         <field name="customer_discount"/>
                         <field name="iho_service_factor"/>
                         <field name="iho_tc" attrs="{'readonly': True}"/>
-                        <p/>
+                        <p/><p/>
                         <field name="discount_extended"/>
                     </group>
                     <group>
