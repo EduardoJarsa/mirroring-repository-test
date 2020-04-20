@@ -116,32 +116,39 @@ class SaleOrderLine(models.Model):
     def _onchange_customer_discount(self):
         if self.customer_discount < 0 or self.customer_discount > 100:
             raise ValidationError(
-                _('Error: Customer discount must be 0-100'))
+                _('Error: Customer discount must be [0-100]'))
 
     @api.onchange('iho_factor')
     def _onchange_iho_factor(self):
         if self.iho_factor < 1 or self.iho_factor > 3.99:
             raise ValidationError(
-                _('Error: Factor must be 1-9.99'))
+                _('Error: Factor must be [1-9.99]'))
 
     @api.onchange('iho_service_factor')
     def _onchange_iho_service_factor(self):
-        if self.iho_service_factor < 1 or self.iho_service_factor > 1.99:
+        if self.product_id.type in ('product', 'consu') and\
+                (self.iho_service_factor < 1 or
+                 self.iho_service_factor > 1.99):
             raise ValidationError(
                 _('Error: Service factor must be 1-1.99'))
+        if self.product_id.type == 'service' and self.iho_service_factor != 1:
+                raise ValidationError(
+                    _('Error: Service factor must be [1]')
+                )
 
     @api.onchange('iho_tc')
     def _onchange_iho_tc(self):
         if self.iho_tc < 1 or self.iho_tc > 39.99:
             raise ValidationError(
-                _('Error: TC Agreed must be 1-39.99'))
+                _('Error: TC Agreed must be [1-39.99]'))
 
     #
     @api.model
     def _product_int_ref(self):
         int_ref = self.product_id.default_code
-        if not int_ref:
-            int_ref = self.name[:self.name.find(']')]
+        if not int_ref or self.product_id == \
+                self.env.ref('sif_interface.product_product_dummy'):
+            int_ref = self.name[1:self.name.find(']')]
         return int_ref
 
     # Field level validation at saving time
@@ -149,13 +156,17 @@ class SaleOrderLine(models.Model):
     def _onchange_dealer_discount(self):
         if self.dealer_discount < 0 or self.dealer_discount > 100:
             raise ValidationError(
-                _('Error: Dealer discount must be 0-100'))
+                _('Error: Column "Dealer discount" at [%s] has value of [%s] '
+                  'and must be [0-100]') %
+                (self._product_int_ref(), self.dealer_discount))
 
     @api.constrains('customer_discount')
     def _constrains_customer_discount(self):
         if self.customer_discount < 0 or self.customer_discount > 100:
             raise ValidationError(
-                _('Error: Customer discount must be 0-100'))
+                _('Error: Column "Customer discount" at [%s] has value '
+                  ' of [%s] and must be [0-100]') %
+                (self._product_int_ref(), self.customer_discount))
 
     @api.constrains('iho_factor')
     def _constrains_iho_factor(self):
@@ -167,9 +178,19 @@ class SaleOrderLine(models.Model):
 
     @api.constrains('iho_service_factor')
     def _constrains_iho_service_factor(self):
-        if self.iho_service_factor < 1 or self.iho_service_factor > 1.99:
+        if self.product_id.type in ('product', 'consu') and\
+                (self.iho_service_factor < 1 or
+                 self.iho_service_factor > 1.99):
             raise ValidationError(
-                _('Error: Service factor must be 1-1.99'))
+                _('Error: Column "Service factor" at [%s] has value of [%s] '
+                  'and must be [1-1.99]') %
+                (self._product_int_ref(), self.iho_service_factor))
+        if self.product_id.type == 'service' and \
+                self.iho_service_factor != 1.0:
+            raise ValidationError(
+                _('Error: Column "Service factor" at [%s] has value of '
+                  '[%s] and must be [1]') %
+                (self._product_int_ref(), self.iho_service_factor))
 
     @api.constrains('iho_tc')
     def _constrains_iho_tc(self):
@@ -314,4 +335,4 @@ class SaleOrderLine(models.Model):
                     (1 - (rec.customer_discount / 100)) * \
                     rec.product_uom_qty * rec.iho_tc
             else:
-                rec.product_extended = 0
+                rec.product_extended = 0.0
