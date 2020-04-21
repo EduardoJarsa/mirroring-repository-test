@@ -15,7 +15,9 @@
                 <field name="is_bom" invisible="1"/>
             </xpath>
             <xpath expr="//field[@name='amount_untaxed']" position="before">
+                <field name="product_total"/>
                 <field name="service_total"/>
+                <field name="discount_total"/>
                 <field name="extra_expenses"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="before">
@@ -46,7 +48,6 @@
                         <field name="iho_sell_2"/>
                         <field name="iho_sell_3"/>
                         <field name="iho_sell_4"/>
-                        <p/>
                         <field name="service_extended"/>
                         <field name="product_extended"/>
                     </group>
@@ -69,9 +70,9 @@
                 </group>
                 <group attrs="{'invisible': ['|', ('is_bom_line', '!=', False), ('display_type', '!=', False)]}">
                     <group>
-                        <field name="is_bom_line" invisible="1"/>
                         <field name="catalog_id"/>
                         <field name="family_id"/>
+                        <field name="is_bom_line" invisible="1"/>
                     </group>
                 </group>
             </xpath>

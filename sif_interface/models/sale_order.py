@@ -13,6 +13,8 @@ class SaleOrder(models.Model):
     extra_expenses = fields.Float(
         digits=dp.get_precision('Product Price'),
         default=0.0,
+        compute="_compute_extra_expenses",
+        store=True,
         help="Expenses to add to the total of the order",
     )
     service_total = fields.Float(
@@ -21,6 +23,20 @@ class SaleOrder(models.Model):
         compute="_compute_service_total",
         store=True,
         help="Total cost of the service of the order",
+    )
+    discount_total = fields.Float(
+        digits=dp.get_precision('Product Price'),
+        default=0.0,
+        compute="_compute_discount_total",
+        store=True,
+        help="Total value of discount of the order",
+    )
+    product_total = fields.Float(
+        digits=dp.get_precision('Product Price'),
+        default=0.0,
+        compute="_compute_product_total",
+        store=True,
+        help="Total cost of the products of the order",
     )
     show_service_total = fields.Selection(
         selection=[('not-shown', 'Not shown'), ('at-lines', 'At each line'),
@@ -65,15 +81,35 @@ class SaleOrder(models.Model):
                 _('You cannot set an agreed rate when the Sale Order currency '
                   'is different from the company currency'))
 
-    @api.multi
     @api.depends('order_line')
     def _compute_is_bom(self):
         for rec in self:
             rec.is_bom = any(rec.order_line.mapped('product_id.bom_ids'))
 
-    @api.multi
     @api.depends('order_line')
     def _compute_service_total(self):
         for rec in self:
             rec.service_total = sum(
                 line.service_extended for line in rec.order_line)
+
+    @api.depends('order_line')
+    def _compute_discount_total(self):
+        for rec in self:
+            rec.discount_total = sum(
+                line.discount_extended for line in rec.order_line)
+
+    @api.depends('order_line')
+    def _compute_product_total(self):
+        for rec in self:
+            rec.product_total = sum(
+                line.product_extended for line in rec.order_line)
+
+    @api.depends('order_line')
+    def _compute_extra_expenses(self):
+        for rec in self:
+            rec.extra_expenses = sum(
+                line.price_subtotal for line in rec.order_line.filtered(
+                    lambda l: l.product_id ==
+                    self.env.ref('sif_interface.product_product_extraexpenses')
+                )
+            )
