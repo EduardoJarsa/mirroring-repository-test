@@ -132,8 +132,7 @@ class SaleOrderLine(models.Model):
             raise ValidationError(
                 _('Error: Service factor must be 1-1.99'))
         if self.product_id.type == 'service' and self.iho_service_factor != 1:
-            raise ValidationError(
-                 _('Error: Service factor must be [1]'))
+            raise ValidationError(_('Error: Service factor must be [1]'))
 
     @api.onchange('iho_tc')
     def _onchange_iho_tc(self):
@@ -172,7 +171,7 @@ class SaleOrderLine(models.Model):
         if self.iho_factor < 1 or self.iho_factor > 3.99:
             raise ValidationError(
                 _('Error: Column "Factor" at [%s] has value of [%s] '
-                  'and must be [1-9.99]') %
+                  'and must be [1-3.99]') %
                 (self._product_int_ref(), self.iho_factor))
 
     @api.constrains('iho_service_factor')
