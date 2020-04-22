@@ -89,8 +89,12 @@ class SaleOrder(models.Model):
     @api.depends('order_line')
     def _compute_service_total(self):
         for rec in self:
-            rec.service_total = sum(
-                line.service_extended for line in rec.order_line)
+            rec.service_total = \
+                sum(line.service_extended for line in rec.order_line) + \
+                sum(line.price_subtotal for line in rec.order_line.filtered(
+                    lambda l: l.product_id ==
+                    self.env.ref('sif_interface.product_product_service')
+                ))
 
     @api.depends('order_line')
     def _compute_discount_total(self):
