@@ -103,14 +103,7 @@ class SaleOrderLine(models.Model):
 
     catalog_id = fields.Many2one('iho.catalog', string='Catalog')
     family_id = fields.Many2one('iho.family', string='Family')
-    # show_service_cost = fields.Char(compute="_compute_show_service_cost")
-
-    # @api.multi
-    # @api.depends('order_line','show_service_cost')
-    # def _compute_show_service_cost(self):
-    #     for rec in self:
-    #         rec.show_service_cost = rec.order_id.show_service_cost
-
+ 
     # Field level validation at entry time
     @api.onchange('customer_discount')
     def _onchange_customer_discount(self):
@@ -300,7 +293,7 @@ class SaleOrderLine(models.Model):
                  'customer_discount', 'product_uom_qty')
     def _compute_discount_extended(self):
         for rec in self:
-            rec.discount_extended = \
+            rec.discount_extended = -\
                 rec.iho_price_list * rec.iho_factor * \
                 rec.customer_discount/100 * rec.iho_tc * rec.product_uom_qty
 
