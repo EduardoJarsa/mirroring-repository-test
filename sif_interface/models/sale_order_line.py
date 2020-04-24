@@ -52,8 +52,8 @@ class SaleOrderLine(models.Model):
         string='Service Factor',
         default=1.06,
         digits=dp.get_precision('Precision Sale Terms'),
-        help='Factor Service charges [1 - 1.99] Values: 1.06 or $150 usd;  '
-             'and 12.5% or 250 usd for textiles.',
+        help='Allowed Service Factor values [1 - 1.99], standard of 1.06'
+             ' or $150 usd; and 1.125 or 250 usd for textiles.',
     )
     iho_currency_id = fields.Many2one(
         'res.currency',
@@ -103,7 +103,7 @@ class SaleOrderLine(models.Model):
 
     catalog_id = fields.Many2one('iho.catalog', string='Catalog')
     family_id = fields.Many2one('iho.family', string='Family')
- 
+
     # Field level validation at entry time
     @api.onchange('customer_discount')
     def _onchange_customer_discount(self):
@@ -123,7 +123,7 @@ class SaleOrderLine(models.Model):
                 (self.iho_service_factor < 1 or
                  self.iho_service_factor > 1.99):
             raise ValidationError(
-                _('Error: Service factor must be 1-1.99'))
+                _('Error: Service factor must be [1-1.99]'))
         if self.product_id.type == 'service' and self.iho_service_factor != 1:
             raise ValidationError(_('Error: Service factor must be [1]'))
 
