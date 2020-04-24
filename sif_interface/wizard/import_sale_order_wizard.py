@@ -86,6 +86,22 @@ class ImportSaleOrderWizard(models.TransientModel):
                 line[column_default] = value_default
 
     @api.model
+    def _validate_service_factor(self, service_factor, product_id, index):
+        if not service_factor:
+            service_factor = 1
+        if product_id.type in ('product', 'consu') and \
+                (service_factor < 1 or service_factor > 1.99):
+            raise ValidationError(
+                _('Error CSV line [%s]: Column "Service factor" has '
+                  'value of [%s] and must be [1-1.99]') %
+                (index, service_factor))
+        if product_id.type == 'service' and service_factor != 1:
+            raise ValidationError(
+                _('Error CSV line [%s]: Column "Service factor" in a '
+                  'service line has value of [%s] and must be [1]') %
+                (index, service_factor))
+
+    @api.model
     def _prepare_sale_order_line(self, line, sale_order, index):
         self._add_default_values(line, sale_order)
         self._check_col_name(line)
@@ -93,6 +109,7 @@ class ImportSaleOrderWizard(models.TransientModel):
         pricelist = self.to_float(line, 'PriceListQuotLine')
         iho_purchase_cost = pricelist * (100 - customer_discount) / 100
         supplier_reference = line.get('MakerQuotLine', False)
+        # catalog_id
         catalog = line.get('CatalogQuotLine', False)
         catalog_id = False
         if catalog:
@@ -103,6 +120,7 @@ class ImportSaleOrderWizard(models.TransientModel):
                     'name': catalog,
                 }
                 catalog_id = self.env['iho.catalog'].create(new_catalog)
+        # family_id
         family_id = False
         family = line.get('FamilyQuotLine', False)
         if family:
@@ -113,6 +131,7 @@ class ImportSaleOrderWizard(models.TransientModel):
                     'name': family,
                 }
                 family_id = self.env['iho.family'].create(new_family)
+        # partner_id
         partner = self.env['res.partner'].search(
             [('ref', '=', supplier_reference), (
                 'supplier', '=', True)], limit=1)
@@ -122,6 +141,7 @@ class ImportSaleOrderWizard(models.TransientModel):
                   'a supplier with internal reference [%s] for product %s')
                 % (index, supplier_reference, line['ProductDescripQuotLine'])
             )
+        # default_code
         default_code = line.get('ProductCodeQuotLine', False)
         dummy_product = False
         if default_code:
@@ -138,26 +158,15 @@ class ImportSaleOrderWizard(models.TransientModel):
         else:
             dummy_product = self.env.ref('sif_interface.product_product_dummy')
             product_id = dummy_product
+        # iho_currency
         iho_currency = line.get('PurchCurrencyQuotLine', False)
         if not iho_currency:
             iho_currency = 'USD'
         iho_currency_id = self.env['res.currency'].search(
             [('name', '=', iho_currency)])
+        # service_factor
         service_factor = self.to_float(line, 'ServiceFactorQuotLine')
-        if service_factor:
-            if product_id.type in ('product', 'consu') and \
-                    (service_factor < 1 or service_factor > 1.99):
-                raise ValidationError(
-                    _('Error CSV line [%s]: Column "Service factor" has '
-                      'value of [%s] and must be [1-1.99]') %
-                    (index, service_factor))
-            if product_id.type == 'service' and service_factor != 1:
-                raise ValidationError(
-                    _('Error CSV line [%s]: Column "Service factor" in a '
-                      'service line has value of [%s] and must be [1]') %
-                    (index, service_factor))
-        else:
-            service_factor = 1
+        self._validate_service_factor(service_factor, product_id, index)
 
         res = False
         if dummy_product:
