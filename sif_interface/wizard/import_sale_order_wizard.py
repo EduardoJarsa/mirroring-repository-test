@@ -118,10 +118,9 @@ class ImportSaleOrderWizard(models.TransientModel):
                 'supplier', '=', True)], limit=1)
         if not partner:
             raise ValidationError(
-                _(
-                    'There is not a supplier with internal reference [%s]'
-                    ' in line %s to product %s')
-                % (supplier_reference, index, line['ProductDescripQuotLine'])
+                _('Error CSV line [%s]: Column "MakerQuotLine" There is not '
+                  'a supplier with internal reference [%s] for product %s')
+                % (index, supplier_reference, line['ProductDescripQuotLine'])
             )
         default_code = line.get('ProductCodeQuotLine', False)
         dummy_product = False
@@ -144,6 +143,21 @@ class ImportSaleOrderWizard(models.TransientModel):
             iho_currency = 'USD'
         iho_currency_id = self.env['res.currency'].search(
             [('name', '=', iho_currency)])
+        service_factor = self.to_float(line, 'ServiceFactorQuotLine')
+        if service_factor:
+            if product_id.type in ('product', 'consu') and \
+                    (service_factor < 1 or service_factor > 1.99):
+                raise ValidationError(
+                    _('Error CSV line [%s]: Column "Service factor" has '
+                      'value of [%s] and must be [1-1.99]') %
+                    (index, service_factor))
+            if product_id.type == 'service' and service_factor != 1:
+                raise ValidationError(
+                    _('Error CSV line [%s]: Column "Service factor" in a '
+                      'service line has value of [%s] and must be [1]') %
+                    (index, service_factor))
+        else:
+            service_factor = 1
 
         res = False
         if dummy_product:
@@ -161,7 +175,7 @@ class ImportSaleOrderWizard(models.TransientModel):
             'iho_price_list': pricelist,
             'iho_purchase_cost': iho_purchase_cost,
             'iho_tc': self.to_float(line, 'ExchRateQuotLine'),
-            'iho_service_factor': self.to_float(line, 'ServiceFactorQuotLine'),
+            'iho_service_factor': service_factor,
             'customer_discount': customer_discount,
             'iho_factor': self.to_float(line, 'FactorQuotLine'),
             'vendor_id': partner.id,
