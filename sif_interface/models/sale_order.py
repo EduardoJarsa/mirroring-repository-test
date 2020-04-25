@@ -60,10 +60,11 @@ class SaleOrder(models.Model):
 
     @api.constrains('currency_agreed_rate', 'extra_expenses')
     def _check_negative_values_header(self):
-        if self.currency_agreed_rate <= 0 or self.extra_expenses < 0:
-            raise ValidationError(
-                _('Negative values are not allowed for Currency'
-                  ' or Extra expenses'))
+        for rec in self:
+            if rec.currency_agreed_rate <= 0 or rec.extra_expenses < 0:
+                raise ValidationError(
+                    _('Negative values are not allowed for Currency'
+                      ' or Extra expenses'))
 
     @api.onchange('currency_agreed_rate', 'pricelist_id', 'company_id')
     def _onchange_currency_agreed_rate(self):
@@ -88,13 +89,19 @@ class SaleOrder(models.Model):
 
     @api.depends('order_line')
     def _compute_service_total(self):
+        product_product_service = \
+            self.env.ref('sif_interface.product_product_service',
+                         raise_if_not_found=False)
         for rec in self:
+            if not product_product_service:
+                rec.service_total = 0
+                continue
             rec.service_total = \
                 sum(line.service_extended for line in rec.order_line) + \
-                sum(line.price_subtotal for line in rec.order_line.filtered(
-                    lambda l: l.product_id ==
-                    self.env.ref('sif_interface.product_product_service')
-                ))
+                sum(line.price_subtotal
+                    for line in rec.order_line.filtered(
+                        lambda l: l.product_id == product_product_service)
+                    )
 
     @api.depends('order_line')
     def _compute_discount_total(self):
@@ -110,10 +117,16 @@ class SaleOrder(models.Model):
 
     @api.depends('order_line')
     def _compute_extra_expenses(self):
+        product_product_extraexpenses = \
+            self.env.ref('sif_interface.product_product_extraexpenses',
+                         raise_if_not_found=False)
         for rec in self:
-            rec.extra_expenses = sum(
-                line.price_subtotal for line in rec.order_line.filtered(
-                    lambda l: l.product_id ==
-                    self.env.ref('sif_interface.product_product_extraexpenses')
-                )
-            )
+            if not product_product_extraexpenses:
+                rec.extra_expenses = 0
+                continue
+            rec.extra_expenses = \
+                sum(line.price_subtotal
+                    for line in rec.order_line.filtered(
+                        lambda l:
+                        l.product_id == product_product_extraexpenses)
+                    )

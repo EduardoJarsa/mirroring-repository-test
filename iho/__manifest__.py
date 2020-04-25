@@ -31,6 +31,7 @@
         'l10n_mx_edi_payment_bank',
         'l10n_mx_reports',
         'l10n_mx_tax_cash_basis',
+        'sif_interface',
         'ui_simplification',
     ],
     'data': [
