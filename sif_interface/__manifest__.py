@@ -19,8 +19,8 @@
         'l10n_mx_edi',
     ],
     'data': [
-        'data/sif_interface_data.xml',
         'data/res_partner_data.xml',
+        'data/sif_interface_data.xml',
         'data/product_product_data.xml',
         'data/decimal_precision_data.xml',
         'wizard/import_sale_order_wizard.xml',
