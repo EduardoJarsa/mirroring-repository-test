@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sale_term_category_TE" model="sale.term.category">
+        <field name="name">TE</field>
+        <field name="sequence">100</field>
+    </record>
+    <record id="sale_term_category_Pago" model="sale.term.category">
+        <field name="name">Pago</field>
+        <field name="sequence">200</field>
+    </record>
+    <record id="sale_term_category_Canc" model="sale.term.category">
+        <field name="name">Canc</field>
+        <field name="sequence">300</field>
+    </record>
+    <record id="sale_term_category_Garant" model="sale.term.category">
+        <field name="name">Garant</field>
+        <field name="sequence">400</field>
+    </record>
+    <record id="sale_term_category_Serv" model="sale.term.category">
+        <field name="name">Serv</field>
+        <field name="sequence">500</field>
+    </record>
+    <record id="sale_term_category_Grales" model="sale.term.category">
+        <field name="name">Grales</field>
+        <field name="sequence">600</field>
+    </record>
+</odoo>

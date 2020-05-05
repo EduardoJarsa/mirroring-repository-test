@@ -22,5 +22,6 @@
         'reports/report_papaerformat.xml',
         'security/security.xml',
         'security/ir.model.access.csv',
+        'data/sale_term_category.xml',
     ],
 }

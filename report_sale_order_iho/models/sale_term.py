@@ -11,7 +11,9 @@ class SaleTerm(models.Model):
     _order = 'sequence asc'
     _rec_name = 'code'
 
-    name = fields.Text(required=True, translate=True)
+    name = fields.Text(
+        required=True, translate=True,
+        help="Python code field using 'order' as model",)
     sequence = fields.Integer(required=True, default=10)
     default = fields.Boolean()
     order_id = fields.Many2one('sale.order')
