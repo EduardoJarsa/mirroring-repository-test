@@ -1,4 +1,5 @@
 # Copyright 2019, Jarsa Sistemas, S.A. de C.V.
+# Copyright 2020, MtNet Services, S.A. de C.V.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 from odoo import _, api, fields, models
@@ -7,7 +8,7 @@ from odoo.tools.safe_eval import safe_eval
 
 class SaleTerm(models.Model):
     _name = 'sale.term'
-    _description = 'Catalog of Sale Terms'
+    _description = 'Sale Terms and Conditions'
     _order = 'sequence asc'
     _rec_name = 'code'
 

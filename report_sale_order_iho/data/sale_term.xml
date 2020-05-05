@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="sale_term_TE_tit" model="sale.term">
+        <field name="code">te_tit</field>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_TE"/>
+        <field name="default">False</field>
+        <field name="sequence">101</field>
+        <field name="name">"<b>Tiempo de entrega</b>"</field>
+    </record>
+    <record id="sale_term_Pago_tit" model="sale.term">
+        <field name="code">pago_tit</field>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_Pago"/>
+        <field name="default">False</field>
+        <field name="sequence">201</field>
+        <field name="name">"<b>Pagos</b>"</field>
+    </record>
+    <record id="sale_term_Canc_tit" model="sale.term">
+        <field name="code">canc_tit</field>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_Canc"/>
+        <field name="default">False</field>
+        <field name="sequence">301</field>
+        <field name="name">"<b>Cancelaciones</b>"</field>
+    </record>
+    <record id="sale_term_Garant_tit" model="sale.term">
+        <field name="code">garant_tit</field>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_Garant"/>
+        <field name="default">False</field>
+        <field name="sequence">401</field>
+        <field name="name">"<b>Garantias</b>"</field>
+    </record>
+    <record id="sale_term_Serv_tit" model="sale.term">
+        <field name="code">serv_tit</field>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_Serv"/>
+        <field name="default">False</field>
+        <field name="sequence">501</field>
+        <field name="name">"<b>Servicios</b>"</field>
+    </record>
+    <record id="sale_term_Grales_tit" model="sale.term">
+        <field name="code">grales_tit</field>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_Grales"/>
+        <field name="default">False</field>
+        <field name="sequence">601</field>
+        <field name="name">"<b>Generales</b>"</field>
+    </record>
+</odoo>
