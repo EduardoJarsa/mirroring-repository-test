@@ -23,5 +23,6 @@
         'security/security.xml',
         'security/ir.model.access.csv',
         'data/sale_term_category.xml',
+        'data/sale_term.xml',
     ],
 }
