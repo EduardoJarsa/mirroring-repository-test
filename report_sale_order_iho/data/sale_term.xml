@@ -1,68 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="sale_term_TE_tit" model="sale.term">
+    <record id="sale_term_tyc_tit" model="sale.term">
         <field name="code">te_tit</field>
-        <field name="category_id" ref="report_sale_order_iho.sale_term_category_TE"/>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_tyc"/>
+        <field name="default">False</field>
+        <field name="sequence">003</field>
+        <field name="name">"&lt;b&gt;Términos y Condiciones para la Venta de bienes suministrados por IHO.&lt;/b&gt;"</field>
+    </record>
+    
+    <record id="sale_term_te_tit" model="sale.term">
+        <field name="code">te_tit</field>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_te"/>
         <field name="default">False</field>
         <field name="sequence">103</field>
         <field name="name">"&lt;b&gt;Tiempo de entrega&lt;/b&gt;"</field>
     </record>
-    <record id="sale_term_TE_delivery" model="sale.term">
+    <record id="sale_term_te_delivery" model="sale.term">
         <field name="code">te_delivery</field>
-        <field name="category_id" ref="report_sale_order_iho.sale_term_category_TE"/>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_te"/>
         <field name="default">False</field>
         <field name="sequence">113</field>
         <field name="name">"El tiempo de entrega es de &lt;b&gt;"+order.delivery+"&lt;/b&gt;"</field>
     </record>
-    <record id="sale_term_TE_incoterm" model="sale.term">
+    <record id="sale_term_te_incoterm" model="sale.term">
         <field name="code">te_incoterm</field>
-        <field name="category_id" ref="report_sale_order_iho.sale_term_category_TE"/>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_te"/>
         <field name="default">False</field>
         <field name="sequence">116</field>
-        <field name="name">"Producto &lt;b&gt;"+order.incoterm.name+"&lt;/b&gt; "+order.incoterm_spec</field>
+        <field name="name">"Producto &lt;b&gt;"+order.incoterm.name+", "+order.incoterm.code+"&lt;/b&gt; "+order.incoterm_spec</field>
     </record>
     
-    <record id="sale_term_Pago_tit" model="sale.term">
+    <record id="sale_term_pago_tit" model="sale.term">
         <field name="code">pago_tit</field>
-        <field name="category_id" ref="report_sale_order_iho.sale_term_category_Pago"/>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_pago"/>
         <field name="default">False</field>
-        <field name="sequence">203</field>
+        <field name="sequence">201</field>
         <field name="name">"&lt;b&gt;Pagos&lt;/b&gt;"</field>
     </record>
-    <record id="sale_term_Pago_moneda" model="sale.term">
+    <record id="sale_term_pago_moneda" model="sale.term">
         <field name="code">pago_moneda</field>
-        <field name="category_id" ref="report_sale_order_iho.sale_term_category_Pago"/>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_pago"/>
         <field name="default">False</field>
         <field name="sequence">213</field>
         <field name="name">"Todos los precios están expresados en &lt;b&gt;"+order.pricelist_id.name+"&lt;/b&gt;"</field>
     </record>
+    <record id="sale_term_pago_masiva" model="sale.term">
+        <field name="code">pago_masiva</field>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_pago"/>
+        <field name="default">False</field>
+        <field name="sequence">216</field>
+        <field name="name">"Precios &lt;b&gt;mas&lt;/b&gt; iva"</field>
+    </record>
+    <record id="sale_term_pago_tcpagomxn" model="sale.term">
+        <field name="code">pago_tcpagomxn</field>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_pago"/>
+        <field name="default">False</field>
+        <field name="sequence">219</field>
+        <field name="name">"En caso de pagar en Pesos, se tomará como referencia el &lt;b&gt;tipo de cambio bancario a la venta, del día de pago&lt;/b&gt;"</field>
+    </record>
+    <record id="sale_term_pago_condicpago" model="sale.term">
+        <field name="code">pago_condicpago</field>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_pago"/>
+        <field name="default">False</field>
+        <field name="sequence">221</field>
+        <field name="name">"Condiciones de pago &lt;b&gt;"+order.payment_term_id.name+"&lt;/b&gt;"</field>
+    </record>
+    <record id="sale_term_pago_10natmorat" model="sale.term">
+        <field name="code">pago_10natmorat</field>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_pago"/>
+        <field name="default">False</field>
+        <field name="sequence">224</field>
+        <field name="name">"""&lt;p&gt;Los pagos deben realizarse dentro de los 10 primeros días naturales después de emitida la factura correspondiente&lt;/p&gt;
+            &lt;p&gt;IHO se reserva el derecho de o entregar e instalar en caso de que el cliente esté atrasado en sus pagos&lt;/p&gt;
+            &lt;p&gt;En caso de que por motivos imputables al cliente, el producto no pueda ser entregado, no limita el cobro del mismo&lt;/p&gt;
+            &lt;p&gt;En caso de retrasos en pagos a productos ya entregados, se hará un cargo moratorio a razón de 1% mensual y hasta un 10% máximo&lt;/p&gt;"""</field>
+    </record>
     
-    <record id="sale_term_Canc_tit" model="sale.term">
+    <record id="sale_term_canc_tit" model="sale.term">
         <field name="code">canc_tit</field>
-        <field name="category_id" ref="report_sale_order_iho.sale_term_category_Canc"/>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_canc"/>
         <field name="default">False</field>
         <field name="sequence">303</field>
         <field name="name">"&lt;b&gt;Cancelaciones&lt;/b&gt;"</field>
     </record>
-    <record id="sale_term_Garant_tit" model="sale.term">
+    <record id="sale_term_canc_fabrica" model="sale.term">
+        <field name="code">canc_fabrica</field>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_canc"/>
+        <field name="default">False</field>
+        <field name="sequence">306</field>
+        <field name="name">"Una vez ingresados los pedidos a fábrica, no serán aceptados cambios ni cancelaciones"</field>
+    </record>
+
+    <record id="sale_term_garant_tit" model="sale.term">
         <field name="code">garant_tit</field>
-        <field name="category_id" ref="report_sale_order_iho.sale_term_category_Garant"/>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_garant"/>
         <field name="default">False</field>
         <field name="sequence">403</field>
         <field name="name">"&lt;b&gt;Garantias&lt;/b&gt;"</field>
     </record>
-    <record id="sale_term_Serv_tit" model="sale.term">
+    <record id="sale_term_garant_std" model="sale.term">
+        <field name="code">garant_std</field>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_garant"/>
+        <field name="default">False</field>
+        <field name="sequence">406</field>
+        <field name="name">"""&lt;p&gt;IHO Espacios, garantiza todos sus productos contra defectos de materiales y/o fabricación de acuerdo a la garantía específica del producto que emitirá directamente cada fabricante, misma que sea entregada al Cliente&lt;/p&gt;
+            &lt;p&gt;Durante el periodo de garantía, cualquier defecto será reparado por IHO Espacios o por personal contratado, mediante compostura o reposición de la(s) parte(s) defectuosa(s)&lt;/p&gt;
+            &lt;p&gt;La garantía no cubre ninguno de los siguientes casos: A) tapices con telas del cliente, aunque la misma haya sido aceptada por el fabricante para este fin. B) Daños en pinturas o esmaltes causado por arrastre, negligencia o mal uso del producto. C) Daños ocasionados a productos por uso equivocado, almacenamiento, instalación, trato inadecuado, influencias por causas climáticas, por negligencia por personal del cliente o por actos de terceros&lt;/p&gt;
+            &lt;p&gt;Las reposiciones por garantía no son motivo de la retención en los pagos. Únicamente podría retenerse el monto correspondiente a los productos afectados.&lt;/p&gt;"""</field>
+    </record>
+
+    <record id="sale_term_serv_tit" model="sale.term">
         <field name="code">serv_tit</field>
-        <field name="category_id" ref="report_sale_order_iho.sale_term_category_Serv"/>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_serv"/>
         <field name="default">False</field>
         <field name="sequence">503</field>
         <field name="name">"&lt;b&gt;Servicios&lt;/b&gt;"</field>
     </record>
-    <record id="sale_term_Grales_tit" model="sale.term">
+    <record id="sale_term_grales_tit" model="sale.term">
         <field name="code">grales_tit</field>
-        <field name="category_id" ref="report_sale_order_iho.sale_term_category_Grales"/>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_grales"/>
         <field name="default">False</field>
         <field name="sequence">603</field>
         <field name="name">"&lt;b&gt;Generales&lt;/b&gt;"</field>
+    </record>
+    <record id="sale_term_grales_std" model="sale.term">
+        <field name="code">grales_std</field>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_grales"/>
+        <field name="default">False</field>
+        <field name="sequence">606</field>
+        <field name="name">"""&lt;p&gt;Para colocar un pedido se requiere de una orden de compra o un contrato firmado, ésta cotización firmada, los acabados firmados y el pago del anticipo&lt;/p&gt;
+            &lt;p&gt;La aceptación de ésta cotización implica la aceptación de estos términos y condiciones&lt;/p&gt;
+            &lt;p&gt;Los precios pueden cambiar según acabados seleccionados por el cliente y/o cambios en las cantidades solicitadas&lt;/p&gt;
+            &lt;p&gt;Los precios de esta cotizacion no incluyen fianzas&lt;/p&gt;
+            &lt;p&gt;Cotización vigente hasta &lt;b&gt;"""+order.validity_date.strftime('%d/%b/%Y')+"&lt;/b&gt;.&lt;/p&gt;"</field>
     </record>
 </odoo>
