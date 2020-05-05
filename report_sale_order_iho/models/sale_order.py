@@ -64,6 +64,7 @@ class SaleOrder(models.Model):
     delivery = fields.Text('Delivery time')
     sale_order_term_ids = fields.One2many(
         'sale.order.term', 'order_id', string='Terms and Conditions')
+    incoterm_spec = fields.Text()
 
     @api.model
     def create(self, values):

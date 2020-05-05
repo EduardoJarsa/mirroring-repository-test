@@ -4,42 +4,65 @@
         <field name="code">te_tit</field>
         <field name="category_id" ref="report_sale_order_iho.sale_term_category_TE"/>
         <field name="default">False</field>
-        <field name="sequence">101</field>
+        <field name="sequence">103</field>
         <field name="name">"&lt;b&gt;Tiempo de entrega&lt;/b&gt;"</field>
     </record>
+    <record id="sale_term_TE_delivery" model="sale.term">
+        <field name="code">te_delivery</field>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_TE"/>
+        <field name="default">False</field>
+        <field name="sequence">113</field>
+        <field name="name">"El tiempo de entrega es de &lt;b&gt;"+order.delivery+"&lt;/b&gt;"</field>
+    </record>
+    <record id="sale_term_TE_incoterm" model="sale.term">
+        <field name="code">te_incoterm</field>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_TE"/>
+        <field name="default">False</field>
+        <field name="sequence">116</field>
+        <field name="name">"Producto &lt;b&gt;"+order.incoterm.name+"&lt;/b&gt; "+order.incoterm_spec</field>
+    </record>
+    
     <record id="sale_term_Pago_tit" model="sale.term">
         <field name="code">pago_tit</field>
         <field name="category_id" ref="report_sale_order_iho.sale_term_category_Pago"/>
         <field name="default">False</field>
-        <field name="sequence">201</field>
+        <field name="sequence">203</field>
         <field name="name">"&lt;b&gt;Pagos&lt;/b&gt;"</field>
     </record>
+    <record id="sale_term_Pago_moneda" model="sale.term">
+        <field name="code">pago_moneda</field>
+        <field name="category_id" ref="report_sale_order_iho.sale_term_category_Pago"/>
+        <field name="default">False</field>
+        <field name="sequence">213</field>
+        <field name="name">"Todos los precios están expresados en &lt;b&gt;"+order.pricelist_id.name+"&lt;/b&gt;"</field>
+    </record>
+    
     <record id="sale_term_Canc_tit" model="sale.term">
         <field name="code">canc_tit</field>
         <field name="category_id" ref="report_sale_order_iho.sale_term_category_Canc"/>
         <field name="default">False</field>
-        <field name="sequence">301</field>
+        <field name="sequence">303</field>
         <field name="name">"&lt;b&gt;Cancelaciones&lt;/b&gt;"</field>
     </record>
     <record id="sale_term_Garant_tit" model="sale.term">
         <field name="code">garant_tit</field>
         <field name="category_id" ref="report_sale_order_iho.sale_term_category_Garant"/>
         <field name="default">False</field>
-        <field name="sequence">401</field>
+        <field name="sequence">403</field>
         <field name="name">"&lt;b&gt;Garantias&lt;/b&gt;"</field>
     </record>
     <record id="sale_term_Serv_tit" model="sale.term">
         <field name="code">serv_tit</field>
         <field name="category_id" ref="report_sale_order_iho.sale_term_category_Serv"/>
         <field name="default">False</field>
-        <field name="sequence">501</field>
+        <field name="sequence">503</field>
         <field name="name">"&lt;b&gt;Servicios&lt;/b&gt;"</field>
     </record>
     <record id="sale_term_Grales_tit" model="sale.term">
         <field name="code">grales_tit</field>
         <field name="category_id" ref="report_sale_order_iho.sale_term_category_Grales"/>
         <field name="default">False</field>
-        <field name="sequence">601</field>
+        <field name="sequence">603</field>
         <field name="name">"&lt;b&gt;Generales&lt;/b&gt;"</field>
     </record>
 </odoo>

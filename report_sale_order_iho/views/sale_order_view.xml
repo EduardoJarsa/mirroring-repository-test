@@ -13,6 +13,9 @@
                     </group>
                 </group>
             </xpath>
+            <xpath expr="//field[@name='incoterm']" position="after">
+                <field name="incoterm_spec"/>
+            </xpath>
             <xpath expr="//field[@name='picking_policy']" position="after">
                 <field name="delivery"/>
                 <field name="amount_services"  invisible="1" readonly="0"/>
