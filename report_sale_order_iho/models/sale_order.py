@@ -4,6 +4,7 @@
 from odoo import _, api, fields, models
 from odoo.tools.safe_eval import safe_eval
 from odoo.exceptions import ValidationError
+import pdb
 
 
 class SaleOrderLine(models.Model):
@@ -69,17 +70,17 @@ class SaleOrder(models.Model):
     @api.model
     def create(self, values):
         res = super().create(values)
-        res._generate_terms()
+        res._generate_terms('create')
         return res
 
     @api.multi
     def write(self, values):
         res = super().write(values)
-        self._generate_terms()
+        # self._generate_terms('no_create')
         return res
 
     @api.multi
-    def _generate_terms(self):
+    def _generate_terms(self, default_terms_creation):
         for rec in self:
             context = {
                 'lang': rec.partner_id.lang

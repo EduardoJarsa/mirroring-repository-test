@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-26 20:17+0000\n"
-"PO-Revision-Date: 2019-12-26 20:17+0000\n"
+"POT-Creation-Date: 2020-05-07 22:11+0000\n"
+"PO-Revision-Date: 2020-05-07 22:11+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,115 +16,87 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "&amp;nbsp; in &amp;nbsp;"
+#: model:sale.term,name:report_sale_order_iho.sale_term_serv_std
+msgid "\"\"\"<p>- Esta cotización incluye: Fletes, Maniobras, Descarga, ubicación e instalación según layout aprobado en el momento del pedido y retiro de Empaques.</p>\n"
+"            <p>- Estos precios NO incluyen almacenaje ni reconfiguraciones durante el proceso de instalación. No incluyen horarios nocturnos o de fin de semana.</p>\n"
+"            <p>- Es responsabilidad del cliente tramitar los permisos correspondientes para el ingreso de los trabajadores de IHO Espacios, asi como facilitarles el uso de montacargas o elevadores de servicios. Esta cotizacion contempla que el personal de IHO tiene acceso al montacargas.</p>\n"
+"            <p>- IHO se reserva el derecho de cobrar almacenaje a razón de 250.00 pesos mensuales por metro cúbico, durante el tiempo que la mercancía del cliente permanezca en nuestro poder.</p>\n"
+"            <p>- El cobro de almacenaje mensual no incluye la maniobra de carga y descarga considerada adicional y se cobrará de acuerdo al volumen.</p>\"\"\""
 msgstr ""
 
 #. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "*  Payment conditions:&amp;nbsp;"
+#: model:sale.term,name:report_sale_order_iho.sale_term_garant_std
+msgid "\"\"\"<p>- IHO Espacios, garantiza todos sus productos contra defectos de materiales y/o fabricación de acuerdo a la garantía específica del producto que emitirá directamente cada fabricante, misma que sea entregada al Cliente</p>\n"
+"            <p>- Durante el periodo de garantía, cualquier defecto será reparado por IHO Espacios o por personal contratado, mediante compostura o reposición de la(s) parte(s) defectuosa(s)</p>\n"
+"            <p>- La garantía no cubre ninguno de los siguientes casos: A) tapices con telas del cliente, aunque la misma haya sido aceptada por el fabricante para este fin. B) Daños en pinturas o esmaltes causado por arrastre, negligencia o mal uso del producto. C) Daños ocasionados a productos por uso equivocado, almacenamiento, instalación, trato inadecuado, influencias por causas climáticas, por negligencia por personal del cliente o por actos de terceros</p>\n"
+"            <p>- Las reposiciones por garantía no son motivo de la retención en los pagos. Únicamente podría retenerse el monto correspondiente a los productos afectados.</p>\"\"\""
 msgstr ""
 
 #. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "* Acceptance of this quote implies acceptance of these terms and conditions."
+#: model:sale.term,name:report_sale_order_iho.sale_term_grales_std
+msgid "\"\"\"<p>Para colocar un pedido se requiere de una orden de compra o un contrato firmado, ésta cotización firmada, los acabados firmados y el pago del anticipo</p>\n"
+"            <p>La aceptación de ésta cotización implica la aceptación de estos términos y condiciones</p>\n"
+"            <p>Los precios pueden cambiar según acabados seleccionados por el cliente y/o cambios en las cantidades solicitadas</p>\n"
+"            <p>Los precios de esta cotizacion no incluyen fianzas</p>\n"
+"            <p>Cotización vigente hasta <b>\"\"\"+order.validity_date.strftime('%d/%b/%Y')+\"</b>.</p>\""
 msgstr ""
 
 #. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "* After the first 5 calendar days upon receipt of your purchase order, no changes or cancellations will be accepted."
+#: model:sale.term,name:report_sale_order_iho.sale_term_canc_std
+msgid "\"- Una vez ingresados los pedidos a fábrica, no serán aceptados cambios ni cancelaciones\""
 msgstr ""
 
 #. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "* All prices are expressed in&amp;nbsp; American dollars"
+#: model:sale.term,name:report_sale_order_iho.sale_term_canc_tit
+msgid "\"<b><u>Cancelaciones</u></b>\""
 msgstr ""
 
 #. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "* Delivery time: &amp;nbsp;"
+#: model:sale.term,name:report_sale_order_iho.sale_term_garant_tit
+msgid "\"<b><u>Garantías</u></b>\""
 msgstr ""
 
 #. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "* IHO reserves the right not to deliver and install in case the Client is late in their payments."
+#: model:sale.term,name:report_sale_order_iho.sale_term_grales_tit
+msgid "\"<b><u>Generales</u></b>\""
 msgstr ""
 
 #. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "* In case of delays in payments to products already delivered, a moratorium charge will be made at a rate of 1% per month and up to 10% maximum."
+#: model:sale.term,name:report_sale_order_iho.sale_term_pago_tit
+msgid "\"<b><u>Pagos</u></b>\""
 msgstr ""
 
 #. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "* In case of paying in pesos, the bank exchange rate on sale will be taken as reference, on the day of payment."
+#: model:sale.term,name:report_sale_order_iho.sale_term_serv_tit
+msgid "\"<b><u>Servicios</u></b>\""
 msgstr ""
 
 #. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "* In case that for reasons attributable to the client, the product can not be delivered, it does not limit the collection thereof."
+#: model:sale.term,name:report_sale_order_iho.sale_term_te_tit
+msgid "\"<b><u>Tiempo de entrega</u></b>\""
 msgstr ""
 
 #. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "* Payments must be made within the first 10 calendar days after the corresponding invoice has been issued."
+#: model:sale.term,name:report_sale_order_iho.sale_term_tyc_tit
+msgid "\"<b><u>Términos y Condiciones para la Venta de bienes suministrados por IHO.</u></b>\""
 msgstr ""
 
 #. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "* Prices may change according to the finishes selected by the client and / or changes in the quantities requested."
+#: model:sale.term,name:report_sale_order_iho.sale_term_te_std
+msgid "\"<p>- El tiempo de entrega es de <b>\"+order.delivery+\"\"\"</b> a partir de la recepción de la órden de compra y pago de anticipo</p>\n"
+"            <p>- Producto <b>\"\"\"+order.incoterm.name+\", \"+order.incoterm.code+\"</b> \"+order.incoterm_spec+\"</p>\""
 msgstr ""
 
 #. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "* Prices plus tax."
-msgstr ""
-
-#. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "* Product"
-msgstr ""
-
-#. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "* Quotation valid until"
-msgstr ""
-
-#. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "* The prices of this quote do not include bonds"
-msgstr ""
-
-#. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "* To place an order requires a purchase order or a signed contract, this signed quote, the signed finish and the advance payment."
-msgstr ""
-
-#. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "<span>* IHO Espacios, guarantees all its products against defects in materials and / or manufacture according to the specific product warranty that will be issued directly by each manufacturer, which is delivered to the Customer. </span>\n"
-"                                    <br/>\n"
-"                                    <span>* During the guarantee period, any defect will be repaired by IHO Spaces or by contracted personnel, by means of composing or resposing the defective part (s). </span>\n"
-"                                    <br/>\n"
-"                                    <span>* The guarantee does not cover any of the following cases: a) tapestries with client's cloths, although the same has been accepted by the manufacturer for this purpose. B) Damage to paints or enamels caused by entrainment, negligence or misuse of the product. C) Damages caused to products due to wrong use, storage, installation, inappropriate treatment, influences due to climatic causes, negligence by the customer's personnel or by acts of third parties. </span>\n"
-"                                    <br/>\n"
-"                                    <span>* Warranty replacements are not grounds for withholding payments. Only the amount corresponding to the affected products could be retained. </span>\n"
-"                                    <br/>\n"
-"                                    <br/>"
-msgstr ""
-
-#. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "<span>* This quote includes: Freight, Maneuver, Download, location and installation according to the approved layout at the time of the order and withdrawal of Packages.</span>\n"
-"                                    <br/>\n"
-"                                    <span>* These prices \n"
-"                                        \n"
-"                                        \n"
-"                                        <strong>DO NOT</strong>\n"
-"                                        include storage or reconfigurations during the installation process.</span>\n"
-"                                    <br/>\n"
-"                                    <span>* It is the responsibility of the client to process the corresponding permits for the entrance of IHO Espacios workers, as well as to facilitate the use of forklifts or service elevators. This quote contemplates that IHO personnel have access to the forklift.</span>\n"
-"                                    <br/>"
+#: model:sale.term,name:report_sale_order_iho.sale_term_pago_std
+msgid "\"<p>- Todos los precios están expresados en <b>\"+order.pricelist_id.name+\"\"\"</b></p>\n"
+"            <p>- Precios <b>mas</b> IVA</p>\n"
+"            <p>- En caso de pagar en Pesos, se tomará como referencia el <b>tipo de cambio bancario a la venta, del día de pago</b></p>\n"
+"            <p>- Condiciones de pago <b>\"\"\"+order.payment_term_id.name+\"\"\"</b></p>\n"
+"            <p>- Los pagos deben realizarse dentro de los <b>10 primeros días naturales</b> después de emitida la factura correspondiente</p>\n"
+"            <p>- IHO se reserva el derecho de no entregar e instalar en caso de que el cliente esté atrasado en sus pagos</p>\n"
+"            <p>- En caso de que por motivos imputables al cliente, el producto no pueda ser entregado, no limita el cobro del mismo</p>\n"
+"            <p>- En caso de retrasos en pagos a productos ya entregados, se hará un cargo moratorio a razón de 1% mensual y hasta un 10% máximo</p>\"\"\""
 msgstr ""
 
 #. module: report_sale_order_iho
@@ -218,14 +190,14 @@ msgid "<u>Terms and Conditions for the Sale of goods supplied by IHO.</u>"
 msgstr ""
 
 #. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.view_sale_order_inherit_form_report
-msgid "ADD NEW TERM"
-msgstr "Agregar Termino"
-
-#. module: report_sale_order_iho
 #: model:res.groups,name:report_sale_order_iho.group_access_sale_terms
 msgid "Access Sale Terms"
 msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.view_sale_order_inherit_form_report
+msgid "Add T&C"
+msgstr "Agregar T&C"
 
 #. module: report_sale_order_iho
 #: model_terms:ir.ui.view,arch_db:report_sale_order_iho.view_generate_sale_order_terms_wizard_form
@@ -243,26 +215,22 @@ msgid "Amount Services"
 msgstr ""
 
 #. module: report_sale_order_iho
+#: model:sale.term.category,name:report_sale_order_iho.sale_term_category_canc
+msgid "Canc"
+msgstr ""
+
+#. module: report_sale_order_iho
 #: model_terms:ir.ui.view,arch_db:report_sale_order_iho.view_generate_sale_order_terms_wizard_form
 msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "Cancellations"
-msgstr ""
-
-#. module: report_sale_order_iho
 #: model:ir.model,name:report_sale_order_iho.model_sale_term_category
-msgid "Catalog of Categories for Sale Terms"
+msgid "Categories of Sale Terms"
 msgstr ""
 
 #. module: report_sale_order_iho
-#: model:ir.model,name:report_sale_order_iho.model_sale_term
-msgid "Catalog of Sale Terms"
-msgstr ""
-
-#. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_generate_sale_order_terms_wizard__category_id
 #: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term__category_id
 msgid "Category"
 msgstr "Categoría"
@@ -295,7 +263,6 @@ msgstr "Por defecto"
 
 #. module: report_sale_order_iho
 #: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_order__delivery
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
 msgid "Delivery time"
 msgstr ""
 
@@ -308,8 +275,8 @@ msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "Generals"
+#: model:sale.term.category,name:report_sale_order_iho.sale_term_category_garant
+msgid "Garant"
 msgstr ""
 
 #. module: report_sale_order_iho
@@ -318,18 +285,8 @@ msgid "Generate Sale Order Terms Wizard"
 msgstr ""
 
 #. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.view_sale_order_inherit_form_report
-msgid "Generate Terms"
-msgstr ""
-
-#. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "Guarantee"
-msgstr ""
-
-#. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "I accept quotation, terms and Conditions"
+#: model:sale.term.category,name:report_sale_order_iho.sale_term_category_grales
+msgid "Grales"
 msgstr ""
 
 #. module: report_sale_order_iho
@@ -341,8 +298,18 @@ msgid "ID"
 msgstr ""
 
 #. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_order__incoterm_spec
+msgid "Incoterm Spec"
+msgstr ""
+
+#. module: report_sale_order_iho
 #: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term__invalid_term_ids
 msgid "Invalid Combination"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.sale_term_form
+msgid "Invalid Terms"
 msgstr ""
 
 #. module: report_sale_order_iho
@@ -387,34 +354,41 @@ msgid "Name"
 msgstr "Nombre"
 
 #. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term__name_validation
+msgid "Name Validation"
+msgstr ""
+
+#. module: report_sale_order_iho
 #: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
 msgid "Optional Products"
 msgstr "Productos opcionales"
 
 #. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_generate_sale_order_terms_wizard__order_id
 #: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_order_term__order_id
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_term__order_id
 msgid "Order"
 msgstr ""
 
 #. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "Payment"
-msgstr "Pago"
+#: model:sale.term.category,name:report_sale_order_iho.sale_term_category_pago
+msgid "Pago"
+msgstr ""
 
 #. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "Project Manager"
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.sale_term_form
+msgid "Python Code"
+msgstr "Código Python"
+
+#. module: report_sale_order_iho
+#: model:ir.model.fields,help:report_sale_order_iho.field_sale_term__name
+msgid "Python code field using 'order' as model"
 msgstr ""
 
 #. module: report_sale_order_iho
 #: model:ir.model,name:report_sale_order_iho.model_sale_order
 msgid "Sale Order"
-msgstr "Pedido de venta"
-
-#. module: report_sale_order_iho
-#: model:ir.model.fields,field_description:report_sale_order_iho.field_generate_sale_order_terms_wizard__sale_order_term_id
-msgid "Sale Order Term"
-msgstr "Terminos de Orden de Venta"
+msgstr ""
 
 #. module: report_sale_order_iho
 #: model:ir.actions.act_window,name:report_sale_order_iho.action_sale_term_category
@@ -426,6 +400,11 @@ msgstr "Categorias de los Terminos de Venta"
 #: model:ir.actions.act_window,name:report_sale_order_iho.action_sale_term
 #: model:ir.ui.menu,name:report_sale_order_iho.sale_term_menu
 msgid "Sale Terms"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model:ir.model,name:report_sale_order_iho.model_sale_term
+msgid "Sale Terms and Conditions"
 msgstr ""
 
 #. module: report_sale_order_iho
@@ -441,16 +420,23 @@ msgid "Sequence"
 msgstr "Secuencia"
 
 #. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "Services"
-msgstr "Servicios"
+#: model:sale.term.category,name:report_sale_order_iho.sale_term_category_serv
+msgid "Serv"
+msgstr ""
 
 #. module: report_sale_order_iho
+#: model:sale.term.category,name:report_sale_order_iho.sale_term_category_te
+msgid "TE"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_generate_sale_order_terms_wizard__term_id
 #: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_order_term__term_id
 msgid "Term"
 msgstr ""
 
 #. module: report_sale_order_iho
+#: model:ir.model.fields,field_description:report_sale_order_iho.field_generate_sale_order_terms_wizard__term_ids
 #: model:ir.model.fields,field_description:report_sale_order_iho.field_sale_order__sale_order_term_ids
 msgid "Terms and Conditions"
 msgstr "Términos y condiciones"
@@ -461,6 +447,13 @@ msgid "Terms and Conditions for Sales Order"
 msgstr "Terminos y Condiciones para Ordenes de Venta"
 
 #. module: report_sale_order_iho
+#: code:addons/report_sale_order_iho/models/sale_term.py:34
+#: sql_constraint:sale.term:0
+#, python-format
+msgid "The code and category must be unique !"
+msgstr "El Codigo y la Categoria deben ser unicos!"
+
+#. module: report_sale_order_iho
 #: model:res.groups,comment:report_sale_order_iho.group_manage_sale_terms
 msgid "The user will have access to manage sale terms and sale terms categoruy."
 msgstr "El usuario tendra acceso a administrar los terminos de venta y las categorias de los terminos de venta."
@@ -468,45 +461,39 @@ msgstr "El usuario tendra acceso a administrar los terminos de venta y las categ
 #. module: report_sale_order_iho
 #: model:res.groups,comment:report_sale_order_iho.group_access_sale_terms
 #: model:res.groups,comment:report_sale_order_iho.group_manage_quotation_sale_terms
-msgid "The user will have access to read sale terms and sale terms categoruy."
-msgstr "El usuario tendra acceso a leer los terminos de venta y las categorias de los terminos de venta."
+msgid "The user will have access to read sale terms and sale terms category."
+msgstr ""
 
 #. module: report_sale_order_iho
-#: code:addons/report_sale_order_iho/models/sale_order.py:41
+#: code:addons/report_sale_order_iho/wizard/generate_sale_order_terms_wizard.py:32
+#, python-format
+msgid "There is not selected a sale term."
+msgstr ""
+
+#. module: report_sale_order_iho
+#: code:addons/report_sale_order_iho/models/sale_order.py:46
 #, python-format
 msgid "This term is already in Sale Order"
 msgstr "Este termino ya se encuentra en la Orden de Venta"
 
 #. module: report_sale_order_iho
-#: code:addons/report_sale_order_iho/models/sale_order.py:51
-#: code:addons/report_sale_order_iho/models/sale_order.py:60
-#, python-format
-msgid "Unable to add this term, it is not compatible with the terms. %s"
-msgstr "No se puede agregar este termino, ya que no es compatible con los terminos %s."
-
-#. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "_________________________________"
+#: model:sale.term.category,name:report_sale_order_iho.sale_term_category_tyc
+msgid "TyC"
 msgstr ""
 
 #. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.report_sale_order_external_for_iho
-msgid "approximately from the receipt of the purchase order and advance payment."
+#: code:addons/report_sale_order_iho/models/sale_order.py:57
+#, python-format
+msgid "Unable to add this term, it is not compatible with the terms.\n"
+" %s"
+msgstr ""
+
+#. module: report_sale_order_iho
+#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.sale_term_form
+msgid "Validation"
 msgstr ""
 
 #. module: report_sale_order_iho
 #: model:ir.model,name:report_sale_order_iho.model_generate_sale_order_terms_wizard
 msgid "generate.sale.order.terms.wizard"
 msgstr ""
-
-#. module: report_sale_order_iho
-#: model_terms:ir.ui.view,arch_db:report_sale_order_iho.view_sale_order_inherit_form_report
-msgid "Add T&C"
-msgstr "Agregar T&C"
-
-#. module: report_sale_order_iho
-#: code:addons/report_sale_order_iho/models/sale_term.py:31
-#: sql_constraint:sale.term:0
-#, python-format
-msgid "The code and category must be unique !"
-msgstr "El Codigo y la Categoria deben ser unicos!"
