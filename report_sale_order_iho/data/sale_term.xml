@@ -20,7 +20,7 @@
         <field name="category_id" ref="report_sale_order_iho.sale_term_category_te"/>
         <field name="default">True</field>
         <field name="sequence">111</field>
-        <field name="name">"&lt;p&gt;- El tiempo de entrega es de &lt;b&gt;"+order.delivery+"""&lt;/b&gt; a partir de la recepción de la órden de compra y pago de anticipo&lt;/p&gt;
+        <field name="name">"&lt;p&gt;- El tiempo de entrega es de &lt;b&gt;"+order.delivery+"""&lt;/b&gt; a partir de la recepción de la órden de compra y pago de anticipo.&lt;/p&gt;
             &lt;p&gt;- Producto &lt;b&gt;"""+order.incoterm.name+", "+order.incoterm.code+"&lt;/b&gt; "+order.incoterm_spec+"&lt;/p&gt;"</field>
     </record>
     
