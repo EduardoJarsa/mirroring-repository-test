@@ -69,17 +69,17 @@ class SaleOrder(models.Model):
     @api.model
     def create(self, values):
         res = super().create(values)
-        res._generate_terms('add_defaults')
+        res._generate_terms(add_defaults=True)
         return res
 
     @api.multi
     def write(self, values):
         res = super().write(values)
-        self._generate_terms('')
+        self._generate_terms()
         return res
 
     @api.multi
-    def _generate_terms(self, add_defaults):
+    def _generate_terms(self, add_defaults=False):
         for rec in self:
             context = {
                 'lang': rec.partner_id.lang
@@ -95,7 +95,7 @@ class SaleOrder(models.Model):
             terms = self.env['sale.term'].search(
                 [('default', '=', True), ('id', 'not in', updated_terms)],
                 order='sequence asc')
-            if add_defaults != 'add_defaults':
+            if not add_defaults:
                 continue
             new_terms = []
             # Use context to allow to get translation from terms.
