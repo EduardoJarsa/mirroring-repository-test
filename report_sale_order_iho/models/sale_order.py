@@ -4,7 +4,6 @@
 from odoo import _, api, fields, models
 from odoo.tools.safe_eval import safe_eval
 from odoo.exceptions import ValidationError
-import pdb
 
 
 class SaleOrderLine(models.Model):
@@ -70,17 +69,17 @@ class SaleOrder(models.Model):
     @api.model
     def create(self, values):
         res = super().create(values)
-        res._generate_terms('create')
+        res._generate_terms('add_defaults')
         return res
 
     @api.multi
     def write(self, values):
         res = super().write(values)
-        # self._generate_terms('no_create')
+        self._generate_terms('')
         return res
 
     @api.multi
-    def _generate_terms(self, default_terms_creation):
+    def _generate_terms(self, add_defaults):
         for rec in self:
             context = {
                 'lang': rec.partner_id.lang
@@ -96,6 +95,8 @@ class SaleOrder(models.Model):
             terms = self.env['sale.term'].search(
                 [('default', '=', True), ('id', 'not in', updated_terms)],
                 order='sequence asc')
+            if add_defaults != 'add_defaults':
+                continue
             new_terms = []
             # Use context to allow to get translation from terms.
             for term in terms:

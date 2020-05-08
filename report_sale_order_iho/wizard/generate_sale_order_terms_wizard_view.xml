@@ -11,8 +11,8 @@
                     <field name="category_id" options="{'no_create_edit': True, 'no_open': True}"/>
                     <field name="term_id" domain="[
                         ('category_id','in',[category_id]),
-                        ('default', '=', False),
-                        ('id', 'not in', term_ids)]" attrs="{'invisible': [('category_id', '=', False)]}" options="{'no_create_edit': True, 'no_open': True}"/>
+                        ('id', 'not in', term_ids)]" 
+                           attrs="{'invisible': [('category_id', '=', False)]}" options="{'no_create_edit': True, 'no_open': True}"/>
                 </group>
                 <footer>
                     <button class="oe_highlight" name="add_term_to_sale_order" string="Add Term" type="object"/>
