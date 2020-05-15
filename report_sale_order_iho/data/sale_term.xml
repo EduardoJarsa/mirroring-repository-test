@@ -20,8 +20,8 @@
         <field name="category_id" ref="report_sale_order_iho.sale_term_category_te"/>
         <field name="default">True</field>
         <field name="sequence">111</field>
-        <field name="name">"&lt;ul&gt;&lt;li&gt;El tiempo de entrega es de &lt;b&gt;"+order.delivery+"""&lt;/b&gt; a partir de la recepción de la órden de compra y pago de anticipo.&lt;/li&gt;
-            &lt;li&gt;Producto &lt;b&gt;"""+order.incoterm.name+", "+order.incoterm.code+"&lt;/b&gt; "+order.incoterm_spec+"&lt;/li&gt;&lt;/ul&gt;"</field>
+        <field name="name">"&lt;ul&gt;&lt;li&gt;El tiempo de entrega es de &lt;b&gt;"+(order.delivery if order.delivery else "N/D")+"""&lt;/b&gt; a partir de la recepción de la órden de compra y pago de anticipo.&lt;/li&gt;
+            &lt;li&gt;Producto &lt;b&gt;"""+(order.incoterm.name if order.incoterm.name else "N/D")+", "+(order.incoterm.code if order.incoterm.code else "N/D")+"&lt;/b&gt; "+(order.incoterm_spec if order.incoterm_spec else "N/D")+"&lt;/li&gt;&lt;/ul&gt;"</field>
     </record>
     
     <record id="sale_term_pago_tit" model="sale.term">
@@ -36,10 +36,10 @@
         <field name="category_id" ref="report_sale_order_iho.sale_term_category_pago"/>
         <field name="default">True</field>
         <field name="sequence">211</field>
-        <field name="name">"&lt;ul&gt;&lt;li&gt;Todos los precios están expresados en &lt;b&gt;"+order.pricelist_id.name+"""&lt;/b&gt;&lt;/li&gt;
+        <field name="name">"&lt;ul&gt;&lt;li&gt;Todos los precios están expresados en &lt;b&gt;"+(order.pricelist_id.name if order.pricelist_id.name else "N/D")+"""&lt;/b&gt;&lt;/li&gt;
             &lt;li&gt;Precios &lt;b&gt;mas&lt;/b&gt; IVA&lt;/li&gt;
             &lt;li&gt;En caso de pagar en Pesos, se tomará como referencia el &lt;b&gt;tipo de cambio bancario a la venta, del día de pago&lt;/b&gt;&lt;/li&gt;
-            &lt;li&gt;Condiciones de pago &lt;b&gt;"""+order.payment_term_id.name+"""&lt;/b&gt;&lt;/li&gt;
+            &lt;li&gt;Condiciones de pago &lt;b&gt;"""+(order.payment_term_id.name if order.payment_term_id.name else "N/D")+"""&lt;/b&gt;&lt;/li&gt;
             &lt;li&gt;Los pagos deben realizarse dentro de los &lt;b&gt;10 primeros días naturales&lt;/b&gt; después de emitida la factura correspondiente&lt;/li&gt;
             &lt;li&gt;IHO se reserva el derecho de no entregar e instalar en caso de que el cliente esté atrasado en sus pagos&lt;/li&gt;
             &lt;li&gt;En caso de que por motivos imputables al cliente, el producto no pueda ser entregado, no limita el cobro del mismo&lt;/li&gt;
@@ -124,6 +124,6 @@
             &lt;li&gt;La aceptación de ésta cotización implica la aceptación de estos términos y condiciones&lt;/li&gt;
             &lt;li&gt;Los precios pueden cambiar según acabados seleccionados por el cliente y/o cambios en las cantidades solicitadas&lt;/li&gt;
             &lt;li&gt;Los precios de esta cotizacion no incluyen fianzas&lt;/li&gt;
-            &lt;li&gt;Cotización vigente hasta &lt;b&gt;"""+order.validity_date.strftime('%d/%b/%Y')+"&lt;/b&gt;.&lt;/li&gt;&lt;/ul&gt;"</field>
+            &lt;li&gt;Cotización vigente hasta &lt;b&gt;"""+(order.validity_date.strftime('%d/%b/%Y') if order.validity_date else "N/D")+"&lt;/b&gt;.&lt;/li&gt;&lt;/ul&gt;"</field>
     </record>
 </odoo>
