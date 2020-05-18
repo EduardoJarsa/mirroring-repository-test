@@ -21,16 +21,15 @@
                 <field name="extra_expenses"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="before">
-                <field name="iho_price_list" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
-                <field name="customer_discount" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
-                <field name="iho_sell_1" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
-                <field name="iho_factor" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
-                <field name="iho_sell_2" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
-                <field name="iho_tc" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
-                <field name="iho_sell_3" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
-                <field name="iho_service_factor" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
-                <field name="iho_sell_4" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
-                <field name="dealer_discount" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
+                <field name="iho_price_list"/>
+                <field name="iho_factor" />
+                <field name="iho_sell_1" />
+                <field name="customer_discount"/>
+                <field name="iho_sell_2" />
+                <field name="iho_service_factor"/>
+                <field name="iho_sell_3" />
+                <field name="iho_tc" />
+                <field name="iho_sell_4" />
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after" >
                 <field name="is_bom_line" invisible="1"/>
