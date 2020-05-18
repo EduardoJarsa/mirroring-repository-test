@@ -30,6 +30,7 @@
                 <field name="iho_sell_3" />
                 <field name="iho_tc" />
                 <field name="iho_sell_4" />
+                <field name="dealer_discount" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after" >
                 <field name="is_bom_line" invisible="1"/>
