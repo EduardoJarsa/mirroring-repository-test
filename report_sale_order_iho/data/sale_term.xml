@@ -71,7 +71,6 @@
             &lt;li&gt;Es responsabilidad del cliente tramitar los permisos correspondientes para el ingreso de los trabajadores de IHO Espacios, asi como facilitarles el uso de montacargas o elevadores de servicios. Esta cotizacion contempla que el personal de IHO tiene acceso al montacargas.&lt;/li&gt;
             &lt;li&gt;IHO se reserva el derecho de cobrar almacenaje a razón de 250.00 pesos mensuales por metro cúbico, durante el tiempo que la mercancía del cliente permanezca en nuestro poder.&lt;/li&gt;
             &lt;li&gt;El cobro de almacenaje mensual no incluye la maniobra de carga y descarga considerada adicional y se cobrará de acuerdo al volumen.&lt;/li&gt;&lt;/ul&gt;"""</field>
-        <field name="invalid_term_ids" eval="[(4,ref('report_sale_order_iho.sale_term_serv_std')), (4,ref('report_sale_order_iho.sale_term_serv_sinfmd'))]"/>
     </record>
 
     <record id="sale_term_grales_std" model="sale.term">
