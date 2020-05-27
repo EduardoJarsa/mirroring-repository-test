@@ -11,7 +11,7 @@
             </xpath>
             <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="currency_agreed_rate"/>
-                <field name="show_service_total"/>
+                <field name="show_order_details"/>
                 <field name="is_bom" invisible="1"/>
             </xpath>
             <xpath expr="//field[@name='amount_untaxed']" position="before">
@@ -23,13 +23,13 @@
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="before">
                 <field name="iho_price_list"/>
                 <field name="iho_factor" />
-                <field name="iho_sell_1" />
+                <field name="iho_sell_1" attrs="{'column_invisible': [('parent.show_order_details', '!=', 'show')]}"/>
                 <field name="customer_discount"/>
-                <field name="iho_sell_2" />
+                <field name="iho_sell_2" attrs="{'column_invisible': [('parent.show_order_details', '!=', 'show')]}"/>
                 <field name="iho_service_factor"/>
-                <field name="iho_sell_3" />
+                <field name="iho_sell_3" attrs="{'column_invisible': [('parent.show_order_details', '!=', 'show')]}"/>
                 <field name="iho_tc" />
-                <field name="iho_sell_4" />
+                <field name="iho_sell_4" attrs="{'column_invisible': [('parent.show_order_details', '!=', 'show')]}"/>
                 <field name="dealer_discount" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after" >

@@ -38,10 +38,9 @@ class SaleOrder(models.Model):
         store=True,
         help="Total cost of the products of the order",
     )
-    show_service_total = fields.Selection(
-        selection=[('not-shown', 'Not shown'), ('at-lines', 'At each line'),
-                   ('sub-total', 'As a subtotal'), ],
-        default='at-lines', required=True, )
+    show_order_details = fields.Selection(
+        selection=[('no-show', 'Not shown'), ('show', 'Show'), ],
+        default='show', required=True, )
     is_bom = fields.Boolean(
         string="Is Bom?",
         compute="_compute_is_bom",
