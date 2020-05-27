@@ -15,10 +15,10 @@
                 <field name="is_bom" invisible="1"/>
             </xpath>
             <xpath expr="//field[@name='amount_untaxed']" position="before">
-                <field name="product_total"/>
-                <field name="service_total"/>
-                <field name="discount_total"/>
-                <field name="extra_expenses"/>
+                <field name="product_total" attrs="{'invisible': [('show_order_details', '!=', 'show')]}"/>
+                <field name="service_total" attrs="{'invisible': [('show_order_details', '!=', 'show')]}"/>
+                <field name="discount_total" attrs="{'invisible': [('show_order_details', '!=', 'show')]}"/>
+                <field name="extra_expenses" attrs="{'invisible': [('show_order_details', '!=', 'show')]}"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="before">
                 <field name="iho_price_list"/>

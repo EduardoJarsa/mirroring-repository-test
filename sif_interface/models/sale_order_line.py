@@ -62,7 +62,8 @@ class SaleOrderLine(models.Model):
     show_order_details = fields.Selection(
         selection=[('no-show', 'Not shown'), ('show', 'Show'), ],
         default='show', required=True, 
-        related='order_id.show_order_details', store=True)
+        related='order_id.show_order_details',
+    )
     is_bom_line = fields.Boolean(
         string="Is Bom?",
         compute="_compute_is_bom_line",
