@@ -40,7 +40,7 @@ class SaleOrder(models.Model):
     )
     show_order_details = fields.Selection(
         selection=[('no-show', 'Not shown'), ('show', 'Show'), ],
-        default='show', required=True, 
+        default='show', required=True,
     )
     is_bom = fields.Boolean(
         string="Is Bom?",
