@@ -55,7 +55,7 @@
                         <field name="iho_factor"/>
                         <field name="customer_discount"/>
                         <field name="iho_service_factor"/>
-                        <field name="iho_tc" attrs="{'readonly': True}"/>
+                        <field name="iho_tc"/>
                         <p/><p/>
                         <field name="discount_extended"/>
                     </group>
