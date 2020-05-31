@@ -61,7 +61,7 @@ class SaleOrderLine(models.Model):
     )
     show_order_details = fields.Selection(
         selection=[('no-show', 'Not shown'), ('show', 'Show'), ],
-        default='show', required=True,
+        default='no-show', required=True,
         related='order_id.show_order_details',
     )
     is_bom_line = fields.Boolean(
@@ -239,11 +239,6 @@ class SaleOrderLine(models.Model):
         res = super().write(vals)
         self._process_product_supplierinfo()
         return res
-
-    @api.onchange('product_id')
-    def _onchange_product_id(self):
-        # set value from sale prder
-        self.iho_tc = self.order_id.currency_agreed_rate
 
     @api.multi
     @api.depends('product_id')

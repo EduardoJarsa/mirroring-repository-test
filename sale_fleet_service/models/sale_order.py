@@ -1,4 +1,5 @@
 # Copyright 2019, Jarsa Sistemas, S.A. de C.V.
+# Copyright 2020, MtNet Services, S.A. de C.V.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 from odoo import api, fields, models
@@ -14,7 +15,7 @@ class SaleOrder(models.Model):
         main config.""",
     )
 
-    @api.onchange('order_line', 'currency_agreed_rate', 'currency_id')
+    @api.onchange('order_line', 'currency_id')
     def _onchange_amount_untaxed_fleet_service(self):
         self._amount_untaxed_fleet_service()
 

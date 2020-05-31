@@ -10,7 +10,6 @@
                 <button class="btn-primary" name="%(action_import_sale_order_wizard)d" attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}" string="Import From File" type="action"/>
             </xpath>
             <xpath expr="//field[@name='payment_term_id']" position="after">
-                <field name="currency_agreed_rate"/>
                 <field name="show_order_details"/>
                 <field name="is_bom" invisible="1"/>
             </xpath>

@@ -9,7 +9,6 @@ from odoo.addons import decimal_precision as dp
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    currency_agreed_rate = fields.Float(default=1.0,)
     extra_expenses = fields.Float(
         digits=dp.get_precision('Product Price'),
         default=0.0,
@@ -40,7 +39,7 @@ class SaleOrder(models.Model):
     )
     show_order_details = fields.Selection(
         selection=[('no-show', 'Not shown'), ('show', 'Show'), ],
-        default='show', required=True,
+        default='no-show', required=True,
     )
     is_bom = fields.Boolean(
         string="Is Bom?",
@@ -52,35 +51,12 @@ class SaleOrder(models.Model):
         if self.extra_expenses < 0:
             raise ValidationError(_('Extra Expenses cannot be negative'))
 
-    @api.onchange('currency_agreed_rate')
-    def _onchange_currency_agreed_rate(self):
-        if self.currency_agreed_rate <= 0:
-            raise ValidationError(
-                _('Currency Agreed Rate illegal value entered'))
-
-    @api.constrains('currency_agreed_rate', 'extra_expenses')
+    @api.constrains('extra_expenses')
     def _check_negative_values_header(self):
         for rec in self:
-            if rec.currency_agreed_rate <= 0 or rec.extra_expenses < 0:
+            if rec.extra_expenses < 0:
                 raise ValidationError(
-                    _('Negative values are not allowed for Currency'
-                      ' or Extra expenses'))
-
-    @api.onchange('currency_agreed_rate', 'pricelist_id', 'company_id')
-    def _onchange_currency_agreed_rate(self):
-        if (self.currency_agreed_rate > 1 and
-                self.pricelist_id.currency_id != self.company_id.currency_id):
-            raise ValidationError(
-                _('You cannot set an agreed rate when the Sale Order currency '
-                  'is different from the company currency'))
-
-    @api.constrains('pricelist_id', 'currency_agreed_rate')
-    def _check_currency_agreed_rate(self):
-        if (self.currency_agreed_rate > 1 and
-                self.pricelist_id.currency_id != self.company_id.currency_id):
-            raise ValidationError(
-                _('You cannot set an agreed rate when the Sale Order currency '
-                  'is different from the company currency'))
+                    _('Extra Expenses cannot be negative'))
 
     @api.depends('order_line')
     def _compute_is_bom(self):

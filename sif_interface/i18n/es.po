@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-17 18:56+0000\n"
-"PO-Revision-Date: 2020-02-17 18:56+0000\n"
+"POT-Creation-Date: 2020-05-31 01:49+0000\n"
+"PO-Revision-Date: 2020-05-31 01:49+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: sif_interface
-#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:468
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:491
 #, python-format
 msgid "\n"
 "\n"
@@ -34,6 +34,11 @@ msgid "<strong>Please upload the file to import</strong>"
 msgstr "<strong>Favor de seleccionar el archivo a importar</strong>"
 
 #. module: sif_interface
+#: model:ir.model.fields,help:sif_interface.field_sale_order_line__iho_service_factor
+msgid "Allowed Service Factor values [1 - 1.99], standard of 1.06 or $150 usd; and 1.125 or 250 usd for textiles."
+msgstr "Factor Servicio es [1 - 1.99], valor standard de 1.06 o $150 usd; y 1.125 o 250 usd para textiles."
+
+#. module: sif_interface
 #: model_terms:ir.ui.view,arch_db:sif_interface.view_export_sif_wizard
 msgid "Are you sure to export the SIF file?"
 msgstr "¿Seguro que quieres exportar el archivo SIF?"
@@ -42,6 +47,11 @@ msgstr "¿Seguro que quieres exportar el archivo SIF?"
 #: model:ir.model,name:sif_interface.model_mrp_bom_line
 msgid "Bill of Material Line"
 msgstr "Línea de Lista de Materiales"
+
+#. module: sif_interface
+#: model:ir.model.fields,help:sif_interface.field_sale_order_line__iho_purchase_cost
+msgid "Calculated purchase cost"
+msgstr "Costo de compra calculado"
 
 #. module: sif_interface
 #: model_terms:ir.ui.view,arch_db:sif_interface.view_export_sif_wizard
@@ -65,7 +75,7 @@ msgid "Close"
 msgstr "Cerrar"
 
 #. module: sif_interface
-#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:207
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:230
 #, python-format
 msgid "Columns [%s] are not found in CSV file, please check for misspelling or extra spaces."
 msgstr "Las columnas [%s] no se hallaron en el CSV.   Verifique el nombre de las columnas y si tienen espacios de más"
@@ -93,19 +103,29 @@ msgid "Currency"
 msgstr "Moneda"
 
 #. module: sif_interface
-#: model:ir.model.fields,field_description:sif_interface.field_sale_order__currency_agreed_rate
-msgid "Currency Agreed Rate"
-msgstr "Tipo de Cambio Acordado"
-
-#. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__customer_discount
 msgid "Customer Discount (%)"
-msgstr ""
+msgstr "Descuento a cliente (%)"
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__dealer_discount
-msgid "Dealer Discount"
-msgstr ""
+msgid "Dealer discount (%)"
+msgstr "Descuento al Dealer (%)"
+
+#. module: sif_interface
+#: model:ir.model.fields,help:sif_interface.field_sale_order_line__customer_discount
+msgid "Discount (%) to the customer [0 - 100]"
+msgstr "Descuento (%) al cliente [0 - 100]"
+
+#. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__discount_extended
+msgid "Discount Extended"
+msgstr "Descuento de linea"
+
+#. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_sale_order__discount_total
+msgid "Discount Total"
+msgstr "Descuento Total"
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_export_sif_wizard__display_name
@@ -124,6 +144,95 @@ msgid "Download File"
 msgstr "Descargar Archivo"
 
 #. module: sif_interface
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:140
+#, python-format
+msgid "Error CSV line [%s]: Column \"MakerQuotLine\" There is not a supplier with internal reference [%s] for product %s"
+msgstr "Error CSV línea [%s]: Columna \"MakerQuotLine\" No hay proveedor con referencia-interna [%s] para el producto %s"
+
+#. module: sif_interface
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:95
+#, python-format
+msgid "Error CSV line [%s]: Column \"Service factor\" has value of [%s] and must be [1-1.99]"
+msgstr "Error CSV línea [%s]: Columna \"Service factor\" tiene valor de [%s] y debe ser [1-1.99]"
+
+#. module: sif_interface
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:100
+#, python-format
+msgid "Error CSV line [%s]: Column \"Service factor\" in a service line has value of [%s] and must be [1]"
+msgstr "Error CSV línea [%s]: Columna \"Service factor\" en una línea de Servicio tiene valor de [%s] y debe ser [1]"
+
+#. module: sif_interface
+#: code:addons/sif_interface/models/sale_order_line.py:163
+#, python-format
+msgid "Error: Column \"Customer discount\" at [%s] has value  of [%s] and must be [0-100]"
+msgstr "Error: Columna \"Customer discount\" en [%s] tiene valor de [%s] y debe ser [0-100]"
+
+#. module: sif_interface
+#: code:addons/sif_interface/models/sale_order_line.py:155
+#, python-format
+msgid "Error: Column \"Dealer discount\" at [%s] has value of [%s] and must be [0-100]"
+msgstr "Error: Columna \"Dealer discount\" en [%s] tiene valor de [%s] y debe ser [0-100]"
+
+#. module: sif_interface
+#: code:addons/sif_interface/models/sale_order_line.py:171
+#, python-format
+msgid "Error: Column \"Factor\" at [%s] has value of [%s] and must be [1-3.99]"
+msgstr "Error: Columna \"Factor\" en [%s] tiene valor de [%s] y debe ser [1-3.99]"
+
+#. module: sif_interface
+#: code:addons/sif_interface/models/sale_order_line.py:181
+#, python-format
+msgid "Error: Column \"Service factor\" at [%s] has value of [%s] and must be [1-1.99]"
+msgstr "Error: Columna \"Service factor\" en [%s] tiene valor de [%s] y debe ser [1-1.99]"
+
+#. module: sif_interface
+#: code:addons/sif_interface/models/sale_order_line.py:187
+#, python-format
+msgid "Error: Column \"Service factor\" at [%s] has value of [%s] and must be [1]"
+msgstr "Error: Columna \"Service factor\" en [%s] tiene valor de [%s] y debe ser [1]"
+
+#. module: sif_interface
+#: code:addons/sif_interface/models/sale_order_line.py:117
+#, python-format
+msgid "Error: Customer discount must be [0-100]"
+msgstr "Error: Descuento al cliente debe ser [0-100]"
+
+#. module: sif_interface
+#: code:addons/sif_interface/models/sale_order_line.py:123
+#, python-format
+msgid "Error: Factor must be [1-9.99]"
+msgstr "Error: Factor debe ser [1-9.99]"
+
+#. module: sif_interface
+#: code:addons/sif_interface/models/sale_order_line.py:131
+#, python-format
+msgid "Error: Service factor must be [1-1.99]"
+msgstr "Error: Factor de Servicio debe ser [1-1.99]"
+
+#. module: sif_interface
+#: code:addons/sif_interface/models/sale_order_line.py:133
+#, python-format
+msgid "Error: Service factor must be [1]"
+msgstr "Error: Factor de Servicio debe ser [1]"
+
+#. module: sif_interface
+#: code:addons/sif_interface/models/sale_order_line.py:195
+#, python-format
+msgid "Error: TC Agreed must be 1-39.99"
+msgstr "Error: Tipo de Cambio acordado debe ser [1-39.99]"
+
+#. module: sif_interface
+#: code:addons/sif_interface/models/sale_order_line.py:139
+#, python-format
+msgid "Error: TC Agreed must be [1-39.99]"
+msgstr "Error: Tipo de Cambio acordado debe ser [1-39.99]"
+
+#. module: sif_interface
+#: model:ir.model.fields,help:sif_interface.field_sale_order__extra_expenses
+msgid "Expenses to add to the total of the order"
+msgstr "Gastos para agregar al total de la órden"
+
+#. module: sif_interface
 #: model:ir.model,name:sif_interface.model_export_sif_wizard
 msgid "Export SIF Files from Purchase Order(s)"
 msgstr "Exportar el SIF de la Órden de Compra"
@@ -136,19 +245,28 @@ msgid "Export Sif"
 msgstr "Exportar SIF"
 
 #. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_sale_order__extra_expenses
+#: model:product.product,name:sif_interface.product_product_extraexpenses
+#: model:product.template,name:sif_interface.product_product_extraexpenses_product_template
+msgid "Extra Expenses"
+msgstr "Gastos Extra"
+
+#. module: sif_interface
+#: code:addons/sif_interface/models/sale_order.py:52
+#: code:addons/sif_interface/models/sale_order.py:59
+#, python-format
+msgid "Extra Expenses cannot be negative"
+msgstr "Gastos Extra NO pueden ser negativos"
+
+#. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__iho_factor
 msgid "Factor"
 msgstr ""
 
 #. module: sif_interface
-#: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__factor_extra_expense
-msgid "Factor Extra Expense"
-msgstr ""
-
-#. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__family_id
 msgid "Family"
-msgstr ""
+msgstr "Familia"
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_import_sale_order_wizard__file_name
@@ -172,15 +290,20 @@ msgid "IHO Currency"
 msgstr "Moneda IHO"
 
 #. module: sif_interface
+#: model:ir.model.fields,help:sif_interface.field_sale_order_line__iho_factor
+msgid "IHO Factor"
+msgstr "Factor iho"
+
+#. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_mrp_bom_line__iho_customer_cost
 msgid "Iho Customer Cost"
-msgstr ""
+msgstr "Costo al cliente iho"
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_mrp_bom_line__iho_purchase_cost
 #: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__iho_purchase_cost
 msgid "Iho Purchase Cost"
-msgstr ""
+msgstr "Costo de compra IHO"
 
 #. module: sif_interface
 #: model:ir.actions.act_window,name:sif_interface.action_import_sale_order_wizard
@@ -191,7 +314,7 @@ msgstr "Importar archivo"
 #. module: sif_interface
 #: model:ir.model,name:sif_interface.model_import_sale_order_wizard
 msgid "Import sale order from a file."
-msgstr ""
+msgstr "Importar Órden de venta de archivo"
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_product_template__default_code
@@ -233,7 +356,12 @@ msgid "No cost Materials"
 msgstr "Materiales Sin Costo"
 
 #. module: sif_interface
-#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:29
+#: selection:sale.order,show_order_details:0
+msgid "Not shown"
+msgstr "No Mostrar"
+
+#. module: sif_interface
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:30
 #, python-format
 msgid "Only .xml or .csv files allowed"
 msgstr "Solo se puede importar .xml o .csv"
@@ -241,7 +369,7 @@ msgstr "Solo se puede importar .xml o .csv"
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_mrp_bom_line__vendor_id
 msgid "Partner"
-msgstr "Proveedor"
+msgstr "Empresa"
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__iho_price_list
@@ -249,9 +377,19 @@ msgid "Price List"
 msgstr "Precio de Lista"
 
 #. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__product_extended
+msgid "Product Extended"
+msgstr "Subtotal Producto"
+
+#. module: sif_interface
 #: model:ir.model,name:sif_interface.model_product_template
 msgid "Product Template"
 msgstr "Plantilla de producto"
+
+#. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_sale_order__product_total
+msgid "Product Total"
+msgstr "Total Producto"
 
 #. module: sif_interface
 #: model:ir.model,name:sif_interface.model_purchase_order_line
@@ -290,24 +428,41 @@ msgid "Sell 4"
 msgstr ""
 
 #. module: sif_interface
-#: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__iho_sell_5
-msgid "Sell 5"
-msgstr ""
+#: model:product.product,name:sif_interface.product_product_service
+#: model:product.template,name:sif_interface.product_product_service_product_template
+msgid "Service"
+msgstr "Servicio"
+
+#. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__service_extended
+msgid "Service Extended"
+msgstr "Subtotal Servicio"
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__iho_service_factor
 msgid "Service Factor"
-msgstr ""
+msgstr "Factor Servicio"
 
 #. module: sif_interface
-#: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__servicio
-msgid "Servicio"
-msgstr ""
+#: model:ir.model.fields,field_description:sif_interface.field_sale_order__service_total
+msgid "Service Total"
+msgstr "Total Servicio"
+
+#. module: sif_interface
+#: selection:sale.order,show_order_details:0
+msgid "Show"
+msgstr "Mostrar"
+
+#. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_sale_order__show_order_details
+#: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__show_order_details
+msgid "Show Order Details"
+msgstr "Mostrar detalles"
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_export_sif_wizard__state
 msgid "State"
-msgstr "Estado"
+msgstr "Provincia"
 
 #. module: sif_interface
 #: model:ir.model,name:sif_interface.model_stock_move
@@ -330,27 +485,28 @@ msgid "TC Agreed"
 msgstr "TC Acordado"
 
 #. module: sif_interface
-#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:423
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:446
 #, python-format
 msgid "The %s product does not have a configured Alias.\n"
 "Please verify the data of the xml."
 msgstr ""
 
 #. module: sif_interface
-#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:299
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:322
 #, python-format
 msgid "The XML file has an error, please check your data. \n"
 " Error: %s"
-msgstr ""
+msgstr "El XML tiene un error, favor de revisar. \n"
+" Error: %s"
 
 #. module: sif_interface
-#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:520
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:543
 #, python-format
 msgid "The file %s was correctly loaded. "
 msgstr "Archivo %s cargado satisfactoriamente"
 
 #. module: sif_interface
-#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:55
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:56
 #, python-format
 msgid "There is no number or the format is incorrect for column %s of  product\n"
 "\n"
@@ -362,14 +518,48 @@ msgid "There is no number or the format is incorrect for column %s of  product\n
 "\n"
 "Please validate the format of the whole column.\n"
 "\n"
-"The readed value is: %s"
-msgstr ""
+"Read value is: [%s]"
+msgstr "No hay número o tiene formato incorrecto en la columna %s del producto\n"
+"\n"
+"Producto:\n"
+"%s\n"
+"\n"
+"Descripción:\n"
+"%s\n"
+"\n"
+"Verifique el formato de toda la columna.\n"
+"\n"
+"Valor leido: [%s]"
 
 #. module: sif_interface
-#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:111
-#, python-format
-msgid "There is not a supplier with internal reference [%s] in line %s to product %s"
-msgstr "No hay un proveedor registrado con Referencia Interna [%s] para la linea %s producto %s"
+#: model:ir.model.fields,help:sif_interface.field_sale_order__product_total
+msgid "Total cost of the products of the order"
+msgstr "Costo Total de los Productos de la órden"
+
+#. module: sif_interface
+#: model:ir.model.fields,help:sif_interface.field_sale_order__service_total
+msgid "Total cost of the service of the order"
+msgstr "Costo total de los Servicios de la órden"
+
+#. module: sif_interface
+#: model:ir.model.fields,help:sif_interface.field_sale_order_line__service_extended
+msgid "Total cost of the service of the order line"
+msgstr "Costo total de los Servicios en la línea de la órden"
+
+#. module: sif_interface
+#: model:ir.model.fields,help:sif_interface.field_sale_order__discount_total
+msgid "Total value of discount of the order"
+msgstr "Valor total del descuento de la órden"
+
+#. module: sif_interface
+#: model:ir.model.fields,help:sif_interface.field_sale_order_line__discount_extended
+msgid "Total value of the discount offered in the order line"
+msgstr "Valor total del descuento ofrecido en la línea de la órden"
+
+#. module: sif_interface
+#: model:ir.model.fields,help:sif_interface.field_sale_order_line__product_extended
+msgid "Total value of the products offered in the order line"
+msgstr "Valor total de los productos ofrecidos en l alínea de la órden"
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__price_unit
@@ -378,7 +568,11 @@ msgstr "Precio unitario"
 
 #. module: sif_interface
 #: model:product.product,uom_name:sif_interface.product_product_dummy
+#: model:product.product,uom_name:sif_interface.product_product_extraexpenses
+#: model:product.product,uom_name:sif_interface.product_product_service
 #: model:product.template,uom_name:sif_interface.product_product_dummy_product_template
+#: model:product.template,uom_name:sif_interface.product_product_extraexpenses_product_template
+#: model:product.template,uom_name:sif_interface.product_product_service_product_template
 msgid "Unit(s)"
 msgstr "Unidad(es)"
 
@@ -388,22 +582,15 @@ msgid "Upload File"
 msgstr "Cargar archivo"
 
 #. module: sif_interface
-#: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__valor_de_descuento
-msgid "Valor De Descuento"
-msgstr ""
+#: model:ir.model.fields,help:sif_interface.field_sale_order_line__iho_price_list
+msgid "Vendor Catalog public price"
+msgstr "Precio público de venta del fabricante"
 
 #. module: sif_interface
-#: code:addons/sif_interface/models/sale_order.py:23
-#: code:addons/sif_interface/models/sale_order.py:31
-#, python-format
-msgid "You cannot set an agreed rate when the Sale Order currency is different from the company currency"
-msgstr "No puedes definir un tipo de cambio acordado cuando la moneda de un pedido de venta es diferente a la moneda de la compañía"
-
-#. module: sif_interface
-#: code:addons/sif_interface/models/sale_order.py:132
+#: code:addons/sif_interface/models/sale_order_line.py:203
 #, python-format
 msgid "You need to define a purchase currency for the product [%s]%s"
-msgstr "Necesitas definir una moneda de compra para el producto [%s]%s"
+msgstr "Falta definir una moneda de compra para el producto [%s]%s"
 
 #. module: sif_interface
 #: model_terms:ir.ui.view,arch_db:sif_interface.view_export_sif_wizard
@@ -411,10 +598,10 @@ msgid "Your File is ready to download.!!!"
 msgstr "Su archivo está listo para descargar."
 
 #. module: sif_interface
-#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:67
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:69
 #, python-format
-msgid "column factor_extra_expense with wrong format in line %s"
-msgstr "Columna factor_extra_expense con formato incorrecto para linea %s"
+msgid "column extra_expense wrong format [%s] in line %s"
+msgstr "Mal formato en la columna extra_expense [%s] en la línea %s"
 
 #. module: sif_interface
 #: model:product.product,name:sif_interface.product_product_dummy
@@ -424,12 +611,10 @@ msgstr ""
 
 #. module: sif_interface
 #: model:product.product,weight_uom_name:sif_interface.product_product_dummy
+#: model:product.product,weight_uom_name:sif_interface.product_product_extraexpenses
+#: model:product.product,weight_uom_name:sif_interface.product_product_service
 #: model:product.template,weight_uom_name:sif_interface.product_product_dummy_product_template
+#: model:product.template,weight_uom_name:sif_interface.product_product_extraexpenses_product_template
+#: model:product.template,weight_uom_name:sif_interface.product_product_service_product_template
 msgid "kg"
 msgstr ""
-
-#. module: sif_interface
-#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:83
-#, python-format
-msgid "the column FactorGastosExtra can not be empty line number %s"
-msgstr "Columna FactorGastosExtra no puede estar vacia para linea %s"

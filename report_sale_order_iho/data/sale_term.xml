@@ -14,7 +14,7 @@
         <field name="default">True</field>
         <field name="sequence">111</field>
         <field name="name">"&lt;b&gt;Tiempo de entrega&lt;/b&gt;&lt;br/&gt;&lt;ul&gt;&lt;li&gt;El tiempo de entrega es de &lt;b&gt;"+(order.delivery if order.delivery else "N/D")+"""&lt;/b&gt; a partir de la recepción de la órden de compra y pago de anticipo.&lt;/li&gt;
-            &lt;li&gt;Producto &lt;b&gt;"""+(order.incoterm.name if order.incoterm.name else "N/D")+", "+(order.incoterm.code if order.incoterm.code else "N/D")+"&lt;/b&gt; "+(order.incoterm_spec if order.incoterm_spec else "N/D")+"&lt;/li&gt;&lt;/ul&gt;"</field>
+            &lt;li&gt;Producto &lt;b&gt;"""+(order.incoterm.name if order.incoterm.name else "N/D")+", "+(order.incoterm.code if order.incoterm.code else "N/D")+"&lt;/b&gt; en "+(order.incoterm_spec if order.incoterm_spec else "N/D")+"&lt;/li&gt;&lt;/ul&gt;"</field>
     </record>
     
     <record id="sale_term_pago_std" model="sale.term">

@@ -79,7 +79,7 @@ class ImportSaleOrderWizard(models.TransientModel):
             'FactorQuotLine': '1',
             'ServiceFactorQuotLine': '1',
             'DealerDiscountQuotLine': '0',
-            'ExchRateQuotLine': str(sale_order.currency_agreed_rate),
+            'ExchRateQuotLine': '1',
         }
         for column_default, value_default in default_values_cols.items():
             if not line.get(column_default):
