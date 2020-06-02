@@ -1,6 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 #	* iho
+#   * account
 #
 msgid ""
 msgstr ""
@@ -68,3 +69,8 @@ msgstr "Línea de pedido de venta"
 #: model:ir.model,name:iho.model_utm_source
 msgid "UTM Source"
 msgstr "Captación de Negocio"
+
+#. module: account
+#: model:account.incoterms,name:account.incoterm_FOB
+msgid "FREE ON BOARD"
+msgstr "LIBRE A BORDO"
