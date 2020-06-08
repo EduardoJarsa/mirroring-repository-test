@@ -31,7 +31,9 @@ class SaleOrder(models.Model):
                     users_senior_id.append(follower.user_ids.id)
             if not users_senior_id:
                 raise ValidationError(_(
-                    'A seller sr has not been defined.'))
+                    """A Sr Salesman has not been found.    
+                    Be sure you have a Sr Salesman assigned at Employees 
+                    module and have him/her as your document follower"""))
             if len(users_senior_id) > 1:
                 return rec.with_context(
                     sellers_sr_id=users_senior_id).call_wizard()
@@ -46,10 +48,9 @@ class SaleOrder(models.Model):
                 'user_id': users_senior_id[0],
                 'summary': _('Request to review quotation.'),
                 'note': _(
-                        'Dear %s Please enter to the quote %s, for review '
-                        'in it case create the new quotation, it will send '
-                        'to the customer %s. If you have questions,'
-                        ' can include in the same document.') % (
+                        'Dear %s, quotation %s for customer %s is ready for'
+                        ' your review and approval.   After closing your task'
+                        ' you can provide feedback comments') % (
                         user_id.name, self.name, self.partner_id.name)
             }
             return self.env['mail.activity'].create(activity_data)

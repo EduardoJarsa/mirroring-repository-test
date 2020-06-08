@@ -21,7 +21,6 @@
                         <group>
                             <field name="validity_date" readonly="1"/>
                             <field name="payment_term_id" readonly="1"/>
-                            <field name="currency_agreed_rate" readonly="1"/>
                         </group>
                     </group>
                     <notebook>

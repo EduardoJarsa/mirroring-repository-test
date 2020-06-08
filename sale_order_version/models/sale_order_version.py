@@ -92,7 +92,6 @@ class SaleOrderVersion(models.Model):
     fiscal_position_id = fields.Many2one(
         'account.fiscal.position',
         string='Fiscal Position')
-    currency_agreed_rate = fields.Float(default=1.0,)
     pricelist_id = fields.Many2one(
         'product.pricelist', string='Pricelist', required=True, readonly=True,
         help="Pricelist for current sales order.")

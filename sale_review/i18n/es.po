@@ -18,8 +18,8 @@ msgstr ""
 #. module: sale_review
 #: code:addons/sale_review/models/sale_order.py:33
 #, python-format
-msgid "A seller sr has not been defined."
-msgstr "No se ha definido un vendedor sr."
+msgid "A Sr Seller has not been defined."
+msgstr "No se ha definido un Vendedor Sr."
 
 #. module: sale_review
 #: model_terms:ir.ui.view,arch_db:sale_review.view_sale_order_review_wizard

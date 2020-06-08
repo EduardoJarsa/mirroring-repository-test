@@ -20,7 +20,6 @@
                         <field name="order_version_ids" nolabel="1" readonly="1">
                             <tree>
                                 <field name="name"/>
-                                <field name="currency_agreed_rate"/>
                                 <field name="date_order"/>
                                 <field name="client_order_ref"/>
                                 <field name="state"/>

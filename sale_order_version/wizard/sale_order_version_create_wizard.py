@@ -87,7 +87,6 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
             'picking_policy': self.sale_id.picking_policy,
             'user_id': self.sale_id.user_id.id,
             'team_id': self.sale_id.team_id.id,
-            'currency_agreed_rate': self.sale_id.currency_agreed_rate,
             'warehouse_id': self.sale_id.warehouse_id.id,
             'pricelist_id': self.sale_id.pricelist_id.id,
             'incoterm': self.sale_id.incoterm.id,
