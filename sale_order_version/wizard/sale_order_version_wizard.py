@@ -33,7 +33,7 @@ class SaleOrderVersionWizard(models.TransientModel):
         )
         order_fields = [
             'partner_id', 'validity_date', 'payment_term_id', 'picking_policy',
-            'user_id', 'team_id', 'currency_agreed_rate', 'warehouse_id',
+            'user_id', 'team_id', 'warehouse_id',
             'pricelist_id', 'incoterm', 'expected_date', 'commitment_date',
             'date_order', 'origin', 'client_order_ref', 'analytic_account_id',
             'analytic_tag_ids', 'tag_ids', 'fiscal_position_id',
