@@ -31,9 +31,9 @@ class SaleOrder(models.Model):
                     users_senior_id.append(follower.user_ids.id)
             if not users_senior_id:
                 raise ValidationError(_(
-                    """A Sr Salesman has not been found.    
-                    Be sure you have a Sr Salesman assigned at Employees 
-                    module and have him/her as your document follower"""))
+                    'A Sr Salesman has not been found.  '
+                    ' Be sure you have a Sr Salesman assigned at Employees'
+                    ' module and have him/her as your document follower'))
             if len(users_senior_id) > 1:
                 return rec.with_context(
                     sellers_sr_id=users_senior_id).call_wizard()

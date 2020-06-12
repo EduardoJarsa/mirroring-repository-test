@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-17 20:00+0000\n"
-"PO-Revision-Date: 2020-02-17 20:00+0000\n"
+"POT-Creation-Date: 2020-06-11 23:53+0000\n"
+"PO-Revision-Date: 2020-06-11 23:53+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -94,11 +94,6 @@ msgstr "Creado por"
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_wizard__create_date
 msgid "Created on"
 msgstr "Creado el"
-
-#. module: sale_order_version
-#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__currency_agreed_rate
-msgid "Currency Agreed Rate"
-msgstr "Tipo de Cambio Acordado"
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__partner_id
@@ -304,7 +299,7 @@ msgstr ""
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_term__order_id
 msgid "Order"
-msgstr ""
+msgstr "Órden"
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__date_order
@@ -339,7 +334,7 @@ msgstr "Otra información"
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_line__vendor_id
 msgid "Partner"
-msgstr "Proveedor"
+msgstr "Empresa"
 
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__reference
@@ -457,7 +452,7 @@ msgstr "Equipo de ventas"
 #. module: sale_order_version
 #: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__user_id
 msgid "Salesperson"
-msgstr "Vendedor"
+msgstr "Comercial"
 
 #. module: sale_order_version
 #: selection:sale.order.version.line,display_type:0
@@ -545,7 +540,7 @@ msgid "Term"
 msgstr ""
 
 #. module: sale_order_version
-#: code:addons/sale_order_version/wizard/sale_order_version_create_wizard.py:114
+#: code:addons/sale_order_version/wizard/sale_order_version_create_wizard.py:113
 #, python-format
 msgid "The <a href=# data-oe-model=sale.order.version data-oe-id=%d>%s</a> version was created."
 msgstr ""

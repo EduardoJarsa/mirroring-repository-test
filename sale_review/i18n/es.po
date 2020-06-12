@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-16 20:48+0000\n"
-"PO-Revision-Date: 2019-05-16 20:48+0000\n"
+"POT-Creation-Date: 2020-06-11 23:35+0000\n"
+"PO-Revision-Date: 2020-06-11 23:35+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,8 +18,9 @@ msgstr ""
 #. module: sale_review
 #: code:addons/sale_review/models/sale_order.py:33
 #, python-format
-msgid "A Sr Seller has not been defined."
-msgstr "No se ha definido un Vendedor Sr."
+msgid "A Sr Salesman has not been found.   Be sure you have a Sr Salesman assigned at Employees module and have him/her as your document follower"
+msgstr "No se ha definido un VendedorSr.   Verifique que usted tenga asignado a un VendedorSr en el módulo de
+ Empleados y que esta persona sea seguidor en su documento"
 
 #. module: sale_review
 #: model_terms:ir.ui.view,arch_db:sale_review.view_sale_order_review_wizard
@@ -37,11 +38,16 @@ msgid "Created on"
 msgstr "Creado el"
 
 #. module: sale_review
-#: code:addons/sale_review/models/sale_order.py:48
 #: code:addons/sale_review/wizard/sale_order_review_wizard.py:34
 #, python-format
 msgid "Dear %s Please enter to the quote %s, for review in it case create the new quotation, it will send to the customer %s. If you have questions, can include in the same document."
-msgstr "Estimado %s , favor de entrar a la cotización %s, para revisar y en su caso crear la nueva versión de la cotización que se va a presentar a %s. Si tiene comentarios, los puede incluir en el mismo documento."
+msgstr "Estimado %s,  Favor de revisar y comentar su tarea asignada en la cotización %s.  Si está deacuerdo con la misma deberá APROBAR VERSION"
+
+#. module: sale_review
+#: code:addons/sale_review/models/sale_order.py:50
+#, python-format
+msgid "Dear %s, quotation %s for customer %s is ready for your review and approval.   After closing your task you can provide feedback comments"
+msgstr "Estimado %s, la cotización %s para el cliente %s está lista para su revisión y aprobación.   Cierre su tarea para poder comentar la cotización.   Si la aprueba, use APROBAR VERSION"
 
 #. module: sale_review
 #: model:ir.model.fields,field_description:sale_review.field_sale_order_review_wizard__display_name
@@ -84,7 +90,7 @@ msgid "Request to review"
 msgstr "Solicitar revisión"
 
 #. module: sale_review
-#: code:addons/sale_review/models/sale_order.py:47
+#: code:addons/sale_review/models/sale_order.py:49
 #: code:addons/sale_review/wizard/sale_order_review_wizard.py:33
 #, python-format
 msgid "Request to review quotation."
@@ -98,7 +104,7 @@ msgstr "Revisar cotización"
 #. module: sale_review
 #: model:ir.model,name:sale_review.model_sale_order
 msgid "Sale Order"
-msgstr "Pedido de venta"
+msgstr ""
 
 #. module: sale_review
 #: code:addons/sale_review/models/sale_order.py:14
