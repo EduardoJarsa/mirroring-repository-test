@@ -8,9 +8,11 @@
                 <sheet>
                     <group>
                         <field name="sale_id" invisible="1"/>
-                        <field name="name"/>
                         <field name="boolean_switch" invisible="1"/>
-                        <field name="use_same_prefix" attrs="{'invisible': [('boolean_switch', '=', False)]}"/>
+                        <field name="use_same_prefix" attrs="{'invisible': [('boolean_switch', '=', False)]}"
+                        />
+                        <field name="name" attrs="{'required': [('use_same_prefix', '=', True)]}"/>
+                        <field name="boolean_switch" invisible="1"/>
                     </group>
                 </sheet>
                 <footer>
