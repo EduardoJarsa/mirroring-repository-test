@@ -5,3 +5,4 @@ product-attribute git@github.com:OCA/product-attribute.git 12.0
 purchase-workflow git@github.com:Jarsa/purchase-workflow 12.0
 server-backend git@github.com:Jarsa/server-backend 12.0
 odoo-utilities git@git.vauxoo.com:Jarsa/odoo-utilities 12.0
+social https://github.com/Jarsa/social 12.0
