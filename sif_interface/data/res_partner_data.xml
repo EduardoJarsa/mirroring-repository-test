@@ -13,5 +13,12 @@
         <field name="supplier">True</field>
         <field name="is_company">True</field>
         <field name="customer">False</field>
+    </record>    
+    <record id="nd_res_partner" model="res.partner">
+        <field name="name">N/D</field>
+        <field name="ref">N/D</field>
+        <field name="supplier">True</field>
+        <field name="is_company">True</field>
+        <field name="customer">False</field>
     </record>
 </odoo>

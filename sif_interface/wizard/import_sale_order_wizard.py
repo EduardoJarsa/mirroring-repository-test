@@ -132,10 +132,13 @@ class ImportSaleOrderWizard(models.TransientModel):
                 }
                 family_id = self.env['iho.family'].create(new_family)
         # partner_id
-        partner = self.env['res.partner'].search(
-            [('ref', '=', supplier_reference), (
-                'supplier', '=', True)], limit=1)
-        if not partner:
+        if supplier_reference:
+            partner = self.env['res.partner'].search(
+                [('ref', '=', supplier_reference), (
+                    'supplier', '=', True)], limit=1)
+        else:
+            partner = self.env.ref('sif_interface.nd_res_partner')
+        if not partner and supplier_reference:
             raise ValidationError(
                 _('Error CSV line [%s]: Column "MakerQuotLine" There is not '
                   'a supplier with internal reference [%s] for product %s')
