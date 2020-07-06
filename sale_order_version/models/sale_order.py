@@ -33,8 +33,6 @@ class SaleOrder(models.Model):
     def write(self, vals):
         for rec in self:
             if rec.active_version_id:
-                if not vals.get('active_version_modified', True):
-                    continue
-                else:
+                if vals.get('active_version_modified', True):
                     vals['active_version_modified'] = True
         return super().write(vals)
