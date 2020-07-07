@@ -103,6 +103,8 @@ class ImportSaleOrderWizard(models.TransientModel):
 
     @api.model
     def _prepare_sale_order_line(self, line, sale_order, index):
+        if line.get('ProductCodeQuotLine', False) == '<empty>':
+            return False
         self._add_default_values(line, sale_order)
         self._check_col_name(line)
         customer_discount = self.to_float(line, 'CustomerDiscountQuotLine')
