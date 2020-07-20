@@ -105,7 +105,6 @@ class SaleOrderLine(models.Model):
         store=True,
     )
 
-
     catalog_id = fields.Many2one('iho.catalog', string='Catalog')
     family_id = fields.Many2one('iho.family', string='Family')
 
@@ -131,7 +130,6 @@ class SaleOrderLine(models.Model):
                 _('Error: Service factor must be [1-1.99]'))
         if self.product_id.type == 'service' and self.iho_service_factor != 1:
             raise ValidationError(_('Error: Service factor must be [1]'))
-
 
     #
     @api.model
