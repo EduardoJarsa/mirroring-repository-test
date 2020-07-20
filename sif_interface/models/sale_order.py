@@ -45,6 +45,17 @@ class SaleOrder(models.Model):
         string="Is Bom?",
         compute="_compute_is_bom",
     )
+    iho_tc = fields.Float(
+        string="TC Agreed",
+        default=1.0,
+        digits=dp.get_precision('Precision Sale Terms'),
+    )
+
+    @api.onchange('iho_tc')
+    def _onchange_iho_tc(self):
+        if self.iho_tc < 1 or self.iho_tc > 39.99:
+            raise ValidationError(
+                _('Error: TC Agreed must be [1-39.99]'))
 
     @api.onchange('extra_expenses')
     def _onchange_extra_expenses(self):
@@ -106,3 +117,9 @@ class SaleOrder(models.Model):
                         lambda l:
                         l.product_id == product_product_extraexpenses)
                     )
+
+    @api.constrains('iho_tc')
+    def _constrains_iho_tc(self):
+        if self.iho_tc < 1 or self.iho_tc > 39.99:
+            raise ValidationError(
+                _('Error: TC Agreed must be 1-39.99'))

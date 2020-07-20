@@ -69,11 +69,6 @@ class SaleOrderLine(models.Model):
         compute="_compute_is_bom_line",
         store=True,
     )
-    iho_tc = fields.Float(
-        string="TC Agreed",
-        default=1.0,
-        digits=dp.get_precision('Precision Sale Terms'),
-    )
     price_unit = fields.Float(
         'Unit Price',
         required=True,
@@ -105,6 +100,11 @@ class SaleOrderLine(models.Model):
         compute="_compute_product_extended",
         help="Total value of the products offered in the order line",
     )
+    iho_tc = fields.Float(
+        related='order_id.iho_tc',
+        store=True,
+    )
+
 
     catalog_id = fields.Many2one('iho.catalog', string='Catalog')
     family_id = fields.Many2one('iho.family', string='Family')
@@ -132,11 +132,6 @@ class SaleOrderLine(models.Model):
         if self.product_id.type == 'service' and self.iho_service_factor != 1:
             raise ValidationError(_('Error: Service factor must be [1]'))
 
-    @api.onchange('iho_tc')
-    def _onchange_iho_tc(self):
-        if self.iho_tc < 1 or self.iho_tc > 39.99:
-            raise ValidationError(
-                _('Error: TC Agreed must be [1-39.99]'))
 
     #
     @api.model
@@ -187,12 +182,6 @@ class SaleOrderLine(models.Model):
                 _('Error: Column "Service factor" at [%s] has value of '
                   '[%s] and must be [1]') %
                 (self._product_int_ref(), self.iho_service_factor))
-
-    @api.constrains('iho_tc')
-    def _constrains_iho_tc(self):
-        if self.iho_tc < 1 or self.iho_tc > 39.99:
-            raise ValidationError(
-                _('Error: TC Agreed must be 1-39.99'))
 
     @api.multi
     def _process_product_supplierinfo(self):

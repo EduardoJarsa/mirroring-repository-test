@@ -10,6 +10,7 @@
                 <button class="btn-primary" name="%(action_import_sale_order_wizard)d" attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}" string="Import From File" type="action"/>
             </xpath>
             <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="iho_tc"/>
                 <field name="show_order_details"/>
                 <field name="is_bom" invisible="1"/>
             </xpath>
@@ -27,8 +28,7 @@
                 <field name="iho_sell_2" attrs="{'column_invisible': [('parent.show_order_details', '!=', 'show')]}"/>
                 <field name="iho_service_factor"/>
                 <field name="iho_sell_3" attrs="{'column_invisible': [('parent.show_order_details', '!=', 'show')]}"/>
-                <field name="iho_tc" />
-                <field name="iho_sell_4" attrs="{'column_invisible': [('parent.show_order_details', '!=', 'show')]}"/>
+                <field name="iho_sell_4" attrs="{'column_invisible': ['|',('parent.show_order_details', '!=', 'show'),('parent.iho_tc','==','1.0')]}"/>
                 <field name="dealer_discount" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after" >
