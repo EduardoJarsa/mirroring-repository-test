@@ -53,9 +53,9 @@ class SaleOrder(models.Model):
 
     @api.onchange('iho_tc')
     def _onchange_iho_tc(self):
-        if self.iho_tc < 1 or self.iho_tc > 39.99:
+        if self.iho_tc < 1 or self.iho_tc > 49.99:
             raise ValidationError(
-                _('Error: TC Agreed must be [1-39.99]'))
+                _('Error: TC Agreed must be [1-49.99]'))
 
     @api.onchange('extra_expenses')
     def _onchange_extra_expenses(self):
@@ -120,6 +120,6 @@ class SaleOrder(models.Model):
 
     @api.constrains('iho_tc')
     def _constrains_iho_tc(self):
-        if self.iho_tc < 1 or self.iho_tc > 39.99:
+        if self.iho_tc < 1 or self.iho_tc > 49.99:
             raise ValidationError(
-                _('Error: TC Agreed must be 1-39.99'))
+                _('Error: TC Agreed must be 1-49.99'))
