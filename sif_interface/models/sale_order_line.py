@@ -58,6 +58,7 @@ class SaleOrderLine(models.Model):
     iho_currency_id = fields.Many2one(
         'res.currency',
         string='IHO Currency',
+        default=lambda self: self.env.ref('base.USD'),
     )
     show_order_details = fields.Selection(
         selection=[('no-show', 'Not shown'), ('show', 'Show'), ],
@@ -176,10 +177,7 @@ class SaleOrderLine(models.Model):
                 (self._product_int_ref(), self.iho_service_factor))
         if self.product_id.type == 'service' and \
                 self.iho_service_factor != 1.0:
-            raise ValidationError(
-                _('Error: Column "Service factor" at [%s] has value of '
-                  '[%s] and must be [1]') %
-                (self._product_int_ref(), self.iho_service_factor))
+            self.iho_service_factor = 1.0
 
     @api.multi
     def _process_product_supplierinfo(self):
