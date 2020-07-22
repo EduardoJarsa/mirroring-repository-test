@@ -84,7 +84,7 @@ class SaleOrder(models.Model):
                 rec.service_total = 0
                 continue
             rec.service_total = \
-                sum(line.service_extended 
+                sum(line.service_extended
                     for line in rec.order_line.filtered(
                         lambda l: l.product_id != product_product_service)) + \
                 sum(line.price_subtotal
