@@ -69,6 +69,24 @@ class SaleOrder(models.Model):
                 raise ValidationError(
                     _('Extra Expenses cannot be negative'))
 
+    @api.constrains('service_total')
+    def _check_minimum_service_total(self):
+        # current_exchange_rate_usd = self.env['res.currency'].\
+        #    browse(eval('self.env.ref("base.USD")')).rate
+        # if not current_exchange_rate_usd:
+        #     current_exchange_rate_usd = 1
+        current_exchange_rate_usd = 23.0
+        for rec in self:
+            if rec.pricelist_id.currency_id == self.env.ref("base.USD"):
+                if rec.service_total < 150:
+                    raise ValidationError(
+                        _('Service total is less than 150 USD'))
+            else:
+                if rec.service_total < 150 * current_exchange_rate_usd:
+                    raise ValidationError(
+                        _('Service total is less than '
+                            'the equivalent of 150 USD'))
+
     @api.depends('order_line')
     def _compute_is_bom(self):
         for rec in self:

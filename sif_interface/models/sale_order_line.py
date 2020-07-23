@@ -295,10 +295,16 @@ class SaleOrderLine(models.Model):
                     (rec.iho_service_factor-1) * \
                     rec.product_uom_qty * rec.iho_tc
             else:
-                rec.service_extended = \
-                    rec.iho_price_list * rec.iho_factor * \
-                    (1 - (rec.customer_discount / 100)) * \
-                    rec.product_uom_qty * rec.iho_tc
+                product_product_extraexpenses = self.env.ref(
+                    'sif_interface.product_product_extraexpenses',
+                    raise_if_not_found=False)
+                if rec.product_id != product_product_extraexpenses:
+                    rec.service_extended = \
+                        rec.iho_price_list * rec.iho_factor * \
+                        (1 - (rec.customer_discount / 100)) * \
+                        rec.product_uom_qty * rec.iho_tc
+                else:
+                    rec.service_extended = 0
 
     @api.multi
     @api.depends(

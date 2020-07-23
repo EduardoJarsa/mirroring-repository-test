@@ -24,6 +24,7 @@
         'data/product_product_data.xml',
         'data/decimal_precision_data.xml',
         'wizard/import_sale_order_wizard.xml',
+        'views/res_config_view.xml',
         'views/mrp_bom_view.xml',
         'views/product_supplierinfo_view.xml',
         'wizard/export_sif_wizard_view.xml',
