@@ -48,9 +48,15 @@ class SaleOrderLine(models.Model):
         compute='_compute_iho_purchase_cost',
         help='Calculated purchase cost',
     )
+
+    def _get_default_service_factor(self):
+        factor = 1.06
+        if self.product_id.type == 'service':
+            factor = 1
+        return factor
     iho_service_factor = fields.Float(
         string='Service Factor',
-        default=1.06,
+        default=_get_default_service_factor,
         digits=dp.get_precision('Precision Sale Terms'),
         help='Allowed Service Factor values [1 - 1.99], standard of 1.06'
              ' or $150 usd; and 1.125 or 250 usd for textiles.',
@@ -67,7 +73,7 @@ class SaleOrderLine(models.Model):
     )
     is_bom_line = fields.Boolean(
         string="Is Bom?",
-        compute="_compute_is_bom_line",
+        compute="_compute_is_bom_line_and_service",
         store=True,
     )
     price_unit = fields.Float(
@@ -227,9 +233,11 @@ class SaleOrderLine(models.Model):
 
     @api.multi
     @api.depends('product_id')
-    def _compute_is_bom_line(self):
+    def _compute_is_bom_line_and_service(self):
         for rec in self:
             rec.is_bom_line = bool(rec.product_id.bom_ids)
+            if rec.product_id.type == 'service':
+                rec.iho_service_factor = 1
 
     @api.multi
     @api.depends('iho_price_list', 'iho_factor')
