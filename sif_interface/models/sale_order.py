@@ -1,9 +1,11 @@
 # Copyright 2018, Jarsa Sistemas, S.A. de C.V.
+# Copyright 2020, MtNet Services, S.A. de C.V.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 from odoo.addons import decimal_precision as dp
+# from datetime import datetime
 
 
 class SaleOrder(models.Model):
@@ -71,21 +73,29 @@ class SaleOrder(models.Model):
 
     @api.constrains('service_total')
     def _check_minimum_service_total(self):
-        # current_exchange_rate_usd = self.env['res.currency'].\
-        #    browse(eval('self.env.ref("base.USD")')).rate
-        # if not current_exchange_rate_usd:
-        #     current_exchange_rate_usd = 1
-        current_exchange_rate_usd = 23.0
+        # usd = self.env.ref('base.USD')
+        # mxn = self.env.ref('base.MXN')
+        # curr_rate_usd = \
+        #     usd._convert(1, mxn, self.company_id, datetime.today())
+        curr_rate_usd = 20
+        if not curr_rate_usd:
+            curr_rate_usd = 20
+        min_service_usd = float(
+            self.env['ir.config_parameter'].sudo().get_param(
+                'minimum_service_order_usd'))
+        if not min_service_usd:
+            min_service_usd = 0.0
         for rec in self:
             if rec.pricelist_id.currency_id == self.env.ref("base.USD"):
-                if rec.service_total < 150:
+                if rec.service_total < min_service_usd:
                     raise ValidationError(
-                        _('Service total is less than 150 USD'))
+                        _('Service total is less than %s USD') %
+                        min_service_usd)
             else:
-                if rec.service_total < 150 * current_exchange_rate_usd:
-                    raise ValidationError(
-                        _('Service total is less than '
-                            'the equivalent of 150 USD'))
+                if rec.service_total < min_service_usd * curr_rate_usd:
+                    raise ValidationError(_(
+                        'Service total is less than the equivalent of '
+                        '%s USD') % min_service_usd)
 
     @api.depends('order_line')
     def _compute_is_bom(self):
