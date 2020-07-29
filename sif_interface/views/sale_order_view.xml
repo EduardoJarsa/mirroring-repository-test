@@ -12,6 +12,7 @@
             <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="iho_tc"/>
                 <field name="show_order_details"/>
+                <field name="show_errors" style="color: red;" attrs="{'readonly': True}"/>
                 <field name="is_bom" invisible="1"/>
             </xpath>
             <xpath expr="//field[@name='amount_untaxed']" position="before">

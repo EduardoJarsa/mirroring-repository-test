@@ -5,7 +5,7 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 from odoo.addons import decimal_precision as dp
-# from datetime import datetime
+from datetime import datetime
 
 
 class SaleOrder(models.Model):
@@ -74,30 +74,30 @@ class SaleOrder(models.Model):
 
     @api.constrains('service_total')
     def _check_minimum_service_total(self):
-        usd = self.env.ref('base.USD')
-        mxn = self.env.ref('base.MXN')
-        curr_rate_usd = \
-            usd._convert(1, mxn, self.company_id, datetime.today())
-        # curr_rate_usd = 20
-        if not curr_rate_usd:
-            curr_rate_usd = 20
-        min_service_usd = float(
-            self.env['ir.config_parameter'].sudo().get_param(
-                'minimum_service_order_usd'))
-        if not min_service_usd:
-            min_service_usd = 0.0
         for rec in self:
+            usd = self.env.ref('base.USD')
+            mxn = self.env.ref('base.MXN')
+            curr_rate_usd = \
+                usd._convert(1, mxn, rec.company_id, datetime.today())
+            # curr_rate_usd = 20
+            if not curr_rate_usd:
+                curr_rate_usd = 20
+            min_service_usd = float(
+                self.env['ir.config_parameter'].sudo().get_param(
+                    'minimum_service_order_usd'))
+            if not min_service_usd:
+                min_service_usd = 0.0
             rec.show_errors = ''
             if rec.pricelist_id.currency_id == self.env.ref("base.USD"):
                 if rec.service_total < min_service_usd:
-                    rec.show_errors = \
+                    rec.show_errors = (
                         _('Service total is less than %s USD') %
-                        min_service_usd
+                        min_service_usd)
             else:
                 if rec.service_total < min_service_usd * curr_rate_usd:
-                    rec.show_errors = \
+                    rec.show_errors = (
                         _('Service total is less than the equivalent'
-                        ' of %s USD') % min_service_usd
+                            ' of %s USD') % min_service_usd)
 
     @api.depends('order_line')
     def _compute_is_bom(self):
