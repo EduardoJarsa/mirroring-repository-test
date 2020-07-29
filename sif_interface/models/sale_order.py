@@ -52,6 +52,7 @@ class SaleOrder(models.Model):
         default=1.0,
         digits=dp.get_precision('Precision Sale Terms'),
     )
+    show_errors = fields.Char()
 
     @api.onchange('iho_tc')
     def _onchange_iho_tc(self):
@@ -73,11 +74,11 @@ class SaleOrder(models.Model):
 
     @api.constrains('service_total')
     def _check_minimum_service_total(self):
-        # usd = self.env.ref('base.USD')
-        # mxn = self.env.ref('base.MXN')
-        # curr_rate_usd = \
-        #     usd._convert(1, mxn, self.company_id, datetime.today())
-        curr_rate_usd = 20
+        usd = self.env.ref('base.USD')
+        mxn = self.env.ref('base.MXN')
+        curr_rate_usd = \
+            usd._convert(1, mxn, self.company_id, datetime.today())
+        # curr_rate_usd = 20
         if not curr_rate_usd:
             curr_rate_usd = 20
         min_service_usd = float(
@@ -86,16 +87,17 @@ class SaleOrder(models.Model):
         if not min_service_usd:
             min_service_usd = 0.0
         for rec in self:
+            rec.show_errors = ''
             if rec.pricelist_id.currency_id == self.env.ref("base.USD"):
                 if rec.service_total < min_service_usd:
-                    raise ValidationError(
+                    rec.show_errors = \
                         _('Service total is less than %s USD') %
-                        min_service_usd)
+                        min_service_usd
             else:
                 if rec.service_total < min_service_usd * curr_rate_usd:
-                    raise ValidationError(_(
-                        'Service total is less than the equivalent of '
-                        '%s USD') % min_service_usd)
+                    rec.show_errors = \
+                        _('Service total is less than the equivalent'
+                        ' of %s USD') % min_service_usd
 
     @api.depends('order_line')
     def _compute_is_bom(self):
