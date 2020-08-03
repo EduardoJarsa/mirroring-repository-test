@@ -39,9 +39,8 @@ class SaleOrder(models.Model):
         store=True,
         help="Total cost of the products of the order",
     )
-    show_order_details = fields.Selection(
-        selection=[('no-show', 'Not shown'), ('show', 'Show'), ],
-        default='no-show', required=True,
+    show_order_details = fields.Boolean(
+        default=False, required=True,
     )
     is_bom = fields.Boolean(
         string="Is Bom?",
