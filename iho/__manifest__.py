@@ -14,7 +14,6 @@
         'base_user_role',
         'res_currency_rate_custom_decimals',
         'stock_move_quantity_limit',
-        'sale_authorization',
         'sale_stock',
         'iho_security',
         'report_sale_order_iho',
@@ -32,6 +31,7 @@
         'l10n_mx_reports',
         'l10n_mx_tax_cash_basis',
         'sif_interface',
+        'sale_authorization',
         'ui_simplification',
     ],
     'data': [

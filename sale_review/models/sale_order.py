@@ -23,6 +23,10 @@ class SaleOrder(models.Model):
     @api.multi
     def review_sale_order(self):
         for rec in self:
+            if self.show_errors:
+                raise ValidationError(_(
+                    'Your quotation has errors, fix them first'
+                    ' before asking for review'))
             users_senior_id = []
             for follower in rec.message_follower_ids.mapped('partner_id'):
                 senior_group = self.env.ref(

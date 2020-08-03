@@ -19,8 +19,7 @@ msgstr ""
 #: code:addons/sale_review/models/sale_order.py:33
 #, python-format
 msgid "A Sr Salesman has not been found.   Be sure you have a Sr Salesman assigned at Employees module and have him/her as your document follower"
-msgstr "No se ha definido un VendedorSr.   Verifique que usted tenga asignado a un VendedorSr en el módulo de
- Empleados y que esta persona sea seguidor en su documento"
+msgstr "No se ha definido un VendedorSr.   Verifique que usted tenga asignado a un VendedorSr en el módulo de Empleados y que esta persona sea seguidor en su documento"
 
 #. module: sale_review
 #: model_terms:ir.ui.view,arch_db:sale_review.view_sale_order_review_wizard
@@ -36,12 +35,6 @@ msgstr "Creado por"
 #: model:ir.model.fields,field_description:sale_review.field_sale_order_review_wizard__create_date
 msgid "Created on"
 msgstr "Creado el"
-
-#. module: sale_review
-#: code:addons/sale_review/wizard/sale_order_review_wizard.py:34
-#, python-format
-msgid "Dear %s Please enter to the quote %s, for review in it case create the new quotation, it will send to the customer %s. If you have questions, can include in the same document."
-msgstr "Estimado %s,  Favor de revisar y comentar su tarea asignada en la cotización %s.  Si está deacuerdo con la misma deberá APROBAR VERSION"
 
 #. module: sale_review
 #: code:addons/sale_review/models/sale_order.py:50

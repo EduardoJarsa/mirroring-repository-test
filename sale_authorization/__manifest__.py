@@ -13,6 +13,7 @@
         'sale_review',
         'sale_order_version',
         'sale_order_sequence',
+        'sif_interface',
     ],
     'data': [
         'security/security.xml',

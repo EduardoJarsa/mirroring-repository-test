@@ -51,7 +51,9 @@ class SaleOrder(models.Model):
         default=1.0,
         digits=dp.get_precision('Precision Sale Terms'),
     )
-    show_errors = fields.Char()
+    show_errors = fields.Char(
+        default=False,
+    )
 
     @api.onchange('iho_tc')
     def _onchange_iho_tc(self):
@@ -86,7 +88,7 @@ class SaleOrder(models.Model):
                     'minimum_service_order_usd'))
             if not min_service_usd:
                 min_service_usd = 0.0
-            rec.show_errors = ''
+            rec.show_errors = False
             if rec.pricelist_id.currency_id == self.env.ref("base.USD"):
                 if rec.service_total < min_service_usd:
                     rec.show_errors = (
