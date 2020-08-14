@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-31 01:49+0000\n"
-"PO-Revision-Date: 2020-05-31 01:49+0000\n"
+"POT-Creation-Date: 2020-08-14 17:57+0000\n"
+"PO-Revision-Date: 2020-08-14 17:57+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,17 +16,24 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: sif_interface
-#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:491
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:496
 #, python-format
 msgid "\n"
 "\n"
 " Product: [%s] - %s"
-msgstr ""
+msgstr "\n"
+"\n"
+" Producto: [%s] - %s"
 
 #. module: sif_interface
 #: model_terms:ir.ui.view,arch_db:sif_interface.view_import_sale_order_wizard_form
 msgid "<i class=\"fa fa-file-code-o fa-2x text-primary\" aria-label=\"Code\" title=\"Code\"/>"
 msgstr ""
+
+#. module: sif_interface
+#: model_terms:ir.ui.view,arch_db:sif_interface.res_config_settings_view_form
+msgid "<span class=\"fa fa-lg fa-building-o\" title=\"Values set here are company-specific.\" aria-label=\"Values set here are company-specific.\" groups=\"base.group_multi_company\" role=\"img\"/>"
+msgstr "<span class=\"fa fa-lg fa-building-o\" title=\"Los valores establecidos aquí son específicos de la empresa.\" aria-label=\"Los valores establecidos aquí son específicos de la empresa.\" groups=\"base.group_multi_company\" role=\"img\"/>"
 
 #. module: sif_interface
 #: model_terms:ir.ui.view,arch_db:sif_interface.view_import_sale_order_wizard_form
@@ -75,10 +82,15 @@ msgid "Close"
 msgstr "Cerrar"
 
 #. module: sif_interface
-#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:230
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:235
 #, python-format
 msgid "Columns [%s] are not found in CSV file, please check for misspelling or extra spaces."
 msgstr "Las columnas [%s] no se hallaron en el CSV.   Verifique el nombre de las columnas y si tienen espacios de más"
+
+#. module: sif_interface
+#: model:ir.model,name:sif_interface.model_res_config_settings
+msgid "Config Settings"
+msgstr "Opciones de Configuración"
 
 #. module: sif_interface
 #: model_terms:ir.ui.view,arch_db:sif_interface.view_import_sale_order_wizard_form
@@ -144,7 +156,7 @@ msgid "Download File"
 msgstr "Descargar Archivo"
 
 #. module: sif_interface
-#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:140
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:145
 #, python-format
 msgid "Error CSV line [%s]: Column \"MakerQuotLine\" There is not a supplier with internal reference [%s] for product %s"
 msgstr "Error CSV línea [%s]: Columna \"MakerQuotLine\" No hay proveedor con referencia-interna [%s] para el producto %s"
@@ -162,70 +174,64 @@ msgid "Error CSV line [%s]: Column \"Service factor\" in a service line has valu
 msgstr "Error CSV línea [%s]: Columna \"Service factor\" en una línea de Servicio tiene valor de [%s] y debe ser [1]"
 
 #. module: sif_interface
-#: code:addons/sif_interface/models/sale_order_line.py:163
+#: code:addons/sif_interface/models/sale_order_line.py:162
 #, python-format
 msgid "Error: Column \"Customer discount\" at [%s] has value  of [%s] and must be [0-100]"
 msgstr "Error: Columna \"Customer discount\" en [%s] tiene valor de [%s] y debe ser [0-100]"
 
 #. module: sif_interface
-#: code:addons/sif_interface/models/sale_order_line.py:155
+#: code:addons/sif_interface/models/sale_order_line.py:154
 #, python-format
 msgid "Error: Column \"Dealer discount\" at [%s] has value of [%s] and must be [0-100]"
 msgstr "Error: Columna \"Dealer discount\" en [%s] tiene valor de [%s] y debe ser [0-100]"
 
 #. module: sif_interface
-#: code:addons/sif_interface/models/sale_order_line.py:171
+#: code:addons/sif_interface/models/sale_order_line.py:170
 #, python-format
 msgid "Error: Column \"Factor\" at [%s] has value of [%s] and must be [1-3.99]"
 msgstr "Error: Columna \"Factor\" en [%s] tiene valor de [%s] y debe ser [1-3.99]"
 
 #. module: sif_interface
-#: code:addons/sif_interface/models/sale_order_line.py:181
+#: code:addons/sif_interface/models/sale_order_line.py:180
 #, python-format
 msgid "Error: Column \"Service factor\" at [%s] has value of [%s] and must be [1-1.99]"
 msgstr "Error: Columna \"Service factor\" en [%s] tiene valor de [%s] y debe ser [1-1.99]"
 
 #. module: sif_interface
-#: code:addons/sif_interface/models/sale_order_line.py:187
-#, python-format
-msgid "Error: Column \"Service factor\" at [%s] has value of [%s] and must be [1]"
-msgstr "Error: Columna \"Service factor\" en [%s] tiene valor de [%s] y debe ser [1]"
-
-#. module: sif_interface
-#: code:addons/sif_interface/models/sale_order_line.py:117
+#: code:addons/sif_interface/models/sale_order_line.py:122
 #, python-format
 msgid "Error: Customer discount must be [0-100]"
 msgstr "Error: Descuento al cliente debe ser [0-100]"
 
 #. module: sif_interface
-#: code:addons/sif_interface/models/sale_order_line.py:123
+#: code:addons/sif_interface/models/sale_order_line.py:128
 #, python-format
 msgid "Error: Factor must be [1-9.99]"
 msgstr "Error: Factor debe ser [1-9.99]"
 
 #. module: sif_interface
-#: code:addons/sif_interface/models/sale_order_line.py:131
+#: code:addons/sif_interface/models/sale_order_line.py:136
 #, python-format
 msgid "Error: Service factor must be [1-1.99]"
 msgstr "Error: Factor de Servicio debe ser [1-1.99]"
 
 #. module: sif_interface
-#: code:addons/sif_interface/models/sale_order_line.py:133
+#: code:addons/sif_interface/models/sale_order_line.py:138
 #, python-format
 msgid "Error: Service factor must be [1]"
 msgstr "Error: Factor de Servicio debe ser [1]"
 
 #. module: sif_interface
-#: code:addons/sif_interface/models/sale_order_line.py:195
+#: code:addons/sif_interface/models/sale_order.py:158
 #, python-format
-msgid "Error: TC Agreed must be 1-39.99"
-msgstr "Error: Tipo de Cambio acordado debe ser [1-39.99]"
+msgid "Error: TC Agreed must be 1-49.99"
+msgstr "Error: El TC Acordado debe ser [1-49.99]"
 
 #. module: sif_interface
-#: code:addons/sif_interface/models/sale_order_line.py:139
+#: code:addons/sif_interface/models/sale_order.py:62
 #, python-format
-msgid "Error: TC Agreed must be [1-39.99]"
-msgstr "Error: Tipo de Cambio acordado debe ser [1-39.99]"
+msgid "Error: TC Agreed must be [1-49.99]"
+msgstr "Error: El TC Acordado debe ser [1-49.99]"
 
 #. module: sif_interface
 #: model:ir.model.fields,help:sif_interface.field_sale_order__extra_expenses
@@ -252,8 +258,8 @@ msgid "Extra Expenses"
 msgstr "Gastos Extra"
 
 #. module: sif_interface
-#: code:addons/sif_interface/models/sale_order.py:52
-#: code:addons/sif_interface/models/sale_order.py:59
+#: code:addons/sif_interface/models/sale_order.py:67
+#: code:addons/sif_interface/models/sale_order.py:74
 #, python-format
 msgid "Extra Expenses cannot be negative"
 msgstr "Gastos Extra NO pueden ser negativos"
@@ -319,7 +325,7 @@ msgstr "Importar Órden de venta de archivo"
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_product_template__default_code
 msgid "Internal Reference"
-msgstr "Referencia interna"
+msgstr "Referencia Interna"
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_sale_order__is_bom
@@ -346,6 +352,21 @@ msgid "Last Updated on"
 msgstr "Última actualización el"
 
 #. module: sif_interface
+#: model:ir.model.fields,help:sif_interface.field_res_config_settings__order_service_total_minimum_usd
+msgid "Minimum USD Service total to have in an Order"
+msgstr ""
+
+#. module: sif_interface
+#: model_terms:ir.ui.view,arch_db:sif_interface.res_config_settings_view_form
+msgid "Minimum USD Service total to include in an Order"
+msgstr "Mínimo de Servicio en USD en una órden"
+
+#. module: sif_interface
+#: model_terms:ir.ui.view,arch_db:sif_interface.res_config_settings_view_form
+msgid "Minimum Value:"
+msgstr "Valor mínimo"
+
+#. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_export_sif_wizard__name
 msgid "Name"
 msgstr "Nombre"
@@ -356,15 +377,15 @@ msgid "No cost Materials"
 msgstr "Materiales Sin Costo"
 
 #. module: sif_interface
-#: selection:sale.order,show_order_details:0
-msgid "Not shown"
-msgstr "No Mostrar"
-
-#. module: sif_interface
 #: code:addons/sif_interface/wizard/import_sale_order_wizard.py:30
 #, python-format
 msgid "Only .xml or .csv files allowed"
 msgstr "Solo se puede importar .xml o .csv"
+
+#. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_res_config_settings__order_service_total_minimum_usd
+msgid "Order Service Total Minimum Usd"
+msgstr "Mínimo de Servicio en USD en una órden"
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_mrp_bom_line__vendor_id
@@ -449,9 +470,21 @@ msgid "Service Total"
 msgstr "Total Servicio"
 
 #. module: sif_interface
-#: selection:sale.order,show_order_details:0
-msgid "Show"
-msgstr "Mostrar"
+#: code:addons/sif_interface/models/sale_order.py:95
+#, python-format
+msgid "Service total is less than %s USD"
+msgstr "Total de Servicio es menor que %s Dólares"
+
+#. module: sif_interface
+#: code:addons/sif_interface/models/sale_order.py:100
+#, python-format
+msgid "Service total is less than the equivalent of %s USD"
+msgstr "Total de Servicio es menor que el equivalente a %s Dólares"
+
+#. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_sale_order__show_errors
+msgid "Show Errors"
+msgstr "Errores"
 
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_sale_order__show_order_details
@@ -462,7 +495,7 @@ msgstr "Mostrar detalles"
 #. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_export_sif_wizard__state
 msgid "State"
-msgstr "Provincia"
+msgstr "Estado"
 
 #. module: sif_interface
 #: model:ir.model,name:sif_interface.model_stock_move
@@ -480,19 +513,21 @@ msgid "Supplier Pricelist"
 msgstr "Tarifa de proveedor"
 
 #. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_sale_order__iho_tc
 #: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__iho_tc
 msgid "TC Agreed"
 msgstr "TC Acordado"
 
 #. module: sif_interface
-#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:446
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:451
 #, python-format
 msgid "The %s product does not have a configured Alias.\n"
 "Please verify the data of the xml."
-msgstr ""
+msgstr "El producto %s no tiene un Alias definido.\n"
+"Revise el xml."
 
 #. module: sif_interface
-#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:322
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:327
 #, python-format
 msgid "The XML file has an error, please check your data. \n"
 " Error: %s"
@@ -500,7 +535,7 @@ msgstr "El XML tiene un error, favor de revisar. \n"
 " Error: %s"
 
 #. module: sif_interface
-#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:543
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:548
 #, python-format
 msgid "The file %s was correctly loaded. "
 msgstr "Archivo %s cargado satisfactoriamente"
@@ -562,6 +597,11 @@ msgid "Total value of the products offered in the order line"
 msgstr "Valor total de los productos ofrecidos en l alínea de la órden"
 
 #. module: sif_interface
+#: model_terms:ir.ui.view,arch_db:sif_interface.res_config_settings_view_form
+msgid "USD"
+msgstr ""
+
+#. module: sif_interface
 #: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__price_unit
 msgid "Unit Price"
 msgstr "Precio unitario"
@@ -587,7 +627,7 @@ msgid "Vendor Catalog public price"
 msgstr "Precio público de venta del fabricante"
 
 #. module: sif_interface
-#: code:addons/sif_interface/models/sale_order_line.py:203
+#: code:addons/sif_interface/models/sale_order_line.py:193
 #, python-format
 msgid "You need to define a purchase currency for the product [%s]%s"
 msgstr "Falta definir una moneda de compra para el producto [%s]%s"
