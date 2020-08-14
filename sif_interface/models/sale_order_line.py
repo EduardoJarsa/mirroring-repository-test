@@ -266,13 +266,13 @@ class SaleOrderLine(models.Model):
             rec.iho_sell_3 = rec.iho_sell_2 * rec.iho_service_factor
 
     @api.multi
-    @api.depends('iho_sell_3', 'iho_tc')
+    @api.depends('iho_sell_3', 'iho_tc', 'order_id')
     def _compute_sell_4(self):
         for rec in self:
             rec.iho_sell_4 = rec.iho_sell_3 * rec.iho_tc
 
     @api.multi
-    @api.depends('iho_sell_4')
+    @api.depends('iho_sell_4', 'order_id')
     def _compute_price_unit(self):
         for rec in self:
             if rec.iho_sell_4 and rec.iho_sell_4 != 0.0:
