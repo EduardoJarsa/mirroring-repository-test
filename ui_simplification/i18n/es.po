@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-20 16:35+0000\n"
-"PO-Revision-Date: 2020-02-20 16:35+0000\n"
+"POT-Creation-Date: 2020-08-19 00:31+0000\n"
+"PO-Revision-Date: 2020-08-19 00:31+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -51,7 +51,7 @@ msgstr "Cliente de la Casa"
 #. module: ui_simplification
 #: model:utm.source,name:ui_simplification.utm_source_incoming call
 msgid "Incoming call"
-msgstr "Llamada Entrante"
+msgstr "Llamada entrante"
 
 #. module: ui_simplification
 #: model:ir.model.fields,field_description:ui_simplification.field_res_partner__is_company
@@ -83,3 +83,8 @@ msgstr "Recomendación"
 #: model:res.groups,name:ui_simplification.group_show_blocked_fields_CRM
 msgid "Show original UI"
 msgstr "Mostrar UI original"
+
+#. module: ui_simplification
+#: model:res.groups,name:ui_simplification.group_show_product_standard_cost
+msgid "Show product Standard cost"
+msgstr "Muestra Costo Estándard"

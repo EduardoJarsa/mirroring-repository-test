@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_product_template_form_view_hide_std_cost_form" model="ir.ui.view">
+        <field name="name">view.product.template.form.view.hide.std.cost.form</field>
+        <field name="model">product.template</field>
+        <field name="priority">100</field>
+        <field name="inherit_id" ref=
+            "product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='standard_price']" position="attributes">  
+                <attribute name="widget">monetary</attribute>
+                <attribute name="options">{'currency_field': 'cost_currency_id'}</attribute>
+                <attribute name=
+                    "groups">ui_simplification.group_show_product_standard_cost</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_product_product_form_view_hide_std_cost_form" model="ir.ui.view">
+        <field name="name">view.product.product.form.view.hide.std.cost.form</field>
+        <field name="model">product.product</field>
+        <field name="priority">100</field>
+        <field name="inherit_id" ref=
+            "product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='standard_price']" position="attributes">  
+                <attribute name="widget">monetary</attribute>
+                <attribute name="options">{'currency_field': 'cost_currency_id'}</attribute>
+                <attribute name=
+                    "groups">ui_simplification.group_show_product_standard_cost</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_product_template_product_tree_hide_std_cost_tree" model="ir.ui.view">
+        <field name="name">view.product.template.product.tree.hide.std.cost.tree</field>
+        <field name="model">product.template</field>
+        <field name="priority">100</field>
+        <field name="inherit_id" ref=
+            "product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='standard_price']" position="attributes">  
+                <attribute name="groups">ui_simplification.group_show_product_standard_cost</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_product_product_tree_hide_std_cost_tree" model="ir.ui.view">
+        <field name="name">view.product.product.tree.hide.std.cost.tree</field>
+        <field name="model">product.product</field>
+        <field name="priority">100</field>
+        <field name="inherit_id" ref=
+            "product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='standard_price']" position="attributes">  
+                <attribute name="groups">ui_simplification.group_show_product_standard_cost</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
