@@ -15,8 +15,8 @@
             <xpath expr="//header/button[@name='action_quotation_send']" position="replace">
                 <button name="action_quotation_send" string="Send by Email" type="object" attrs="{'invisible': ['|', ('state', 'not in', ['draft']), ('authorized', '=', False)]}" class="btn-primary"/>
             </xpath>
-            <xpath expr="//header/button[@id='action_confirm']" position="replace">  
-            </xpath>
+<!--             <xpath expr="//header/button[@id='action_confirm']" position="replace">  
+            </xpath> -->
             <xpath expr="//header/button[@name='action_confirm']" position="replace">
                 <button name="action_confirm" string="Confirm Sale"  class="btn-primary" type="object" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent']), ('authorized', '=', False)]}"/>
                 <button name="authorize_sale_order" class="btn-primary" attrs="{'invisible': ['|', '|', ('order_version_ids', '=', []), ('authorized_version', '=', False), ('active_version_modified', '=', True)]}" string="Authorized by customer" groups="sale_authorization.group_sale_authorize" type="object"/>

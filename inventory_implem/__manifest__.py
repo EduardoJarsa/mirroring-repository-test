@@ -3,7 +3,7 @@
 
 {
     'name': 'Inventory implementation IHO',
-    'summary': '''All changes required for using Inventory at 
+    'summary': '''All changes required for using Inventory at
         IHO Almacenes database''',
     'version': '12.0.1.0.0',
     'category': 'Customs',
