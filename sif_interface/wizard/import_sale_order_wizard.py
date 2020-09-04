@@ -80,6 +80,9 @@ class ImportSaleOrderWizard(models.TransientModel):
             'ServiceFactorQuotLine': '1',
             'DealerDiscountQuotLine': '0',
             'ExchRateQuotLine': '1',
+            'MakerQuotLine': '',
+            'CatalogQuotLine': '',
+            'FamilyQuotLine': '',
         }
         for column_default, value_default in default_values_cols.items():
             if not line.get(column_default):
@@ -188,7 +191,7 @@ class ImportSaleOrderWizard(models.TransientModel):
             'product_uom_qty': self.to_float(line, 'QttyQuotLine'),
             'iho_price_list': pricelist,
             'iho_purchase_cost': iho_purchase_cost,
-            'iho_tc': self.to_float(line, 'ExchRateQuotLine'),
+            # 'iho_tc': self.to_float(line, 'ExchRateQuotLine'),
             'iho_service_factor': service_factor,
             'customer_discount': customer_discount,
             'iho_factor': self.to_float(line, 'FactorQuotLine'),
@@ -212,14 +215,11 @@ class ImportSaleOrderWizard(models.TransientModel):
     def _check_col_name(self, line):
         file_cols = list(line.keys())
         required_cols = [
-            'MakerQuotLine',
             'ProductCodeQuotLine',
             'ProductDescripQuotLine',
             'PurchCurrencyQuotLine',
             'QttyQuotLine',
             'PriceListQuotLine',
-            'CatalogQuotLine',
-            'FamilyQuotLine',
         ]
         cols_error = ''
         for rec in required_cols:
@@ -245,9 +245,15 @@ class ImportSaleOrderWizard(models.TransientModel):
         reader = csv.DictReader(data)
         sale_order_id = self._context.get('active_id')
         sale_order = self.env['sale.order'].browse(sale_order_id)
+        # sale_order lines importation
         sale_line_list = []
         index = 1
         for line in reader:
+            # sale order header importation.   Header data is at CSV first row
+            if index == 1:
+                header_tc = line.get('ExchRateQuot', False)
+                if header_tc:
+                    sale_order.write({'iho_tc': header_tc, })
             index = index + 1
             element = self._prepare_sale_order_line(line, sale_order, index)
             if element:
