@@ -4,7 +4,7 @@
 {
     'name': 'Stock Account Products',
     'summary': 'Stock Account Products',
-    'version': '12.0.1.0.0',
+    'version': '13.0.1.0.0',
     'category': 'Stock',
     'author': 'Jarsa Sistemas, Vauxoo',
     'website': 'https://www.jarsa.com.mx',

@@ -15,7 +15,7 @@
     'license': 'LGPL-3',
 
     'category': 'crm',
-    'version': '12.0.1.0.0',
+    'version': '13.0.1.0.0',
 
     'depends': [
         'crm',

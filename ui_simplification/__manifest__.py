@@ -5,7 +5,7 @@
 {
     'name': 'UI Simplification for IHO',
     'summary': 'Changes in UI such as fields, books, forms to simplify its use',
-    'version': '12.0.1.0.0',
+    'version': '13.0.1.0.0',
     'category': 'Sales',
     'author': 'MtNet, Jarsa Sistemas, Vauxoo, Odoo Community Association (OCA)',
     'website': 'https://www.jarsa.com.mx',

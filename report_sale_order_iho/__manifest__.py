@@ -4,7 +4,7 @@
 {
     'name': 'Sale order report for IHO',
     'summary': 'Custom module for sale order report',
-    'version': '12.0.1.0.0',
+    'version': '13.0.1.0.0',
     'category': 'Report',
     'author': 'Jarsa Sistemas',
     'website': 'https://www.jarsa.com.mx',

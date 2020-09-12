@@ -6,7 +6,7 @@
     'name': 'Sif Interface',
     'summary': '''Create Bill of Materials by XML files
                  and export it as SIF files''',
-    'version': '12.0.1.0.0',
+    'version': '13.0.1.0.0',
     'category': 'Customs',
     'author': 'MtNet, Jarsa Sistemas, Vauxoo, Odoo Community Association (OCA)',
     'website': 'https://www.jarsa.com.mx',

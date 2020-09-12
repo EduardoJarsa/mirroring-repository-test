@@ -4,7 +4,7 @@
     'name': 'Stock Move Quantity Limit',
     'summary':
         'Limit the quantity to deliver in a picking to quantity ordered',
-    'version': '12.0.1.0.0',
+    'version': '13.0.1.0.0',
     'category': 'stock',
     'website': 'https://www.jarsa.com.mx/',
     'author': 'Jarsa Sistemas, Vauxoo, Odoo Community Association (OCA)',

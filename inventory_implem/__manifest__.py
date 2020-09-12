@@ -5,7 +5,7 @@
     'name': 'Inventory implementation IHO',
     'summary': '''All changes required for using Inventory at
         IHO Almacenes database''',
-    'version': '12.0.1.0.0',
+    'version': '13.0.1.0.0',
     'category': 'Customs',
     'author': 'MtNet, Jarsa Sistemas',
     'website': 'https://www.jarsa.com.mx',

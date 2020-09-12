@@ -3,7 +3,7 @@
 
 {
     'name': 'Vendor discounts',
-    'version': '12.0.1.0.0',
+    'version': '13.0.1.0.0',
     'category': 'products',
     'author': 'Jarsa Sistemas',
     'website': 'https://www.jarsa.com.mx',

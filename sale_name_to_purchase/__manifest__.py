@@ -8,7 +8,7 @@
     on base a prefix of letter of alphabet and
     the name of Sale Order
     """,
-    'version': '12.0.1.0.0',
+    'version': '13.0.1.0.0',
     'category': 'Customs',
     'author': 'Jarsa Sistemas, Vauxoo, Odoo Community Association (OCA)',
     'website': 'https://www.jarsa.com.mx',

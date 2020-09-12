@@ -7,7 +7,7 @@
     This module add a funtion that auto select
     analytic tags on the selected sales team
     """,
-    'version': '12.0.1.0.0',
+    'version': '13.0.1.0.0',
     'category': 'Sale',
     'author': 'Jarsa Sistemas, Vauxoo, Odoo Community Association (OCA)',
     'website': 'https://www.jarsa.com.mx',

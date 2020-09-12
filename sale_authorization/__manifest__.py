@@ -4,7 +4,7 @@
 {
     'name': 'Sale Authorization',
     'summary': 'Module for the authorization of third parties in quotes',
-    'version': '12.0.1.0.0',
+    'version': '13.0.1.0.0',
     'category': 'Sale',
     'author': 'Jarsa Sistemas, Vauxoo, Odoo Community Association (OCA)',
     'website': 'https://www.jarsa.com.mx',

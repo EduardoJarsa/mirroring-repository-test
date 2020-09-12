@@ -4,7 +4,7 @@
 {
     'name': 'Stock Manual Route',
     'summary': 'Create the Stock Routing Manually',
-    'version': '12.0.1.0.0',
+    'version': '13.0.1.0.0',
     'category': 'Stock',
     'author': 'Jarsa Sistemas',
     'website': 'https://www.jarsa.com.mx',
