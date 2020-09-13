@@ -36,7 +36,6 @@ class CrmTeamDefinition(models.Model):
         digits=(6, 2),
         compute='_compute_opportunity_percentage')
 
-    @api.multi
     @api.depends('percentage')
     def _compute_opportunity_percentage(self):
         for record in self:
