@@ -5,7 +5,7 @@
         <field name="model">crm.team</field>
         <field name="inherit_id" ref="sales_team.crm_team_view_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='team_type']" position="after">
+            <xpath expr="//field[@name='company_id']" position="after">
                 <field name="analytic_tag_ids" groups="analytic.group_analytic_tags" options="{'no_create': True}" widget="many2many_tags"/>
             </xpath>
         </field>
