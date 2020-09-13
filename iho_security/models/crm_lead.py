@@ -8,7 +8,6 @@ from odoo.exceptions import ValidationError
 class CrmLead(models.Model):
     _inherit = "crm.lead"
 
-    @api.multi
     def write(self, vals):
         # Name change: Message for the user
         # if no have the group access to modify.

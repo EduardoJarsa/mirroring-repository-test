@@ -12,10 +12,10 @@
     'website': 'https://www.jarsa.com.mx',
     'license': 'AGPL-3',
     'depends': [
-        'purchase_supplierinfo_currency',
+        # 'purchase_supplierinfo_currency',
         'mrp',
         'sale_management',
-        'document',
+        # 'document',
         'l10n_mx_edi',
     ],
     'data': [

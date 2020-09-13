@@ -8,7 +8,6 @@ from odoo.exceptions import UserError
 class ResCountry(models.Model):
     _inherit = 'res.country'
 
-    @api.multi
     def write(self, values):
         if 'demonym' not in values and not self.user_has_groups(
                 'iho_security.group_manager_catalogs'):
