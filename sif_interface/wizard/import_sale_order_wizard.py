@@ -12,7 +12,7 @@ from lxml import objectify
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 
-BOM_UTF8U = BOM_UTF8.decode('UTF-8')
+BOM_UTF8U = BOM_UTF8.decode('LATIN-1')
 
 
 class ImportSaleOrderWizard(models.TransientModel):
@@ -240,7 +240,7 @@ class ImportSaleOrderWizard(models.TransientModel):
     @api.multi
     def _run_csv_import(self):
         self.ensure_one()
-        data = base64.b64decode(self.upload_file).decode('utf-8')
+        data = base64.b64decode(self.upload_file).decode('latin-1')
         data = StringIO(data)
         reader = csv.DictReader(data)
         sale_order_id = self._context.get('active_id')
