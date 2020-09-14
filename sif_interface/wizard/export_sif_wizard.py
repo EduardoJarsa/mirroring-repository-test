@@ -68,7 +68,6 @@ class ExportSifWizard(models.TransientModel):
                 if len(on_code) == 2 else attribute.name) + '\n'
         return sif_data
 
-    @api.multi
     def generate_file(self):
         self.ensure_one()
         purchase_order = self.env[

@@ -184,7 +184,6 @@ class SaleOrderLine(models.Model):
                 self.iho_service_factor != 1.0:
             self.iho_service_factor = 1.0
 
-    @api.multi
     def _process_product_supplierinfo(self):
         for rec in self:
             if not rec.order_id.partner_id:
@@ -224,13 +223,11 @@ class SaleOrderLine(models.Model):
         res._process_product_supplierinfo()
         return res
 
-    @api.multi
     def write(self, vals):
         res = super().write(vals)
         self._process_product_supplierinfo()
         return res
 
-    @api.multi
     @api.depends('product_id')
     def _compute_is_bom_line_and_service(self):
         for rec in self:
@@ -238,40 +235,34 @@ class SaleOrderLine(models.Model):
             if rec.product_id.type == 'service':
                 rec.iho_service_factor = 1
 
-    @api.multi
     @api.depends('iho_price_list', 'iho_factor')
     def _compute_sell_1(self):
         for rec in self:
             rec.iho_sell_1 = \
                 rec.iho_price_list * rec.iho_factor
 
-    @api.multi
     @api.depends('iho_price_list', 'dealer_discount')
     def _compute_iho_purchase_cost(self):
         for rec in self:
             rec.iho_purchase_cost = \
                 rec.iho_price_list * (1 - rec.dealer_discount/100)
 
-    @api.multi
     @api.depends('iho_sell_1', 'customer_discount')
     def _compute_sell_2(self):
         for rec in self:
             rec.iho_sell_2 = \
                 rec.iho_sell_1 * (1-rec.customer_discount/100)
 
-    @api.multi
     @api.depends('iho_sell_2', 'iho_service_factor')
     def _compute_sell_3(self):
         for rec in self:
             rec.iho_sell_3 = rec.iho_sell_2 * rec.iho_service_factor
 
-    @api.multi
     @api.depends('iho_sell_3', 'iho_tc', 'order_id')
     def _compute_sell_4(self):
         for rec in self:
             rec.iho_sell_4 = rec.iho_sell_3 * rec.iho_tc
 
-    @api.multi
     @api.depends('iho_sell_4', 'order_id')
     def _compute_price_unit(self):
         for rec in self:
@@ -280,7 +271,6 @@ class SaleOrderLine(models.Model):
             else:
                 rec.price_unit = rec.product_id.lst_price
 
-    @api.multi
     @api.depends('product_id', 'iho_price_list', 'iho_factor',
                  'customer_discount', 'product_uom_qty')
     def _compute_discount_extended(self):
@@ -289,7 +279,6 @@ class SaleOrderLine(models.Model):
                 rec.iho_price_list * rec.iho_factor * \
                 rec.customer_discount/100 * rec.iho_tc * rec.product_uom_qty
 
-    @api.multi
     @api.depends(
         'product_id', 'iho_price_list',
         'iho_service_factor', 'product_uom_qty')
@@ -313,7 +302,6 @@ class SaleOrderLine(models.Model):
                 else:
                     rec.service_extended = 0
 
-    @api.multi
     @api.depends(
         'product_id', 'iho_price_list', 'product_uom_qty')
     def _compute_product_extended(self):

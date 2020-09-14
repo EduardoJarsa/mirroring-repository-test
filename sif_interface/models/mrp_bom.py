@@ -19,7 +19,6 @@ class MrpBomLine(models.Model):
         string='Currency',
     )
 
-    @api.multi
     def write(self, vals):
         res = super().write(vals)
         obj_sale_order = self.env['sale.order']
@@ -47,7 +46,6 @@ class MrpBomLine(models.Model):
             })
         return res
 
-    @api.multi
     def create(self, vals):
         res = super().create(vals)
         obj_sale_order = self.env['sale.order']

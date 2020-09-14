@@ -29,7 +29,6 @@ class SaleOrder(models.Model):
         'vendor.sale.order.discounts', 'sale_id',
         copy=False)
 
-    @api.multi
     def _validate_discounts(self):
         order_lines = self.order_line
         makers = self.order_line.mapped('vendor_id')
@@ -447,7 +446,6 @@ class SaleOrder(models.Model):
                 })
             combination_discounts.append(combination)
 
-    @api.multi
     def review_sale_order(self):
         res = super().review_sale_order()
         self._validate_discounts()
@@ -457,7 +455,6 @@ class SaleOrder(models.Model):
 class SaleOrderVersionCreateWizard(models.TransientModel):
     _inherit = 'sale.order.version.create.wizard'
 
-    @api.multi
     def create_version(self):
         res = super().create_version()
         self.sale_id._validate_discounts()

@@ -22,7 +22,6 @@ class ImportSaleOrderWizard(models.TransientModel):
     upload_file = fields.Binary(required=True)
     file_name = fields.Char()
 
-    @api.multi
     def run_import(self):
         file_extension = os.path.splitext(self.file_name)[1].lower()
         if file_extension not in ['.xml', '.csv']:
@@ -237,7 +236,6 @@ class ImportSaleOrderWizard(models.TransientModel):
             % cols_error)
         raise ValidationError(message)
 
-    @api.multi
     def _run_csv_import(self):
         self.ensure_one()
         data = base64.b64decode(self.upload_file).decode('utf-8')
@@ -414,7 +412,6 @@ class ImportSaleOrderWizard(models.TransientModel):
                 })
         return item
 
-    @api.multi
     def _run_2020_import(self):
         self.ensure_one()
         obj_bom = self.env['mrp.bom']

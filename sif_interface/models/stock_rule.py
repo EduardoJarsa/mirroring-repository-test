@@ -19,7 +19,6 @@ class StockRule(models.Model):
                 'values').get('group_id').sale_id and r.sale_order_id) or res
         return supplier
 
-    @api.multi
     def _prepare_purchase_order_line(self, product_id, product_qty,
                                      product_uom, values, po, partner):
         """Method overridden from odoo to set the proper product price
