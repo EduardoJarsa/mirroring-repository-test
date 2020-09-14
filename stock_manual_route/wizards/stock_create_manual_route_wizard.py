@@ -27,7 +27,6 @@ class StockCreateManualRouteWizard(models.TransientModel):
         help='field to indicate when it leaves the warehouse to transit '
              'and when it will be received from the other side.')
 
-    @api.multi
     def _prepare_stock_move(self, move, picking):
         """ Prepare the stock moves data for one order line.
             This function returns a list of
@@ -192,7 +191,6 @@ class StockCreateManualRouteWizard(models.TransientModel):
         })
         return res
 
-    @api.multi
     def run_routing(self):
         self.ensure_one()
         # If the move type is not internal we create a direct delivery

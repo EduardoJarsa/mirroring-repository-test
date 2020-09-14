@@ -16,7 +16,6 @@ class StockPicking(models.Model):
         help='Field used to identify pickings without destination moves.'
     )
 
-    @api.multi
     def _compute_no_route(self):
         for rec in self:
             rec.no_route = (

@@ -7,7 +7,6 @@ from odoo import api, models
 class PurchaseOrderLine(models.Model):
     _inherit = "purchase.order.line"
 
-    @api.multi
     def _prepare_stock_moves(self, picking):
         res = super()._prepare_stock_moves(picking)
         res[0]['move_dest_ids'] = []

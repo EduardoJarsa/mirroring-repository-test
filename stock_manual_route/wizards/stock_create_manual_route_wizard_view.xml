@@ -25,7 +25,6 @@
         <field name="name">Create Manual Route</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">stock.create.manual.route.wizard</field>
-        <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="target">new</field>
     </record>
