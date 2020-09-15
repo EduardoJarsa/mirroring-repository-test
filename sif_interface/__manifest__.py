@@ -15,7 +15,6 @@
         # 'purchase_supplierinfo_currency',
         'mrp',
         'sale_management',
-        # 'document',
         'l10n_mx_edi',
     ],
     'data': [
