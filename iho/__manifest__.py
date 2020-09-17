@@ -28,8 +28,6 @@
         'supplier_product_discounts',
         'l10n_mx',
         'l10n_mx_edi',
-        'l10n_mx_edi_payment',
-        'l10n_mx_edi_payment_bank',
         'l10n_mx_reports',
         'l10n_mx_tax_cash_basis',
         'ui_simplification',
