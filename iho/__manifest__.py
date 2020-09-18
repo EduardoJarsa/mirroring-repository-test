@@ -13,6 +13,7 @@
     'depends': [
         'base_user_role',
         'stock_move_quantity_limit',
+        'sale_crm',
         'sif_interface',
         'sale_authorization',
         'sale_stock',
