@@ -3,5 +3,4 @@ mexico git@git.vauxoo.com:Jarsa/mexico.git 13.0
 brand git@github.com:OCA/brand.git 13.0
 purchase-workflow git@github.com:Jarsa/purchase-workflow 13.0
 server-backend git@github.com:OCA/server-backend.git 13.0
-odoo-utilities git@git.vauxoo.com:Jarsa/odoo-utilities 13.0
 social git@github.com:OCA/social.git 13.0

@@ -12,7 +12,6 @@
     'license': 'AGPL-3',
     'depends': [
         'base_user_role',
-        'res_currency_rate_custom_decimals',
         'stock_move_quantity_limit',
         'sif_interface',
         'sale_authorization',
@@ -29,7 +28,6 @@
         'l10n_mx',
         'l10n_mx_edi',
         'l10n_mx_reports',
-        'l10n_mx_tax_cash_basis',
         'ui_simplification',
         'inventory_implem',
     ],
