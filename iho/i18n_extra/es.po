@@ -58,12 +58,12 @@ msgid "<b>Invite coworkers</b> via email.<br/><i>Enter one email per line.</i>"
 msgstr "<b>Invite compañeros</b> vía email.<br/><i>Entrar un email por línea.</i>"
 
 #. module: crm
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 msgid "<i class=\"fa fa-ban\" style=\"color: red;\" role=\"img\" title=\"This email is blacklisted for mass mailing\" aria-label=\"Blacklisted\" attrs=\"{'invisible': ['|', ('is_blacklisted', '=', False), ('partner_address_email', '!=', False)]}\" groups=\"base.group_user\"/>"
 msgstr "<i class=\"fa fa-ban\" style=\"color: red;\" role=\"img\" title=\"Este correo está excluido para envíos masivos\" aria-label=\"En la lista negra\" attrs=\"{'invisible': ['|', ('is_blacklisted', '=', False), ('partner_address_email', '!=', False)]}\" groups=\"base.group_user\"/>"
 
 #. module: crm
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 msgid "<i class=\"fa fa-ban\" style=\"color: red;\" role=\"img\" title=\"This email is blacklisted for mass mailing\" aria-label=\"Blacklisted\" attrs=\"{'invisible': ['|', ('partner_is_blacklisted', '=', False), ('partner_address_email', '=', False)]}\" groups=\"base.group_user\"/>"
 msgstr "<i class=\"fa fa-ban\" style=\"color: red;\" role=\"img\" title=\"Este correo está excluido para envíos masivos\" aria-label=\"En la lista negra\" attrs=\"{'invisible': ['|', ('partner_is_blacklisted', '=', False), ('partner_address_email', '=', False)]}\" groups=\"base.group_user\"/>"
 
@@ -119,14 +119,14 @@ msgid "<p>You will be able to customize your followup activities. Examples:</p><
 msgstr "<p>Podrás personalizar tus actividades de segumiento. Ejemplos:</p><ol><li>email introductorio</li><li>llamada 10 días después</li><li>segunda llamada 3 días después,...</li></ol><p class='mb0'><i>Selecciona una actividad estandar por ahora.</i></p>"
 
 #. module: crm
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 msgid "<span class=\"o_stat_text\" attrs=\"{'invisible': [('meeting_count', '&lt;', 2)]}\"> Meetings</span>\n"
 "                                    <span class=\"o_stat_text\" attrs=\"{'invisible': [('meeting_count', '&gt;', 1)]}\"> Meeting</span>"
 msgstr "<span class=\"o_stat_text\" attrs=\"{'invisible': [('meeting_count', '&lt;', 2)]}\"> Reuniones</span>\n"
 "<span class=\"o_stat_text\" attrs=\"{'invisible': [('meeting_count', '&gt;', 1)]}\"> Reunion</span>"
 
 #. module: crm
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 msgid "<span class=\"oe_grey\"> at </span>"
 msgstr "<span class=\"oe_grey\"> a </span>"
 
@@ -202,7 +202,7 @@ msgstr "Agregue un paso de calificación antes de crear una oportunidad"
 
 #. module: crm
 #: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_leads
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 msgid "Address"
 msgstr "Dirección"
 
@@ -333,7 +333,7 @@ msgstr "Marque esta casilla para administrar un proceso de preventa con oportuni
 #. module: crm
 #: model:ir.model.fields,field_description:crm.field_crm_lead__city
 #: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_leads
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 #: model_terms:ir.ui.view,arch_db:crm.crm_opportunity_report_view_search
 #: model_terms:ir.ui.view,arch_db:crm.view_crm_case_leads_filter
 #: model_terms:ir.ui.view,arch_db:crm.view_crm_case_opportunities_filter
@@ -514,7 +514,7 @@ msgstr "Contador del número de correos electrónicos rebotados de este contacto
 #: model:ir.model.fields,field_description:crm.field_crm_lead__country_id
 #: model_terms:ir.ui.view,arch_db:crm.crm_activity_report_view_search
 #: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_leads
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 #: model_terms:ir.ui.view,arch_db:crm.crm_opportunity_report_view_search
 #: model_terms:ir.ui.view,arch_db:crm.view_crm_case_leads_filter
 #: model_terms:ir.ui.view,arch_db:crm.view_crm_case_opportunities_filter
@@ -636,7 +636,7 @@ msgstr "Moneda"
 #: model:ir.model.fields,field_description:crm.field_crm_lead__partner_id
 #: model:ir.model.fields,field_description:crm.field_crm_partner_binding__partner_id
 #: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_leads
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 #: model_terms:ir.ui.view,arch_db:crm.crm_case_tree_view_oppor
 #: model_terms:ir.ui.view,arch_db:crm.view_crm_case_leads_filter
 #: model_terms:ir.ui.view,arch_db:crm.view_crm_case_opportunities_filter
@@ -759,7 +759,7 @@ msgstr "Editar"
 #. module: crm
 #: model:ir.model.fields,field_description:crm.field_crm_lead__email_from
 #: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_leads
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 msgid "Email"
 msgstr "Correo electrónico"
 
@@ -877,7 +877,7 @@ msgid "Followers (Partners)"
 msgstr "Seguidores (Empresas)"
 
 #. module: crm
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 msgid "Followup"
 msgstr "Seguimiento"
 
@@ -1032,13 +1032,13 @@ msgid "Include archived"
 msgstr "Incluir archivados"
 
 #. module: crm
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 msgid "Initial Contact Information"
 msgstr "Información Inicial de Contacto"
 
 #. module: crm
 #: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_leads
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 msgid "Internal Notes"
 msgstr "Notas internas"
 
@@ -1236,7 +1236,7 @@ msgstr "Empresa ligada (opcional). Usualmente creada al convertir la iniciativa.
 #. module: crm
 #: code:addons/crm/models/crm_lead.py:1142
 #: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_leads
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 #: model_terms:ir.ui.view,arch_db:crm.crm_opportunity_report_view_search
 #: model_terms:ir.ui.view,arch_db:crm.view_crm_case_leads_filter
 #: model_terms:ir.ui.view,arch_db:crm.view_crm_case_opportunities_filter
@@ -1292,12 +1292,12 @@ msgid "Mark Late Activities as Done"
 msgstr "Marcar Actividades Atrasadas como Hechas"
 
 #. module: crm
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 msgid "Mark Lost"
 msgstr "Marcar perdido"
 
 #. module: crm
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 msgid "Mark Won"
 msgstr "Marcar como ganado"
 
@@ -1312,7 +1312,7 @@ msgid "Mark as lost"
 msgstr "Marcar como perdido"
 
 #. module: crm
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 msgid "Marketing"
 msgstr ""
 
@@ -1406,13 +1406,13 @@ msgid "Messages"
 msgstr "Mensajes"
 
 #. module: crm
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 msgid "Misc"
 msgstr "Misc."
 
 #. module: crm
 #: model:ir.model.fields,field_description:crm.field_crm_lead__mobile
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 msgid "Mobile"
 msgstr "Móvil"
 
@@ -1579,7 +1579,7 @@ msgstr "Motivo de pérdida de la oportunidad"
 #: model:ir.model.fields,field_description:crm.field_res_users__opportunity_ids
 #: model:ir.ui.menu,name:crm.menu_crm_config_opportunity
 #: model_terms:ir.ui.view,arch_db:crm.crm_activity_report_view_search
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 #: model_terms:ir.ui.view,arch_db:crm.crm_case_tree_view_oppor
 #: model_terms:ir.ui.view,arch_db:crm.crm_lead_view_graph
 #: model_terms:ir.ui.view,arch_db:crm.crm_team_salesteams_view_kanban
@@ -1726,7 +1726,7 @@ msgstr "Empresa/Cliente"
 
 #. module: crm
 #: model:ir.model.fields,field_description:crm.field_crm_lead__phone
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 msgid "Phone"
 msgstr "Teléfono"
 
@@ -1869,7 +1869,7 @@ msgstr "Usuario responsable"
 
 #. module: crm
 #: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_leads
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 msgid "Restore"
 msgstr "Restaurar"
 
@@ -2063,7 +2063,7 @@ msgstr "Los estados permiten a los comerciales a seguir fácilmente como una opo
 #. module: crm
 #: model:ir.model.fields,field_description:crm.field_crm_lead__state_id
 #: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_leads
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 msgid "State"
 msgstr "Estado"
 
@@ -2085,13 +2085,13 @@ msgstr "Calle"
 
 #. module: crm
 #: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_leads
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 msgid "Street 2..."
 msgstr "Calle 2..."
 
 #. module: crm
 #: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_leads
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 msgid "Street..."
 msgstr "Calle..."
 
@@ -2221,7 +2221,7 @@ msgstr "Este objetivo no existe."
 #. module: crm
 #: model:ir.model.fields,field_description:crm.field_crm_lead__title
 #: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_leads
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 msgid "Title"
 msgstr "Título"
 
@@ -2419,7 +2419,7 @@ msgstr "Dentro de un año"
 #: model:crm.stage,name:crm.stage_lead4
 #: model_terms:ir.ui.view,arch_db:crm.crm_activity_report_view_search
 #: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_leads
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 #: model_terms:ir.ui.view,arch_db:crm.crm_opportunity_report_view_search
 #: model_terms:ir.ui.view,arch_db:crm.view_crm_case_leads_filter
 #: model_terms:ir.ui.view,arch_db:crm.view_crm_case_opportunities_filter
@@ -2472,7 +2472,7 @@ msgstr "Podrá también planificar reuniones y llamadas des de las oportunidades
 
 #. module: crm
 #: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_leads
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 msgid "ZIP"
 msgstr "Código Postal"
 
@@ -2487,13 +2487,13 @@ msgid "e.g. Customer Deal"
 msgstr "p.ej. Acuerdo con el cliente"
 
 #. module: crm
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 msgid "e.g. Product Pricing"
 msgstr "Por ejemplo Precios de Productos"
 
 #. module: crm
 #: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_leads
-#: model_terms:ir.ui.view,arch_db:crm.crm_case_form_view_oppor
+#: model_terms:ir.ui.view,arch_db:sale_crm.crm_case_form_view_oppor
 msgid "e.g. https://www.odoo.com"
 msgstr "e.j. https://www.odoo.com"
 

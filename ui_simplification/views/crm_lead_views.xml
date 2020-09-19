@@ -4,7 +4,7 @@
         <field name="name">crm.block.ui.inherit.crm.case.form.view.oppor</field>
         <field name="model">crm.lead</field>
         <field name="priority">100</field>
-        <field name="inherit_id" ref="crm.crm_case_form_view_oppor"/>
+        <field name="inherit_id" ref="sale_crm.crm_case_form_view_oppor"/>
         <field name="arch" type="xml"> 
             <xpath expr="//field[@name='date_deadline']" position="after">
                 <field name="block_ui_crm" invisible="1"/>
@@ -41,7 +41,7 @@
         <field name="name">crm.block.ui.inherit.crm.case.form.view.leads</field>
         <field name="model">crm.lead</field>
         <field name="priority">100</field>
-        <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
+        <field name="inherit_id" ref="sale_crm.crm_case_form_view_leads"/>
         <field name="arch" type="xml">
 <!--        removes group no_one, -->
             <xpath expr="//field[@name='partner_id']" position="attributes">  
