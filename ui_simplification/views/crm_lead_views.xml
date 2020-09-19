@@ -37,13 +37,14 @@
         </field>
     </record>
 
+<!-- It will be commented out...   to be verified later
     <record id="view_crm_block_ui_inherit_crm_case_form_view_leads" model="ir.ui.view">
         <field name="name">crm.block.ui.inherit.crm.case.form.view.leads</field>
         <field name="model">crm.lead</field>
         <field name="priority">100</field>
-        <field name="inherit_id" ref="sale_crm.crm_case_form_view_leads"/>
+        <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
         <field name="arch" type="xml">
-<!--        removes group no_one, -->
+        **** removes group no_one, 
             <xpath expr="//field[@name='partner_id']" position="attributes">  
                 <attribute name="groups"></attribute>
             </xpath>
@@ -117,5 +118,5 @@
             </xpath>
         </field>
     </record>
-
+ -->
 </odoo>
