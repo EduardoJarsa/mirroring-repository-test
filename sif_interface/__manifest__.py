@@ -16,6 +16,7 @@
         'mrp',
         'sale_management',
         'l10n_mx_edi',
+        'supplier_product_discounts',
     ],
     'data': [
         'data/res_partner_data.xml',
