@@ -3,22 +3,22 @@
     <record id="kno_res_partner" model="res.partner">
         <field name="name">KNO</field>
         <field name="ref">KNO</field>
-        <field name="supplier">True</field>
+        <field name="supplier_rank">1</field>
         <field name="is_company">True</field>
-        <field name="customer">False</field>
+        <field name="customer_rank">0</field>
     </record>
     <record id="iho_res_partner" model="res.partner">
         <field name="name">IHO</field>
         <field name="ref">IHO</field>
-        <field name="supplier">True</field>
+        <field name="supplier_rank">1</field>
         <field name="is_company">True</field>
-        <field name="customer">False</field>
+        <field name="customer_rank">0</field>
     </record>    
     <record id="nd_res_partner" model="res.partner">
         <field name="name">N/D</field>
         <field name="ref">N/D</field>
-        <field name="supplier">True</field>
+        <field name="supplier_rank">1</field>
         <field name="is_company">True</field>
-        <field name="customer">False</field>
+        <field name="customer_rank">0</field>
     </record>
 </odoo>
