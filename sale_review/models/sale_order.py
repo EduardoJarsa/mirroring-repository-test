@@ -8,7 +8,6 @@ from odoo.exceptions import ValidationError
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    @api.multi
     def call_wizard(self):
         return {
             'name': _("Select activity user"),
@@ -20,7 +19,6 @@ class SaleOrder(models.Model):
             'context': {'sellers_sr_id': self._context.get('sellers_sr_id')}
         }
 
-    @api.multi
     def review_sale_order(self):
         for rec in self:
             if self.show_errors:

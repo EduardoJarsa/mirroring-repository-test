@@ -24,7 +24,6 @@ class SaleOrderVersionWizard(models.TransientModel):
         res['sale_id'] = self._context.get('active_id', False)
         return res
 
-    @api.multi
     def back_previous_version(self):
         self.ensure_one()
         self.sale_id.order_line.unlink()

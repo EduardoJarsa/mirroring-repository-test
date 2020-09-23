@@ -30,7 +30,6 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
         ' next letter of the alphabet.',
     )
 
-    @api.multi
     @api.depends('use_same_prefix')
     def _compute_same_prefix_boolean(self):
         for rec in self:
@@ -60,7 +59,6 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
             res.append((0, 0, data))
         return res
 
-    @api.multi
     def create_version(self):
         self.ensure_one()
         sov_obj = self.env['sale.order.version']

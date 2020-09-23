@@ -23,13 +23,11 @@ class SaleOrder(models.Model):
         'sale.order', related='active_version_id.sale_id',
         string='Source Quotation')
 
-    @api.multi
     @api.depends('order_line')
     def _compute_has_lines(self):
         for rec in self:
             rec.has_lines = bool(rec.order_line)
 
-    @api.multi
     def write(self, vals):
         for rec in self:
             if rec.active_version_id:
