@@ -7,3 +7,5 @@ from . import res_partner
 from . import product_product
 from . import utm
 from . import crm_lead_tag
+from . import crm_lead
+from . import res_country

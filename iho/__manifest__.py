@@ -14,11 +14,9 @@
         'base_user_role',
         'stock_move_quantity_limit',
         'sale_crm',
-        'supplier_product_discounts',
         'sif_interface',
         'sale_authorization',
         'sale_stock',
-        'iho_security',
         'report_sale_order_iho',
         'sale_order_version',
         'crm_team_analytic',
@@ -26,6 +24,7 @@
         'sale_review',
         'stock_manual_route',
         'crm_team_definition',
+        'supplier_product_discounts',
         'l10n_mx',
         'l10n_mx_edi',
         'l10n_mx_reports',
@@ -35,5 +34,8 @@
     'data': [
         'views/res_partner_view.xml',
         'views/sale_order_view.xml',
+        'security/security.xml',
+        'security/ir.model.access.csv',
+        'views/ir_ui_menu_view.xml',
     ],
 }
