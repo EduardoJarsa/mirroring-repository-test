@@ -24,13 +24,14 @@
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after" >
                 <field name="vendor_id" attrs="{'column_invisible': [('parent.state', '!=', 'sale')], 'required': [('parent.state', '!=', 'sale')]}"/>
             </xpath>
-            <xpath expr="//field[@name='order_line']/form/label[1]" position="before">
+<!--             <xpath expr="//field[@name='order_line']/form/label[1]" position="before">
+                <field name="is_bom_line" invisible="1"/>
                 <group attrs="{'invisible': ['|', ('is_bom_line', '!=', False), ('display_type', '!=', False)]}">
                     <group>
                         <field name="vendor_id" attrs="{'column_invisible': [('parent.state', '!=', 'sale')], 'required': [('parent.state', '!=', 'sale')]}"/>
                     </group>
                 </group>
-            </xpath>
+            </xpath> -->
         </field> 
     </record>
 </odoo>
