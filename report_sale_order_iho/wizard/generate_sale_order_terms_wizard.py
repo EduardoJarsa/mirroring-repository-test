@@ -24,7 +24,6 @@ class GenerateSaleOrderTermsWizard(models.TransientModel):
         res['term_ids'] = order.mapped('sale_order_term_ids.term_id').ids
         return res
 
-    @api.multi
     def add_term_to_sale_order(self):
         if self._context.get('active_model') != 'sale.order':
             return False

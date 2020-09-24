@@ -34,7 +34,6 @@ class SaleTerm(models.Model):
             _('The code and category must be unique !')),
     ]
 
-    @api.multi
     def name_get(self):
         result = []
         for rec in self:

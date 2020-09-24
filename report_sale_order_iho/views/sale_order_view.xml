@@ -29,7 +29,7 @@
                     </tree>
                 </field>
             </xpath>
-            <xpath expr="//button[@name='action_unlock']" position="after">
+            <xpath expr="//button[@name='action_confirm']" position="after">
                 <button name="%(report_sale_order_iho.action_generate_sale_order_terms_wizard)d" string="Add T&amp;C" type="action" class="oe_highlight"/>
             </xpath>
         </field>

@@ -55,7 +55,6 @@
     <record id="action_sale_term" model="ir.actions.act_window">
         <field name="name">Sale Terms</field>
         <field name="res_model">sale.term</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
     <menuitem id="sale_term_menu" name="Sale Terms" parent="sale.menu_sales_config" action="action_sale_term"/>

@@ -28,7 +28,6 @@ class SaleOrderTerm(models.Model):
     term_id = fields.Many2one('sale.term', required=True)
     sequence = fields.Integer(required=True, default=10)
 
-    @api.multi
     def name_get(self):
         result = []
         for rec in self:
@@ -72,13 +71,11 @@ class SaleOrder(models.Model):
         res._generate_terms(add_defaults=True)
         return res
 
-    @api.multi
     def write(self, values):
         res = super().write(values)
         self._generate_terms()
         return res
 
-    @api.multi
     def _generate_terms(self, add_defaults=False):
         for rec in self:
             context = {
@@ -111,7 +108,6 @@ class SaleOrder(models.Model):
                 })
             rec.sale_order_term_ids.create(new_terms)
 
-    @api.multi
     def get_product_freight(self):
         for rec in self.mapped('order_line'):
             fleet_product = self.env.ref(
@@ -122,7 +118,6 @@ class SaleOrder(models.Model):
                     'product_id': rec.product_id.id
                 }
 
-    @api.multi
     def find_images(self):
         images = []
         for rec in self.mapped('order_line'):

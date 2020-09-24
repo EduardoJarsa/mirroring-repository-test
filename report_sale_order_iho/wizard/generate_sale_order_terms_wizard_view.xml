@@ -24,7 +24,6 @@
     <record id="action_generate_sale_order_terms_wizard" model="ir.actions.act_window">
         <field name="name">Generate Sale Order Terms Wizard</field>
         <field name="res_model">generate.sale.order.terms.wizard</field>
-        <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="type">ir.actions.act_window</field>
         <field name="target">new</field>

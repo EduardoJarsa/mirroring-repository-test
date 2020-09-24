@@ -12,8 +12,11 @@
     'license': 'AGPL-3',
     'depends': [
         'base_user_role',
+        'base_address_city',
+        'purchase',
         'stock_move_quantity_limit',
         'sale_crm',
+        'mrp',
         'sif_interface',
         'sale_authorization',
         'sale_stock',
