@@ -40,7 +40,7 @@ class SaleOrder(models.Model):
         help="Total cost of the products of the order",
     )
     show_order_details = fields.Boolean(
-        default=False, required=True,
+        default=False,
     )
     is_bom = fields.Boolean(
         string="Is Bom?",

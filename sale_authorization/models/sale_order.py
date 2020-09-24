@@ -11,21 +11,18 @@ class SaleOrder(models.Model):
     authorized = fields.Boolean()
     authorized_version = fields.Boolean(compute='_compute_authorized_version')
 
-    @api.multi
     @api.depends('order_version_ids')
     def _compute_authorized_version(self):
         for rec in self:
             if rec.active_version_id.state == 'reviewed':
                 self.authorized_version = True
 
-    @api.multi
     def _prepare_discounts(self, lines):
         discounts = []
         for line in lines:
             discounts.append((0, 0, line.read(load='withou_name_get')[0]))
         return discounts
 
-    @api.multi
     def authorize_sale_order(self):
         self.ensure_one()
         if not self.message_is_follower:

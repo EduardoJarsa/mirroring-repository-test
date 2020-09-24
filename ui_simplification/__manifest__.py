@@ -13,6 +13,8 @@
     'depends': [
         'utm',
         'crm',
+        'sale_management',
+        'sale_crm',
         'l10n_mx_edi',
     ],
     'data': [

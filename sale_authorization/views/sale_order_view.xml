@@ -87,7 +87,7 @@
         </record>
 
     <!--Modified the original action for this new filter-->
-    <record id="sale_crm.sale_action_quotations" model="ir.actions.act_window">
+    <record id="sale_crm.sale_action_quotations_new" model="ir.actions.act_window">
         <field name="domain">[('opportunity_id', '=', active_id),('authorized', '=', False)]</field>
         <field name="context">{'search_default_opportunity_id': [active_id], 'default_opportunity_id': active_id}</field>
     </record>

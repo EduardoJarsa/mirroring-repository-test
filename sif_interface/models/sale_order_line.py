@@ -67,7 +67,7 @@ class SaleOrderLine(models.Model):
         default=lambda self: self.env.ref('base.USD'),
     )
     show_order_details = fields.Boolean(
-        default=False, required=True,
+        default=False,
         related='order_id.show_order_details',
     )
     is_bom_line = fields.Boolean(
