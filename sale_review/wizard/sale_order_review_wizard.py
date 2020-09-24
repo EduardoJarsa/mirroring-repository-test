@@ -20,7 +20,6 @@ class SaleOrderReviewWizard(models.TransientModel):
             ('user_ids.id', 'in', res_partner_obj.ids)]
         return res
 
-    @api.multi
     def request_review_so(self):
         so_obj = self.env['sale.order']
         so = so_obj.browse(self._context.get('active_id'))

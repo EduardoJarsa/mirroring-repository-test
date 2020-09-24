@@ -12,7 +12,6 @@ class SaleOrder(models.Model):
         return {
             'name': _("Select activity user"),
             'view_mode': 'form',
-            'view_type': 'form',
             'res_model': 'sale.order.review.wizard',
             'type': 'ir.actions.act_window',
             'target': 'new',

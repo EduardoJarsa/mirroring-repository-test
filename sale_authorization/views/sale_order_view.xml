@@ -66,7 +66,6 @@
             <field name="name">Quotation Authorization</field>
             <field name="domain">[('state', '!=', 'sale'),('authorized', '=', True)]</field>
             <field name="res_model">sale.order</field>
-            <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
 
@@ -99,7 +98,6 @@
         <field name="domain">[('opportunity_id', '=', active_id),('state', '!=', 'sale'),('authorized', '=', True)]</field>
         <field name="context">{'search_default_opportunity_id': [active_id], 'default_opportunity_id': active_id}</field>
         <field name="res_model">sale.order</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 

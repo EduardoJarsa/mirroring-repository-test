@@ -86,7 +86,6 @@ class ExportSifWizard(models.TransientModel):
             'type': 'ir.actions.act_window',
             'res_model': 'export.sif.wizard',
             'view_mode': 'form',
-            'view_type': 'form',
             'res_id': self.id,
             'views': [(False, 'form')],
             'target': 'new',

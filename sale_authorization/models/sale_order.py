@@ -67,7 +67,6 @@ class SaleOrder(models.Model):
         return {
             'name': _('Sale Order'),
             'type': 'ir.actions.act_window',
-            'view_type': 'form',
             'view_mode': 'form',
             'res_model': 'sale.order',
             'res_id': new_order.id,

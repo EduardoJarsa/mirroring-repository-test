@@ -137,7 +137,6 @@ class StockCreateManualRouteWizard(models.TransientModel):
     def prepare_action(self):
         return {
             'name': _('Stock Picking'),
-            'view_type': 'form',
             'view_mode': 'form',
             'res_model': 'stock.picking',
             'type': 'ir.actions.act_window',
