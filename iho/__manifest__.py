@@ -5,7 +5,7 @@
 {
     'name': 'IHO Instance Module',
     'summary': 'Module to install Instance',
-    'version': '13.0.1.0.0',
+    'version': '13.0.1.0.1',
     'category': 'Instance',
     'author': 'MtNet, Jarsa Sistemas, Vauxoo, Odoo Community Association (OCA)',
     'website': 'https://www.jarsa.com.mx',

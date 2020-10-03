@@ -3,11 +3,11 @@
 <!--     Security groups
     Look at "External Identifiers" by "Model Name" = ir.module.category -->
     <record id="group_show_blocked_fields_CRM" model="res.groups">
-        <field name="category_id" ref="base.module_category_sales_management"/>
+        <field name="category_id" ref="base.module_category_sales_sales"/>
         <field name="name">Show original UI</field>
     </record>
     <record id="group_show_product_standard_cost" model="res.groups">
-        <field name="category_id" ref="base.module_category_warehouse_management"/>
+        <field name="category_id" ref="base.module_category_inventory"/>
         <field name="name">Show product Standard cost</field>
     </record>
 </odoo>
