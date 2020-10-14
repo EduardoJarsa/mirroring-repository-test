@@ -7,6 +7,7 @@ from odoo.tools.translate import _
 
 class SaleOrderReviewWizard(models.TransientModel):
     _name = 'sale.order.review.wizard'
+    _descrption = 'Reviews Sale Orders'
 
     seller_ids = fields.Many2one(
         'res.partner', string='Seller senior')

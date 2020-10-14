@@ -32,7 +32,6 @@
         'l10n_mx_edi',
         'l10n_mx_reports',
         'ui_simplification',
-        'inventory_implem',
     ],
     'data': [
         'views/res_partner_view.xml',

@@ -8,6 +8,7 @@ from odoo.exceptions import ValidationError
 
 class GenerateSaleOrderTermsWizard(models.TransientModel):
     _name = 'generate.sale.order.terms.wizard'
+    _description = 'Add terms to Sale Order'
 
     term_id = fields.Many2one('sale.term')
     category_id = fields.Many2one('sale.term.category')

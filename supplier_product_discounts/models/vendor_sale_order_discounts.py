@@ -6,6 +6,7 @@ from odoo import fields, models
 
 class VendorSaleOrderDiscounts(models.Model):
     _name = 'vendor.sale.order.discounts'
+    _description = 'Discounts set per Sale Order'
 
     name = fields.Char()
     sale_id = fields.Many2one(comodel_name='sale.order')

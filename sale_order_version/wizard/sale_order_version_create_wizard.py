@@ -9,6 +9,7 @@ from odoo.tools.translate import _
 
 class SaleOrderVersionCreateWizard(models.TransientModel):
     _name = 'sale.order.version.create.wizard'
+    _description = 'Wizard model to create SO version'
 
     name = fields.Char()
     sale_id = fields.Many2one(

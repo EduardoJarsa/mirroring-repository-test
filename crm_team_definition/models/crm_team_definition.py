@@ -10,6 +10,8 @@ from odoo import _, api, fields, models
 class CrmTeamDefinition(models.Model):
 
     _name = 'crm.team.definition'
+    _description = 'Model for crm team setup'
+
     lead_id = fields.Integer(
         string='Lead Id:', readonly=True, visible=False)
 

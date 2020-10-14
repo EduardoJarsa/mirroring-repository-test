@@ -7,6 +7,7 @@ from odoo.tools.translate import _
 
 class SaleOrderVersionWizard(models.TransientModel):
     _name = 'sale.order.version.wizard'
+    _description = 'SO maintenance wizard'
 
     sale_version_id = fields.Many2one(
         comodel_name='sale.order.version',
