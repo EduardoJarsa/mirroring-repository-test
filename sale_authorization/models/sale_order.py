@@ -14,8 +14,10 @@ class SaleOrder(models.Model):
     @api.depends('order_version_ids')
     def _compute_authorized_version(self):
         for rec in self:
+            authorized_version = False
             if rec.active_version_id.state == 'reviewed':
-                self.authorized_version = True
+                authorized_version = True
+            rec.authorized_version = authorized_version
 
     def _prepare_discounts(self, lines):
         discounts = []
