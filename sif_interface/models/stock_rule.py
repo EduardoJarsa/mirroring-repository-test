@@ -1,4 +1,5 @@
 # Copyright 2018, Jarsa Sistemas, S.A. de C.V.
+# Copyright 2020, MtNet Services, S.A. de C.V.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 # pylint: disable=C0103
@@ -20,12 +21,12 @@ class StockRule(models.Model):
         return supplier
 
     def _prepare_purchase_order_line(self, product_id, product_qty,
-                                     product_uom, values, po, partner):
+                                     product_uom, values, po):
         """Method overridden from odoo to set the proper product price
         unit on PO taking in consideration multi currency and the supplier info
         from so"""
         res = super()._prepare_purchase_order_line(
-            product_id, product_qty, product_uom, values, po, partner)
+            product_id, product_qty, product_uom, values, po)
         seller = values.get('supplier')
         taxes = product_id.supplier_taxes_id
         fpos = po.fiscal_position_id
