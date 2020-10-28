@@ -1,14 +1,14 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* crm_team_definition
+# 	* crm_team_definition
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0+e\n"
+"Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-24 22:39+0000\n"
-"PO-Revision-Date: 2019-09-24 22:39+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2020-10-28 04:40+0000\n"
+"PO-Revision-Date: 2020-10-28 04:40+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,14 +36,9 @@ msgid "Employee"
 msgstr "Empleado"
 
 #. module: crm_team_definition
-#: model_terms:ir.ui.view,arch_db:crm_team_definition.team_definition_form_view
-msgid "Form Name"
-msgstr "Nombre Forma"
-
-#. module: crm_team_definition
 #: model:ir.model.fields,field_description:crm_team_definition.field_crm_team_definition__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: crm_team_definition
 #: model:ir.model.fields,field_description:crm_team_definition.field_crm_team_definition____last_update
@@ -61,9 +56,9 @@ msgid "Last Updated on"
 msgstr "Última actualización el"
 
 #. module: crm_team_definition
-#: model:ir.model.fields,field_description:crm_team_definition.field_crm_team_definition__name
+#: model:ir.model.fields,field_description:crm_team_definition.field_crm_team_definition__lead_id
 msgid "Lead Id:"
-msgstr "Lead Id:"
+msgstr ""
 
 #. module: crm_team_definition
 #: model:ir.model,name:crm_team_definition.model_crm_lead
@@ -71,15 +66,21 @@ msgid "Lead/Opportunity"
 msgstr "Iniciativa/Oportunidad"
 
 #. module: crm_team_definition
+#: model:ir.model,name:crm_team_definition.model_crm_team_definition
+msgid "Model for crm team setup"
+msgstr ""
+
+#. module: crm_team_definition
 #: model:ir.model.fields,field_description:crm_team_definition.field_crm_team_definition__oppor_percentage
 msgid "Opportunity Percentage"
 msgstr "Porcentaje de Oportunidad"
 
 #. module: crm_team_definition
-#: code:addons/crm_team_definition/models/crm_team_definition.py:26
+#: code:addons/crm_team_definition/models/crm_team_definition.py:0
 #, python-format
 msgid "Percentage must lesser or equal than 100 percent or greater than zero"
-msgstr "El porcentaje debe ser menor o igual que 100 por ciento o mayor a cero"
+msgstr ""
+"El porcentaje debe ser menor o igual que 100 por ciento o mayor a cero"
 
 #. module: crm_team_definition
 #: model:ir.model.fields,field_description:crm_team_definition.field_crm_team_definition__percentage
@@ -97,12 +98,12 @@ msgid "Team Member:"
 msgstr "Miembro del Equipo:"
 
 #. module: crm_team_definition
-#: sql_constraint:crm.team.definition:0
+#: model:ir.model.constraint,message:crm_team_definition.constraint_crm_team_definition_team_member_unique
 msgid "Team members must be unique"
-msgstr "Los miembros del equipo deben de ser unicos"
+msgstr ""
 
 #. module: crm_team_definition
-#: code:addons/crm_team_definition/models/crm_lead.py:29
+#: code:addons/crm_team_definition/models/crm_lead.py:0
 #, python-format
 msgid "The total percentage must be equal to 100%, please reorganize"
 msgstr "El porcentaje total debe ser igual a 100%, favor de reorganizar"
@@ -116,14 +117,3 @@ msgstr "Identificador del empleado"
 #: model:ir.model.fields,field_description:crm_team_definition.field_crm_lead__total_percentage
 msgid "Total Percentage"
 msgstr "Porcentaje Total"
-
-#. module: crm_team_definition
-#: model_terms:ir.ui.view,arch_db:crm_team_definition.team_definition_form_view
-msgid "Tree String"
-msgstr "Cadena del Arbol"
-
-#. module: crm_team_definition
-#: model:ir.model,name:crm_team_definition.model_crm_team_definition
-msgid "crm.team.definition"
-msgstr "crm.equipo.definicion"
-

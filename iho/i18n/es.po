@@ -1,15 +1,14 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* iho
-#   * account
+# 	* iho
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0+e\n"
+"Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-02-19 22:24+0000\n"
-"PO-Revision-Date: 2020-02-19 22:24+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2020-10-28 04:48+0000\n"
+"PO-Revision-Date: 2020-10-28 04:48+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,9 +21,24 @@ msgid "Analytic Tags"
 msgstr "Etiquetas analíticas"
 
 #. module: iho
+#: model:res.groups,name:iho.group_sale_salesman_readonly
+msgid "Branch Manager"
+msgstr "Gerente Sucursal"
+
+#. module: iho
+#: model:res.groups,name:iho.group_manager_catalogs
+msgid "Catalog Administrator"
+msgstr "Administrador de Catálogos"
+
+#. module: iho
 #: model:ir.model,name:iho.model_res_partner
 msgid "Contact"
 msgstr "Contacto"
+
+#. module: iho
+#: model:ir.model,name:iho.model_res_country
+msgid "Country"
+msgstr "País"
 
 #. module: iho
 #: model:ir.model.fields,help:iho.field_res_partner__street_number2
@@ -39,6 +53,11 @@ msgid "External"
 msgstr "Exterior"
 
 #. module: iho
+#: model:res.groups,name:iho.group_sale_salesman_opportunities
+msgid "Group Can change Opportunity name"
+msgstr "Puede cambiar Nombre a la Oportunidad"
+
+#. module: iho
 #: model:ir.model.fields,help:iho.field_res_partner__street_number
 #: model:ir.model.fields,help:iho.field_res_users__street_number
 msgid "House Number"
@@ -51,13 +70,33 @@ msgid "Internal"
 msgstr "Interior"
 
 #. module: iho
+#: model:ir.model,name:iho.model_crm_lead_tag
+msgid "Lead Tag"
+msgstr "Etiqueta de Iniciativa"
+
+#. module: iho
+#: model:ir.model,name:iho.model_crm_lead
+msgid "Lead/Opportunity"
+msgstr "Iniciativa/Oportunidad"
+
+#. module: iho
+#: model:res.groups,name:iho.group_sale_salesman_no_create_leads
+msgid "Only create Opportunities"
+msgstr "Solo crea Oportunidades"
+
+#. module: iho
 #: model:ir.model,name:iho.model_product_product
 msgid "Product"
 msgstr "Producto"
 
 #. module: iho
+#: model:res.groups,name:iho.group_sale_projector
+msgid "Project Designer"
+msgstr ""
+
+#. module: iho
 #: model:ir.model,name:iho.model_sale_order
-msgid "Sale Order"
+msgid "Sales Order"
 msgstr "Pedido de venta"
 
 #. module: iho
@@ -66,11 +105,49 @@ msgid "Sales Order Line"
 msgstr "Línea de pedido de venta"
 
 #. module: iho
+#: model:res.groups,comment:iho.group_view_calendar_event
+msgid "The user can view the calendar events."
+msgstr "Puede ver eventos de Calendario"
+
+#. module: iho
+#: model:res.groups,comment:iho.group_manager_catalogs
+msgid "The user can will do anything with enought modules."
+msgstr "Puede modificar Catálogos"
+
+#. module: iho
+#: model:res.groups,comment:iho.group_sale_salesman_readonly
+msgid "The user will have access to his own people data."
+msgstr "Tiene acceso a sus propios registros"
+
+#. module: iho
+#: model:res.groups,comment:iho.group_sale_projector
+msgid "The user will have access to the whole information on readonly."
+msgstr "Tiene acceso a Todo como Consulta"
+
+#. module: iho
+#: model:res.groups,comment:iho.group_sale_salesman_no_create_leads
+#: model:res.groups,comment:iho.group_sale_salesman_opportunities
+msgid "This user can edit opportunities name."
+msgstr "Puede editar el Nombre de Oportunidad"
+
+#. module: iho
 #: model:ir.model,name:iho.model_utm_source
 msgid "UTM Source"
 msgstr "Captación de Negocio"
 
-#. module: account
-#: model:account.incoterms,name:account.incoterm_FOB
-msgid "FREE ON BOARD"
-msgstr "LIBRE A BORDO"
+#. module: iho
+#: model:res.groups,name:iho.group_view_calendar_event
+msgid "View calendar"
+msgstr "Ver Calendario"
+
+#. module: iho
+#: code:addons/iho/models/crm_lead.py:0
+#, python-format
+msgid "You cannot modify the name, contact to your admin."
+msgstr "No puede cambiar el Nombre, Contacte a su administrador"
+
+#. module: iho
+#: code:addons/iho/models/res_country.py:0
+#, python-format
+msgid "You don't have access to modify the country."
+msgstr "No puede Modificar Paises"

@@ -1,14 +1,14 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* supplier_product_discounts
+# 	* supplier_product_discounts
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0+e\n"
+"Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-12 17:03+0000\n"
-"PO-Revision-Date: 2019-12-12 17:03+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2020-10-28 03:13+0000\n"
+"PO-Revision-Date: 2020-10-28 03:13+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -58,6 +58,16 @@ msgstr "Descuento (%)"
 #: model_terms:ir.ui.view,arch_db:supplier_product_discounts.view_sale_order_discount_inherit_form_iho
 msgid "Discounts"
 msgstr "Descuentos"
+
+#. module: supplier_product_discounts
+#: model:ir.model,name:supplier_product_discounts.model_vendor_product_discounts
+msgid "Discounts allowed per vendor/product"
+msgstr "Descuentos por proveedor/producto"
+
+#. module: supplier_product_discounts
+#: model:ir.model,name:supplier_product_discounts.model_vendor_sale_order_discounts
+msgid "Discounts set per Sale Order"
+msgstr "Descuentos por cotizacion"
 
 #. module: supplier_product_discounts
 #: model:ir.model.fields,field_description:supplier_product_discounts.field_iho_catalog__display_name
@@ -160,7 +170,7 @@ msgstr "Venta"
 
 #. module: supplier_product_discounts
 #: model:ir.model,name:supplier_product_discounts.model_sale_order
-msgid "Sale Order"
+msgid "Sales Order"
 msgstr "Pedido de venta"
 
 #. module: supplier_product_discounts
@@ -170,14 +180,14 @@ msgstr "Línea de pedido de venta"
 
 #. module: supplier_product_discounts
 #: model:res.groups,comment:supplier_product_discounts.group_manage_iho_catalog_family
-msgid "The user will have access to create iho catalogs and families."
-msgstr "El usuario tendra acceso para crear catalogos y familias iho"
+msgid "The user will have access to manage iho catalogs and families."
+msgstr "Usuario puede administrar familias y catalogos iho"
 
 #. module: supplier_product_discounts
 #: model:res.groups,comment:supplier_product_discounts.group_manage_global_discount
 #: model:res.groups,comment:supplier_product_discounts.group_manage_special_discounts
-msgid "The user will have access to create more discounts."
-msgstr "El usuario tendra accesso para crear descuentos"
+msgid "The user will have access to manage more discounts."
+msgstr "Usuario puede administrar Descuentos"
 
 #. module: supplier_product_discounts
 #: model:ir.actions.act_window,name:supplier_product_discounts.template_vendor_discount
@@ -185,19 +195,19 @@ msgid "Vendor discounts"
 msgstr "Descuentos de proveedor"
 
 #. module: supplier_product_discounts
-#: model:ir.model,name:supplier_product_discounts.model_iho_catalog
-msgid "iho.catalog"
+#: model:ir.model,name:supplier_product_discounts.model_sale_order_version_create_wizard
+msgid "Wizard model to create SO version"
 msgstr ""
+
+#. module: supplier_product_discounts
+#: model:ir.model,name:supplier_product_discounts.model_iho_catalog
+msgid "iho catalog of models"
+msgstr "Catálogo IHO de Modelos"
 
 #. module: supplier_product_discounts
 #: model:ir.model,name:supplier_product_discounts.model_iho_family
-msgid "iho.family"
-msgstr ""
-
-#. module: supplier_product_discounts
-#: model:ir.model,name:supplier_product_discounts.model_sale_order_version_create_wizard
-msgid "sale.order.version.create.wizard"
-msgstr ""
+msgid "iho catalog of product families"
+msgstr "Catálogo IHO de Familias de producto"
 
 #. module: supplier_product_discounts
 #: model_terms:ir.ui.view,arch_db:supplier_product_discounts.view_vendor_product_discounts_form_iho
@@ -205,71 +215,61 @@ msgid "ss"
 msgstr ""
 
 #. module: supplier_product_discounts
-#: model:ir.model,name:supplier_product_discounts.model_vendor_product_discounts
-msgid "vendor.product.discounts"
+#: code:addons/supplier_product_discounts/models/sale_order.py:0
+#, python-format
+msgid ""
+"{ catalog %s\n"
+" the offered discount is %s and the approved discount is %s}\n"
 msgstr ""
+"{ catalogo %s\n"
+" El descuento ofrecido es %s y el descuento aprobado es %s}\n"
 
 #. module: supplier_product_discounts
-#: model:ir.model,name:supplier_product_discounts.model_vendor_sale_order_discounts
-msgid "vendor.sale.order.discounts"
+#: code:addons/supplier_product_discounts/models/sale_order.py:0
+#, python-format
+msgid ""
+"{ family %s\n"
+" the offered discount is %s and the approved discount is %s}\n"
 msgstr ""
-
-#. module: supplier_product_discounts
-#: code:addons/supplier_product_discounts/models/sale_order.py:115
-#, python-format
-msgid "{ catalog %s\n"
-" the offered discount is %s and the approved discount is %s}\n"
-""
-msgstr "{ catalogo %s\n"
+"{ familia %s\n"
 " El descuento ofrecido es %s y el descuento aprobado es %s}\n"
-""
 
 #. module: supplier_product_discounts
-#: code:addons/supplier_product_discounts/models/sale_order.py:125
+#: code:addons/supplier_product_discounts/models/sale_order.py:0
 #, python-format
-msgid "{ family %s\n"
+msgid ""
+"{ maker %s\n"
 " the offered discount is %s and the approved discount is %s}\n"
-""
-msgstr "{ familia %s\n"
+msgstr ""
+"{ proveedor %s\n"
 " El descuento ofrecido es %s y el descuento aprobado es %s}\n"
-""
 
 #. module: supplier_product_discounts
-#: code:addons/supplier_product_discounts/models/sale_order.py:105
+#: code:addons/supplier_product_discounts/models/sale_order.py:0
 #, python-format
-msgid "{ maker %s\n"
-" the offered discount is %s and the approved discount is %s}\n"
-""
-msgstr "{ proveedor %s\n"
-" El descuento ofrecido es %s y el descuento aprobado es %s}\n"
-""
-
-#. module: supplier_product_discounts
-#: code:addons/supplier_product_discounts/models/sale_order.py:85
-#, python-format
-msgid "{ maker %s catalog %s\n"
+msgid ""
+"{ maker %s catalog %s\n"
 " The offered discount is %s and the approved discount is %s}\n"
-""
-msgstr "{ proveedor %s catalogo %s\n"
+msgstr ""
+"{ proveedor %s catalogo %s\n"
 " El descuento ofrecido es %s y el descuento aprobado es %s}\n"
-""
 
 #. module: supplier_product_discounts
-#: code:addons/supplier_product_discounts/models/sale_order.py:74
+#: code:addons/supplier_product_discounts/models/sale_order.py:0
 #, python-format
-msgid "{ maker %s catalog %s family %s\n"
+msgid ""
+"{ maker %s catalog %s family %s\n"
 " the offered discount is %s and the approved discount is %s}\n"
-""
-msgstr "{ proveedor %s catalogo %s familia %s\n"
+msgstr ""
+"{ proveedor %s catalogo %s familia %s\n"
 " El descuento ofrecido es %s y el descuento aprobado es %s}\n"
-""
 
 #. module: supplier_product_discounts
-#: code:addons/supplier_product_discounts/models/sale_order.py:95
+#: code:addons/supplier_product_discounts/models/sale_order.py:0
 #, python-format
-msgid "{ maker %s family %s\n"
+msgid ""
+"{ maker %s family %s\n"
 " The offered discount is %s and the approved discount is %s}\n"
-""
-msgstr "{ proveedor %s familia %s\n"
+msgstr ""
+"{ proveedor %s familia %s\n"
 " El descuento ofrecido es %s y el descuento aprobado es %s}\n"
-""

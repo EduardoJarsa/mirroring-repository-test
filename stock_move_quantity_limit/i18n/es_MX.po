@@ -1,14 +1,14 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* stock_move_quantity_limit
+# 	* stock_move_quantity_limit
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 11.0+e\n"
+"Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-29 19:13+0000\n"
-"PO-Revision-Date: 2017-12-29 19:13+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2020-10-28 03:19+0000\n"
+"PO-Revision-Date: 2020-10-28 03:19+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,12 +17,17 @@ msgstr ""
 
 #. module: stock_move_quantity_limit
 #: model:ir.model,name:stock_move_quantity_limit.model_stock_move_line
-msgid "Packing Operation"
-msgstr "Operación de Empaquetado"
+msgid "Product Moves (Stock Move Line)"
+msgstr "Movimientos de producto (Stock Move Line)"
 
 #. module: stock_move_quantity_limit
-#: code:addons/stock_move_quantity_limit/models/stock_move_line.py:16
+#: model:ir.model,name:stock_move_quantity_limit.model_stock_move
+msgid "Stock Move"
+msgstr "Movimiento de existencias (Stock Move)"
+
+#. module: stock_move_quantity_limit
+#: code:addons/stock_move_quantity_limit/models/stock_move.py:0
+#: code:addons/stock_move_quantity_limit/models/stock_move_line.py:0
 #, python-format
 msgid "The qty done must be lower or equal than the initial demand."
 msgstr "La cantidad debe tener menos o lo mismo que la demanda inicial."
-

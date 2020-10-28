@@ -1,14 +1,14 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#   * stock_manual_route
+# 	* stock_manual_route
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0+e\n"
+"Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-30 19:04+0000\n"
-"PO-Revision-Date: 2019-04-30 19:04+0000\n"
-"Last-Translator: <>\n"
+"POT-Creation-Date: 2020-10-28 03:28+0000\n"
+"PO-Revision-Date: 2020-10-28 03:28+0000\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,7 +47,7 @@ msgid "Created on"
 msgstr "Creado el"
 
 #. module: stock_manual_route
-#: selection:stock.create.manual.route.wizard,move_type:0
+#: model:ir.model.fields.selection,name:stock_manual_route.selection__stock_create_manual_route_wizard__move_type__customer
 msgid "Customer"
 msgstr "Cliente"
 
@@ -59,7 +59,7 @@ msgstr "Nombre mostrado"
 #. module: stock_manual_route
 #: model:ir.model.fields,help:stock_manual_route.field_stock_picking__no_route
 msgid "Field used to identify pickings without destination moves."
-msgstr "Campo utilizado para identificar transferencias sin movimientos destino."
+msgstr "Identificación de transferencias sin movimientos destino."
 
 #. module: stock_manual_route
 #: model:ir.model.fields,field_description:stock_manual_route.field_stock_create_manual_route_wizard__id
@@ -67,18 +67,18 @@ msgid "ID"
 msgstr ""
 
 #. module: stock_manual_route
-#: selection:stock.create.manual.route.wizard,move_type:0
+#: model:ir.model.fields.selection,name:stock_manual_route.selection__stock_create_manual_route_wizard__move_type__internal
 msgid "Internal"
 msgstr "Interno"
 
 #. module: stock_manual_route
-#: code:addons/stock_manual_route/models/stock_picking.py:28
+#: code:addons/stock_manual_route/models/stock_picking.py:0
 #, python-format
 msgid "Invalid domain operator %s"
 msgstr "Operador de dominio inválido %s"
 
 #. module: stock_manual_route
-#: code:addons/stock_manual_route/models/stock_picking.py:30
+#: code:addons/stock_manual_route/models/stock_picking.py:0
 #, python-format
 msgid "Invalid domain right operand %s"
 msgstr "Operador derecho de dominio inválido %s"
@@ -122,10 +122,10 @@ msgstr "Fecha programada"
 #. module: stock_manual_route
 #: model:ir.model,name:stock_manual_route.model_purchase_order_line
 msgid "Purchase Order Line"
-msgstr "Línea pedido de compra"
+msgstr "Línea de pedido de compra"
 
 #. module: stock_manual_route
-#: code:addons/stock_manual_route/wizards/stock_create_manual_route_wizard.py:140
+#: code:addons/stock_manual_route/wizards/stock_create_manual_route_wizard.py:0
 #, python-format
 msgid "Stock Picking"
 msgstr "Transferencias"
@@ -133,7 +133,7 @@ msgstr "Transferencias"
 #. module: stock_manual_route
 #: model:ir.model,name:stock_manual_route.model_stock_picking
 msgid "Transfer"
-msgstr "Transferir"
+msgstr "Albarán"
 
 #. module: stock_manual_route
 #: model:ir.model.fields,field_description:stock_manual_route.field_stock_create_manual_route_wizard__warehouse_id
@@ -142,6 +142,9 @@ msgstr "Almacén"
 
 #. module: stock_manual_route
 #: model:ir.model.fields,help:stock_manual_route.field_stock_create_manual_route_wizard__programed_date
-msgid "field to indicate when it leaves the warehouse to transit and when it will be received from the other side."
-msgstr "Campo para indicar cuando sale del almacén a tránsito y cuando se va a recibir del otro lado."
-
+msgid ""
+"field to indicate when it leaves the warehouse to transit and when it will "
+"be received from the other side."
+msgstr ""
+"Campo para indicar cuando sale del almacén a tránsito y cuando se va a "
+"recibir del otro lado."
