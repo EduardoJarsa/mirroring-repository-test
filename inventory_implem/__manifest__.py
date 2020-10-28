@@ -10,7 +10,7 @@
     'author': 'MtNet, Jarsa Sistemas',
     'website': 'https://www.jarsa.com.mx',
     'license': 'AGPL-3',
-    'depends': [
+    'depends': ['sale_stock'
     ],
     'data': [
     ],
