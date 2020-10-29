@@ -10,7 +10,9 @@ class SaleOrderLine(models.Model):
 
     @api.onchange('product_uom_qty', 'product_uom', 'route_id')
     def _onchange_product_id_check_availability(self):
-        warning_mess = super(SaleOrderLine, self)._onchange_product_id_check_availability(self)
-        if warning_mess['title']:
-            raise ValidationError(_('unallowed'))
+        warning_mess = super(SaleOrderLine, self)._onchange_product_id_check_availability()
+        if warning_mess:
+            raise ValidationError(
+                _(warning_mess['warning']['title']) + "\n\n" +
+                _(warning_mess['warning']['message']))
         return warning_mess

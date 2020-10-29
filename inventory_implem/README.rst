@@ -12,7 +12,7 @@ This module allows to:
 * User to browse inventory items and inventory levels, hiding cost
 * Reactivates the APPROVE button at the SO view: 
   https://git.vauxoo.com/jarsa/iho/-/merge_requests/154
-* Avoids an SO to be registered if no product is available  
+* Avoids an SO to add lines if no product is available  
 
 Configuration
 =============
