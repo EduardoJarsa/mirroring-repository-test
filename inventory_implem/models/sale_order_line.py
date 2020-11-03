@@ -11,8 +11,11 @@ class SaleOrderLine(models.Model):
     @api.onchange('product_uom_qty', 'product_uom', 'route_id')
     def _onchange_product_id_check_availability(self):
         warning_mess = super(SaleOrderLine, self)._onchange_product_id_check_availability()
-        if warning_mess:
+        # import ipdb;  ipdb.set_trace()
+        is_not_dummy_product = self.product_id != \
+            self.env.ref('sif_interface.product_product_dummy')
+        if is_not_dummy_product and warning_mess:
             raise ValidationError(
                 _(warning_mess['warning']['title']) + "\n\n" +
                 _(warning_mess['warning']['message']))
-        return warning_mess
+        # return warning_mess
