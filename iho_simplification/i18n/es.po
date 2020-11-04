@@ -51,9 +51,9 @@ msgid "House customer"
 msgstr "Cliente de la Casa"
 
 #. module: iho_simplification
-#: model:utm.source,name:iho_simplification.utm_source_incoming call
+#: model:utm.source,name:iho_simplification.utm_source_incoming_call
 msgid "Incoming call"
-msgstr ""
+msgstr "Llamada entrante"
 
 #. module: iho_simplification
 #: model:ir.model.fields,field_description:iho_simplification.field_res_partner__is_company

@@ -18,7 +18,7 @@
     <record model="utm.source" id="utm_source_global">
         <field name="name">Global project</field>
     </record>
-    <record model="utm.source" id="utm_source_incoming call">
+    <record model="utm.source" id="utm_source_incoming_call">
         <field name="name">Incoming call</field>
     </record>
     <record model="utm.source" id="utm_source_pmo">
