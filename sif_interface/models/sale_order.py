@@ -4,7 +4,6 @@
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
-from odoo.addons import decimal_precision as dp
 from datetime import datetime
 
 
@@ -12,28 +11,28 @@ class SaleOrder(models.Model):
     _inherit = "sale.order"
 
     extra_expenses = fields.Float(
-        digits=dp.get_precision('Product Price'),
+        digits='Product Price',
         default=0.0,
         compute="_compute_extra_expenses",
         store=True,
         help="Expenses to add to the total of the order",
     )
     service_total = fields.Float(
-        digits=dp.get_precision('Product Price'),
+        digits='Product Price',
         default=0.0,
         compute="_compute_service_total",
         store=True,
         help="Total cost of the service of the order",
     )
     discount_total = fields.Float(
-        digits=dp.get_precision('Product Price'),
+        digits='Product Price',
         default=0.0,
         compute="_compute_discount_total",
         store=True,
         help="Total value of discount of the order",
     )
     product_total = fields.Float(
-        digits=dp.get_precision('Product Price'),
+        digits='Product Price',
         default=0.0,
         compute="_compute_product_total",
         store=True,
@@ -49,7 +48,7 @@ class SaleOrder(models.Model):
     iho_tc = fields.Float(
         string="TC Agreed",
         default=1.0,
-        digits=dp.get_precision('Precision Sale Terms'),
+        digits='Precision Sale Terms',
     )
     show_errors = fields.Char(
         default=False,

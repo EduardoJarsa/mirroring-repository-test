@@ -3,7 +3,6 @@
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
-from odoo.addons import decimal_precision as dp
 
 
 class SaleOrderLine(models.Model):
@@ -15,7 +14,7 @@ class SaleOrderLine(models.Model):
     )
     customer_discount = fields.Float(
         string='Customer Discount (%)',
-        digits=dp.get_precision('Precision Sale Terms'),
+        digits='Precision Sale Terms',
         help='Discount (%) to the customer [0 - 100]',
     )
     iho_sell_1 = fields.Float(
@@ -25,7 +24,7 @@ class SaleOrderLine(models.Model):
     )
     iho_factor = fields.Float(
         string='Factor',
-        digits=dp.get_precision('Precision Sale Terms'),
+        digits='Precision Sale Terms',
         default=1.0,
         help='IHO Factor',
     )
@@ -57,7 +56,7 @@ class SaleOrderLine(models.Model):
     iho_service_factor = fields.Float(
         string='Service Factor',
         default=_get_default_service_factor,
-        digits=dp.get_precision('Precision Sale Terms'),
+        digits='Precision Sale Terms',
         help='Allowed Service Factor values [1 - 1.99], standard of 1.06'
              ' or $150 usd; and 1.125 or 250 usd for textiles.',
     )
@@ -78,30 +77,30 @@ class SaleOrderLine(models.Model):
     price_unit = fields.Float(
         'Unit Price',
         required=True,
-        digits=dp.get_precision('Product Price'),
+        digits='Product Price',
         default=0.0,
         compute="_compute_price_unit"
     )
     dealer_discount = fields.Float(
         string="Dealer discount (%)",
         required=True,
-        digits=dp.get_precision('Product Price'),
+        digits='Product Price',
         default=0.0,
     )
     service_extended = fields.Float(
-        digits=dp.get_precision('Product Price'),
+        digits='Product Price',
         default=0.0,
         compute="_compute_service_extended",
         help="Total cost of the service of the order line",
     )
     discount_extended = fields.Float(
-        digits=dp.get_precision('Product Price'),
+        digits='Product Price',
         default=0.0,
         compute="_compute_discount_extended",
         help="Total value of the discount offered in the order line",
     )
     product_extended = fields.Float(
-        digits=dp.get_precision('Product Price'),
+        digits='Product Price',
         default=0.0,
         compute="_compute_product_extended",
         help="Total value of the products offered in the order line",
