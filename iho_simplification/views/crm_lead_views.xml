@@ -22,10 +22,10 @@
                     'readonly': [('block_ui_crm', '=', True)]}</attribute>
             </xpath>
             <xpath expr="//page[1]" position="attributes">  
-                <attribute name="groups">ui_simplification.group_show_blocked_fields_CRM</attribute>
+                <attribute name="groups">iho_simplification.group_show_blocked_fields_CRM</attribute>
             </xpath>
             <xpath expr="//page[@name='lead']" position="attributes">  
-                <attribute name="groups">ui_simplification.group_show_blocked_fields_CRM</attribute>
+                <attribute name="groups">iho_simplification.group_show_blocked_fields_CRM</attribute>
             </xpath>
             <xpath expr="//notebook" position="before">  
                 <group name="relocated_fields_oppor" attrs="{'invisible': [('block_ui_crm', '=', False)]}">
@@ -97,10 +97,10 @@
                 </attribute>
             </xpath>
             <xpath expr="//page[1]" position="attributes">  
-                <attribute name="groups">ui_simplification.group_show_blocked_fields_CRM</attribute>
+                <attribute name="groups">iho_simplification.group_show_blocked_fields_CRM</attribute>
             </xpath>
             <xpath expr="//page[@name='extra']" position="attributes">  
-                <attribute name="groups">ui_simplification.group_show_blocked_fields_CRM</attribute>
+                <attribute name="groups">iho_simplification.group_show_blocked_fields_CRM</attribute>
             </xpath>
             <xpath expr="//notebook" position="before">  
                 <group name="relocated_fields_lead" attrs="{'invisible': [('block_ui_crm', '=', False)]}">

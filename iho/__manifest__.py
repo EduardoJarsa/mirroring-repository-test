@@ -31,7 +31,7 @@
         'l10n_mx',
         'l10n_mx_edi',
         'l10n_mx_reports',
-        'ui_simplification',
+        'iho_simplification',
     ],
     'data': [
         'views/res_partner_view.xml',

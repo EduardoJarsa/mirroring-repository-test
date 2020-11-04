@@ -1,0 +1,92 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* iho_simplification
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-30 00:23+0000\n"
+"PO-Revision-Date: 2020-10-30 00:23+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: iho_simplification
+#: model:utm.source,name:iho_simplification.utm_source_architect_department
+msgid "Architect department"
+msgstr "Departamento de Arquitectura"
+
+#. module: iho_simplification
+#: model:ir.model.fields,field_description:iho_simplification.field_crm_lead__block_ui_crm
+#: model:ir.model.fields,field_description:iho_simplification.field_res_partner__block_ui_crm
+#: model:ir.model.fields,field_description:iho_simplification.field_res_users__block_ui_crm
+msgid "Block UI CRM"
+msgstr "Bloquear campos UI CRM"
+
+#. module: iho_simplification
+#: model:ir.model.fields,help:iho_simplification.field_res_partner__is_company
+#: model:ir.model.fields,help:iho_simplification.field_res_users__is_company
+msgid "Check if the contact is a company, otherwise it is a person"
+msgstr ""
+"Marque esta casilla si el contacto es una compañía. En caso contrario, es "
+"una persona."
+
+#. module: iho_simplification
+#: model:ir.model,name:iho_simplification.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: iho_simplification
+#: model:utm.source,name:iho_simplification.utm_source_global
+msgid "Global project"
+msgstr "Proyecto Global"
+
+#. module: iho_simplification
+#: model:utm.source,name:iho_simplification.utm_source_house_customer
+msgid "House customer"
+msgstr "Cliente de la Casa"
+
+#. module: iho_simplification
+#: model:utm.source,name:iho_simplification.utm_source_incoming call
+msgid "Incoming call"
+msgstr ""
+
+#. module: iho_simplification
+#: model:ir.model.fields,field_description:iho_simplification.field_res_partner__is_company
+#: model:ir.model.fields,field_description:iho_simplification.field_res_users__is_company
+msgid "Is a Company"
+msgstr "Es una compañia"
+
+#. module: iho_simplification
+#: model:ir.model,name:iho_simplification.model_crm_lead
+msgid "Lead/Opportunity"
+msgstr "Iniciativa/Oportunidad"
+
+#. module: iho_simplification
+#: model:utm.source,name:iho_simplification.utm_source_pmo
+msgid "PMO"
+msgstr ""
+
+#. module: iho_simplification
+#: model:utm.source,name:iho_simplification.utm_source_prospecting
+msgid "Prospecting"
+msgstr "Prospección"
+
+#. module: iho_simplification
+#: model:utm.source,name:iho_simplification.utm_source_recommendation
+msgid "Recommendation"
+msgstr "Recomendación"
+
+#. module: iho_simplification
+#: model:res.groups,name:iho_simplification.group_show_blocked_fields_CRM
+msgid "Show original UI"
+msgstr "Mostrar UI original"
+
+#. module: iho_simplification
+#: model:res.groups,name:iho_simplification.group_show_product_standard_cost
+msgid "Show product Standard cost"
+msgstr "Muestra Costo Estándard"

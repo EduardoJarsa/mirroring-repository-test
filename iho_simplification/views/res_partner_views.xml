@@ -8,11 +8,11 @@
         <field name="arch" type="xml">
             <!-- Hides internal notes tab -->
             <xpath expr="//page[2]" position="attributes">  
-                <attribute name="groups">ui_simplification.group_show_blocked_fields_CRM</attribute>
+                <attribute name="groups">iho_simplification.group_show_blocked_fields_CRM</attribute>
             </xpath>
             <!-- Hides sales & purch tab -->
             <xpath expr="//page[@name='sales_purchases']" position="attributes">  
-                <attribute name="groups">ui_simplification.group_show_blocked_fields_CRM</attribute>
+                <attribute name="groups">iho_simplification.group_show_blocked_fields_CRM</attribute>
             </xpath>
         </field>
     </record>
@@ -24,7 +24,7 @@
         <field name="inherit_id" ref="l10n_mx_edi.res_partner_form_inherit_l10n_mx_edi"/>
         <field name="arch" type="xml">
             <xpath expr="//page[last()]" position="attributes">  
-                <attribute name="groups">ui_simplification.group_show_blocked_fields_CRM</attribute>
+                <attribute name="groups">iho_simplification.group_show_blocked_fields_CRM</attribute>
             </xpath>
         </field>
     </record>
