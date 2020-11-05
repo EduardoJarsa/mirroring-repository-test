@@ -19,4 +19,5 @@ Credits
 
 **Contributors**
 * Angel Solares <angelsolares@gmail.com> (Developer)
+* Héctor Herrera <hector.herrera.mx@gmail.com> Upgrade to 13.0
 
