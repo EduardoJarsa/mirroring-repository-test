@@ -4,8 +4,8 @@
 
 {
     'name': 'Sif Interface',
-    'summary': '''Create Bill of Materials by XML files
-                 and export it as SIF files''',
+    'summary': '''Create order lines based on CSV or XML files, Create Bill
+    of Materials and export it as SIF file''',
     'version': '12.0.1.0.0',
     'category': 'Customs',
     'author': 'MtNet, Jarsa Sistemas, Vauxoo, Odoo Community Association (OCA)',
@@ -19,8 +19,9 @@
         'l10n_mx_edi',
     ],
     'data': [
+        'wizard/delete_sale_order_lines_wizard.xml',
         'data/res_partner_data.xml',
-        'data/sif_interface_data.xml',
+        'data/product_category_data.xml',
         'data/product_product_data.xml',
         'data/decimal_precision_data.xml',
         'wizard/import_sale_order_wizard.xml',

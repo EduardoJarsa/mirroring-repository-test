@@ -30,4 +30,8 @@
         <field name="maker_id" ref="sif_interface.iho_res_partner"/>
         <field name="list_price">0.0</field>
     </record>
+    <record id="furniture_product_default_sat_code" model="ir.default">
+        <field name="field_id" ref="l10n_mx_edi.field_product_template__l10n_mx_edi_code_sat_id"/>
+        <field name="json_value" ref="l10n_mx_edi.prod_code_sat_56101900"/>
+    </record>
 </odoo>

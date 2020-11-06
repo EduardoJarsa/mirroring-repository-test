@@ -11,6 +11,7 @@ This module allows to:
 * Create Products from XML files exported from 2020 system.
 * Export SIF files from Purchase Orders.
 * Load CSV quotation files into Sales Orders. 
+* Allow to delete all order lines
 
 Configuration
 =============

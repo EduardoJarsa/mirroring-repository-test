@@ -3,3 +3,4 @@
 
 from . import import_sale_order_wizard
 from . import export_sif_wizard
+from . import delete_sale_order_lines_wizard
