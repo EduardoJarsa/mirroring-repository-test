@@ -3,7 +3,7 @@
     <record id="sale_term_tyc_tit" model="sale.term">
         <field name="code">tyc_tit</field>
         <field name="category_id" ref="report_sale_order_iho.sale_term_category_tyc"/>
-        <field name="default">True</field>
+        <field name="default">False</field>
         <field name="sequence">001</field>
         <field name="name">"&lt;u&gt;&lt;H3&gt;&lt;b&gt;Términos y Condiciones para la Venta de bienes suministrados por IHO.&lt;/b&gt;&lt;/H3&gt;&lt;/u&gt;"</field>
     </record>
@@ -11,7 +11,7 @@
     <record id="sale_term_te_std" model="sale.term">
         <field name="code">te_std</field>
         <field name="category_id" ref="report_sale_order_iho.sale_term_category_te"/>
-        <field name="default">True</field>
+        <field name="default">False</field>
         <field name="sequence">111</field>
         <field name="name">"&lt;b&gt;Tiempo de entrega&lt;/b&gt;&lt;br/&gt;&lt;ul&gt;&lt;li&gt;El tiempo de entrega es de &lt;b&gt;"+(order.delivery if order.delivery else "N/D")+"""&lt;/b&gt; a partir de la recepción de la órden de compra y pago de anticipo.&lt;/li&gt;
             &lt;li&gt;Producto &lt;b&gt;"""+(order.incoterm.name if order.incoterm.name else "N/D")+", "+(order.incoterm.code if order.incoterm.code else "N/D")+"&lt;/b&gt; en "+(order.incoterm_spec if order.incoterm_spec else "N/D")+"&lt;/li&gt;&lt;/ul&gt;"</field>
@@ -20,7 +20,7 @@
     <record id="sale_term_pago_std" model="sale.term">
         <field name="code">pago_std</field>
         <field name="category_id" ref="report_sale_order_iho.sale_term_category_pago"/>
-        <field name="default">True</field>
+        <field name="default">False</field>
         <field name="sequence">211</field>
         <field name="name">"&lt;b&gt;Pagos&lt;/b&gt;&lt;br/&gt;&lt;ul&gt;&lt;li&gt;Todos los precios están expresados en &lt;b&gt;"+(order.pricelist_id.name if order.pricelist_id.name else "N/D")+"""&lt;/b&gt;&lt;/li&gt;
             &lt;li&gt;Precios &lt;b&gt;mas&lt;/b&gt; IVA&lt;/li&gt;
@@ -35,7 +35,7 @@
     <record id="sale_term_canc_std" model="sale.term">
         <field name="code">canc_std</field>
         <field name="category_id" ref="report_sale_order_iho.sale_term_category_canc"/>
-        <field name="default">True</field>
+        <field name="default">False</field>
         <field name="sequence">311</field>
         <field name="name">"&lt;b&gt;Cancelaciones&lt;/b&gt;&lt;br/&gt;&lt;ul&gt;&lt;li&gt;Una vez ingresados los pedidos a fábrica, no serán aceptados cambios ni cancelaciones&lt;/li&gt;&lt;/ul&gt;"</field>
     </record>
@@ -43,7 +43,7 @@
     <record id="sale_term_garant_std" model="sale.term">
         <field name="code">garant_std</field>
         <field name="category_id" ref="report_sale_order_iho.sale_term_category_garant"/>
-        <field name="default">True</field>
+        <field name="default">False</field>
         <field name="sequence">411</field>
         <field name="name">"""&lt;b&gt;Garantías&lt;/b&gt;&lt;br/&gt;&lt;ul&gt;&lt;li&gt;IHO Espacios, garantiza todos sus productos contra defectos de materiales y/o fabricación de acuerdo a la garantía específica del producto que emitirá directamente cada fabricante, misma que sea entregada al Cliente&lt;/li&gt;
             &lt;li&gt;Durante el periodo de garantía, cualquier defecto será reparado por IHO Espacios o por personal contratado, mediante compostura o reposición de la(s) parte(s) defectuosa(s)&lt;/li&gt;
@@ -54,7 +54,7 @@
     <record id="sale_term_serv_std" model="sale.term">
         <field name="code">serv_std</field>
         <field name="category_id" ref="report_sale_order_iho.sale_term_category_serv"/>
-        <field name="default">True</field>
+        <field name="default">False</field>
         <field name="sequence">511</field>
         <field name="name">"""&lt;b&gt;Servicios&lt;/b&gt;&lt;br/&gt;&lt;ul&gt;&lt;li&gt;Esta cotización incluye: Fletes, Maniobras, Descarga, ubicación e instalación según layout aprobado en el momento del pedido y retiro de Empaques.&lt;/li&gt;
             &lt;li&gt;Estos precios NO incluyen almacenaje ni reconfiguraciones durante el proceso de instalación. No incluyen horarios nocturnos o de fin de semana.&lt;/li&gt;
@@ -76,7 +76,7 @@
     <record id="sale_term_grales_std" model="sale.term">
         <field name="code">grales_std</field>
         <field name="category_id" ref="report_sale_order_iho.sale_term_category_grales"/>
-        <field name="default">True</field>
+        <field name="default">False</field>
         <field name="sequence">611</field>
         <field name="name">"""&lt;b&gt;Generales&lt;/b&gt;&lt;br/&gt;&lt;ul&gt;&lt;li&gt;Para colocar un pedido se requiere de una orden de compra o un contrato firmado, ésta cotización firmada, los acabados firmados y el pago del anticipo&lt;/li&gt;
             &lt;li&gt;La aceptación de ésta cotización implica la aceptación de estos términos y condiciones&lt;/li&gt;

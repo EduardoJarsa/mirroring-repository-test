@@ -1,4 +1,5 @@
 # Copyright 2018, Jarsa Sistemas, S.A. de C.V.
+# Copyright 2020, MtNet Services, S.A. de C.V.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 {
@@ -16,7 +17,7 @@
     'data': [
         'wizard/generate_sale_order_terms_wizard_view.xml',
         'views/sale_order_view.xml',
-        'views/sale_order_template.xml',
+        # 'views/sale_order_template.xml',
         'views/sale_term_view.xml',
         'views/sale_term_category_view.xml',
         'reports/report_papaerformat.xml',
