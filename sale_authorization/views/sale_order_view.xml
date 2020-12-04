@@ -19,7 +19,8 @@
             </xpath> -->
             <xpath expr="//header/button[@name='action_confirm']" position="replace">
                 <button name="action_confirm" string="Confirm Sale"  class="btn-primary" type="object" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent']), ('authorized', '=', False)]}"/>
-                <button name="authorize_sale_order" class="btn-primary" attrs="{'invisible': ['|', '|', ('order_version_ids', '=', []), ('authorized_version', '=', False), ('active_version_modified', '=', True)]}" string="Authorized by customer" groups="sale_authorization.group_sale_authorize" type="object"/>
+                <!-- hidden button -->
+                <button name="authorize_sale_order" class="btn-primary" attrs="{'invisible': ['|', '|', '|', (True), ('order_version_ids', '=', []), ('authorized_version', '=', False), ('active_version_modified', '=', True)]}" string="Authorized by customer" groups="sale_authorization.group_sale_authorize" type="object"/>
             </xpath>
             <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="active_version_id" invisible="1"/>
@@ -44,11 +45,13 @@
         <field name="priority">100</field>
         <field name="inherit_id" ref="sale_order_version.view_sale_order_version_inherit_form_iho"/>
         <field name="arch" type="xml">
+            <!-- hidden button -->
             <xpath expr="//button[@id='restore_version']" position="attributes">
-                <attribute name="attrs">{'invisible': [('state','not in',('draft', 'sent')), ('authorized', '=', True)]}</attribute>
+                <attribute name="attrs">{'invisible': ['|', (True), ('state','not in',('draft', 'sent')), ('authorized', '=', True)]}</attribute>
             </xpath>
+            <!-- hidden button -->
             <xpath expr="//button[@id='approve_version']" position="attributes">
-                <attribute name="attrs">{'invisible': ['|',('has_lines', '!=', True), ('state','not in',('draft', 'sent')), ('authorized', '=', True)]}</attribute>
+                <attribute name="attrs">{'invisible': ['|', '|', (True), ('has_lines', '!=', True), ('state','not in',('draft', 'sent')), ('authorized', '=', True)]}</attribute>
             </xpath>
         </field>
     </record>

@@ -6,8 +6,9 @@
         <field name="priority">101</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
+            <!-- hidden button -->
             <xpath expr="//header/button[@name='action_draft']" position="before">
-                <button class="btn-primary" name="%(action_import_sale_order_wizard)d" attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}" string="Import From File" type="action"/>
+                <button class="btn-primary" name="%(action_import_sale_order_wizard)d" attrs="{'invisible': ['|', (True), ('state', 'not in', ['draft', 'sent'])]}" string="Import From File" type="action"/>
             </xpath>
             <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="iho_tc"/>
