@@ -27,7 +27,7 @@ class CrmTeam(models.Model):
 
     @api.constrains('employee_ids')
     def _validate_total_percentage(self):
-        if self.total_percentage != 100:
+        if self.total_percentage != 100.0:
             raise ValidationError(_(
                 'The total percentage must be '
                 'equal to 100%, please reorganize'))
@@ -37,12 +37,9 @@ class CrmTeam(models.Model):
         if self.user_id:
             team_member_id = self.env['hr.employee'].search(
                 [('user_id', '=', self.user_id)]).id
-        else:
-            team_member_id = self.env['hr.employee'].search(
-                [('user_id', '=', self.env.uid)]).id
-        vals['employee_ids'] = [(0, 0, {
-            'team_member_id': team_member_id,
-            'percentage': 100,
-        })]
+            vals['employee_ids'] = [(0, 0, {
+                'team_member_id': team_member_id,
+                'percentage': 100,
+            })]
         new_record = super().create(vals)
         return new_record
