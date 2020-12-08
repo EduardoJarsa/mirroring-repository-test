@@ -38,10 +38,10 @@ class SaleOrderLine(models.Model):
             fnames=['analytic_tag_ids'], ids=[self.id])
         self.analytic_tag_ids = self.order_id.analytic_tag_ids.ids
 
-    @api.constrains('product_uom_qty')
-    def _onchange_product_uom_qty(self):
-        if self.product_uom_qty == 1:
+    @api.constrains('price_unit')
+    def _onchange_price_unit(self):
+        if self.price_unit == 1.0:
             raise ValidationError(
-                _('Error: Column "Quantity" at [%s] has value of [%s] '
+                _('Error: Column "Price Unit" at [%s] has value of [%s] '
                   'and must NOT be [1]') %
-                (self._product_int_ref(), self.product_uom_qty))
+                (self._product_int_ref(), self.price_unit))
