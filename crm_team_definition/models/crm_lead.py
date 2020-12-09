@@ -16,8 +16,7 @@ class CrmTeam(models.Model):
 
     total_percentage = fields.Integer(
         String="Total Percentage",
-        compute='_compute_total_percentage',
-        store=True)
+        compute='_compute_total_percentage')
 
     @api.depends('employee_ids')
     def _compute_total_percentage(self):
@@ -28,9 +27,13 @@ class CrmTeam(models.Model):
 
     @api.constrains('employee_ids')
     def _validate_total_percentage(self):
-        if self.total_percentage != 100:
+        self.invalidate_cache()
+        total_percentage = 0
+        for team_member in self.employee_ids:
+            total_percentage += team_member.percentage
+        if total_percentage != 100:
             raise ValidationError(_(
-                'Total percentage is not 100: [%i]') % self.total_percentage)
+                'Total percentage is not 100: [%i]') % total_percentage)
 
     @api.model
     def create(self, vals):
