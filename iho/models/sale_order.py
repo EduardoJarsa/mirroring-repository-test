@@ -26,6 +26,15 @@ class SaleOrder(models.Model):
             'analytic_tag_ids': [(6, 0, self.analytic_tag_ids.ids)],
         })
 
+    @api.constrains('order_line')
+    def _verify_price_unit_1(self):
+        for line_number, line in enumerate(self.order_line):
+            if line.price_unit == 1.0:
+                raise ValidationError(
+                    _('Error: "Unit Price" at line [%i] of [%s] has '
+                        'value of [%s] and must NOT be [1.00]') %
+                    (line_number+1, line._product_int_ref(), line.price_unit))
+
 
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
@@ -37,11 +46,3 @@ class SaleOrderLine(models.Model):
         self.invalidate_cache(
             fnames=['analytic_tag_ids'], ids=[self.id])
         self.analytic_tag_ids = self.order_id.analytic_tag_ids.ids
-
-    @api.constrains('price_unit')
-    def _onchange_price_unit(self):
-        if self.price_unit == 1.0:
-            raise ValidationError(
-                _('Error: Column "Price Unit" at [%s] has value of [%s] '
-                  'and must NOT be [1]') %
-                (self._product_int_ref(), self.price_unit))

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-08 18:51+0000\n"
-"PO-Revision-Date: 2020-12-08 18:51+0000\n"
+"POT-Creation-Date: 2020-12-10 00:29+0000\n"
+"PO-Revision-Date: 2020-12-10 00:29+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -49,8 +49,11 @@ msgstr "Número Interior"
 #. module: iho
 #: code:addons/iho/models/sale_order.py:0
 #, python-format
-msgid "Error: Column \"Quantity\" at [%s] has value of [%s] and must NOT be [1]"
-msgstr "Error: Columna \"Cantidad\" en [%s] tiene valor de [%s] y NO debe ser [1]"
+msgid ""
+"Error: \"Unit Price\" at line [%i] of [%s] has value of [%s] and must NOT be"
+" [1.00]"
+msgstr "Error: \"Precio Unitario\" en línea [%i] de [%s] tiene [%s] y"
+" no puede ser [1.00]"
 
 #. module: iho
 #: model:ir.model.fields,field_description:iho.field_res_partner__street_number
