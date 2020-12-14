@@ -11,6 +11,7 @@ class SaleOrderLine(models.Model):
     iho_price_list = fields.Float(
         string='Price List',
         help='Vendor Catalog public price',
+        default=1.0
     )
     customer_discount = fields.Float(
         string='Customer Discount (%)',
