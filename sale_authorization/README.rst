@@ -20,4 +20,4 @@ Credits
 * Jesus Vicente Alcala Rodriguez <jesus.alcala@jarsa.com.mx> (Developer)
 * Sarai Osorio <sarai.osorio@jarsa.com.mx> (Developer)
 * Jarsa Sistemas SA de CV <info@jarsa.com.mx>
-
+* Héctor Herrera MtNet <hector.herrera.mx@gmail.com>

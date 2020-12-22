@@ -17,7 +17,6 @@
     'data': [
         'wizard/generate_sale_order_terms_wizard_view.xml',
         'views/sale_order_view.xml',
-        # 'views/sale_order_template.xml',
         'views/sale_term_view.xml',
         'views/sale_term_category_view.xml',
         'reports/report_papaerformat.xml',

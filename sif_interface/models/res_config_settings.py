@@ -8,7 +8,7 @@ class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
     order_service_total_minimum_usd = fields.Float(
-        default=0.0,
+        default=150.0,
         help="Minimum USD Service total to have in an Order",
         config_parameter="minimum_service_order_usd",
     )

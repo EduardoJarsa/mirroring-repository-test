@@ -15,12 +15,9 @@
             <xpath expr="//header/button[@name='action_quotation_send']" position="replace">
                 <button name="action_quotation_send" string="Send by Email" type="object" attrs="{'invisible': ['|', ('state', 'not in', ['draft']), ('authorized', '=', False)]}" class="btn-primary"/>
             </xpath>
-<!--             <xpath expr="//header/button[@id='action_confirm']" position="replace">  
-            </xpath> -->
             <xpath expr="//header/button[@name='action_confirm']" position="replace">
                 <button name="action_confirm" string="Confirm Sale"  class="btn-primary" type="object" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent']), ('authorized', '=', False)]}"/>
-                <!-- hidden button -->
-                <button name="authorize_sale_order" class="btn-primary" attrs="{'invisible': ['|', '|', '|', (True), ('order_version_ids', '=', []), ('authorized_version', '=', False), ('active_version_modified', '=', True)]}" string="Authorized by customer" groups="sale_authorization.group_sale_authorize" type="object"/>
+                <button name="authorize_sale_order" class="btn-primary" attrs="{'invisible': ['|', '|', ('order_version_ids', '=', []), ('authorized_version', '=', False), ('active_version_modified', '=', True)]}" string="Authorized by customer" groups="sale_authorization.group_sale_authorize" type="object"/>
             </xpath>
             <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="active_version_id" invisible="1"/>
@@ -45,13 +42,11 @@
         <field name="priority">100</field>
         <field name="inherit_id" ref="sale_order_version.view_sale_order_version_inherit_form_iho"/>
         <field name="arch" type="xml">
-            <!-- hidden button -->
             <xpath expr="//button[@id='restore_version']" position="attributes">
-                <attribute name="attrs">{'invisible': ['|', (True), ('state','not in',('draft', 'sent')), ('authorized', '=', True)]}</attribute>
+                <attribute name="attrs">{'invisible': [('state','not in',('draft', 'sent')), ('authorized', '=', True)]}</attribute>
             </xpath>
-            <!-- hidden button -->
             <xpath expr="//button[@id='approve_version']" position="attributes">
-                <attribute name="attrs">{'invisible': ['|', '|', (True), ('has_lines', '!=', True), ('state','not in',('draft', 'sent')), ('authorized', '=', True)]}</attribute>
+                <attribute name="attrs">{'invisible': ['|', ('has_lines', '!=', True), ('state','not in',('draft', 'sent')), ('authorized', '=', True)]}</attribute>
             </xpath>
         </field>
     </record>
@@ -63,31 +58,26 @@
     <record id="sale.action_orders" model="ir.actions.act_window">
         <field name="domain">[('state', '=', 'sale')]</field>
     </record>
-
     <!--new action filter quotations than are authorized-->
-        <record id="action_sale_autorization" model="ir.actions.act_window">
-            <field name="name">Quotation Authorization</field>
-            <field name="domain">[('state', '!=', 'sale'),('authorized', '=', True)]</field>
-            <field name="res_model">sale.order</field>
-            <field name="view_mode">tree,form</field>
-        </record>
+    <record id="action_sale_autorization" model="ir.actions.act_window">
+        <field name="name">Quotation Authorization</field>
+        <field name="domain">[('state', '!=', 'sale'),('authorized', '=', True)]</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 
-        <!--new menu-->
-        <menuitem id="menu_sales_orders_quotation_authorized" name="Quotation Authorized" parent="sale.sale_order_menu" action="action_sale_autorization" sequence="1"/>
-        
-        <record id="sale.action_quotations" model="ir.actions.act_window">
-            <field name="domain">[('state', '!=', 'sale'),('authorized', '=', False)]</field>
-        </record>
+    <!--new menu-->
+    <menuitem id="menu_sales_orders_quotation_authorized" name="Quotation Authorized" parent="sale.sale_order_menu" action="action_sale_autorization" sequence="1"/>
+    <record id="sale.action_quotations" model="ir.actions.act_window">
+        <field name="domain">[('state', '!=', 'sale'),('authorized', '=', False)]</field>
+    </record>
 
-        <!--added new menus in the crm module that filter the same way as the sales module-->
-
-        <menuitem id="crm_menu_sales_authorized" name="Quotation Authorized" parent="crm.crm_menu_sales" action="action_sale_autorization" sequence="2"/>
-
-        <menuitem id="crm_menu_sales_orders" name="Sale Order" parent="crm.crm_menu_sales" action="sale.action_orders" sequence="3"/>
-
-        <record id="sale_crm.sale_order_menu_quotations_crm" model="ir.ui.menu">
-            <field name="name">Quotation</field>
-        </record>
+    <!--added new menus in the crm module that filter the same way as the sales module-->
+    <menuitem id="crm_menu_sales_authorized" name="Quotation Authorized" parent="crm.crm_menu_sales" action="action_sale_autorization" sequence="2"/>
+    <menuitem id="crm_menu_sales_orders" name="Sale Order" parent="crm.crm_menu_sales" action="sale.action_orders" sequence="3"/>
+    <record id="sale_crm.sale_order_menu_quotations_crm" model="ir.ui.menu">
+        <field name="name">Quotation</field>
+    </record>
 
     <!--Modified the original action for this new filter-->
     <record id="sale_crm.sale_action_quotations_new" model="ir.actions.act_window">
