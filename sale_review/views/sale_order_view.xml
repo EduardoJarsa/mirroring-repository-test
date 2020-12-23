@@ -6,7 +6,7 @@
         <field name="priority">100</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//button[@name='preview_sale_order']" position="after">  
+            <xpath expr="//button[@name='action_cancel']" position="after">  
                 <button name="review_sale_order" type="object" string="Request to review" class="btn-primary" attrs="{'invisible': [('state', '=', 'sale')]}" groups="sale_review.group_sale_review"/>
             </xpath>
         </field>
