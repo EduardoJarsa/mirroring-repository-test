@@ -49,7 +49,7 @@ class SaleOrder(models.Model):
         analytic_account = self.env[
             'account.analytic.account'].sudo().create(
                 {
-                    'name': '%s - %s' % (
+                    'name': '%s-%s' % (
                         new_name, self.active_version_name),
                     'partner_id': self.partner_id.id,
                 })
