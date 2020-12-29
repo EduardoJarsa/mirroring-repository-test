@@ -114,6 +114,15 @@
         <field name="perm_unlink" eval="True"/>
         <field name="perm_read" eval="True"/>
     </record>
+    <record id="sales_order_line_cell_manager_all" model="ir.rule">
+        <field name="name">Sale Order lines Cell Manager all</field>
+        <field name="model_id" ref="sale.model_sale_order_line"/>
+        <field name="groups" eval="[(4, ref('iho.group_sale_salesman_opportunities'))]"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="perm_read" eval="True"/>
+    </record>
     <record id="crm_cell_manager" model="ir.rule">
         <field name="name">CRM Cell Manager </field>
         <field name="model_id" ref="crm.model_crm_lead"/>
