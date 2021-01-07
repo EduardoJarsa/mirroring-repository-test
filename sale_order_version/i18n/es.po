@@ -39,7 +39,7 @@ msgstr "Etiquetas analíticas"
 #. module: sale_order_version
 #: model:ir.model.fields.selection,name:sale_order_version.selection__sale_order_version__state__approved
 msgid "Approved"
-msgstr "Aprovada"
+msgstr "Aprobada"
 
 #. module: sale_order_version
 #: model_terms:ir.ui.view,arch_db:sale_order_version.view_sale_order_version_wizard
