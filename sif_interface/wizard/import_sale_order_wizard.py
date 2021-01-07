@@ -495,6 +495,7 @@ class ImportSaleOrderWizard(models.TransientModel):
                         ('id', '!=', product.id),
                         ('attribute_value_ids', '=', False)]).unlink()
                 except Exception as exc:
+                    import ipdb;   ipdb.set_trace()
                     raise ValidationError(exc.name + _(
                         '\n\n Product: [%s] - %s') % (
                         str(line['SpecItem']['Alias']['Number']),
