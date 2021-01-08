@@ -138,8 +138,7 @@ class ImportSaleOrderWizard(models.TransientModel):
         # partner_id
         if supplier_reference:
             partner = self.env['res.partner'].search(
-                [('ref', '=', supplier_reference), (
-                    'supplier', '=', True)], limit=1)
+                [('ref', '=', supplier_reference)], limit=1)
         else:
             partner = self.env.ref('sif_interface.nd_res_partner')
         if not partner and supplier_reference:
@@ -348,8 +347,7 @@ class ImportSaleOrderWizard(models.TransientModel):
                 item = self.env[model].create({
                     'name': str(value),
                     'company_type': 'company',
-                    'customer': False,
-                    'supplier': True,
+                    'customer_rank': 0,
                     'ref': str(value),
                 })
         elif model == 'product.template':
@@ -406,7 +404,7 @@ class ImportSaleOrderWizard(models.TransientModel):
             if not item:
                 item = self.env[model].create({
                     'name': str(value),
-                    'type': 'select',
+                    'display_type': 'select',
                     'create_variant': 'dynamic',
                 })
         return item
@@ -478,10 +476,11 @@ class ImportSaleOrderWizard(models.TransientModel):
                 ('product_tmpl_id', '=', product_template.id)])
             if not product:
                 try:
+                    import ipdb; ipdb.set_trace()
                     product = obj_prod_prod.create({
                         'name': str(line['SpecItem']['Description']),
                         'product_tmpl_id': product_template.id,
-                        'attribute_value_ids': [(6, 0, attributes)],
+                        'product_template_attribute_value_ids': [(6, 0, attributes)],
                         'list_price': line['Price']['PublishedPrice'],
                         'route_ids': [(6, 0, routes)],
                         'code': str(line['SpecItem']['Alias']['Number']),
@@ -495,8 +494,7 @@ class ImportSaleOrderWizard(models.TransientModel):
                         ('id', '!=', product.id),
                         ('attribute_value_ids', '=', False)]).unlink()
                 except Exception as exc:
-                    import ipdb;   ipdb.set_trace()
-                    raise ValidationError(exc.name + _(
+                    raise ValidationError(str(exc) + _(
                         '\n\n Product: [%s] - %s') % (
                         str(line['SpecItem']['Alias']['Number']),
                         str(line['SpecItem']['Description'])))
