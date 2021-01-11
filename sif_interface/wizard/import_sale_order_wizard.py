@@ -476,7 +476,6 @@ class ImportSaleOrderWizard(models.TransientModel):
                 ('product_tmpl_id', '=', product_template.id)])
             if not product:
                 try:
-                    import ipdb; ipdb.set_trace()
                     product = obj_prod_prod.create({
                         'name': str(line['SpecItem']['Description']),
                         'product_tmpl_id': product_template.id,
