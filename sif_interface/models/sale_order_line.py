@@ -190,11 +190,14 @@ class SaleOrderLine(models.Model):
                 continue
             if not rec.iho_currency_id:
                 raise ValidationError(_(
-                    'You need to define a purchase currency for the '
-                    'product [%s]%s') % (
+                    'Product Purchase Currency not defined for [%s]%s') % (
+                        rec.product_id.default_code, rec.product_id.name))
+            if not rec.product_id.maker_id:
+                raise ValidationError(_(
+                    'Product Maker not defined for [%s]%s') % (
                         rec.product_id.default_code, rec.product_id.name))
             context = {
-                'partner': rec.order_id.partner_id,
+                'partner': rec.product_id.maker_id,
                 'order': rec.order_id,
             }
             partner = rec.product_id.seller_ids.with_context(
@@ -203,7 +206,7 @@ class SaleOrderLine(models.Model):
                 r.sale_order_id == r._context.get('order'))
             if not partner:
                 rec.product_id.seller_ids.create({
-                    'name': rec.order_id.partner_id.id,
+                    'name': rec.product_id.maker_id.id,
                     'delay': 1,
                     'min_qty': 0,
                     'price': rec.iho_purchase_cost,
