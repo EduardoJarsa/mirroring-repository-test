@@ -40,10 +40,17 @@ class StockRule(models.Model):
                 lambda x: x.company_id.id == values['company_id'].id)
         maker_currency = product_id.maker_id.property_purchase_currency_id
         so_currency = seller.sale_order_id.pricelist_id.currency_id
+        # search for the unit price at the product.seller_ids 
+        sale_order = po.origin
+        seller_price = False
+        for record in product_id.seller_ids:
+            if record.sale_order_id.name == sale_order: 
+                seller_price = record.price
+        # import ipdb;  ipdb.set_trace()
         price_unit = self.env['account.tax']._fix_tax_included_price_company(
-            seller.price, product_id.supplier_taxes_id,
+            seller_price if seller_price else seller.price, 
+            product_id.supplier_taxes_id,
             taxes_id, values['company_id']) if seller else 0.0
-        import ipdb;  ipdb.set_trace()
         if (price_unit and seller and po.currency_id and
                 maker_currency != so_currency):
             price_unit = so_currency._convert(
