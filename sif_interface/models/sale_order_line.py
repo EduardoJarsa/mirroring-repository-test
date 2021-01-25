@@ -186,7 +186,7 @@ class SaleOrderLine(models.Model):
 
     def _process_product_supplierinfo(self):
         for rec in self:
-            if not rec.order_id.partner_id:
+            if not rec.order_id.partner_id or not rec.product_id:
                 continue
             if not rec.iho_currency_id:
                 raise ValidationError(_(
