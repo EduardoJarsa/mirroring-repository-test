@@ -8,7 +8,8 @@ class StockMove(models.Model):
     _inherit = "stock.move"
 
     def _prepare_procurement_values(self):
-        res = super(StockMove, self)._prepare_procurement_values()
+        res = super()._prepare_procurement_values()
+        # res = super(StockMove, self)._prepare_procurement_values()
         if isinstance(self.sale_line_id, int):
             res['sale_line_id'] = self.sale_line_id
         else:

@@ -4,7 +4,7 @@
 
 # pylint: disable=C0103
 
-from odoo import _,fields, models
+from odoo import _, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -19,8 +19,9 @@ class StockRule(models.Model):
             res['currency_id'] = maker_currency
         else:
             partner_name = values[0].get('supplier').name.ref
-            raise ValidationError(_('Maker Partner [%s] '
-                'has not Purchase Currency set') % (partner_name))
+            raise ValidationError(_(
+                'Maker Partner [%s] has not Purchase Currency set') %
+                (partner_name))
         return res
 
     def _prepare_purchase_order_line(self, product_id, product_qty,
@@ -40,15 +41,15 @@ class StockRule(models.Model):
                 lambda x: x.company_id.id == values['company_id'].id)
         maker_currency = product_id.maker_id.property_purchase_currency_id
         so_currency = seller.sale_order_id.pricelist_id.currency_id
-        # search for the unit price at the product.seller_ids 
+        # search for the unit price at the product.seller_ids
         sale_order = po.origin
         seller_price = False
         for record in product_id.seller_ids:
-            if record.sale_order_id.name == sale_order: 
+            if record.sale_order_id.name == sale_order:
                 seller_price = record.price
         # import ipdb;  ipdb.set_trace()
         price_unit = self.env['account.tax']._fix_tax_included_price_company(
-            seller_price if seller_price else seller.price, 
+            seller_price if seller_price else seller.price,
             product_id.supplier_taxes_id,
             taxes_id, values['company_id']) if seller else 0.0
         if (price_unit and seller and po.currency_id and

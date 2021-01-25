@@ -1,4 +1,5 @@
 # Copyright 2019, Jarsa Sistemas, S.A. de C.V.
+# Copyright 2021, MtNet Services, S.A. de C.V.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 # pylint: disable=C8108
 # pylint: disable=C8110
@@ -31,7 +32,8 @@ class Partner(models.Model):
 
     @api.model
     def _fields_view_get_address(self, arch):
-        arch = super(Partner, self)._fields_view_get_address(arch)
+        arch = super()._fields_view_get_address(arch)
+        # arch = super(Partner, self)._fields_view_get_address(arch)
         # render the partner address accordingly to address_view_id
         doc = etree.fromstring(arch)
         lang = self.env.user.lang
