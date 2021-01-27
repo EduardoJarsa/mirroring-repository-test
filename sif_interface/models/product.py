@@ -19,7 +19,6 @@ class ProductTemplate(models.Model):
     def _get_default_maker_id(self):
         default_value = self.env.ref('sif_interface.nd_res_partner')
         return default_value
-
     maker_id = fields.Many2one(
         default=_get_default_maker_id
         )
@@ -32,7 +31,6 @@ class ProductProduct(models.Model):
     def _get_default_maker_id(self):
         default_value = self.env.ref('sif_interface.nd_res_partner')
         return default_value
-
     maker_id = fields.Many2one(
         default=_get_default_maker_id
         )

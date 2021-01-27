@@ -72,7 +72,7 @@ class SaleOrderLine(models.Model):
     )
     is_bom_line = fields.Boolean(
         string="Is Bom?",
-        compute="_compute_is_bom_line_and_service",
+        compute="_compute_is_bom_line__service_factor__iho_currency_id",
         store=True,
     )
     price_unit = fields.Float(
@@ -200,12 +200,13 @@ class SaleOrderLine(models.Model):
                 context).filtered(
                 lambda r: r.name == r._context.get('partner') and
                 r.sale_order_id == r._context.get('order'))
+            nd_res_partner = self.env.ref('sif_interface.iho_res_partner')
             if not partner:
                 rec.product_id.seller_ids.create({
                     'name': (
                         rec.product_id.maker_id.id
                         if rec.product_id.maker_id.id
-                        else self.env.ref('sif_interface.nd_res_partner')
+                        else nd_res_partner
                         ),
                     'delay': 1,
                     'min_qty': 0,
@@ -232,11 +233,14 @@ class SaleOrderLine(models.Model):
         return res
 
     @api.depends('product_id')
-    def _compute_is_bom_line_and_service(self):
+    def _compute_is_bom_line__service_factor__iho_currency_id(self):
         for rec in self:
             rec.is_bom_line = bool(rec.product_id.bom_ids)
             if rec.product_id.type == 'service':
                 rec.iho_service_factor = 1
+            if rec.product_id.maker_id.property_purchase_currency_id:
+                rec.iho_currency_id = \
+                    rec.product_id.maker_id.property_purchase_currency_id
 
     @api.depends('iho_price_list', 'iho_factor')
     def _compute_sell_1(self):
