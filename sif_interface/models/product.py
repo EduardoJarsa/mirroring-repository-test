@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class ProductTemplate(models.Model):
@@ -16,21 +16,26 @@ class ProductTemplate(models.Model):
         inverse=None,
         )
 
-    def _get_default_maker_id(self):
-        default_value = self.env.ref('sif_interface.nd_res_partner')
-        return default_value
-    maker_id = fields.Many2one(
-        default=_get_default_maker_id
-        )
+    @api.model
+    def default_get(self, default_fields):
+        res = super().default_get(default_fields)
+        default_value = False
+        if 'maker_id' not in res or not res.get('maker_id'):
+            default_value = self.env.ref('sif_interface.nd_res_partner').id
+        if default_value:
+            res['maker_id'] = default_value
+        return res
 
 
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
-    # adding default value
-    def _get_default_maker_id(self):
-        default_value = self.env.ref('sif_interface.nd_res_partner')
-        return default_value
-    maker_id = fields.Many2one(
-        default=_get_default_maker_id
-        )
+    @api.model
+    def default_get(self, default_fields):
+        res = super().default_get(default_fields)
+        default_value = False
+        if 'maker_id' not in res or not res.get('maker_id'):
+            default_value = self.env.ref('sif_interface.nd_res_partner').id
+        if default_value:
+            res['maker_id'] = default_value
+        return res

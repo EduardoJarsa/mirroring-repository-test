@@ -193,30 +193,32 @@ class SaleOrderLine(models.Model):
                     'Product Purchase Currency not defined for [%s]%s') % (
                         rec.product_id.default_code, rec.product_id.name))
             context = {
-                'partner': rec.product_id.maker_id,
+                'partner': (
+                    rec.product_id.maker_id.id
+                    if rec.product_id.maker_id.id
+                    else rec.order_id.partner_id.id),
                 'order': rec.order_id,
             }
-            partner = rec.product_id.seller_ids.with_context(
+            seller_line = rec.product_id.seller_ids.with_context(
                 context).filtered(
                 lambda r: r.name == r._context.get('partner') and
                 r.sale_order_id == r._context.get('order'))
-            nd_res_partner = self.env.ref('sif_interface.iho_res_partner')
-            if not partner:
-                rec.product_id.seller_ids.create({
-                    'name': (
-                        rec.product_id.maker_id.id
-                        if rec.product_id.maker_id.id
-                        else nd_res_partner
-                        ),
-                    'delay': 1,
-                    'min_qty': 0,
-                    'price': rec.iho_purchase_cost,
-                    'currency_id': rec.iho_currency_id.id,
-                    'product_tmpl_id': rec.product_id.product_tmpl_id.id,
-                    'sale_order_id': rec.order_id.id,
-                })
+            seller_to_create = {
+                'name': (
+                    rec.product_id.maker_id.id
+                    if rec.product_id.maker_id.id
+                    else rec.order_id.partner_id.id),
+                'delay': 1,
+                'min_qty': 0,
+                'price': rec.iho_purchase_cost,
+                'currency_id': rec.iho_currency_id.id,
+                'product_tmpl_id': rec.product_id.product_tmpl_id.id,
+                'sale_order_id': rec.order_id.id,
+            }
+            if not seller_line:
+                rec.product_id.seller_ids.create(seller_to_create)
             else:
-                partner.write({
+                seller_line.write({
                     'price': rec.iho_purchase_cost,
                     'currency_id': rec.iho_currency_id.id,
                 })
