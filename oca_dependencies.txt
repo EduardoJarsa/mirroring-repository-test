@@ -1,7 +1,7 @@
 enterprise git@github.com:Jarsa/enterprise.git 13.0
 mexico git@git.vauxoo.com:Jarsa/mexico.git 13.0
 brand git@github.com:Jarsa/brand.git 13.0
-purchase-workflow https://github.com/Jarsa-dev/purchase-workflow.git 13.0-hh-update_purchase_order_line
+purchase-workflow git@github.com:Jarsa/purchase-workflow.git 13.0
 server-backend git@github.com:Jarsa/server-backend.git 13.0
 social git@github.com:Jarsa/social.git 13.0
 account-fix-tools git@github.com:Jarsa/account-fix-tools.git 13.0
