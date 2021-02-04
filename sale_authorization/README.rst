@@ -3,7 +3,8 @@ Sale Authorization iho
 
 This module allows:
 
-- Module for the authorization of third parties in quotes
+- Changes at CRM the intelligent buttons numbers shown
+- Authorized by customer: assigns Analytic account, creates a 'Pedido' form the 'Cotización', 
 
 
 Installation

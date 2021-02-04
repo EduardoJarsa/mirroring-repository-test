@@ -9,3 +9,4 @@ from . import utm
 from . import crm_lead_tag
 from . import crm_lead
 from . import res_country
+from . import purchase_order

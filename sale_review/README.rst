@@ -3,7 +3,9 @@ Sale Review
 
 This module allows:
 
-- Module for to review quotes
+- Sends a note from the Quotation to Senior sales manager for having their feedback,
+- Senior Managers can add a comment in the SO
+- Senior Managers can Approve the quotation, in such case they will also create a new Quotation version
 
 
 Installation
