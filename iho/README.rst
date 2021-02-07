@@ -3,7 +3,7 @@ IHO customs
 
 This module allows:
 
-- Customs
+- IHO Customs used by other IHO apps
 
 
 Installation
