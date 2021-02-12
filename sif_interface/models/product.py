@@ -3,18 +3,11 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 
-from odoo import api, fields, models
+from odoo import api, models
 
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
-
-    # removing compute and inverse
-    default_code = fields.Char(
-        'Internal Reference',
-        compute=None,
-        inverse=None,
-        )
 
     @api.model
     def default_get(self, default_fields):
