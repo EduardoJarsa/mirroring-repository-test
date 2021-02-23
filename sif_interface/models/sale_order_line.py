@@ -201,7 +201,7 @@ class SaleOrderLine(models.Model):
             }
             seller_line = rec.product_id.seller_ids.with_context(
                 context).filtered(
-                lambda r: r.name == r._context.get('partner') and
+                lambda r: r.name.id == r._context.get('partner') and
                 r.sale_order_id == r._context.get('order'))
             seller_to_create = {
                 'name': (
