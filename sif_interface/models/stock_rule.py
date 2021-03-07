@@ -14,7 +14,6 @@ class StockRule(models.Model):
     def _prepare_purchase_order(self, company_id, origins, values):
         """ overriding currency_id based on purchase currency from partner """
         res = super()._prepare_purchase_order(company_id, origins, values)
-        # import ipdb; ipdb.set_trace()
         maker_currency = values[0].get('supplier').name.property_purchase_currency_id.id
         if maker_currency:
             res['currency_id'] = maker_currency
@@ -27,9 +26,9 @@ class StockRule(models.Model):
 
     def _prepare_purchase_order_line(self, product_id, product_qty,
                                      product_uom, company_id, values, po):
-        """Method overridden from odoo to set the proper product price
-        unit on PO taking in consideration multi currency and the supplier info
-        from so"""
+        """Set the proper product price unit on PO taking in consideration
+        multi currency and the supplier info from so.
+        Mar 7,2021: copying analytic fields as sale.order has them"""
         res = super()._prepare_purchase_order_line(
             product_id, product_qty, product_uom, company_id, values, po)
         seller = values.get('supplier')
@@ -40,15 +39,14 @@ class StockRule(models.Model):
         if taxes_id:
             taxes_id = taxes_id.filtered(
                 lambda x: x.company_id.id == values['company_id'].id)
-        # maker_currency = product_id.maker_id.property_purchase_currency_id
-        # so_currency = seller.sale_order_id.pricelist_id.currency_id
-        # search for the unit price at the product.seller_ids
+        # search for the last unit price at the product.seller_ids
         sale_order = po.origin
         seller_price = False
-        for record in product_id.seller_ids:
-            if record.sale_order_id.name == sale_order:
+        for record in product_id.seller_ids.sorted(
+            key=lambda r: r.id, reverse=True
+        ):
+            if record.sale_order_id.name in sale_order:
                 seller_price = record.price
-        # import ipdb;  ipdb.set_trace()
         price_unit = self.env['account.tax']._fix_tax_included_price_company(
             seller_price if seller_price else seller.price,
             product_id.supplier_taxes_id,
@@ -59,4 +57,9 @@ class StockRule(models.Model):
         #         price_unit, maker_currency,
         #         po.company_id, po.date_order or fields.Date.today())
         res['price_unit'] = price_unit
+        # copying analytic_tag_ids and analytic_account from so
+        so_line = self.env['sale.order.line'].browse(
+            values['sale_line_id'])
+        res['analytic_tag_ids'] = so_line.analytic_tag_ids
+        res['account_analytic_id'] = so_line.order_id.analytic_account_id.id
         return res
