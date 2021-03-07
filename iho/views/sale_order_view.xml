@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='partner_shipping_id']" position="after">
-                <field name="analytic_tag_ids" groups="analytic.group_analytic_tags" options="{'no_create': True}" widget="many2many_tags" attrs="{'column_invisible': True}"/>
+                <field name="analytic_tag_ids" groups="analytic.group_analytic_tags" options="{'no_create': True}" widget="many2many_tags"/>
             </xpath>
             <xpath expr="//field[@name='payment_term_id']" position="attributes">
                 <attribute name="options">{'no_create': False}</attribute>

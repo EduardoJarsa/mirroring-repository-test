@@ -39,6 +39,5 @@
         'security/security.xml',
         'security/ir.model.access.csv',
         'views/ir_ui_menu_view.xml',
-        'views/purchase_order_view.xml',
     ],
 }
