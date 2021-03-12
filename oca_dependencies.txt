@@ -5,6 +5,7 @@ purchase-workflow git@github.com:Jarsa/purchase-workflow.git 13.0
 server-backend git@github.com:Jarsa/server-backend.git 13.0
 social git@github.com:Jarsa/social.git 13.0
 account-fix-tools git@github.com:Jarsa/account-fix-tools.git 13.0
+account-analytic git@github.com:Jarsa/account-analytic.git 13.0
 odoo-utilities git@git.vauxoo.com:jarsa/odoo-utilities.git 13.0
 mexico-document git@git.vauxoo.com:jarsa/mexico-document.git 13.0
 stock-logistics-workflow git@github.com:Jarsa/stock-logistics-workflow.git 13.0

@@ -32,6 +32,8 @@
         'l10n_mx_edi',
         'l10n_mx_reports',
         'iho_simplification',
+        'stock_analytic',
+        'stock_landed_costs_analytic',
     ],
     'data': [
         'views/res_partner_view.xml',
