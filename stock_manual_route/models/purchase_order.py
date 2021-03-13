@@ -11,6 +11,9 @@ class PurchaseOrderLine(models.Model):
     def _prepare_stock_moves(self, picking):
         res = super()._prepare_stock_moves(picking)
         res[0]['move_dest_ids'] = []
+        for rec in res:
+            rec['analytic_account_id'] = self.account_analytic_id.id
+            rec['analytic_tag_ids'] = self.analytic_tag_ids
         return res
 
 
@@ -19,5 +22,5 @@ class PurchaseOrder(models.Model):
 
     def _prepare_picking(self):
         res = super()._prepare_picking()
-        res['origin'] = res['origin'] + ",(" + self.origin + ")"
+        res['origin'] = res['origin'] + " (" + self.origin + ")"
         return res
