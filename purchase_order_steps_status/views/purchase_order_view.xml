@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_order_inherit_steps_status" model="ir.ui.view">
+        <field name="name">view.purchase.order.inherit.steps.status</field>
+        <field name="model">purchase.order</field>
+        <field name="priority">105</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Steps" name="po_steps">
+                    <group>
+                        <group name="po_steps_dates">
+                            <field name="current_step" widget="selection"/>
+                            <br/>
+                            <field name="date_po_accepted" widget="date"/>
+                            <field name="date_production_starts" widget="date"/>
+                            <field name="date_production_ends" widget="date"/>
+                            <field name="date_pick_origin_intltransit" widget="date"/>
+                            <field name="date_arrives_customs" widget="date"/>
+                            <field name="date_bonded_warehouse" widget="date"/>
+                            <field name="date_pick_customs_transit" widget="date"/>
+                            <field name="date_warehouse" widget="date"/>
+                        </group>
+                        <group name="po_steps_text">
+                            <field name="current_step_text" nolabel="1" colspan="2"/>
+                            <br/>
+                            <field name="date_po_accepted_text" nolabel="1" colspan="2"/>
+                            <field name="date_production_starts_text" nolabel="1" colspan="2"/>
+                            <field name="date_production_ends_text" nolabel="1" colspan="2"/>
+                            <field name="date_pick_origin_intltransit_text" nolabel="1" colspan="2"/>
+                            <field name="date_arrives_customs_text" nolabel="1" colspan="2"/>
+                            <field name="date_bonded_warehouse_text" nolabel="1" colspan="2"/>
+                            <field name="date_pick_customs_transit_text" nolabel="1" colspan="2"/>
+                            <field name="date_warehouse_text" nolabel="1" colspan="2"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
