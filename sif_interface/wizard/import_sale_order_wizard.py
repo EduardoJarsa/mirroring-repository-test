@@ -1,4 +1,4 @@
-# Copyright 2020,MtNet Services, S.A. de C.V.
+# Copyright 2020,2021 MtNet Services, S.A. de C.V.
 # Copyright 2018,Jarsa Sistemas, S.A. de C.V.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
@@ -348,8 +348,8 @@ class ImportSaleOrderWizard(models.TransientModel):
                 item = self.env[model].create({
                     'name': str(value),
                     'company_type': 'company',
-                    'customer': False,
-                    'supplier': True,
+                    'customer_rank': 0,
+                    'supplier_rank': 1,
                     'ref': str(value),
                 })
         elif model == 'product.template':
@@ -406,8 +406,8 @@ class ImportSaleOrderWizard(models.TransientModel):
             if not item:
                 item = self.env[model].create({
                     'name': str(value),
-                    'type': 'select',
-                    'create_variant': 'dynamic',
+                    'display_type': 'select',
+                    'create_variant': 'always',
                 })
         return item
 
@@ -441,6 +441,8 @@ class ImportSaleOrderWizard(models.TransientModel):
                 dealer_price=line['Price']['OrderDealerPrice'],
                 currency=iho_currency_id,
                 published_price=line['Price']['PublishedPrice'])
+
+            # Alias
             tags = self.get_data_info('Tag', line)
             tag_alias = [
                 str(tag.get('Value')) + ' - ' + sale_order.name
@@ -455,23 +457,28 @@ class ImportSaleOrderWizard(models.TransientModel):
                       '\nPlease verify the data of the xml.') % (name_product))
             attributes = self.get_attributes(
                 self.get_data_info('Option', line['SpecItem']))
-            catalog = self.search_data('Catalog', 'product.attribute')
-            cat_value = self.search_data(
-                line['SpecItem']['Catalog']['Code'],
-                'product.attribute.value', attr=catalog)
-            attributes.append(cat_value.id)
-            generic = self.search_data('Generic', 'product.attribute')
-            tags_data = {
-                tag: value for tag, value in line.items() if tag.startswith(
-                    'Tag')}
-            generic_node = [
-                value.get('Value')
-                for tag, value in tags_data.items() if
-                value.get('Type') == 'Generic']
-            generic_value = self.search_data(
-                generic_node[0],
-                'product.attribute.value', attr=generic)
-            attributes.append(generic_value.id)
+
+            # Catalog attribute:
+            # catalog = self.search_data('Catalog', 'product.attribute')
+            # cat_value = self.search_data(
+            #     line['SpecItem']['Catalog']['Code'],
+            #     'product.attribute.value', attr=catalog)
+            # attributes.append(cat_value.id)
+
+            # Generic attribute:
+            # generic = self.search_data('Generic', 'product.attribute')
+            # tags_data = {
+            #     tag: value for tag, value in line.items() if tag.startswith(
+            #         'Tag')}
+            # generic_node = [
+            #     value.get('Value')
+            #     for tag, value in tags_data.items() if
+            #     value.get('Type') == 'Generic']
+            # generic_value = self.search_data(
+            #     generic_node[0],
+            #     'product.attribute.value', attr=generic)
+            # attributes.append(generic_value.id)
+
             product = obj_prod_prod.search([
                 ('default_code', '=', str(
                     line['SpecItem']['Alias']['Number'])),
@@ -481,7 +488,7 @@ class ImportSaleOrderWizard(models.TransientModel):
                     product = obj_prod_prod.create({
                         'name': str(line['SpecItem']['Description']),
                         'product_tmpl_id': product_template.id,
-                        'attribute_value_ids': [(6, 0, attributes)],
+                        'product_template_attribute_value_ids': [(6, 0, attributes)],
                         'list_price': line['Price']['PublishedPrice'],
                         'route_ids': [(6, 0, routes)],
                         'code': str(line['SpecItem']['Alias']['Number']),
@@ -493,9 +500,9 @@ class ImportSaleOrderWizard(models.TransientModel):
                     obj_prod_prod.search([
                         ('product_tmpl_id', '=', product_template.id),
                         ('id', '!=', product.id),
-                        ('attribute_value_ids', '=', False)]).unlink()
+                        ('product_variant_ids', '=', False)]).unlink()
                 except Exception as exc:
-                    raise ValidationError(exc.name + _(
+                    raise ValidationError(str(exc) + _(
                         '\n\n Product: [%s] - %s') % (
                         str(line['SpecItem']['Alias']['Number']),
                         str(line['SpecItem']['Description'])))
