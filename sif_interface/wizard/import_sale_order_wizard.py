@@ -104,6 +104,19 @@ class ImportSaleOrderWizard(models.TransientModel):
                 (index, service_factor))
 
     @api.model
+    def _get_line_tax(self, line):
+        line_tax_str = line.get('TaxQuotLine', False)
+        line_tax_id = False
+        if line_tax_str:
+            # tax_line_str from CSV has to be '16', '8', 0, ...
+            # account.tax name has to be 'IVA(16', 'IVA(8'
+            line_tax_id = self.env['account.tax'].search([
+                ('type_tax_use', '=', 'sale'),
+                ('name', '=ilike', 'IVA(%s' % line_tax_str + '%')],
+                limit=1).id
+        return line_tax_id
+
+    @api.model
     def _prepare_sale_order_line(self, line, sale_order, index):
         if line.get('ProductCodeQuotLine', False) == '<empty>':
             return False
@@ -113,6 +126,7 @@ class ImportSaleOrderWizard(models.TransientModel):
         pricelist = self.to_float(line, 'PriceListQuotLine')
         iho_purchase_cost = pricelist * (100 - customer_discount) / 100
         supplier_reference = line.get('MakerQuotLine', False)
+        line_tax_id = self._get_line_tax(line)
         # catalog_id
         catalog = line.get('CatalogQuotLine', False)
         catalog_id = False
@@ -199,7 +213,9 @@ class ImportSaleOrderWizard(models.TransientModel):
             'dealer_discount': self.to_float(line, 'DealerDiscountQuotLine'),
             'order_id': sale_order.id,
             'analytic_tag_ids': [(6, 0, sale_order.analytic_tag_ids.ids)],
-            'tax_id': [(6, 0, product_id.taxes_id.ids)],
+            'tax_id': [(
+                6, 0,
+                [line_tax_id] if line_tax_id else product_id.taxes_id.ids)],
         })
         if family_id:
             res.update({
@@ -261,16 +277,16 @@ class ImportSaleOrderWizard(models.TransientModel):
         # I do this because of a bug with create method
         sale_order = lines[0].order_id
         # TODO: Verify if we need to add _amount_untaxed_fleet_service function
-        sale_order_lines = self.env['sale.order.line'].search(
-            [('order_id', '=', sale_order.id)])
-        last_index = len(sale_order_lines)
-        fleet = sale_order_lines[last_index - 1].product_id
-        sale_order_lines[last_index - 1].update(
-            {
-                'analytic_tag_ids': sale_order.analytic_tag_ids.ids,
-                'tax_id': [(6, 0, fleet.taxes_id.ids)],
-            }
-        )
+        # sale_order_lines = self.env['sale.order.line'].search(
+        #     [('order_id', '=', sale_order.id)])
+        # last_index = len(sale_order_lines)
+        # fleet = sale_order_lines[last_index - 1].product_id
+        # sale_order_lines[last_index - 1].update(
+        #     {
+        #         'analytic_tag_ids': sale_order.analytic_tag_ids.ids,
+        #         'tax_id': [(6, 0, fleet.taxes_id.ids)],
+        #     }
+        # )
 
     @api.model
     def xml2dict(self, xml):
