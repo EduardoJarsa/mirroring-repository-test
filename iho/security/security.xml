@@ -32,7 +32,7 @@
     </record>
     <record id = "group_manager_catalogs" model="res.groups">
         <field name="name">Catalog Administrator</field>
-        <field name="comment">The user can will do anything with enought modules.</field>
+        <field name="comment">The user will have elevated rights to models</field>
     </record>
     <record id="crm_senior_only_follower" model="ir.rule">
         <field name="name">CRM Senior Only Follower </field>
