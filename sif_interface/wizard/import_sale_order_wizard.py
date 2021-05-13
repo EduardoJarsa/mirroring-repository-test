@@ -368,7 +368,6 @@ class ImportSaleOrderWizard(models.TransientModel):
                     'list_price': published_price,
                     'type': 'product',
                     'purchase_ok': buy,
-                    'route_ids': [(6, 0, routes)],
                     'l10n_mx_edi_code_sat_id': sat_code or False,
                 }
                 if not dealer_price:
@@ -377,6 +376,9 @@ class ImportSaleOrderWizard(models.TransientModel):
                     )
                     product_dict['categ_id'] = category_no_cost.id
                 item = self.env[model].create(product_dict)
+                item.write({
+                    'route_ids': [(6, 0, routes)],
+                })
                 product_variant_id = self.env['product.product'].search(
                     [('product_tmpl_id', '=', item.id)])
                 product_variant_id.write({
@@ -475,11 +477,14 @@ class ImportSaleOrderWizard(models.TransientModel):
             if not product_template.attribute_line_ids:
                 try:
                     attribute_lines ,attributes_ids = self._prepare_items(attributes)
+                    routes = product_template.route_ids
+                    default_code = product_template.default_code
                     product_template.write({
                         'attribute_line_ids': attribute_lines,
                     })
-                    product_template.product_variant_ids.write({
-                        'default_code': product_template.default_code,
+                    product_template.write({
+                        'default_code': default_code,
+                        'route_ids': [(6, 0, routes.ids)],
                     })
                 except Exception as exc:
                     raise ValidationError(str(exc) + _(
@@ -487,8 +492,10 @@ class ImportSaleOrderWizard(models.TransientModel):
                         str(line['SpecItem']['Alias']['Number']),
                         str(line['SpecItem']['Description'])))
             if len(product_template.product_variant_ids) == 1:
-                product = product_template.product_variant_ids[0]
-
+                list_product = product_template.product_variant_ids[0]
+            else:
+                list_product = product_template.product_variant_ids
+            for product in list_product:
                 bom_elements.setdefault(tag_alias[0], []).append((0, 0, {
                     'product_id': product.id,
                     'product_qty': line.get('Quantity'),
