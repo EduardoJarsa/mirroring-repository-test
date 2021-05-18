@@ -432,6 +432,17 @@ class ImportSaleOrderWizard(models.TransientModel):
                 items.append(item)
         return items, items_ids
 
+    def _generate_default_code_variant(self,default_code, variant):
+        code = ''
+        attribute_values = variant.product_template_attribute_value_ids
+        attrList = []
+        #attrList = attribute_values.attribute_id.mapped('name')
+        for rec in attribute_values.mapped('name'):
+            attrList.append(rec)
+        full_code = (code.join(attrList))
+        full_code = default_code+' '+full_code
+        return full_code
+
     def _run_2020_import(self):
         self.ensure_one()
         obj_bom = self.env['mrp.bom']
@@ -462,7 +473,6 @@ class ImportSaleOrderWizard(models.TransientModel):
                 dealer_price=line['Price']['OrderDealerPrice'],
                 currency=iho_currency_id,
                 published_price=line['Price']['PublishedPrice'])
-
             # Alias
             tags = self.get_data_info('Tag', line)
             tag_alias = [
@@ -472,38 +482,53 @@ class ImportSaleOrderWizard(models.TransientModel):
             ]
             if not tag_alias:
                 tag_alias = [' ']
-            attributes, attributes_value = self.get_attributes(
+            attr, attributes_value = self.get_attributes(
                 self.get_data_info('Option', line['SpecItem'],), product_template=product_template)
-            if not product_template.attribute_line_ids:
-                try:
-                    attribute_lines ,attributes_ids = self._prepare_items(attributes)
-                    routes = product_template.route_ids
-                    default_code = product_template.default_code
+            code_value = self._generate_attribute_value(attributes_value)
+            #Remove last char
+            code_value = code_value[:-1]
+            attr_value = self.search_data(
+                code_value, 'product.attribute.value', attr=attr[0], product_template=product_template)
+            try:
+                attribute_lines ,attributes_ids = self._prepare_items(attr)
+                routes = product_template.route_ids
+                default_code = product_template.default_code
+                # product_template.write({
+                #         'default_code': False,
+                #     })
+                if not product_template.attribute_line_ids:
                     product_template.write({
                         'attribute_line_ids': attribute_lines,
-                    })
+                    })        
+                else:
+                    # Filter to create new variants
+                    lines_attributes = product_template.attribute_line_ids
+                    product_attribute_values = lines_attributes.product_template_value_ids
+                    names = product_attribute_values.filtered(lambda l:l.name == attr_value.name)
+                    if not names:
+                        product_template.attribute_line_ids[0].write({
+                            'value_ids': [(4, attr_value.id)],
+                        })
+
+                for variant in product_template.product_variant_ids:
+                    full_code = self._generate_default_code_variant(default_code,variant)
+                    variant_line = line['SpecItem']['Alias']['Number']
+                    if variant.default_code != full_code:
+                        variant.write({
+                            'default_code': full_code,
+                            'route_ids': [(6, 0, routes.ids)],
+                        })
+                if not product_template.default_code:
                     product_template.write({
-                        'default_code': default_code,
-                        'route_ids': [(6, 0, routes.ids)],
-                    })
-                except Exception as exc:
-                    raise ValidationError(str(exc) + _(
-                        '\n\n Product: [%s] - %s') % (
-                        str(line['SpecItem']['Alias']['Number']),
-                        str(line['SpecItem']['Description'])))
-            if len(product_template.product_variant_ids) == 1:
-                list_product = product_template.product_variant_ids[0]
-            else:
-                list_product = product_template.product_variant_ids
-            for product in list_product:
-                bom_elements.setdefault(tag_alias[0], []).append((0, 0, {
-                    'product_id': product.id,
-                    'product_qty': line.get('Quantity'),
-                    'iho_purchase_cost': line['Price']['OrderDealerPrice'],
-                    'vendor_id': vendor.id,
-                    'iho_currency_id': iho_currency_id.id,
-                    'iho_customer_cost': line['Price']['EndCustomerPrice'],
-                }))
+                            'default_code': default_code,
+                        })
+            except Exception as exc:
+                raise ValidationError(str(exc) + _(
+                    '\n\n Product: [%s] - %s') % (
+                    str(line['SpecItem']['Alias']['Number']),
+                    str(line['SpecItem']['Description'])))            
+            current_code_variant = default_code +' '+code_value
+            product_variant = product_template.product_variant_ids.filtered(lambda l: l.default_code == current_code_variant)
             pub_price_total[tag_alias[0]] = pub_price_total.setdefault(
                 tag_alias[0], 0.0) + (
                     line['Price']['PublishedPrice'] * line['Quantity'])
@@ -513,32 +538,24 @@ class ImportSaleOrderWizard(models.TransientModel):
             dealer_price_total[tag_alias[0]] = dealer_price_total.setdefault(
                 tag_alias[0], 0.0) + (
                 line['Price']['OrderDealerPrice'] * line['Quantity'])
-        for tag, boms in bom_elements.items():
-            product_template_bom = self.search_data(
-                tag, 'product.template', name=tag, buy=False)
-            if not obj_bom.search(
-                    [('product_tmpl_id', '=', product_template_bom.id)]):
-                obj_bom.create({
-                    'type': 'phantom',
-                    'bom_line_ids': boms,
-                    'product_tmpl_id': product_template_bom.id,
-                })
-            product_bom = product_template_bom.product_variant_id
             customer_discount = (
-                1 - (cust_price_total[tag] / pub_price_total[tag])) * 100
+                1 - (cust_price_total[tag_alias[0]] / pub_price_total[tag_alias[0]])) * 100
             customer_discount = (
-                1 - (dealer_price_total[tag] / pub_price_total[tag])) * 100
+                1 - (dealer_price_total[tag_alias[0]] / pub_price_total[tag_alias[0]])) * 100
             sale_order_line = sale_order.order_line.create({
-                'product_id': product_bom.id,
+                'product_id': product_variant.id,
                 'product_uom_qty': 1.0,
-                'name': product_bom.display_name,
+                'name': product_variant.display_name,
                 'order_id': sale_order.id,
-                'iho_price_list': pub_price_total[tag],
+                'iho_price_list': pub_price_total[tag_alias[0]],
                 'discount': customer_discount,
-                'product_uom': product_bom.uom_id.id,
+                'product_uom': product_variant.uom_id.id,
                 'customer_discount': customer_discount,
                 'iho_currency_id': iho_currency_id.id,
                 'analytic_tag_ids': [(6, 0, sale_order.analytic_tag_ids.ids)],
+            })
+            sale_order_line.write({
+                'iho_service_factor': 1.0,
             })
             sale_order_line._compute_sell_1()
             sale_order_line._compute_sell_2()
@@ -556,6 +573,12 @@ class ImportSaleOrderWizard(models.TransientModel):
             })
         return file_data
 
+    def _generate_attribute_value(self, attributes_value):
+        code_value = ''
+        for rec in attributes_value:
+            code_value+=rec+'-'
+        return code_value
+
     @api.model
     def get_attributes(self, line, product_template=False):
         attributes = []
@@ -566,16 +589,16 @@ class ImportSaleOrderWizard(models.TransientModel):
             code = str(option.get('Code'))
             attribute = code + "-" + data[0] if len(data) == 2 else code
             value = data[1] if len(data) == 2 else data[0]
-            attr = self.search_data(attribute, 'product.attribute')
-            attr_value = self.search_data(
-                value, 'product.attribute.value', attr=attr, product_template=product_template)
-            attributes.append(attr)
-            attributes_value.append(attr_value.id)
+            generic_attribute = 'Specs'
+            attr = self.search_data(generic_attribute, 'product.attribute')
+            # if attr not in attributes:
+            if not attr in attributes:
+                attributes.append(attr)
+            attributes_value.append(code)
             if option.get('Option'):
                 option_recursive(option.get('Option'))
             return True
 
         for item in line:
             option_recursive(item)
-
         return attributes, attributes_value
