@@ -26,6 +26,7 @@
         'views/res_config_view.xml',
         'views/mrp_bom_view.xml',
         'views/product_supplierinfo_view.xml',
+        'views/product_product_view.xml',
         'wizard/export_sif_wizard_view.xml',
         'views/sale_order_view.xml',
         'views/purchase_order_view.xml',

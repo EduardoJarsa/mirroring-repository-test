@@ -679,3 +679,9 @@ msgstr "Mal formato en la columna extra_expense [%s] en la línea %s"
 #: model:product.template,name:sif_interface.product_product_dummy_product_template
 msgid "dummy"
 msgstr ""
+
+#. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_product_product__full_description
+#: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__full_description
+msgid "Full Description"
+msgstr "Descripción Completa"

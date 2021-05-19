@@ -10,6 +10,8 @@
                         <h2><strong>Please upload the file to import</strong></h2>
                         <big><i class="fa fa-file-code-o fa-2x text-primary" aria-label="Code" title="Code"></i><label for="upload_file"/><field name="upload_file" filename="file_name" nolabel="1"/></big>
                         <field name="file_name" invisible="1" class="oe_inline oe_right"/>
+                        <field name="category_id" class="oe_inline oe_right"/>
+                        <field name="taxes_id" class="oe_inline oe_right"/>
                     </group>
                     <footer>
                         <button name="run_import" string='Confirm' type="object" class="oe_highlight"/>

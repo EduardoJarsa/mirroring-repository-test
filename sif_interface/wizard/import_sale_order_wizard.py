@@ -21,6 +21,10 @@ class ImportSaleOrderWizard(models.TransientModel):
 
     upload_file = fields.Binary(required=True)
     file_name = fields.Char()
+    category_id = fields.Many2one('product.category',)
+    taxes_id = fields.Many2many(
+        'account.tax',
+    )
 
     def run_import(self):
         file_extension = os.path.splitext(self.file_name)[1].lower()
@@ -482,20 +486,19 @@ class ImportSaleOrderWizard(models.TransientModel):
             ]
             if not tag_alias:
                 tag_alias = [' ']
-            attr, attributes_value = self.get_attributes(
+            attr, attributes_value, attributes_description = self.get_attributes(
                 self.get_data_info('Option', line['SpecItem'],), product_template=product_template)
             code_value = self._generate_attribute_value(attributes_value)
+            full_description = self._generate_full_description(attributes_description)
             #Remove last char
             code_value = code_value[:-1]
+            full_description = full_description[:-2]
             attr_value = self.search_data(
                 code_value, 'product.attribute.value', attr=attr[0], product_template=product_template)
             try:
                 attribute_lines ,attributes_ids = self._prepare_items(attr)
                 routes = product_template.route_ids
                 default_code = product_template.default_code
-                # product_template.write({
-                #         'default_code': False,
-                #     })
                 if not product_template.attribute_line_ids:
                     product_template.write({
                         'attribute_line_ids': attribute_lines,
@@ -517,6 +520,10 @@ class ImportSaleOrderWizard(models.TransientModel):
                         variant.write({
                             'default_code': full_code,
                             'route_ids': [(6, 0, routes.ids)],
+                            'full_description': default_code+' '+full_description,
+                            'categ_id': self.category_id,
+                            'taxes_id': self.taxes_id,
+                            'maker_id': vendor,
                         })
                 if not product_template.default_code:
                     product_template.write({
@@ -573,6 +580,12 @@ class ImportSaleOrderWizard(models.TransientModel):
             })
         return file_data
 
+    def _generate_full_description(self, attributes_description):
+        code_value = ''
+        for rec in attributes_description:
+            code_value+=rec+'/ '
+        return code_value
+
     def _generate_attribute_value(self, attributes_value):
         code_value = ''
         for rec in attributes_value:
@@ -583,6 +596,7 @@ class ImportSaleOrderWizard(models.TransientModel):
     def get_attributes(self, line, product_template=False):
         attributes = []
         attributes_value = []
+        attributes_description = []
 
         def option_recursive(option):
             data = str(option['Description']).split(":")
@@ -595,10 +609,11 @@ class ImportSaleOrderWizard(models.TransientModel):
             if not attr in attributes:
                 attributes.append(attr)
             attributes_value.append(code)
+            attributes_description.append(data[0])
             if option.get('Option'):
                 option_recursive(option.get('Option'))
             return True
 
         for item in line:
             option_recursive(item)
-        return attributes, attributes_value
+        return attributes, attributes_value, attributes_description

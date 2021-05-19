@@ -110,6 +110,10 @@ class SaleOrderLine(models.Model):
         related='order_id.iho_tc',
         store=True,
     )
+    full_description = fields.Char(
+        related='product_id.full_description',
+        store=True,
+    )
 
     catalog_id = fields.Many2one('iho.catalog', string='Catalog')
     family_id = fields.Many2one('iho.family', string='Family')
