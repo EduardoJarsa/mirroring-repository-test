@@ -33,7 +33,7 @@
                 <field name="dealer_discount" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
-                <field name="full_description"/>
+                <field name="full_description" optional="hide"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">
                 <attribute name="attrs">{'column_invisible': [('parent.show_order_details','==',False)]}</attribute>

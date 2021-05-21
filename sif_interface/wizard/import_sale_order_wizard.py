@@ -21,7 +21,7 @@ class ImportSaleOrderWizard(models.TransientModel):
 
     upload_file = fields.Binary(required=True)
     file_name = fields.Char()
-    category_id = fields.Many2one('product.category',)
+    product_category_id = fields.Many2one('product.category',)
     taxes_id = fields.Many2many(
         'account.tax',
     )
@@ -345,7 +345,9 @@ class ImportSaleOrderWizard(models.TransientModel):
     @api.model
     def search_data(self, value, model,
                     attr=False, name=False, buy=True, vendor=False,
-                    dealer_price=False, currency=False, published_price=False,product_template=False):
+                    dealer_price=False, currency=False, published_price=False,
+                    product_template=False,
+                    product_brand=False):
         routes = [
             self.env.ref('stock.route_warehouse0_mto').id,
             self.env.ref('purchase_stock.route_warehouse0_buy').id]
@@ -373,7 +375,13 @@ class ImportSaleOrderWizard(models.TransientModel):
                     'type': 'product',
                     'purchase_ok': buy,
                     'l10n_mx_edi_code_sat_id': sat_code or False,
+                    'categ_id': self.product_category_id.id,
+                    'taxes_id': self.taxes_id.ids,
                 }
+                if product_brand:
+                    product_dict.update({
+                        'product_brand_id': product_brand.id,
+                    })
                 if not dealer_price:
                     category_no_cost = self.env.ref(
                         'sif_interface.product_category_no_cost_materials'
@@ -471,12 +479,18 @@ class ImportSaleOrderWizard(models.TransientModel):
             generic_value = ''
             vendor = self.search_data(
                 line.get('VendorRef'), 'res.partner')
+            product_brands = self.env['product.brand'].search(
+                [('partner_id','=',vendor.id)])
+            product_brand = False
+            if product_brands:
+                product_brand = product_brands[0]
             product_template = self.search_data(
                 line['SpecItem']['Number'], 'product.template',
                 name=line['SpecItem']['Description'], vendor=vendor,
                 dealer_price=line['Price']['OrderDealerPrice'],
                 currency=iho_currency_id,
-                published_price=line['Price']['PublishedPrice'])
+                published_price=line['Price']['PublishedPrice'],
+                product_brand = product_brand)
             # Alias
             tags = self.get_data_info('Tag', line)
             tag_alias = [
@@ -521,9 +535,10 @@ class ImportSaleOrderWizard(models.TransientModel):
                             'default_code': full_code,
                             'route_ids': [(6, 0, routes.ids)],
                             'full_description': default_code+' '+full_description,
-                            'categ_id': self.category_id,
-                            'taxes_id': self.taxes_id,
+                            'categ_id': self.product_category_id.id,
+                            'taxes_id': self.taxes_id.ids,
                             'maker_id': vendor,
+                            'product_brand_id': product_template.product_brand_id.id,
                         })
                 if not product_template.default_code:
                     product_template.write({
@@ -551,7 +566,7 @@ class ImportSaleOrderWizard(models.TransientModel):
                 1 - (dealer_price_total[tag_alias[0]] / pub_price_total[tag_alias[0]])) * 100
             sale_order_line = sale_order.order_line.create({
                 'product_id': product_variant.id,
-                'product_uom_qty': 1.0,
+                'product_uom_qty': line['Quantity'],
                 'name': product_variant.display_name,
                 'order_id': sale_order.id,
                 'iho_price_list': pub_price_total[tag_alias[0]],

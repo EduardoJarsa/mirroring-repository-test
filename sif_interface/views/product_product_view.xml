@@ -10,4 +10,14 @@
             </xpath>
         </field>
     </record>
+    <record id="product_product_sif_interface_product_variant_easy_edit_view_form_view" model="ir.ui.view">
+        <field name="name">product.product.sif.interface.product.variant.easy.edit.form.view</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='default_code']" position="after">
+                <field name="full_description"/>
+            </xpath>
+        </field>
+    </record>
 </odoo>

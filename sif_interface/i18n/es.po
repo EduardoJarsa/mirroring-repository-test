@@ -685,3 +685,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:sif_interface.field_sale_order_line__full_description
 msgid "Full Description"
 msgstr "Descripción Completa"
+
+#. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_import_sale_order_wizard__product_category_id
+msgid "Product Category"
+msgstr "Categoria de Producto"
+
+#. module: sif_interface
+#: model:ir.model.fields,field_description:sif_interface.field_import_sale_order_wizard__taxes_id
+msgid "Taxes"
+msgstr "Impuestos"
