@@ -19,11 +19,18 @@ class ImportSaleOrderWizard(models.TransientModel):
     _name = "import.sale.order.wizard"
     _description = "Import sale order from a file."
 
+    @api.model
+    def _default_tax_sale(self):
+        tax = False
+        tax = self.env.company.account_sale_tax_id
+        return tax
+
     upload_file = fields.Binary(required=True)
     file_name = fields.Char()
     product_category_id = fields.Many2one('product.category',)
     taxes_id = fields.Many2many(
         'account.tax',
+        default=lambda self: self._default_tax_sale(),
     )
 
     def run_import(self):
@@ -500,6 +507,8 @@ class ImportSaleOrderWizard(models.TransientModel):
             ]
             if not tag_alias:
                 tag_alias = [' ']
+
+            attributes_value = False
             attr, attributes_value, attributes_description = self.get_attributes(
                 self.get_data_info('Option', line['SpecItem'],), product_template=product_template)
             code_value = self._generate_attribute_value(attributes_value)
@@ -564,12 +573,13 @@ class ImportSaleOrderWizard(models.TransientModel):
                 1 - (cust_price_total[tag_alias[0]] / pub_price_total[tag_alias[0]])) * 100
             customer_discount = (
                 1 - (dealer_price_total[tag_alias[0]] / pub_price_total[tag_alias[0]])) * 100
+            iho_price_list = line['Price']['PublishedPrice']
             sale_order_line = sale_order.order_line.create({
                 'product_id': product_variant.id,
                 'product_uom_qty': line['Quantity'],
                 'name': product_variant.display_name,
                 'order_id': sale_order.id,
-                'iho_price_list': pub_price_total[tag_alias[0]],
+                'iho_price_list': iho_price_list,
                 'discount': customer_discount,
                 'product_uom': product_variant.uom_id.id,
                 'customer_discount': customer_discount,
