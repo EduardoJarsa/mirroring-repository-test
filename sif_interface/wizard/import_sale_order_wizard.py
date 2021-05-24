@@ -451,6 +451,21 @@ class ImportSaleOrderWizard(models.TransientModel):
                 items.append(item)
         return items, items_ids
 
+    def _prepare_item(self, attr, value):
+        def process_item(element, value):
+            return (0, 0, {
+                'attribute_id': attr.id,
+                'value_ids': [(6, 0, [value.id])]
+
+            })
+        items = []
+        items_ids = []
+        item = process_item(attr, value)
+        items_ids.append(attr.id)
+        if item:
+            items.append(item)
+        return items, items_ids
+
     def _generate_default_code_variant(self,default_code, variant):
         code = ''
         attribute_values = variant.product_template_attribute_value_ids
@@ -482,6 +497,7 @@ class ImportSaleOrderWizard(models.TransientModel):
         currency = file_data['Envelope']['Header']['Currency']
         iho_currency_id = self.env['res.currency'].search(
             [('name', '=', currency)])
+        product_template = False
         for line in order_lines:
             generic_value = ''
             vendor = self.search_data(
@@ -491,6 +507,10 @@ class ImportSaleOrderWizard(models.TransientModel):
             product_brand = False
             if product_brands:
                 product_brand = product_brands[0]
+            is_other_prod = False
+            # Detect if is other product to separate the attributes value.
+            if product_template and product_template.default_code != line['SpecItem']['Number']:
+                is_other_prod = True
             product_template = self.search_data(
                 line['SpecItem']['Number'], 'product.template',
                 name=line['SpecItem']['Description'], vendor=vendor,
@@ -516,10 +536,16 @@ class ImportSaleOrderWizard(models.TransientModel):
             #Remove last char
             code_value = code_value[:-1]
             full_description = full_description[:-2]
+            attr_value = False
             attr_value = self.search_data(
                 code_value, 'product.attribute.value', attr=attr[0], product_template=product_template)
             try:
-                attribute_lines ,attributes_ids = self._prepare_items(attr)
+                if not is_other_prod:
+                    # process more one element
+                    attribute_lines ,attributes_ids = self._prepare_items(attr)
+                else:
+                    # process only one element
+                    attribute_lines ,attributes_ids = self._prepare_item(attr[0], attr_value)
                 routes = product_template.route_ids
                 default_code = product_template.default_code
                 if not product_template.attribute_line_ids:
