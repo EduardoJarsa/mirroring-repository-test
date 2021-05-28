@@ -42,11 +42,10 @@ class StockRule(models.Model):
         # search for the last unit price at the product.seller_ids
         sale_order = po.origin
         seller_price = False
-        for record in product_id.seller_ids.sorted(
-            key=lambda r: r.id, reverse=True
-        ):
-            if record.sale_order_id.name in sale_order:
-                seller_price = record.price
+        record = product_id.seller_ids.filtered(
+            lambda l: l.sale_order_id.name  == sale_order and l.product_id == product_id)
+        if record:
+            seller_price = record.price
         price_unit = self.env['account.tax']._fix_tax_included_price_company(
             seller_price if seller_price else seller.price,
             product_id.supplier_taxes_id,

@@ -367,6 +367,7 @@ class ImportSaleOrderWizard(models.TransientModel):
                     'customer_rank': 0,
                     'supplier_rank': 1,
                     'ref': str(value),
+                    'property_purchase_currency_id': currency.id,
                 })
         elif model == 'product.template':
             psi_obj = self.env['product.supplierinfo']
@@ -501,7 +502,7 @@ class ImportSaleOrderWizard(models.TransientModel):
         for line in order_lines:
             generic_value = ''
             vendor = self.search_data(
-                line.get('VendorRef'), 'res.partner')
+                line.get('VendorRef'), 'res.partner',currency=sale_order.currency_id)
             product_brands = self.env['product.brand'].search(
                 [('partner_id','=',vendor.id)])
             product_brand = False
@@ -551,7 +552,7 @@ class ImportSaleOrderWizard(models.TransientModel):
                 if not product_template.attribute_line_ids:
                     product_template.write({
                         'attribute_line_ids': attribute_lines,
-                    })        
+                    })
                 else:
                     # Filter to create new variants
                     lines_attributes = product_template.attribute_line_ids
@@ -575,6 +576,27 @@ class ImportSaleOrderWizard(models.TransientModel):
                             'maker_id': vendor,
                             'product_brand_id': product_template.product_brand_id.id,
                         })
+                        if len(product_template.product_variant_ids) == 1:
+                            variant.variant_seller_ids.write({
+                                'product_id': variant,
+                            })
+                        else:
+                            seller = variant.variant_seller_ids.filtered(
+                                lambda l: l.sale_order_id == sale_order
+                                and l.product_id == variant)
+                            if not seller:
+                                psi_obj = self.env['product.supplierinfo']
+                                currency_id = self.env.ref('base.'+currency).id
+                                psi_obj.create({
+                                    'name': vendor.id,
+                                    'delay': 1,
+                                    'min_qty': 0,
+                                    'price': 1.0,
+                                    'product_tmpl_id': product_template.id,
+                                    'sale_order_id': sale_order.id,
+                                    'currency_id': currency_id,
+                                    'product_id': variant.id,
+                                })
                 if not product_template.default_code:
                     product_template.write({
                             'default_code': default_code,
@@ -619,6 +641,8 @@ class ImportSaleOrderWizard(models.TransientModel):
             sale_order_line._compute_sell_2()
             sale_order_line._compute_sell_3()
             sale_order_line._compute_sell_4()
+            #import ipdb; ipdb.set_trace()
+            self._change_varriant_seller(product_variant, vendor, sale_order_line.price_unit)
         message = _(
             "The file %s was correctly loaded. ") % (self.file_name)
         sale_order.message_post(body=message)
@@ -642,6 +666,15 @@ class ImportSaleOrderWizard(models.TransientModel):
         for rec in attributes_value:
             code_value+=rec+'-'
         return code_value
+
+    def _change_varriant_seller(self,product_variant, vendor, price_unit):
+        if vendor:
+            sale_order_id = self._context.get('active_id')
+            variant_seller = product_variant.variant_seller_ids.filtered(lambda l: l.sale_order_id.id == sale_order_id)
+            if variant_seller:
+                variant_seller.write({
+                    'price' : price_unit,
+                })
 
     @api.model
     def get_attributes(self, line, product_template=False):

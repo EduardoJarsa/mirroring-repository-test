@@ -54,6 +54,29 @@ class SaleOrder(models.Model):
         default=False,
     )
 
+    def _create_missing_sellers(self):
+        # This method change the value product_id in only one seller
+        # than was createdb and create another for eachone product variant
+        # in the sale order.
+        for rec in self.order_line:
+            seller = rec.product_id.seller_ids.filtered(lambda l: l.sale_order_id == self)
+            if len(seller) == 1 and not seller.product_id:
+                seller.write({
+                    'product_id': rec.product_id.id,
+                    'price': rec.price_unit
+                })
+            else:
+                new_seller = seller[0].sudo().copy()
+                new_seller.write({
+                    'product_id': rec.product_id.id,
+                    'price': rec.price_unit
+                })
+
+    def action_confirm(self):
+        self._create_missing_sellers()
+        res = super().action_confirm()
+        return res
+
     @api.onchange('iho_tc')
     def _onchange_iho_tc(self):
         if self.iho_tc < 1 or self.iho_tc > 49.99:
