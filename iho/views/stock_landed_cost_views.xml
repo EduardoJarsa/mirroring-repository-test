@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="iho_stock_landed_cost_form">
+        <field name="name">iho.stock.landed.cost.form</field>
+        <field name="model">stock.landed.cost</field>
+        <field name="inherit_id" ref="stock_landed_costs.view_stock_landed_cost_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vendor_bill_id']" position="after">
+                <field name="vendors_bill_ids" domain="[('type', '=', 'in_invoice')]" widget="many2many_tags"/>
+            </xpath>
+            <xpath expr="//field[@name='vendor_bill_id']" position="attributes">
+                <attribute name="attrs">{'invisible': ('vendor_bill_id', '=', False)}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

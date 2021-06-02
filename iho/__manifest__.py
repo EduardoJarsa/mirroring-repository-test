@@ -35,6 +35,7 @@
         'iho_simplification',
         'stock_analytic',
         'stock_landed_costs_analytic',
+        'stock_landed_costs',
     ],
     'data': [
         'views/res_partner_view.xml',
@@ -42,5 +43,7 @@
         'security/security.xml',
         'security/ir.model.access.csv',
         'views/ir_ui_menu_view.xml',
+        'views/account_move_views.xml',
+        'views/stock_landed_cost_views.xml',
     ],
 }

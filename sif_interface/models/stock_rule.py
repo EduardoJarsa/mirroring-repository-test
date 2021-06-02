@@ -51,11 +51,6 @@ class StockRule(models.Model):
             seller_price if seller_price else seller.price,
             product_id.supplier_taxes_id,
             taxes_id, values['company_id']) if seller else 0.0
-        # if (price_unit and seller and po.currency_id and
-        #         maker_currency != so_currency):
-        #     price_unit = so_currency._convert(
-        #         price_unit, maker_currency,
-        #         po.company_id, po.date_order or fields.Date.today())
         res['price_unit'] = price_unit
         # copying analytic_tag_ids and analytic_account from so
         so_line = self.env['sale.order.line'].browse(

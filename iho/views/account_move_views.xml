@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="iho_account_move_form">
+        <field name="name">iho.account.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='landed_costs_ids']" position="after">
+                <field name="has_sdl" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//button[@name='action_view_landed_costs']" position="attributes">
+                <attribute name="attrs">{'invisible': [('landed_costs_ids', '=', []), ('has_sdl', '=', False)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
