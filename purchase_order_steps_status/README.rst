@@ -8,7 +8,7 @@ Purchase Order Steps Status
 
 This module:
 
-* Adds fields to the purchase order header about the Status of the puchase process and broadcast the updated data to the po followers.
+* Adds fields to the purchase order header about the Status of the puchase process and broadcast the updated data to the po followers
 
 
 Configuration
