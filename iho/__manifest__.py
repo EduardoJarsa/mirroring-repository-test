@@ -36,6 +36,7 @@
         'stock_analytic',
         'stock_landed_costs_analytic',
         'stock_landed_costs',
+        'purchase_order_steps_status',
     ],
     'data': [
         'views/res_partner_view.xml',

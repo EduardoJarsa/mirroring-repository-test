@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_order_inherit_steps_status" model="ir.ui.view">
+        <field name="name">view.purchase.order.inherit.steps.status</field>
+        <field name="model">purchase.order</field>
+        <field name="priority">105</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Steps" name="po_steps">
+                    <group>
+                        <table border="0" style="width:100%">
+                            <tr>
+                                <td><strong><label for="current_step"/></strong></td>
+                                <td><field name="current_step" widget="selection"/></td>
+                                <td><field name="current_step_text"/></td>
+                            </tr><tr>...</tr>
+                            <tr>
+                                <th></th><th>Dates</th>
+                                <th colspan="4">Notes</th>
+                            </tr>
+                            <tr>
+                                <td><label for="date_po_accepted"/></td>
+                                <td><field name="date_po_accepted" widget="date"/></td>
+                                <td><field name="date_po_accepted_text"/></td>
+                            </tr>
+                            <tr>
+                                <td><label for="date_production_starts"/></td>
+                                <td><field name="date_production_starts" widget="date"/></td>
+                                <td><field name="date_production_starts_text"/></td>
+                            </tr>
+                            <tr>
+                                <td><label for="date_production_ends"/></td>
+                                <td><field name="date_production_ends" widget="date"/></td>
+                                <td><field name="date_production_ends_text"/></td>
+                            </tr>
+                            <tr>
+                                <td><label for="date_pick_origin_intltransit"/></td>
+                                <td><field name="date_pick_origin_intltransit" widget="date"/></td>
+                                <td><field name="date_pick_origin_intltransit_text"/></td>
+                            </tr>
+                            <tr>
+                                <td><label for="date_arrives_customs"/></td>
+                                <td><field name="date_arrives_customs" widget="date"/></td>
+                                <td><field name="date_arrives_customs_text"/></td>
+                            </tr>
+                            <tr>
+                                <td><label for="date_bonded_warehouse"/></td>
+                                <td><field name="date_bonded_warehouse" widget="date"/></td>
+                                <td><field name="date_bonded_warehouse_text"/></td>
+                            </tr>
+                            <tr>
+                                <td><label for="date_pick_customs_transit"/></td>
+                                <td><field name="date_pick_customs_transit" widget="date"/></td>
+                                <td><field name="date_pick_customs_transit_text"/></td>
+                            </tr>
+                            <tr>
+                                <td><label for="date_warehouse"/></td>
+                                <td><field name="date_warehouse" widget="date"/></td>
+                                <td><field name="date_warehouse_text"/></td>
+                            </tr>
+                        </table>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,185 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* purchase_order_steps_status
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-10 19:04+0000\n"
+"PO-Revision-Date: 2021-06-10 19:04+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: purchase_order_steps_status
+#: code:addons/purchase_order_steps_status/models/purchase_order.py:0
+#: model:ir.model.fields.selection,name:purchase_order_steps_status.selection__purchase_order__current_step__bonded
+#, python-format
+msgid "Bonded warehouse"
+msgstr "Recinto Fiscal Aduana"
+
+#. module: purchase_order_steps_status
+#: model:ir.model.fields,field_description:purchase_order_steps_status.field_purchase_order__current_step
+msgid "Current Step"
+msgstr "Paso Actual"
+
+#. module: purchase_order_steps_status
+#: model:ir.model.fields,field_description:purchase_order_steps_status.field_purchase_order__current_step_health
+msgid "Current Step Health"
+msgstr "Estado del Paso Actual"
+
+#. module: purchase_order_steps_status
+#: model:ir.model.fields,field_description:purchase_order_steps_status.field_purchase_order__current_step_percentage
+msgid "Current Step Percentage"
+msgstr "Avance del Paso Actual"
+
+#. module: purchase_order_steps_status
+#: model:ir.model.fields,field_description:purchase_order_steps_status.field_purchase_order__current_step_text
+msgid "Current Step Text"
+msgstr "Paso Actual Notas"
+
+#. module: purchase_order_steps_status
+#: code:addons/purchase_order_steps_status/models/purchase_order.py:0
+#: model:ir.model.fields.selection,name:purchase_order_steps_status.selection__purchase_order__current_step__customs
+#, python-format
+msgid "Customs"
+msgstr "Aduana"
+
+#. module: purchase_order_steps_status
+#: model:ir.model.fields,field_description:purchase_order_steps_status.field_purchase_order__date_arrives_customs
+msgid "Date Arrives Customs"
+msgstr "Llega a Aduana"
+
+#. module: purchase_order_steps_status
+#: model:ir.model.fields,field_description:purchase_order_steps_status.field_purchase_order__date_arrives_customs_text
+msgid "Date Arrives Customs Text"
+msgstr "Llega a Aduana Notas"
+
+#. module: purchase_order_steps_status
+#: model:ir.model.fields,field_description:purchase_order_steps_status.field_purchase_order__date_bonded_warehouse
+msgid "Date Bonded Warehouse"
+msgstr "Llega a Recinto Fiscal Bodega"
+
+#. module: purchase_order_steps_status
+#: model:ir.model.fields,field_description:purchase_order_steps_status.field_purchase_order__date_bonded_warehouse_text
+msgid "Date Bonded Warehouse Text"
+msgstr "Llega a Recinto Fiscal Bodega Notas"
+
+#. module: purchase_order_steps_status
+#: model:ir.model.fields,field_description:purchase_order_steps_status.field_purchase_order__date_pick_customs_transit
+msgid "Date Pick Customs Transit"
+msgstr "Sale de Aduana a Tránsito"
+
+#. module: purchase_order_steps_status
+#: model:ir.model.fields,field_description:purchase_order_steps_status.field_purchase_order__date_pick_customs_transit_text
+msgid "Date Pick Customs Transit Text"
+msgstr "Sale de Aduana a Tránsito Notas"
+
+#. module: purchase_order_steps_status
+#: model:ir.model.fields,field_description:purchase_order_steps_status.field_purchase_order__date_pick_origin_intltransit
+msgid "Date Pick Origin Intltransit"
+msgstr "Sale de Origen a Tránsito Int'l"
+
+#. module: purchase_order_steps_status
+#: model:ir.model.fields,field_description:purchase_order_steps_status.field_purchase_order__date_pick_origin_intltransit_text
+msgid "Date Pick Origin Intltransit Text"
+msgstr "Sale de Origen a Tránsito Int'l Notas"
+
+#. module: purchase_order_steps_status
+#: model:ir.model.fields,field_description:purchase_order_steps_status.field_purchase_order__date_po_accepted
+msgid "Date Po Accepted"
+msgstr "Orden de compra Aceptada"
+
+#. module: purchase_order_steps_status
+#: model:ir.model.fields,field_description:purchase_order_steps_status.field_purchase_order__date_po_accepted_text
+msgid "Date Po Accepted Text"
+msgstr "Orden de compra Aceptada Notas"
+
+#. module: purchase_order_steps_status
+#: model:ir.model.fields,field_description:purchase_order_steps_status.field_purchase_order__date_production_ends
+msgid "Date Production Ends"
+msgstr "Termina producción"
+
+#. module: purchase_order_steps_status
+#: model:ir.model.fields,field_description:purchase_order_steps_status.field_purchase_order__date_production_ends_text
+msgid "Date Production Ends Text"
+msgstr "Termina producción Notas"
+
+#. module: purchase_order_steps_status
+#: model:ir.model.fields,field_description:purchase_order_steps_status.field_purchase_order__date_production_starts
+msgid "Date Production Starts"
+msgstr "Inicia Producción"
+
+#. module: purchase_order_steps_status
+#: model:ir.model.fields,field_description:purchase_order_steps_status.field_purchase_order__date_production_starts_text
+msgid "Date Production Starts Text"
+msgstr "Inicia Producción Notas"
+
+#. module: purchase_order_steps_status
+#: model:ir.model.fields,field_description:purchase_order_steps_status.field_purchase_order__date_warehouse
+msgid "Date Warehouse"
+msgstr "Llega a Bodega"
+
+#. module: purchase_order_steps_status
+#: model:ir.model.fields,field_description:purchase_order_steps_status.field_purchase_order__date_warehouse_text
+msgid "Date Warehouse Text"
+msgstr "Llega a Bodega Notas"
+
+#. module: purchase_order_steps_status
+#: model_terms:ir.ui.view,arch_db:purchase_order_steps_status.view_purchase_order_inherit_steps_status
+msgid "Dates"
+msgstr "Fechas"
+
+#. module: purchase_order_steps_status
+#: code:addons/purchase_order_steps_status/models/purchase_order.py:0
+#: model:ir.model.fields.selection,name:purchase_order_steps_status.selection__purchase_order__current_step__intltransit
+#, python-format
+msgid "Int'l Transit"
+msgstr "Tránsito Int'l"
+
+#. module: purchase_order_steps_status
+#: model_terms:ir.ui.view,arch_db:purchase_order_steps_status.view_purchase_order_inherit_steps_status
+msgid "Notes"
+msgstr "Notas"
+
+#. module: purchase_order_steps_status
+#: code:addons/purchase_order_steps_status/models/purchase_order.py:0
+#: model:ir.model.fields.selection,name:purchase_order_steps_status.selection__purchase_order__current_step__production
+#, python-format
+msgid "Production"
+msgstr "Producción"
+
+#. module: purchase_order_steps_status
+#: model:ir.model,name:purchase_order_steps_status.model_purchase_order
+msgid "Purchase Order"
+msgstr "Pedido de compra"
+
+#. module: purchase_order_steps_status
+#: code:addons/purchase_order_steps_status/models/purchase_order.py:0
+#: model:ir.model.fields.selection,name:purchase_order_steps_status.selection__purchase_order__current_step__poaccepted
+#, python-format
+msgid "Purchase order Accepted"
+msgstr "Orden de Compra Aceptada"
+
+#. module: purchase_order_steps_status
+#: model_terms:ir.ui.view,arch_db:purchase_order_steps_status.view_purchase_order_inherit_steps_status
+msgid "Steps"
+msgstr "Pasos"
+
+#. module: purchase_order_steps_status
+#: code:addons/purchase_order_steps_status/models/purchase_order.py:0
+#: model:ir.model.fields.selection,name:purchase_order_steps_status.selection__purchase_order__current_step__transit
+#, python-format
+msgid "Transit"
+msgstr "Tránsito"
+
+#. module: purchase_order_steps_status
+#: code:addons/purchase_order_steps_status/models/purchase_order.py:0
+#: model:ir.model.fields.selection,name:purchase_order_steps_status.selection__purchase_order__current_step__warehouse
+#, python-format
+msgid "Warehouse"
+msgstr "Bodega"
