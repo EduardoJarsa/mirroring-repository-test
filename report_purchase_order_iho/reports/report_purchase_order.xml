@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Purchase Report -->
+    <template id="report_purchase_order_iho" inherit_id="purchase.report_purchaseorder_document">
+        <xpath expr="//t[@t-set='address']" position="replace">
+            <t t-if="o.delivery_address">
+                <t t-set="address"></t>    
+            </t>
+
+            <t t-if="not o.delivery_address">
+                <t t-set="address">
+            <div t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
+        </t>
+        <div t-if="o.delivery_address">
+            <strong>Shipping address:</strong>
+            <div t-if="o.delivery_address">
+                <div t-field="o.delivery_address"/>
+            </div>
+            </div>    
+            </t>
+        </xpath>
+
+    <xpath expr="//t[@t-if='o.dest_address_id']" position="attributes">
+        <attriibute name="invisible">1</attriibute>
+    </xpath>
+    <xpath expr="//t[@t-if='o.dest_address_id']" position="after">
+        <div class="container">
+            <div class="row">
+                <t t-if="o.delivery_address">
+                    <div class="col-6"><strong>Shipping address:</strong> <span t-field="o.delivery_address" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}" name="purchase_shipping_address"/></div>
+                    <div> <span t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
+                </div>
+                </t>
+            </div>
+        </div>
+        <!-- This div is only because depends of a determine number of t elements-->
+        <t t-if="o.delivery_address">
+        </t>
+    </xpath>
+    <xpath expr="//div[@t-field='o.dest_address_id']" position="attributes">
+        <attriibute name="invisible">1</attriibute>
+    </xpath>
+    <xpath expr="//div[@t-if='o.dest_address_id']" position="attributes">
+        <attriibute name="invisible">1</attriibute>
+    </xpath>
+
+
+    </template>
+
+<!-- Quotation Report -->
+    <template id="report_purchase_order_quotation_iho" inherit_id="purchase.report_purchasequotation_document">
+        <xpath expr="//t[@t-set='address']" position="replace">
+            <t t-if="o.delivery_address">
+                <t t-set="address"></t>    
+            </t>
+
+            <t t-if="not o.delivery_address">
+                <t t-set="address">
+            <div t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
+        </t>
+        <div t-if="o.delivery_address">
+            <strong>Shipping address:</strong>
+            <div t-if="o.delivery_address">
+                <div t-field="o.delivery_address"/>
+            </div>
+            </div>    
+            </t>
+        </xpath>
+
+    <xpath expr="//t[@t-if='o.dest_address_id']" position="attributes">
+        <attriibute name="invisible">1</attriibute>
+    </xpath>
+    <xpath expr="//t[@t-if='o.dest_address_id']" position="after">
+        <div class="container">
+            <div class="row">
+                <t t-if="o.delivery_address">
+                    <div class="col-6"><strong>Shipping address:</strong> <span t-field="o.delivery_address" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}" name="purchase_shipping_address"/></div>
+                    <div> <span t-field="o.partner_id" t-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;, &quot;name&quot;, &quot;phone&quot;], &quot;no_marker&quot;: True, &quot;phone_icons&quot;: True}"/>
+                </div>
+                </t>
+            </div>
+        </div>
+        <!-- This div is only because depends of a determine number of t elements-->
+        <t t-if="o.delivery_address">
+        </t>
+    </xpath>
+    <xpath expr="//div[@t-field='o.dest_address_id']" position="attributes">
+        <attriibute name="invisible">1</attriibute>
+    </xpath>
+    
+    </template>
+</odoo>

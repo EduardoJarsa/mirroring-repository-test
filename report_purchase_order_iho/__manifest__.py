@@ -14,5 +14,6 @@
     ],
     'data': [
         'views/purchase_order_view.xml',
+        'reports/report_purchase_order.xml',
     ],
 }
