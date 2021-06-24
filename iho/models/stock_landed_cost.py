@@ -39,5 +39,11 @@ class StockLandedCost(models.Model):
                 line.company_currency_id,
                 line.company_id,
                 line.move_id.date),
-            'split_method': 'equal',
+            'split_method': 'by_current_cost_price',
             })
+
+
+class StockLandedCostLines(models.Model):
+    _inherit = 'stock.landed.cost.lines'
+
+    split_method = fields.Selection(default='by_current_cost_price')
