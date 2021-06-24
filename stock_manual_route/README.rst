@@ -1,7 +1,7 @@
 Stock Manual Route
 ==================
 
-This module allows to create manual routes in stock pickings, also adds the sale order name to the picking_IN created from the purchase_order approval at the origin field
+This module allows to create manual routes in stock pickings, also adds the sale order name to the picking_IN created from the purchase_order approval at the origin field.
 
 
 Installation

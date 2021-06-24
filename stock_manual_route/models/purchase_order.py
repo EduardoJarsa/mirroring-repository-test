@@ -22,5 +22,8 @@ class PurchaseOrder(models.Model):
 
     def _prepare_picking(self):
         res = super()._prepare_picking()
-        res['origin'] = res['origin'] + " (" + self.origin + ")"
+        if self.origin:
+            res['origin'] = (
+                res['origin'] + " (" + self.origin + ")"
+            )
         return res
