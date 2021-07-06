@@ -44,9 +44,9 @@ class StockRule(models.Model):
         seller_price = False
         record = product_id.seller_ids.filtered(
             lambda l: l.sale_order_id.name == sale_order and
-            l.product_id == product_id)
+            l.product_id == product_id).sorted('id', reverse=True)
         if record:
-            seller_price = record.price
+            seller_price = record[0].price
         price_unit = self.env['account.tax']._fix_tax_included_price_company(
             seller_price if seller_price else seller.price,
             product_id.supplier_taxes_id,
