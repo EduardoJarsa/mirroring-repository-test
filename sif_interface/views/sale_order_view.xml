@@ -8,6 +8,8 @@
         <field name="arch" type="xml">
             <xpath expr="//header/button[@name='action_draft']" position="before">
                 <button class="btn-primary" name="%(action_import_sale_order_wizard)d" attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}" string="Import From File" type="action"/>
+                
+                <button name="remove_all_sale_order_lines" states="draft,sent" string="Delete Lines" type="object" class="btn-primary"/>
             </xpath>
             <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="iho_tc"/>

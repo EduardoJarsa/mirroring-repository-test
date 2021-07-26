@@ -178,3 +178,6 @@ class SaleOrder(models.Model):
         if self.iho_tc < 1 or self.iho_tc > 49.99:
             raise ValidationError(
                 _('Error: TC Agreed must be 1-49.99'))
+
+    def remove_all_sale_order_lines(self):
+        self.order_line.unlink()

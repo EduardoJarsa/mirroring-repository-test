@@ -7,11 +7,13 @@ import csv
 import os
 import logging
 from codecs import BOM_UTF8
+from io import BytesIO
 
 from io import StringIO
 from lxml import objectify
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
+from xlrd import open_workbook
 # pylint: disable=R1702
 
 BOM_UTF8U = BOM_UTF8.decode('LATIN-1')
@@ -38,13 +40,16 @@ class ImportSaleOrderWizard(models.TransientModel):
 
     def run_import(self):
         file_extension = os.path.splitext(self.file_name)[1].lower()
-        if file_extension not in ['.xml', '.csv']:
-            raise ValidationError(
-                _('Only .xml or .csv files allowed'))
+        # if file_extension not in ['.xml', '.csv']:
+        #     raise ValidationError(
+        #         _('Only .xml or .csv files allowed'))
         if file_extension == '.xml':
             self._run_2020_import()
         if file_extension == '.csv':
             self._run_csv_import()
+        if file_extension == '.xlsx' or file_extension == '.xls':
+            self._run_2020_import_2()
+
 
     @api.model
     def to_float(self, line, column):
@@ -325,6 +330,42 @@ class ImportSaleOrderWizard(models.TransientModel):
         return {xml.tag.split('}')[1]: recursive_dict(xml)}
 
     @api.model
+    def get_file_data_xlsx(self):
+        """Method used to translate the raw xml to a clean dictionary
+
+           :return: A clean dictionary with the xml data
+           :rtype: dict
+        """
+        try:
+            book = open_workbook(file_contents = base64.decodestring(self.upload_file))
+            # book = xlrd.open_workbook(filename=self.upload_file.name)
+        except FileNotFoundError:
+            raise UserError('No such file or directory found. \n%s.' % self.file_name)
+        except xlrd.biffh.XLRDError:
+            raise UserError('Only excel files are supported.')
+        save = False
+        for sheet in book.sheets():
+            try:
+                line_vals = []
+                header_index = {}
+                for row in range(sheet.nrows):
+                    if str(sheet.row_values(row)[0]).lower() == 'item':
+                        save = True
+                        header_index['item'] = 0
+                        header_index['qty'] = 1
+                        header_index['part_number'] = 2
+                        header_index['part_description'] = 3
+                        header_index['clave_desc'] = 4
+                        header_index['price_list'] = 5
+                        header_index['price_list_ext'] = 6
+                        continue
+                    if save:
+                        line_vals.append(sheet.row_values(row))
+            except IndexError:
+                pass
+        return line_vals, header_index
+
+    @api.model
     def get_file_data(self):
         """Method used to translate the raw xml to a clean dictionary
 
@@ -463,6 +504,197 @@ class ImportSaleOrderWizard(models.TransientModel):
         full_code = (code.join(attr_list))
         full_code = default_code+' '+full_code
         return full_code
+
+    def _run_2020_import_2(self):
+        self.ensure_one()
+        cust_price_total = {}
+        dealer_price_total = {}
+        pub_price_total = {}
+        sale_order = self.env[
+            self._context.get('active_model')].browse(
+                self._context.get('active_id'))
+        routes = [
+            self.env.ref('stock.route_warehouse0_mto').id,
+            self.env.ref('purchase_stock.route_warehouse0_buy').id]
+        order_lines, header_index = self.get_file_data_xlsx()
+        #import ipdb; ipdb.set_trace()
+        #order_lines = False
+
+
+        # currency = file_data['Envelope']['Header']['Currency']
+        currency = False
+        iho_currency_id = self.env.ref('base.MXN')
+        import ipdb; ipdb.set_trace()
+        #= self.env['res.currency'].search(
+        #     [('name', '=', currency)])
+        #iho_currency_id = False
+        product_template = False
+        is_other_prod = False
+        for line in order_lines:
+            # vendor = self.search_data(
+            #     line.get('VendorRef'),
+            #     'res.partner',
+            #     currency=sale_order.currency_id
+            # )
+            vendor = False
+            # product_brands = self.env['product.brand'].search(
+            #     [('partner_id', '=', vendor.id)])
+            product_brand = False
+            # if product_brands:
+            #     product_brand = product_brands[0]
+            # Detect if is other product to separate the attributes value.
+            if (
+                product_template and
+                    product_template.default_code != line[header_index['part_number']]):
+                is_other_prod = True
+            _logger.info("%s", is_other_prod)
+            # product_template = self.search_data(
+            #     line['SpecItem']['Number'], 'product.template',
+            #     name=line['SpecItem']['Description'], vendor=vendor,
+            #     dealer_price=line['Price']['OrderDealerPrice'],
+            #     currency=iho_currency_id,
+            #     published_price=line['Price']['PublishedPrice'],
+            #     product_brand=product_brand)
+            #import ipdb; ipdb.set_trace()
+            product_template = self.search_data(
+                line[header_index['part_number']], 'product.template',
+                name='test xlsx'+line[header_index['part_number']], vendor=vendor,
+                dealer_price=False,
+                currency=iho_currency_id,
+                published_price=False,
+                product_brand=product_brand)
+            # Alias
+            # tags = self.get_data_info('Tag', line)
+            # tag_alias = [
+            #     str(tag.get('Value')) + ' - ' + sale_order.name
+            #     for tag in tags
+            #     if 'Alias' in str(tag.get('Type'))
+            # ]
+            # if not tag_alias:
+            #     tag_alias = [' ']
+
+            attributes_value = False
+            attr, attributes_value, attributes_description = self.get_attributes_xlsx(line, header_index)
+            code_value = self._generate_attribute_value(attributes_value)
+            #import ipdb; ipdb.set_trace()
+            #full_description = self._generate_full_description(attributes_description)
+            #full_description = attributes_description[0]
+            # Remove last char
+            code_value = code_value[:-1]
+            full_description = line[header_index['part_description']]
+            attr_value = False
+            attr_value = self.search_data(
+                code_value, 'product.attribute.value', attr=attr[0], product_template=product_template)
+            try:
+                attribute_lines, attributes_ids = self._prepare_item(attr[0], attr_value)
+                _logger.info("%s", attributes_ids)
+                routes = product_template.route_ids
+                default_code = product_template.default_code
+                if not product_template.attribute_line_ids:
+                    product_template.write({
+                        'attribute_line_ids': attribute_lines,
+                    })
+                else:
+                    # Filter to create new variants
+                    lines_attributes = product_template.attribute_line_ids
+                    product_attribute_values = lines_attributes.product_template_value_ids
+                    names = product_attribute_values.filtered(lambda l: l.name == attr_value.name)
+                    if not names:
+                        product_template.attribute_line_ids[0].write({
+                            'value_ids': [(4, attr_value.id)],
+                        })
+
+                for variant in product_template.product_variant_ids:
+                    full_code = self._generate_default_code_variant(default_code, variant)
+                    if variant.default_code != full_code:
+                        variant.write({
+                            'default_code': full_code,
+                            'route_ids': [(6, 0, routes.ids)],
+                            'full_description': default_code+' '+full_description,
+                            'categ_id': self.product_category_id.id,
+                            'taxes_id': self.taxes_id.ids,
+                            'maker_id': vendor,
+                            'product_brand_id': product_template.product_brand_id.id,
+                        })
+                        if len(product_template.product_variant_ids) == 1:
+                            variant.variant_seller_ids.write({
+                                'product_id': variant,
+                            })
+                        else:
+                            seller = variant.variant_seller_ids.filtered(
+                                lambda l: l.sale_order_id == sale_order
+                                and l.product_id == variant)
+                            if not seller:
+                                psi_obj = self.env['product.supplierinfo']
+                                currency_id = self.env.ref('base.'+currency).id
+                                psi_obj.create({
+                                    'name': vendor.id,
+                                    'delay': 1,
+                                    'min_qty': 0,
+                                    'price': 1.0,
+                                    'product_tmpl_id': product_template.id,
+                                    'sale_order_id': sale_order.id,
+                                    'currency_id': currency_id,
+                                    'product_id': variant.id,
+                                })
+                if not product_template.default_code:
+                    product_template.write({
+                        'default_code': default_code,
+                    })
+            except Exception as exc:
+                error_def_code = str(line['SpecItem']['Alias']['Number'])
+                error_prod_descp = str(line['SpecItem']['Description'])
+                raise ValidationError(str(exc) + _(
+                    '\n\n Product: [%s] - %s')
+                    % (error_def_code, error_prod_descp))
+            current_code_variant = default_code + ' ' + code_value
+            product_variant = product_template.product_variant_ids.filtered(
+                lambda l: l.default_code == current_code_variant)
+            # pub_price_total[tag_alias[0]] = pub_price_total.setdefault(
+            #     tag_alias[0], 0.0) + (
+            #         line['Price']['PublishedPrice'] * line['Quantity'])
+            # cust_price_total[tag_alias[0]] = cust_price_total.setdefault(
+            #     tag_alias[0], 0.0) + (
+            #         line['Price']['EndCustomerPrice'] * line['Quantity'])
+            # dealer_price_total[tag_alias[0]] = dealer_price_total.setdefault(
+            #     tag_alias[0], 0.0) + (
+            #     line['Price']['OrderDealerPrice'] * line['Quantity'])
+            # customer_discount = (
+            #     1 - (cust_price_total[tag_alias[0]] / pub_price_total[tag_alias[0]])) * 100
+            customer_discount = 0
+            iho_price_list = 10
+            if product_variant.display_name:
+                sale_order_line = sale_order.order_line.create({
+                    'product_id': product_variant.id,
+                    'product_uom_qty': line[header_index['qty']],
+                    'name': product_variant.display_name,
+                    'order_id': sale_order.id,
+                    'iho_price_list': iho_price_list,
+                    'discount': customer_discount,
+                    'product_uom': product_variant.uom_id.id,
+                    'customer_discount': customer_discount,
+                    'iho_currency_id': iho_currency_id.id,
+                    'analytic_tag_ids': [(6, 0, sale_order.analytic_tag_ids.ids)],
+                })
+                sale_order_line.write({
+                    'iho_service_factor': 1.0,
+                })
+                sale_order_line._compute_sell_1()
+                sale_order_line._compute_sell_2()
+                sale_order_line._compute_sell_3()
+                sale_order_line._compute_sell_4()
+                self._change_varriant_seller(product_variant, vendor, sale_order_line.price_unit)
+            message = _(
+                "The file %s was correctly loaded. ") % (self.file_name)
+            sale_order.message_post(body=message)
+            pricelist = self.env['product.pricelist'].search(
+                [('currency_id', '=', iho_currency_id.id)], limit=1)
+            if pricelist and pricelist != sale_order.pricelist_id:
+                sale_order.write({
+                    'pricelist_id': pricelist.id,
+                    'currency_id': pricelist.currency_id.id,
+                })
+        return True
 
     def _run_2020_import(self):
         self.ensure_one()
@@ -685,4 +917,22 @@ class ImportSaleOrderWizard(models.TransientModel):
 
         for item in line:
             option_recursive(item)
+        return attributes, attributes_value, attributes_description
+
+    @api.model
+    def get_attributes_xlsx(self, line, header_index, product_template=False):
+        attributes = []
+        attributes_value = []
+        attributes_description = []
+        generic_attribute = 'Specs'
+        base_code = line[header_index['clave_desc']].replace("\n", "")
+        # Remove last char
+        base_code = base_code[:-1]
+        code = base_code.split(',')
+        attr = self.search_data(generic_attribute, 'product.attribute')
+        if attr not in attributes:
+            attributes.append(attr)
+        for rec in code:
+            attributes_value.append(rec)
+        attributes_description.append(line[header_index['part_number']])
         return attributes, attributes_value, attributes_description
