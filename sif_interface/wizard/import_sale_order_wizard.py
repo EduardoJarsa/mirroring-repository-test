@@ -8,7 +8,7 @@ import os
 import logging
 from codecs import BOM_UTF8
 from io import BytesIO
-
+from datetime import datetime, timedelta
 from io import StringIO
 from lxml import objectify
 from odoo import _, api, fields, models
@@ -344,20 +344,43 @@ class ImportSaleOrderWizard(models.TransientModel):
         except xlrd.biffh.XLRDError:
             raise UserError('Only excel files are supported.')
         save = False
+        header_save = False
         for sheet in book.sheets():
             try:
                 line_vals = []
+                header_vals = {}
                 header_index = {}
                 for row in range(sheet.nrows):
-                    if str(sheet.row_values(row)[0]).lower() == 'item':
+                    current_header = str(sheet.row_values(row)[0]).lower()
+                    if current_header == 'e.ventas':
+                        header_save = True
+                        continue
+
+                    if header_save and not header_vals:
+                        header_vals['team_sale'] = str(sheet.row_values(row)[0]).lower()
+                        header_vals['purchase_order'] = str(sheet.row_values(row)[2]).lower()
+                        header_vals['partner_name'] = str(sheet.row_values(row)[3]).lower()
+                        digit_date = sheet.row_values(row)[4]
+                        # Change format date from 5 digits to yyyy-mm-dd
+                        str_date =(
+                            datetime.utcfromtimestamp(0) + timedelta(
+                                digit_date)).strftime("%Y-%m-%d")
+                        header_vals['date'] = str_date
+                    if current_header == 'item':
                         save = True
                         header_index['item'] = 0
                         header_index['qty'] = 1
                         header_index['part_number'] = 2
                         header_index['part_description'] = 3
-                        header_index['clave_desc'] = 4
-                        header_index['price_list'] = 5
-                        header_index['price_list_ext'] = 6
+                        header_index['vendor'] = 4
+                        header_index['clave_desc'] = 5
+                        header_index['price_list'] = 6
+                        header_index['price_list_ext'] = 7
+                        header_index['product_name'] = 9
+                        header_index['dealer_price'] = 10
+                        header_index['published_price'] = 11
+                        header_index['end_customer_price'] = 12
+                        header_index['end_customer_price'] = 13
                         continue
                     if save:
                         line_vals.append(sheet.row_values(row))
@@ -517,31 +540,26 @@ class ImportSaleOrderWizard(models.TransientModel):
             self.env.ref('stock.route_warehouse0_mto').id,
             self.env.ref('purchase_stock.route_warehouse0_buy').id]
         order_lines, header_index = self.get_file_data_xlsx()
-        #import ipdb; ipdb.set_trace()
         #order_lines = False
-
-
-        # currency = file_data['Envelope']['Header']['Currency']
-        currency = False
-        iho_currency_id = self.env.ref('base.MXN')
-        import ipdb; ipdb.set_trace()
-        #= self.env['res.currency'].search(
-        #     [('name', '=', currency)])
-        #iho_currency_id = False
         product_template = False
         is_other_prod = False
         for line in order_lines:
-            # vendor = self.search_data(
-            #     line.get('VendorRef'),
-            #     'res.partner',
-            #     currency=sale_order.currency_id
-            # )
-            vendor = False
-            # product_brands = self.env['product.brand'].search(
-            #     [('partner_id', '=', vendor.id)])
-            product_brand = False
-            # if product_brands:
-            #     product_brand = product_brands[0]
+            currency = self.env['res.currency'].search(
+                [('name', '=', line[header_index['iho_currency_id']] )])
+            iho_currency_id = currency.id
+            vendor_code = line[header_index['vendor']]
+            vendor = self.search_data(vendor_code,
+                'res.partner',
+                currency=sale_order.currency_id
+            )
+            delear_price = line[header_index['delear_price']]
+            published_price = line[header_index['published_price']]
+            if not vendor:
+                raise ValidationError(_('Vendor code %s not found') % vendor_code)
+            product_brands = self.env['product.brand'].search(
+                [('partner_id', '=', vendor.id)])
+            if product_brands:
+                product_brand = product_brands[0]
             # Detect if is other product to separate the attributes value.
             if (
                 product_template and
@@ -558,10 +576,10 @@ class ImportSaleOrderWizard(models.TransientModel):
             #import ipdb; ipdb.set_trace()
             product_template = self.search_data(
                 line[header_index['part_number']], 'product.template',
-                name='test xlsx'+line[header_index['part_number']], vendor=vendor,
-                dealer_price=False,
+                name=line[header_index['product_name']], vendor=vendor,
+                dealer_price=dealer_price,
                 currency=iho_currency_id,
-                published_price=False,
+                published_price=published_price,
                 product_brand=product_brand)
             # Alias
             # tags = self.get_data_info('Tag', line)
@@ -572,7 +590,6 @@ class ImportSaleOrderWizard(models.TransientModel):
             # ]
             # if not tag_alias:
             #     tag_alias = [' ']
-
             attributes_value = False
             attr, attributes_value, attributes_description = self.get_attributes_xlsx(line, header_index)
             code_value = self._generate_attribute_value(attributes_value)
@@ -608,6 +625,7 @@ class ImportSaleOrderWizard(models.TransientModel):
                     full_code = self._generate_default_code_variant(default_code, variant)
                     if variant.default_code != full_code:
                         variant.write({
+                            #'name': line[header_index['product_name']]
                             'default_code': full_code,
                             'route_ids': [(6, 0, routes.ids)],
                             'full_description': default_code+' '+full_description,
@@ -647,27 +665,20 @@ class ImportSaleOrderWizard(models.TransientModel):
                 raise ValidationError(str(exc) + _(
                     '\n\n Product: [%s] - %s')
                     % (error_def_code, error_prod_descp))
+
             current_code_variant = default_code + ' ' + code_value
             product_variant = product_template.product_variant_ids.filtered(
                 lambda l: l.default_code == current_code_variant)
-            # pub_price_total[tag_alias[0]] = pub_price_total.setdefault(
-            #     tag_alias[0], 0.0) + (
-            #         line['Price']['PublishedPrice'] * line['Quantity'])
-            # cust_price_total[tag_alias[0]] = cust_price_total.setdefault(
-            #     tag_alias[0], 0.0) + (
-            #         line['Price']['EndCustomerPrice'] * line['Quantity'])
-            # dealer_price_total[tag_alias[0]] = dealer_price_total.setdefault(
-            #     tag_alias[0], 0.0) + (
-            #     line['Price']['OrderDealerPrice'] * line['Quantity'])
-            # customer_discount = (
-            #     1 - (cust_price_total[tag_alias[0]] / pub_price_total[tag_alias[0]])) * 100
-            customer_discount = 0
-            iho_price_list = 10
+            line_quantity = line[header_index['qty']]
+            iho_price_list = line[header_index['price_list']]
+            line_price = line[header_index['price_list']]
+            pub_price_total = line_price * published_price * line_quantity
+            cust_price_total = line['Price']['EndCustomerPrice'] * line['Quantity']
+            customer_discount = (1 - (cust_price_total / pub_price_total) * 100)
             if product_variant.display_name:
                 sale_order_line = sale_order.order_line.create({
                     'product_id': product_variant.id,
                     'product_uom_qty': line[header_index['qty']],
-                    'name': product_variant.display_name,
                     'order_id': sale_order.id,
                     'iho_price_list': iho_price_list,
                     'discount': customer_discount,
@@ -684,17 +695,16 @@ class ImportSaleOrderWizard(models.TransientModel):
                 sale_order_line._compute_sell_3()
                 sale_order_line._compute_sell_4()
                 self._change_varriant_seller(product_variant, vendor, sale_order_line.price_unit)
-            message = _(
-                "The file %s was correctly loaded. ") % (self.file_name)
-            sale_order.message_post(body=message)
-            pricelist = self.env['product.pricelist'].search(
-                [('currency_id', '=', iho_currency_id.id)], limit=1)
-            if pricelist and pricelist != sale_order.pricelist_id:
-                sale_order.write({
-                    'pricelist_id': pricelist.id,
-                    'currency_id': pricelist.currency_id.id,
-                })
-        return True
+        message = _(
+            "The file %s was correctly loaded. ") % (self.file_name)
+        sale_order.message_post(body=message)
+        pricelist = self.env['product.pricelist'].search(
+            [('currency_id', '=', iho_currency_id.id)], limit=1)
+        if pricelist and pricelist != sale_order.pricelist_id:
+            sale_order.write({
+                'pricelist_id': pricelist.id,
+                'currency_id': pricelist.currency_id.id,
+            })
 
     def _run_2020_import(self):
         self.ensure_one()
