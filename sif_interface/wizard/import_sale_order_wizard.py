@@ -14,6 +14,8 @@ from lxml import objectify
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 from xlrd import open_workbook
+import tempfile
+import binascii
 # pylint: disable=R1702
 
 BOM_UTF8U = BOM_UTF8.decode('LATIN-1')
@@ -338,11 +340,15 @@ class ImportSaleOrderWizard(models.TransientModel):
         """
         try:
             book = open_workbook(file_contents = base64.decodestring(self.upload_file))
-            # book = xlrd.open_workbook(filename=self.upload_file.name)
+            # fp = tempfile.NamedTemporaryFile(suffix=".xls")
+            # fp.write(binascii.a2b_base64(self.upload_file))
+            # fp.seek(0)
+            # book = xlrd.open_workbook(fp.name, formatting_info=True)
+            # sheet = book.sheet_by_index(0)
         except FileNotFoundError:
             raise UserError('No such file or directory found. \n%s.' % self.file_name)
-        except xlrd.biffh.XLRDError:
-            raise UserError('Only excel files are supported.')
+        # except xlrd.biffh.XLRDError:
+        #     raise UserError('Only excel files are supported.')
         save = False
         header_save = False
         for sheet in book.sheets():
@@ -372,15 +378,15 @@ class ImportSaleOrderWizard(models.TransientModel):
                         header_index['qty'] = 1
                         header_index['part_number'] = 2
                         header_index['part_description'] = 3
-                        header_index['vendor'] = 4
-                        header_index['clave_desc'] = 5
+                        header_index['clave_desc'] = 4
+                        header_index['vendor'] = 5
                         header_index['price_list'] = 6
                         header_index['price_list_ext'] = 7
                         header_index['product_name'] = 9
                         header_index['dealer_price'] = 10
                         header_index['published_price'] = 11
                         header_index['end_customer_price'] = 12
-                        header_index['end_customer_price'] = 13
+                        header_index['iho_currency_id'] = 13
                         continue
                     if save:
                         line_vals.append(sheet.row_values(row))
@@ -544,6 +550,9 @@ class ImportSaleOrderWizard(models.TransientModel):
         product_template = False
         is_other_prod = False
         for line in order_lines:
+            line_quantity = line[header_index['qty']]
+            if line_quantity == '':
+                continue
             currency = self.env['res.currency'].search(
                 [('name', '=', line[header_index['iho_currency_id']] )])
             iho_currency_id = currency.id
@@ -552,10 +561,11 @@ class ImportSaleOrderWizard(models.TransientModel):
                 'res.partner',
                 currency=sale_order.currency_id
             )
-            delear_price = line[header_index['delear_price']]
+            dealer_price = float(line[header_index['dealer_price']])
             published_price = line[header_index['published_price']]
             if not vendor:
                 raise ValidationError(_('Vendor code %s not found') % vendor_code)
+            product_brand = False
             product_brands = self.env['product.brand'].search(
                 [('partner_id', '=', vendor.id)])
             if product_brands:
@@ -669,22 +679,24 @@ class ImportSaleOrderWizard(models.TransientModel):
             current_code_variant = default_code + ' ' + code_value
             product_variant = product_template.product_variant_ids.filtered(
                 lambda l: l.default_code == current_code_variant)
-            line_quantity = line[header_index['qty']]
-            iho_price_list = line[header_index['price_list']]
-            line_price = line[header_index['price_list']]
-            pub_price_total = line_price * published_price * line_quantity
-            cust_price_total = line['Price']['EndCustomerPrice'] * line['Quantity']
+            iho_price_list = float(line[header_index['price_list']])
+            line_price = float(line[header_index['price_list']])
+            pub_price_total = (line_price * published_price * line_quantity)
+            cust_price_total = (line_price * line_quantity)
             customer_discount = (1 - (cust_price_total / pub_price_total) * 100)
+            #import ipdb; ipdb.set_trace()
+            if customer_discount < 0:
+                customer_discount =-(customer_discount)
             if product_variant.display_name:
                 sale_order_line = sale_order.order_line.create({
                     'product_id': product_variant.id,
-                    'product_uom_qty': line[header_index['qty']],
+                    'product_uom_qty': line_quantity,
                     'order_id': sale_order.id,
                     'iho_price_list': iho_price_list,
                     'discount': customer_discount,
                     'product_uom': product_variant.uom_id.id,
                     'customer_discount': customer_discount,
-                    'iho_currency_id': iho_currency_id.id,
+                    'iho_currency_id': iho_currency_id,
                     'analytic_tag_ids': [(6, 0, sale_order.analytic_tag_ids.ids)],
                 })
                 sale_order_line.write({
@@ -699,7 +711,7 @@ class ImportSaleOrderWizard(models.TransientModel):
             "The file %s was correctly loaded. ") % (self.file_name)
         sale_order.message_post(body=message)
         pricelist = self.env['product.pricelist'].search(
-            [('currency_id', '=', iho_currency_id.id)], limit=1)
+            [('currency_id', '=', iho_currency_id)], limit=1)
         if pricelist and pricelist != sale_order.pricelist_id:
             sale_order.write({
                 'pricelist_id': pricelist.id,
