@@ -7,16 +7,16 @@ import csv
 import os
 import logging
 from codecs import BOM_UTF8
-from io import BytesIO
-from datetime import datetime, timedelta
+
 from io import StringIO
 from lxml import objectify
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 from xlrd import open_workbook
-import tempfile
-import binascii
 # pylint: disable=R1702
+# pylint: disable=W7938
+# pylint: disable=W1505
+# pylint: disable=R1260
 
 BOM_UTF8U = BOM_UTF8.decode('LATIN-1')
 _logger = logging.getLogger(__name__)
@@ -42,16 +42,15 @@ class ImportSaleOrderWizard(models.TransientModel):
 
     def run_import(self):
         file_extension = os.path.splitext(self.file_name)[1].lower()
-        # if file_extension not in ['.xml', '.csv']:
-        #     raise ValidationError(
-        #         _('Only .xml or .csv files allowed'))
+        if file_extension not in ['.xml', '.csv', '.xls', '.xlsx']:
+            raise ValidationError(
+                _('Only .xml or .csv files allowed'))
         if file_extension == '.xml':
             self._run_2020_import()
         if file_extension == '.csv':
             self._run_csv_import()
-        if file_extension == '.xlsx' or file_extension == '.xls':
-            self._run_2020_import_2()
-
+        if file_extension in ('.xlsx', '.xls'):
+            self._run_2020_import_xls()
 
     @api.model
     def to_float(self, line, column):
@@ -339,39 +338,24 @@ class ImportSaleOrderWizard(models.TransientModel):
            :rtype: dict
         """
         try:
-            book = open_workbook(file_contents = base64.decodestring(self.upload_file))
-            # fp = tempfile.NamedTemporaryFile(suffix=".xls")
-            # fp.write(binascii.a2b_base64(self.upload_file))
-            # fp.seek(0)
-            # book = xlrd.open_workbook(fp.name, formatting_info=True)
-            # sheet = book.sheet_by_index(0)
+            book = open_workbook(file_contents=base64.decodestring(self.upload_file))
         except FileNotFoundError:
-            raise UserError('No such file or directory found. \n%s.' % self.file_name)
-        # except xlrd.biffh.XLRDError:
-        #     raise UserError('Only excel files are supported.')
+            raise ValidationError(
+                _('No such file or directory found. \n%s.') % self.file_name)
         save = False
-        header_save = False
         for sheet in book.sheets():
             try:
                 line_vals = []
-                header_vals = {}
                 header_index = {}
+                index = 0
+                currency = False
                 for row in range(sheet.nrows):
+                    index += 1
                     current_header = str(sheet.row_values(row)[0]).lower()
-                    if current_header == 'e.ventas':
-                        header_save = True
-                        continue
-
-                    if header_save and not header_vals:
-                        header_vals['team_sale'] = str(sheet.row_values(row)[0]).lower()
-                        header_vals['purchase_order'] = str(sheet.row_values(row)[2]).lower()
-                        header_vals['partner_name'] = str(sheet.row_values(row)[3]).lower()
-                        digit_date = sheet.row_values(row)[4]
-                        # Change format date from 5 digits to yyyy-mm-dd
-                        str_date =(
-                            datetime.utcfromtimestamp(0) + timedelta(
-                                digit_date)).strftime("%Y-%m-%d")
-                        header_vals['date'] = str_date
+                    if index == 6:
+                        currency_name = str(sheet.row_values(row)[3]).upper()
+                        currency = self.env['res.currency'].search(
+                            [('name', '=', currency_name)])
                     if current_header == 'item':
                         save = True
                         header_index['item'] = 0
@@ -383,16 +367,14 @@ class ImportSaleOrderWizard(models.TransientModel):
                         header_index['price_list'] = 6
                         header_index['price_list_ext'] = 7
                         header_index['product_name'] = 9
-                        header_index['dealer_price'] = 10
-                        header_index['published_price'] = 11
-                        header_index['end_customer_price'] = 12
-                        header_index['iho_currency_id'] = 13
                         continue
                     if save:
-                        line_vals.append(sheet.row_values(row))
+                        qty = sheet.row_values(row)[1]
+                        if qty != '':
+                            line_vals.append(sheet.row_values(row))
             except IndexError:
                 pass
-        return line_vals, header_index
+        return line_vals, header_index, currency
 
     @api.model
     def get_file_data(self):
@@ -534,78 +516,54 @@ class ImportSaleOrderWizard(models.TransientModel):
         full_code = default_code+' '+full_code
         return full_code
 
-    def _run_2020_import_2(self):
+    def _run_2020_import_xls(self):
         self.ensure_one()
-        cust_price_total = {}
-        dealer_price_total = {}
-        pub_price_total = {}
         sale_order = self.env[
             self._context.get('active_model')].browse(
                 self._context.get('active_id'))
         routes = [
             self.env.ref('stock.route_warehouse0_mto').id,
             self.env.ref('purchase_stock.route_warehouse0_buy').id]
-        order_lines, header_index = self.get_file_data_xlsx()
-        #order_lines = False
+        order_lines, header_index, currency = self.get_file_data_xlsx()
         product_template = False
         is_other_prod = False
         for line in order_lines:
             line_quantity = line[header_index['qty']]
-            if line_quantity == '':
-                continue
-            currency = self.env['res.currency'].search(
-                [('name', '=', line[header_index['iho_currency_id']] )])
             iho_currency_id = currency.id
             vendor_code = line[header_index['vendor']]
-            vendor = self.search_data(vendor_code,
+            vendor = self.search_data(
+                vendor_code,
                 'res.partner',
                 currency=sale_order.currency_id
             )
-            dealer_price = float(line[header_index['dealer_price']])
-            published_price = line[header_index['published_price']]
             if not vendor:
-                raise ValidationError(_('Vendor code %s not found') % vendor_code)
+                raise ValidationError(
+                    _('Vendor code %s not found') % vendor_code)
             product_brand = False
-            product_brands = self.env['product.brand'].search(
+            brand_model = self.env['product.brand']
+            product_brands = brand_model.search(
                 [('partner_id', '=', vendor.id)])
             if product_brands:
                 product_brand = product_brands[0]
+            else:
+                product_brand = brand_model.create({
+                    'name': vendor.name,
+                    'partner_id': vendor.id,
+                })
             # Detect if is other product to separate the attributes value.
             if (
                 product_template and
                     product_template.default_code != line[header_index['part_number']]):
                 is_other_prod = True
             _logger.info("%s", is_other_prod)
-            # product_template = self.search_data(
-            #     line['SpecItem']['Number'], 'product.template',
-            #     name=line['SpecItem']['Description'], vendor=vendor,
-            #     dealer_price=line['Price']['OrderDealerPrice'],
-            #     currency=iho_currency_id,
-            #     published_price=line['Price']['PublishedPrice'],
-            #     product_brand=product_brand)
-            #import ipdb; ipdb.set_trace()
             product_template = self.search_data(
                 line[header_index['part_number']], 'product.template',
                 name=line[header_index['product_name']], vendor=vendor,
-                dealer_price=dealer_price,
-                currency=iho_currency_id,
-                published_price=published_price,
+                currency=currency,
                 product_brand=product_brand)
-            # Alias
-            # tags = self.get_data_info('Tag', line)
-            # tag_alias = [
-            #     str(tag.get('Value')) + ' - ' + sale_order.name
-            #     for tag in tags
-            #     if 'Alias' in str(tag.get('Type'))
-            # ]
-            # if not tag_alias:
-            #     tag_alias = [' ']
             attributes_value = False
-            attr, attributes_value, attributes_description = self.get_attributes_xlsx(line, header_index)
+            attr, attributes_value = self.get_attributes_xlsx(line, header_index)
             code_value = self._generate_attribute_value(attributes_value)
-            #import ipdb; ipdb.set_trace()
-            #full_description = self._generate_full_description(attributes_description)
-            #full_description = attributes_description[0]
             # Remove last char
             code_value = code_value[:-1]
             full_description = line[header_index['part_description']]
@@ -635,7 +593,7 @@ class ImportSaleOrderWizard(models.TransientModel):
                     full_code = self._generate_default_code_variant(default_code, variant)
                     if variant.default_code != full_code:
                         variant.write({
-                            #'name': line[header_index['product_name']]
+                            'name': line[header_index['product_name']],
                             'default_code': full_code,
                             'route_ids': [(6, 0, routes.ids)],
                             'full_description': default_code+' '+full_description,
@@ -654,7 +612,6 @@ class ImportSaleOrderWizard(models.TransientModel):
                                 and l.product_id == variant)
                             if not seller:
                                 psi_obj = self.env['product.supplierinfo']
-                                currency_id = self.env.ref('base.'+currency).id
                                 psi_obj.create({
                                     'name': vendor.id,
                                     'delay': 1,
@@ -662,7 +619,7 @@ class ImportSaleOrderWizard(models.TransientModel):
                                     'price': 1.0,
                                     'product_tmpl_id': product_template.id,
                                     'sale_order_id': sale_order.id,
-                                    'currency_id': currency_id,
+                                    'currency_id': iho_currency_id,
                                     'product_id': variant.id,
                                 })
                 if not product_template.default_code:
@@ -680,22 +637,15 @@ class ImportSaleOrderWizard(models.TransientModel):
             product_variant = product_template.product_variant_ids.filtered(
                 lambda l: l.default_code == current_code_variant)
             iho_price_list = float(line[header_index['price_list']])
-            line_price = float(line[header_index['price_list']])
-            pub_price_total = (line_price * published_price * line_quantity)
-            cust_price_total = (line_price * line_quantity)
-            customer_discount = (1 - (cust_price_total / pub_price_total) * 100)
-            #import ipdb; ipdb.set_trace()
-            if customer_discount < 0:
-                customer_discount =-(customer_discount)
             if product_variant.display_name:
                 sale_order_line = sale_order.order_line.create({
                     'product_id': product_variant.id,
                     'product_uom_qty': line_quantity,
                     'order_id': sale_order.id,
                     'iho_price_list': iho_price_list,
-                    'discount': customer_discount,
+                    'discount': 0,
                     'product_uom': product_variant.uom_id.id,
-                    'customer_discount': customer_discount,
+                    'customer_discount': 0,
                     'iho_currency_id': iho_currency_id,
                     'analytic_tag_ids': [(6, 0, sale_order.analytic_tag_ids.ids)],
                 })
@@ -945,7 +895,6 @@ class ImportSaleOrderWizard(models.TransientModel):
     def get_attributes_xlsx(self, line, header_index, product_template=False):
         attributes = []
         attributes_value = []
-        attributes_description = []
         generic_attribute = 'Specs'
         base_code = line[header_index['clave_desc']].replace("\n", "")
         # Remove last char
@@ -956,5 +905,4 @@ class ImportSaleOrderWizard(models.TransientModel):
             attributes.append(attr)
         for rec in code:
             attributes_value.append(rec)
-        attributes_description.append(line[header_index['part_number']])
-        return attributes, attributes_value, attributes_description
+        return attributes, attributes_value

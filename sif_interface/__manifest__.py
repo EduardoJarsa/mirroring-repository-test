@@ -31,4 +31,9 @@
         'views/sale_order_view.xml',
         'views/purchase_order_view.xml',
     ],
+    "external_dependencies": {
+        "python": [
+            "xlrd",
+        ],
+    },
 }
