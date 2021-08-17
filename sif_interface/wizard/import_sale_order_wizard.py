@@ -330,6 +330,17 @@ class ImportSaleOrderWizard(models.TransientModel):
             return dict_object
         return {xml.tag.split('}')[1]: recursive_dict(xml)}
 
+    def _get_currency_row_value(self, row_values):
+        currency = False
+        for rec in row_values:
+            if not currency and rec != '':
+                currency = self.env['res.currency'].search(
+                    [('name', '=', rec)])
+        if not currency:
+            raise ValidationError(
+                _('Currency not found'))
+        return currency
+
     @api.model
     def get_file_data_xlsx(self):
         """Method used to translate the raw xml to a clean dictionary
@@ -349,13 +360,14 @@ class ImportSaleOrderWizard(models.TransientModel):
                 header_index = {}
                 index = 0
                 currency = False
+                currency_row = False
                 for row in range(sheet.nrows):
                     index += 1
                     current_header = str(sheet.row_values(row)[0]).lower()
-                    if index == 6:
-                        currency_name = str(sheet.row_values(row)[3]).upper()
-                        currency = self.env['res.currency'].search(
-                            [('name', '=', currency_name)])
+                    if current_header == 'sold to':
+                        currency_row = index + 4
+                    if currency_row and currency_row == index:
+                        currency = self._get_currency_row_value(sheet.row_values(row))
                     if current_header == 'item':
                         save = True
                         header_index['item'] = 0
@@ -367,11 +379,14 @@ class ImportSaleOrderWizard(models.TransientModel):
                         header_index['price_list'] = 6
                         header_index['price_list_ext'] = 7
                         header_index['product_name'] = 9
+                        header_index['row'] = 10
                         continue
                     if save:
                         qty = sheet.row_values(row)[1]
                         if qty != '':
-                            line_vals.append(sheet.row_values(row))
+                            current_line = sheet.row_values(row)
+                            current_line.append(row+1)
+                            line_vals.append(current_line)
             except IndexError:
                 pass
         return line_vals, header_index, currency
@@ -527,15 +542,21 @@ class ImportSaleOrderWizard(models.TransientModel):
         order_lines, header_index, currency = self.get_file_data_xlsx()
         product_template = False
         is_other_prod = False
+        error = False
+        list_error = []
         for line in order_lines:
             line_quantity = line[header_index['qty']]
             iho_currency_id = currency.id
             vendor_code = line[header_index['vendor']]
-            vendor = self.search_data(
-                vendor_code,
-                'res.partner',
-                currency=sale_order.currency_id
-            )
+            clave_desc = line[header_index['clave_desc']]
+            row = line[header_index['row']]
+            if ' ' in clave_desc:
+                error = True
+                list_error.append(row)
+            if error:
+                continue
+            vendor = self.env['res.partner'].search(
+                [('ref', '=ilike', str(vendor_code))])
             if not vendor:
                 raise ValidationError(
                     _('Vendor code %s not found') % vendor_code)
@@ -563,7 +584,9 @@ class ImportSaleOrderWizard(models.TransientModel):
                 product_brand=product_brand)
             attributes_value = False
             attr, attributes_value = self.get_attributes_xlsx(line, header_index)
-            code_value = self._generate_attribute_value(attributes_value)
+            # order alphabetically
+            order_attributes = sorted(attributes_value)
+            code_value = self._generate_attribute_value(order_attributes)
             # Remove last char
             code_value = code_value[:-1]
             full_description = line[header_index['part_description']]
@@ -592,11 +615,13 @@ class ImportSaleOrderWizard(models.TransientModel):
                 for variant in product_template.product_variant_ids:
                     full_code = self._generate_default_code_variant(default_code, variant)
                     if variant.default_code != full_code:
+                        product_name = line[header_index['product_name']]
+                        part_description = line[header_index['part_description']]
                         variant.write({
-                            'name': line[header_index['product_name']],
+                            'name': product_name + ', ' + part_description,
                             'default_code': full_code,
                             'route_ids': [(6, 0, routes.ids)],
-                            'full_description': default_code+' '+full_description,
+                            'full_description': default_code + ' ' + full_description,
                             'categ_id': self.product_category_id.id,
                             'taxes_id': self.taxes_id.ids,
                             'maker_id': vendor,
@@ -648,6 +673,7 @@ class ImportSaleOrderWizard(models.TransientModel):
                     'customer_discount': 0,
                     'iho_currency_id': iho_currency_id,
                     'analytic_tag_ids': [(6, 0, sale_order.analytic_tag_ids.ids)],
+                    'iho_tc': 1.0,
                 })
                 sale_order_line.write({
                     'iho_service_factor': 1.0,
@@ -657,6 +683,9 @@ class ImportSaleOrderWizard(models.TransientModel):
                 sale_order_line._compute_sell_3()
                 sale_order_line._compute_sell_4()
                 self._change_varriant_seller(product_variant, vendor, sale_order_line.price_unit)
+        if error:
+            raise ValidationError(
+                _('There is white space in attribute values in the next lines %s') % list_error)
         message = _(
             "The file %s was correctly loaded. ") % (self.file_name)
         sale_order.message_post(body=message)
@@ -896,13 +925,16 @@ class ImportSaleOrderWizard(models.TransientModel):
         attributes = []
         attributes_value = []
         generic_attribute = 'Specs'
-        base_code = line[header_index['clave_desc']].replace("\n", "")
+        base_code = line[header_index['clave_desc']].replace("\n", " ")
         # Remove last char
-        base_code = base_code[:-1]
-        code = base_code.split(',')
+        last_char = base_code[-1]
+        if last_char == ',':
+            base_code = base_code[:-1]
+        code = base_code.split(' ')
         attr = self.search_data(generic_attribute, 'product.attribute')
         if attr not in attributes:
             attributes.append(attr)
         for rec in code:
-            attributes_value.append(rec)
+            if rec != '':
+                attributes_value.append(rec)
         return attributes, attributes_value

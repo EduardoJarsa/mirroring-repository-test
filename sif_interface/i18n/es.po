@@ -695,3 +695,21 @@ msgstr "Categoria de Producto"
 #: model:ir.model.fields,field_description:sif_interface.field_import_sale_order_wizard__taxes_id
 msgid "Taxes"
 msgstr "Impuestos"
+
+#. module: sif_interface
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:0
+#, python-format
+msgid "Vendor code %s not found"
+msgstr "No hay un fabricante con el codigo %s"
+
+#. module: sif_interface
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:0
+#, python-format
+msgid "There is white space in attribute values in the next lines %s"
+msgstr "Hay espacios en blanco en los codigos de los valores de atribute en la linea %s"
+
+#. module: sif_interface
+#: code:addons/sif_interface/wizard/import_sale_order_wizard.py:0
+#, python-format
+msgid "Currency not found"
+msgstr "Moneda no encontrada"
