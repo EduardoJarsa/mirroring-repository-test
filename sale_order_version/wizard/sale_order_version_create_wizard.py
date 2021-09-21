@@ -40,6 +40,9 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
     def default_get(self, res_fields):
         res = super().default_get(res_fields)
         res['sale_id'] = self._context.get('active_id', False)
+        so_order = self.env['sale.order']
+        order = so_order.browse(self._context.get('active_id'))
+        res['name'] = order.version_name
         return res
 
     @api.model

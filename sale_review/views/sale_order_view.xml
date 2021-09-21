@@ -9,6 +9,9 @@
             <xpath expr="//button[@name='action_cancel']" position="after">  
                 <button name="review_sale_order" type="object" string="Request to review" class="btn-primary" attrs="{'invisible': [('state', '=', 'sale')]}" groups="sale_review.group_sale_review"/>
             </xpath>
+            <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                <field name="version_name" invisible="1"/>
+            </xpath>
         </field>
     </record>
 </odoo>

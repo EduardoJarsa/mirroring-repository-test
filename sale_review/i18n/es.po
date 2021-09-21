@@ -147,3 +147,9 @@ msgstr "Su cotización tiene errores, debe corregirlos para solicitar la revisi�
 #: model:ir.model,name:sale_review.model_sale_order_review_wizard
 msgid "sale.order.review.wizard"
 msgstr ""
+
+#. module: sale_review
+#: model:ir.model.fields,field_description:sale_review.field_sale_order__version_name
+#: model:ir.model.fields,field_description:sale_review.field_sale_order_review_wizard__version_name
+msgid "Version Name"
+msgstr "Nombre de la versión"

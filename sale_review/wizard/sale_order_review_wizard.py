@@ -7,23 +7,34 @@ from odoo.tools.translate import _
 
 class SaleOrderReviewWizard(models.TransientModel):
     _name = 'sale.order.review.wizard'
-    _descrption = 'Reviews Sale Orders'
+    _description = 'Reviews Sale Orders'
 
     seller_ids = fields.Many2one(
-        'res.partner', string='Seller senior')
+        'res.partner',
+        string='Seller senior',
+    )
+    version_name = fields.Char()
+
+    @api.model
+    def default_get(self, fields2):
+        values = super().default_get(fields2)
+        seller_ids = self._context['sellers_sr_id']
+        if len(seller_ids) == 1:
+            values['seller_ids'] = seller_ids[0]
+        return values
 
     @api.onchange('seller_ids')
     def _onchange_seller_id(self):
-        res_partner_obj = self.env['res.partner'].browse(
-            tuple(self._context['sellers_sr_id']))
-        res = {'domain': {'seller_ids': []}}
-        res['domain']['seller_ids'] = [
-            ('user_ids.id', 'in', res_partner_obj.ids)]
-        return res
+        return {
+            'domain': {
+                'seller_ids': [('id', 'in', self._context['sellers_sr_id'])],
+            }
+        }
 
     def request_review_so(self):
         so_obj = self.env['sale.order']
         so = so_obj.browse(self._context.get('active_id'))
+        so.version_name = self.version_name
         activity_data = {
             'res_id': so.id,
             'activity_type_id': self.env.ref(
