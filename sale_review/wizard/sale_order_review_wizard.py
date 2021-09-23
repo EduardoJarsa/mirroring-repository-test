@@ -15,6 +15,8 @@ class SaleOrderReviewWizard(models.TransientModel):
     )
     version_name = fields.Char()
 
+    use_prefix = fields.Boolean()
+
     @api.model
     def default_get(self, fields2):
         values = super().default_get(fields2)
@@ -35,6 +37,9 @@ class SaleOrderReviewWizard(models.TransientModel):
         so_obj = self.env['sale.order']
         so = so_obj.browse(self._context.get('active_id'))
         so.version_name = self.version_name
+        so.use_prefix = self.use_prefix
+        if self.use_prefix:
+            so.flag_first_time += 1
         activity_data = {
             'res_id': so.id,
             'activity_type_id': self.env.ref(

@@ -13,6 +13,7 @@ class SaleOrderVersion(models.Model):
         string='Version',
     )
     prefix = fields.Integer()
+    prefix_char = fields.Char()
     sale_id = fields.Many2one(
         comodel_name='sale.order',
         string="Sale Order Version",

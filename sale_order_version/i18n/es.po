@@ -690,3 +690,36 @@ msgstr "Almacén"
 #: model:ir.model,name:sale_order_version.model_sale_order_version_create_wizard
 msgid "Wizard model to create SO version"
 msgstr ""
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_create_wizard__flag_first_time
+msgid "Flag First Time"
+msgstr "Bandera por primera vez"
+
+#. module: sale_order_version
+#: model:ir.model.fields.selection,name:sale_order_version.selection__sale_order_version_create_wizard__prefix_selection__new_prefix
+msgid "New prefix"
+msgstr "Nuevo prefijo"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version__prefix_char
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_create_wizard__prefix_char
+msgid "Prefix Char"
+msgstr "Prefix"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_create_wizard__prefix_selection
+msgid "Prefix selection"
+msgstr "Selección de prefix"
+
+#. module: sale_order_version
+#: model:ir.model.fields,field_description:sale_order_version.field_sale_order_version_create_wizard__use_prefix
+msgid "Use Prefix"
+msgstr "Usar prefix"
+
+#. module: sale_order_version
+#: model:ir.model.fields.selection,name:sale_order_version.selection__sale_order_version_create_wizard__prefix_selection__use_same_prefix
+msgid "Use same prefix"
+msgstr "Usar prefix anterior"
+
+

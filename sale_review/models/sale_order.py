@@ -10,6 +10,9 @@ class SaleOrder(models.Model):
 
     version_name = fields.Char()
 
+    use_prefix = fields.Boolean()
+    flag_first_time = fields.Integer()
+
     def call_wizard(self):
         return {
             'name': _("Select activity user"),
@@ -26,12 +29,16 @@ class SaleOrder(models.Model):
                 raise ValidationError(_(
                     'Your quotation has errors, fix them first'
                     ' before asking for review'))
-            senior_user_ids = self.env.ref(
-                'sales_team.group_sale_salesman_all_leads').users.ids
+            senior_partner_ids = self.env.ref(
+                'sales_team.group_sale_salesman_all_leads').users.mapped('partner_id').ids
             users_senior_id = rec.message_follower_ids.mapped(
-                'partner_id.user_ids').filtered(
-                    lambda u: u.id in senior_user_ids).mapped('partner_id').ids
+                'partner_id').filtered(lambda u: u.id in senior_partner_ids).ids
             if not users_senior_id:
+                users_senior_id = self.user_id.coach_id.user_id.partner_id.ids
+                if users_senior_id:
+                    self.message_subscribe(users_senior_id)
+                    return rec.with_context(
+                        sellers_sr_id=users_senior_id).call_wizard()
                 raise ValidationError(_(
                     'A Sr Salesman has not been found.  '
                     ' Be sure you have a Sr Salesman assigned at Employees'

@@ -16,6 +16,14 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
         comodel_name='sale.order',
         string="Sale Order",
     )
+    prefix_selection = fields.Selection([
+        ('new_prefix', 'New prefix'),
+        ('use_same_prefix', 'Use same prefix'),
+    ],
+        required=True,
+        default='new_prefix'
+    )
+
     boolean_switch = fields.Boolean(
         compute='_compute_same_prefix_boolean',
         help='This field helps to control the invisible'
@@ -30,6 +38,11 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
         ', in other way, the prefix will be increased to the'
         ' next letter of the alphabet.',
     )
+    use_prefix = fields.Boolean()
+
+    prefix_char = fields.Char()
+
+    flag_first_time = fields.Integer()
 
     @api.depends('use_same_prefix')
     def _compute_same_prefix_boolean(self):
@@ -43,6 +56,8 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
         so_order = self.env['sale.order']
         order = so_order.browse(self._context.get('active_id'))
         res['name'] = order.version_name
+        res['use_prefix'] = order.use_prefix
+        res['flag_first_time'] = order.flag_first_time
         return res
 
     @api.model
@@ -70,15 +85,25 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
         alphabet.extend([i + b for i in alphabet for b in alphabet])
         index = sov_obj.search(
             [('sale_id', '=', self.sale_id.id)], order='id desc', limit=1)
-        if not index:
-            prefix = 0
-        elif self.use_same_prefix and index:
+        prefix = index.prefix if index else 0
+        prefix_char = self.prefix_char or ''
+        name = self.name or ''
+        if not self.use_prefix:
+            pass
+        elif not index and not self.prefix_char:
+            name = '%s %s' % (alphabet[prefix], name)
+        elif not index and self.prefix_char:
+            name = '%s %s' % (prefix_char, name)
+        elif self.prefix_char and self.prefix_selection != 'use_same_prefix':
+            name = '%s %s' % (prefix_char, name)
+        elif index and self.prefix_selection == 'use_same_prefix':
             prefix = index.prefix
-        else:
+            prefix_char = index.prefix_char
+            name = '%s %s' % (index.prefix_char or alphabet[prefix], name)
+        elif index and not self.prefix_char and self.prefix_selection != 'use_same_prefix':
             prefix = (index.prefix) + 1
-        name = alphabet[prefix]
-        if self.name:
-            name = alphabet[prefix] + ' ' + self.name
+            name = '%s %s' % (alphabet[prefix], name)
+
         version = sov_obj.sudo().create({
             'name': name,
             'partner_id': self.sale_id.partner_id.id,
@@ -102,6 +127,7 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
             'tag_ids': [(6, 0, self.sale_id.tag_ids.ids)],
             'fiscal_position_id': self.sale_id.fiscal_position_id.id,
             'prefix': prefix,
+            'prefix_char': prefix_char,
             'line_ids': self._prepare_sov_lines(self.sale_id.order_line),
             'sale_id': self.sale_id.id,
         })

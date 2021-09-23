@@ -7,8 +7,9 @@
             <form>
                 <sheet>
                     <group>
+                        <field name="use_prefix"/>
                         <field name="seller_ids" options="{'no_create': True, 'no_open': True}"/>
-                        <field name="version_name"/>
+                        <field name="version_name" attrs="{'required':[('use_prefix','=',False)]}"/>
                     </group>
                 </sheet>
                 <footer>
