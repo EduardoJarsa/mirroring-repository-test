@@ -1,0 +1,132 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* report_quotation_iho
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-01 21:38+0000\n"
+"PO-Revision-Date: 2021-10-01 21:38+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
+msgid ""
+"<br/>\n"
+"                            _____________________________________________________\n"
+"                            <br/><span>I accept quote, terms and conditions</span>"
+msgstr ""
+"<br/>\n"
+"                            _____________________________________________________\n"
+"                            <br/><span>Acepto cotización, términos y condiciones</span>"
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
+msgid "<span style=\"font-size: 12pt;\" align=\"right\">Discount total:</span>"
+msgstr "<span style=\"font-size: 12pt;\" align=\"right\">Descuento total:</span>"
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
+msgid "<span style=\"font-size: 12pt;\" align=\"right\">Service total:</span>"
+msgstr "<span style=\"font-size: 12pt;\" align=\"right\">Servicio total:</span>"
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
+msgid "<span style=\"font-size: 12pt;\">Product total:</span>"
+msgstr "<span style=\"font-size: 12pt;\">Producto total:</span>"
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
+msgid "<strong style=\"color:black\">Cellphone:</strong>"
+msgstr "<strong style=\"color:black\">Telefono:</strong>"
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
+msgid "<strong style=\"color:black\">Contact: </strong>"
+msgstr "<strong style=\"color:black\">Contacto: </strong>"
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
+msgid "<strong style=\"color:black\">Customer: </strong>"
+msgstr "<strong style=\"color:black\">Cliente: </strong>"
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
+msgid "<strong style=\"color:black\">Date:</strong>"
+msgstr "<strong style=\"color:black\">Fecha:</strong>"
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
+msgid "<strong style=\"color:black\">E-mail:</strong>"
+msgstr ""
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
+msgid "<strong style=\"color:black\">Executive:</strong>"
+msgstr "<strong style=\"color:black\">Ejecutivo:</strong>"
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
+msgid "<strong style=\"color:black\">Quotation:</strong>"
+msgstr "<strong style=\"color:black\">Cotización:</strong>"
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
+msgid "<strong style=\"color:white\">Item</strong>"
+msgstr ""
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
+msgid "<strong style=\"color:white\">Logo</strong>"
+msgstr "<strong style=\"color:white\">Imagen</strong>"
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
+msgid "<strong style=\"color:white\">Quantity</strong>"
+msgstr "<strong style=\"color:white\">Cantidad</strong>"
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
+msgid "<strong style=\"color:white\">Total price</strong>"
+msgstr "<strong style=\"color:white\">Precio total</strong>"
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
+msgid "<strong style=\"color:white\">Unit price</strong>"
+msgstr "<strong style=\"color:white\">Precio unitario</strong>"
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
+msgid "<strong style=\"color:white\">Unit</strong>"
+msgstr "<strong style=\"color:white\">Unidad</strong>"
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
+msgid "<strong style=\"font-size: 12pt; color:black\" align=\"right\">Total:</strong>"
+msgstr ""
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
+msgid "Description"
+msgstr "Descripción"
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
+msgid "Extra expenses:"
+msgstr "Gastos extras:"
+
+#. module: report_quotation_iho
+#: model:ir.actions.report,name:report_quotation_iho.action_report_quotation_iho
+msgid "Report Quotation IHO"
+msgstr "Reporte de cotización IHO"
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
+msgid "Terms and Conditions for the Sale of goods supplied by IHO."
+msgstr "Términos y Condiciones para la Venta de bienes suministrados por la OHI."

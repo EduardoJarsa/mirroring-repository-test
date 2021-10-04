@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding= "utf-8"?>
+<odoo>
+    <report
+        id="action_report_quotation_iho"
+        model="sale.order"
+        string="Report Quotation IHO"
+        report_type="qweb-pdf"
+        name="report_quotation_iho.report_quotation_document"
+        file="report_quotation_iho.report_quotation_document"
+    />
+</odoo>

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="external_layout_background_iho">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+        <div t-attf-class="o_company_#{company.id}_layout header" t-att-style="report_header_style">
+            <div class="o_background_header">
+            <div class="float-right">
+                <h3 class="mt0 text-right" t-field="company.report_header"/>
+            </div>
+            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" class="float-left" alt="Logo"/>
+            <div>
+                <br/>
+                <h2 t-field="o.opportunity_id.name"/>
+            </div>
+            <div class="clearfix mb8"/>
+            </div>
+        </div>
+        <div t-attf-class="o_company_#{company.id}_layout article o_report_layout_background" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-call="web.address_layout"/>
+            <t t-raw="0"/>
+        </div>
+        <div t-attf-class="o_company_#{company.id}_layout footer o_background_footer">
+            <div class="text-center">
+                <ul class="list-inline">
+                    <li t-if="company.phone" class="list-inline-item"><i class="fa fa-phone" role="img" aria-label="Phone" title="Phone"/> <span class="o_force_ltr" t-field="company.phone"/></li>
+                    <li t-if="company.email" class="list-inline-item"><i class="fa fa-at" role="img" aria-label="Email" title="Email"/> <span t-field="company.email"/></li>
+                    <li t-if="company.website" class="list-inline-item"><i class="fa fa-globe" role="img" aria-label="Website" title="Website"/> <span t-field="company.website"/></li>
+                    <li t-if="company.vat" class="list-inline-item"><i class="fa fa-building-o" role="img" aria-label="Fiscal number"/><t t-esc="company.country_id.vat_label or 'Tax ID'"/>: <span t-field="company.vat"/></li>
+                </ul>
+                <div t-field="company.report_footer"/>
+                <div t-if="report_type == 'pdf'" class="text-muted">
+                    Page:
+                    <span class="page"/>
+                    of iho
+                    <span class="topage"/>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id = "report_quotation_document">
+        <t t-call= "web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call= "report_quotation_iho.external_layout_background_iho">
+                <div class="container" style="background-color:#F8F9F9;">
+                    <div class="row">
+                        <div>
+                            <div t-if="o.partner_id">
+                                <strong style="color:black">Customer: </strong>
+                            </div>
+                            <div t-if="o.partner_id.child_ids">
+                                <strong style="color:black">Contact: </strong>
+                            </div>
+                            <div t-if="o.partner_id.child_ids.email">
+                                <strong style="color:black">E-mail:</strong>
+                            </div>
+                            <div t-if="o.partner_id.phone">
+                                <strong style="color:black">Cellphone:</strong>
+                            </div>
+                            <div t-if="o.name">
+                                <strong style="color:black">Quotation:</strong>
+                            </div>
+                            <div t-if="o.date_order">
+                                <strong style="color:black">Date:</strong>
+                            </div>
+                            <div t-if="o.user_id">
+                                <strong style="color:black">Executive:</strong>
+                            </div>
+                        </div>
+                    <div class="col">
+                        <div>
+                            <span t-field="o.partner_id"></span>
+                        </div>
+                        <div>
+                            <span t-field="o.partner_id.child_ids.name"></span>
+                        </div>
+                        <div>
+                            <span t-field="o.partner_id.child_ids.email"></span>
+                        </div>
+                        <div>
+                            <span t-field="o.partner_id.phone"></span>
+                        </div>
+                        <div>
+                            <span t-field="o.name"></span>
+                        </div>
+                        <div>
+                            <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d - %B - %Y')"></span>
+                        </div>
+                        <div>
+                            <span t-field="o.user_id"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <t t-set="departure" t-value="1"/>
+                <table  border="1" rules="cols" class="table">
+                    <thead>
+                    <tr style="background-color: red">
+                      <td>
+                        <strong style="color:white">Item</strong>
+                      </td>
+                      <td>
+                        <strong style="color:white">Quantity</strong>
+                      </td>
+                      <td>
+                        <strong style="color:white">Unit</strong>
+                      </td>
+                      <td>
+                        <strong style="color:white"><center>Description</center></strong>
+                      </td>
+                      <td>
+                        <strong style="color:white">Logo</strong>
+                      </td>
+                      <td>
+                        <strong style="color:white">Unit price</strong>
+                      </td>
+                      <td >
+                        <strong style="color:white">Total price</strong>
+                      </td>
+                    </tr>          
+                </thead>
+                <tbody class="invoices_tbody;col-2" align="center">
+                    <t t-foreach="o.order_line" t-as="le">
+                        <tr>
+                            <td>
+                                <span t-esc="departure"/>
+                            </td>
+                            <td>
+                                <span t-esc="'{0:,.0f}'.format(int(le.product_uom_qty))"/>
+                            </td>
+                            <td>
+                                <span t-field="le.product_id.uom_id"/>
+                            </td>
+                            <td style="text-align:left">
+                                <span t-field="le.name"/>
+                            </td>
+                            <td>
+                                <t t-if="le.image_sol">
+                                    <img t-att-src="image_data_uri(le.image_sol)" width="120"/>
+                                </t>
+                            </td>
+                            <td>
+                                <span t-field="le.price_unit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                            </td>
+                            <td style="text-align:right">
+                                <span t-field="le.price_subtotal"/>
+                            </td>
+                        </tr>
+                        <t t-set="departure" t-value="departure + 1"/>
+                    </t>
+                </tbody>
+                <tfooter>
+                    <tr t-if="o.product_total">
+                        <td style="text-align:right" class="col-12" colspan="6">
+                            <div>
+                                <span style="font-size: 12pt;">Product total:</span>
+                            </div>
+                        </td>
+                        <td style="text-align:right">
+                            <div t-if="o.product_total">
+                                <span t-field="o.product_total" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                            </div>
+                        </td>
+                        </tr>
+                    <tr t-if="o.service_total">
+                        <td style="text-align:right" class="col-12" colspan="6">
+                            <div>
+                            <span style="font-size: 12pt;" align="right">Service total:</span>
+                        </div>
+                        </td>
+                            <td style="text-align:right">
+                            <div t-if="o.service_total">
+                            <span t-field="o.service_total" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                        </div>
+                        </td>
+                    </tr>
+                    <tr t-if="o.discount_total">
+                        <td style="text-align:right" class="col-12" colspan="6">
+                            <div>
+                                <span style="font-size: 12pt;" align="right">Discount total:</span>
+                            </div>
+                        </td>
+                        <td style="text-align:right">
+                            <div t-if="o.discount_total">
+                                <span t-field="o.discount_total" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr t-if="o.extra_expenses">
+                        <td style="text-align:right" class="col-12" colspan="6">
+                            <div>
+                                <p style="font-size: 12pt;" align="right">Extra expenses:</p>
+                            </div>
+                        </td>
+                        <td style="text-align:right">
+                            <div t-if="o.extra_expenses">
+                                <span t-field="o.extra_expenses" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr t-if="o.amount_total" color="black">
+                        <td style="text-align:right" class="col-12" colspan="6">
+                            <div style="font-size: 12pt; color:black">
+                                <hr size="2px" color="black"/>
+                                <strong style="font-size: 12pt; color:black" align="right">Total:</strong>
+                            </div>
+                        </td>
+                        <td style="text-align:right">
+                            <div t-if="o.amount_total" style="font-size: 12pt; color:black" border="0">
+                                <hr size="2px" color="black"/>
+                                <strong t-field="o.amount_untaxed" style="color:black"/>
+                            </div>
+                        </td>
+                        </tr>
+                </tfooter>
+                </table>
+                <br/>
+                <table class="table table-bordered table-sm" border="colapse">
+                <thead class="col-2">
+                    <tr align="right">
+                        <strong><h4>Terms and Conditions for the Sale of goods supplied by IHO.</h4></strong>
+                        <span t-field="o.note"/>
+                    </tr>
+                </thead>
+            </table>
+            <br>
+            <table align="center" width="100%">
+                <tbody align="center">
+                    <tr style="text-align:center">
+                        <td class="col-6">
+                            <span t-field="o.user_id.name"/><br/>
+                            <span t-esc="o.user_id.job_title"/><br/>
+                            <span t-field="o.user_id.work_email"/><br/>
+                        </td>
+                        <td class="col-6">
+                            <br/>
+                            _____________________________________________________
+                            <br/><span>I accept quote, terms and conditions</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </br>
+            <br/>
+            <div style="page-break-after: always"></div>
+        </t>
+    </t>
+</t>
+</template>
+</odoo>
