@@ -17,6 +17,8 @@ from xlrd import open_workbook
 # pylint: disable=W7938
 # pylint: disable=W1505
 # pylint: disable=R1260
+# pylint: disable=C0201
+
 
 BOM_UTF8U = BOM_UTF8.decode('LATIN-1')
 _logger = logging.getLogger(__name__)
