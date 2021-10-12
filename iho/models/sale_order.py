@@ -35,6 +35,12 @@ class SaleOrder(models.Model):
                         'value of [%s] [%s] and must NOT be [1.00]') %
                     (line_number+1, line._product_int_ref(), line.price_unit, line.iho_price_list))
 
+    def action_confirm(self):
+        vals = super().action_confirm()
+        # partner was added at confirm, removing it.
+        self.message_unsubscribe([self.partner_id.id])
+        return vals
+
 
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
