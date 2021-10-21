@@ -134,32 +134,55 @@
                 </thead>
                 <tbody class="invoices_tbody;col-2" align="center">
                     <t t-foreach="o.order_line" t-as="le">
-                        <tr>
-                            <td>
-                                <span t-esc="departure"/>
-                            </td>
-                            <td>
-                                <span t-esc="'{0:,.0f}'.format(int(le.product_uom_qty))"/>
-                            </td>
-                            <td>
-                                <span t-field="le.product_id.uom_id"/>
-                            </td>
-                            <td style="text-align:left">
-                                <span t-field="le.name"/>
-                            </td>
-                            <td>
-                                <t t-if="le.image_sol">
+                        <tr t-att-class="'bg-200 font-weight-bold o_line_section' if le.display_type == 'le_section' else 'font-italic o_line_note' if le.display_type == 'line_note' else ''">
+                            <t t-if="not le.display_type">
+                                <td>
+                                    <span t-esc="departure"/>
+                                </td>
+                                <td>
+                                    <span t-esc="'{0:,.0f}'.format(int(le.product_uom_qty))"/>
+                                </td>
+                                <td>
+                                    <span t-field="le.product_id.uom_id"/>
+                                </td>
+                                <td style="text-align:left">
+                                    <span t-field="le.name"/>
+                                </td>
+                                <td>
+                                    <t t-if="le.image_sol">
                                     <img t-att-src="image_data_uri(le.image_sol)" width="120"/>
                                 </t>
-                            </td>
-                            <td>
-                                <span t-field="le.price_unit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
-                            </td>
-                            <td style="text-align:right">
-                                <span t-field="le.price_subtotal"/>
-                            </td>
+                                </td>
+                                <td>
+                                    <span t-field="le.price_unit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                </td>
+                                    <td style="text-align:right">
+                                    <span t-field="le.price_subtotal"/>
+                                </td>
+                                <t t-set="departure" t-value="departure + 1"/>
+                            </t>
+                            <t t-if="le.display_type == 'line_section'">
+                                <td name="td_section_line" colspan="99" style="background-color:#D6DBDF; text-align:left;">
+                                    <strong t-field="le.name"/>
+                                    <t t-if="le.image_sol">
+                                        <img t-att-src="image_data_uri(le.image_sol)" width="100%" height="80%"/>
+                                    </t>
+                                    <br/>
+                                    <br/>
+                                </td>
+                                <t t-set="current_section" t-value="le"/>
+                            </t>
+                            <t t-if="le.display_type == 'line_note'">
+                                <td name="td_note_line" colspan="99" style="background-color:#EAECEE; text-align:left;">
+                                    <span t-field="le.name"/>
+                                    <t t-if="le.image_sol">
+                                        <img t-att-src="image_data_uri(le.image_sol)" width="100%"/>
+                                    </t>
+                                    <br/>
+                                    <br/>
+                                </td>
+                            </t>
                         </tr>
-                        <t t-set="departure" t-value="departure + 1"/>
                     </t>
                 </tbody>
                 <tfooter>
