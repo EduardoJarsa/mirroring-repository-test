@@ -11,6 +11,12 @@
             <xpath expr="//field[@name='payment_term_id']" position="attributes">
                 <attribute name="options">{'no_create': False}</attribute>
             </xpath>
+            <xpath expr="//group[@name='sale_reporting']" position="attributes">
+                <attribute name="groups"></attribute>
+            </xpath>
+            <xpath expr="//field[@name='opportunity_id']" position="attributes">
+                <attribute name="groups"></attribute>
+            </xpath>
         </field>
     </record>
     <!-- Archive view to hide optional products and templates -->
