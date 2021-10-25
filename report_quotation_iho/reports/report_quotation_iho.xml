@@ -19,10 +19,9 @@
             <div class="float-right">
                 <h3 class="mt0 text-right" t-field="company.report_header"/>
             </div>
-            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" class="float-left" alt="Logo"/>
-            <div>
-                <br/>
-                <h2 t-field="o.opportunity_id.name"/>
+            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" width="130" class="float-left" alt="Logo"/>
+            <div style="text-align:left">
+                <h2 t-field="o.opportunity_id.name" style="padding:.8%"/>
             </div>
             <div class="clearfix mb8"/>
             </div>
@@ -43,7 +42,7 @@
                 <div t-if="report_type == 'pdf'" class="text-muted">
                     Page:
                     <span class="page"/>
-                    of iho
+                    of 
                     <span class="topage"/>
                 </div>
             </div>
@@ -54,7 +53,7 @@
         <t t-call= "web.html_container">
             <t t-foreach="docs" t-as="o">
                 <t t-call= "report_quotation_iho.external_layout_background_iho">
-                <div class="container" style="background-color:#F8F9F9;">
+                <div class="container" style="background-color:#F8F9F9; font-size: 10pt;" >
                     <div class="row">
                         <div>
                             <div t-if="o.partner_id">
@@ -77,6 +76,9 @@
                             </div>
                             <div t-if="o.user_id">
                                 <strong style="color:black">Executive:</strong>
+                            </div>
+                            <div t-if="o.user_id">
+                                <strong style="color:black">Currency:</strong>
                             </div>
                         </div>
                     <div class="col">
@@ -101,12 +103,16 @@
                         <div>
                             <span t-field="o.user_id"></span>
                         </div>
+                        <div>
+                            <span t-field="o.pricelist_id"></span>
+                        </div>
                     </div>
                 </div>
             </div>
+            <hr size="2px" color="red"/>
             <br/>
             <t t-set="departure" t-value="1"/>
-                <table  border="1" rules="cols" class="table">
+                <table  border="1" rules="cols" class="table" style="font-size: 10pt;">
                     <thead>
                     <tr style="background-color: red">
                       <td>
@@ -185,11 +191,11 @@
                         </tr>
                     </t>
                 </tbody>
-                <tfooter>
+                <tfooter style="font-size: 10pt;">
                     <tr t-if="o.product_total">
                         <td style="text-align:right" class="col-12" colspan="6">
                             <div>
-                                <span style="font-size: 12pt;">Product total:</span>
+                                <span style="font-size: 10pt;">Product total:</span>
                             </div>
                         </td>
                         <td style="text-align:right">
@@ -201,7 +207,7 @@
                     <tr t-if="o.service_total">
                         <td style="text-align:right" class="col-12" colspan="6">
                             <div>
-                            <span style="font-size: 12pt;" align="right">Service total:</span>
+                            <span style="font-size: 10pt;" align="right">Service total:</span>
                         </div>
                         </td>
                             <td style="text-align:right">
@@ -213,7 +219,7 @@
                     <tr t-if="o.discount_total">
                         <td style="text-align:right" class="col-12" colspan="6">
                             <div>
-                                <span style="font-size: 12pt;" align="right">Discount total:</span>
+                                <span style="font-size: 10pt;" align="right">Discount total:</span>
                             </div>
                         </td>
                         <td style="text-align:right">
@@ -225,7 +231,7 @@
                     <tr t-if="o.extra_expenses">
                         <td style="text-align:right" class="col-12" colspan="6">
                             <div>
-                                <p style="font-size: 12pt;" align="right">Extra expenses:</p>
+                                <p style="font-size: 10pt;" align="right">Extra expenses:</p>
                             </div>
                         </td>
                         <td style="text-align:right">
@@ -236,13 +242,13 @@
                     </tr>
                     <tr t-if="o.amount_total" color="black">
                         <td style="text-align:right" class="col-12" colspan="6">
-                            <div style="font-size: 12pt; color:black">
+                            <div style="font-size: 10pt; color:black">
                                 <hr size="2px" color="black"/>
-                                <strong style="font-size: 12pt; color:black" align="right">Total:</strong>
+                                <strong style="font-size: 10pt; color:black" align="right">Total:</strong>
                             </div>
                         </td>
                         <td style="text-align:right">
-                            <div t-if="o.amount_total" style="font-size: 12pt; color:black" border="0">
+                            <div t-if="o.amount_total" style="font-size: 10pt; color:black" border="0">
                                 <hr size="2px" color="black"/>
                                 <strong t-field="o.amount_untaxed" style="color:black"/>
                             </div>
@@ -255,7 +261,7 @@
                 <thead class="col-2">
                     <tr align="right">
                         <strong><h4>Terms and Conditions for the Sale of goods supplied by IHO.</h4></strong>
-                        <span t-field="o.note"/>
+                        <span t-field="o.note" style="font-size: 10pt;"/>
                     </tr>
                 </thead>
             </table>
@@ -263,7 +269,7 @@
             <table align="center" width="100%">
                 <tbody align="center">
                     <tr style="text-align:center">
-                        <td class="col-6">
+                        <td class="col-6" style="font-size: 10pt;">
                             <span t-field="o.user_id.name"/><br/>
                             <span t-esc="o.user_id.job_title"/><br/>
                             <span t-field="o.user_id.work_email"/><br/>
@@ -271,7 +277,7 @@
                         <td class="col-6">
                             <br/>
                             _____________________________________________________
-                            <br/><span>I accept quote, terms and conditions</span>
+                            <br/><span style="font-size: 10pt;">I accept quote, terms and conditions</span>
                         </td>
                     </tr>
                 </tbody>
