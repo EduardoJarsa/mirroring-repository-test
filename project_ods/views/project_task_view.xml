@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_project_task_form_iho" model="ir.ui.view">
+        <field name="name">view.project.task.form.iho</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[last()]" position="after">
+                <page name="ods" string="OdS" groups="project_ods.group_project_ods_fields_visible">
+                    <group>
+                        <field name="company_partner_id" invisible="1"/>
+                        <field name="service_center_id" options="{'no_create': True}" 
+                            domain="[('parent_id','=',company_partner_id),
+                                ('name','like','Suc %'),]"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="partner_id" options="{'no_create': True}"/>
+                            <field name="sale_order_id" 
+                                domain="[('partner_id','=',partner_id)]" 
+                                options="{'no_create': True}"/>
+                            <field name="sale_order_opportunity_id"/>
+                            <field name="planner_id" options="{'no_create': True}"/>
+                            <field name="requested_execution_date_time" 
+                                options="{'datepicker': {
+                                    'daysOfWeekDisabled': [0, 6],
+                                    'sideBySide': True,
+                                    'disabledHours': [0,1,2,3,4,5,6,7,8,20,21,22,23,24],
+                                    'stepping': 15,
+                                    'format': 'DD/MM/YYYY hh:mm',
+                                    'showTodayButton': True,
+                                    }
+                                }"/>
+                            <br/>
+                            <field name="to_invoice" widget="monetary"/>
+                            <field name="currency_id" options="{'no_create': True}"/>
+                        </group>
+                        <group>
+                            <field name="create_uid"/>
+                            <field name="create_date"/>
+                            <field name="write_uid"/>
+                            <field name="write_date"/>
+                            <br/>
+                            <field name="__last_update"/>
+                            <br/>
+                            <br/>
+                            <field name="planned_date_begin" widget="daterange" options="{'related_end_date': 'planned_date_end'}"/>
+                            <field name="planned_date_end"/>
+                        </group>
+                    </group>    
+                    <group>
+                        <field name="project_task_class_id" widget="many2many"/>
+                    </group>
+                </page>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

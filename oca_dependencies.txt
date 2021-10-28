@@ -17,3 +17,4 @@ reporting-engine git@github.com:Jarsa/reporting-engine.git 13.0
 web git@github.com:Jarsa/web.git 13.0
 product-attribute git@github.com:Jarsa/product-attribute.git 13.0
 rma git@github.com:Jarsa/rma.git 13.0
+project git@github.com:OCA/project.git 13.0

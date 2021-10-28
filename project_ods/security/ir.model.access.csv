@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+project_task_class_all_access,project.task.class.all.access,project_ods.model_project_task_class,project_ods.group_project_ods_all_access,1,1,1,1
+project_task_class_read_access,project.task.class.read.access,project_ods.model_project_task_class,project_ods.group_project_ods_fields_visible,1,0,0,0
