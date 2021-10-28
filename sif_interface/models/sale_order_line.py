@@ -204,7 +204,7 @@ class SaleOrderLine(models.Model):
                 'order': rec.order_id,
             }
             seller_line = rec.product_id.seller_ids.with_context(
-                context).filtered(
+                **context).filtered(
                 lambda r: r.name.id == r._context.get('partner') and
                 r.sale_order_id == r._context.get('order'))
             seller_to_create = {
@@ -227,7 +227,7 @@ class SaleOrderLine(models.Model):
                     'currency_id': rec.iho_currency_id.id,
                 })
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals_list):
         res = super().create(vals_list)
         res._process_product_supplierinfo()

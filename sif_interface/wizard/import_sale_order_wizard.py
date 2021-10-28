@@ -755,113 +755,152 @@ class ImportSaleOrderWizard(models.TransientModel):
             attributes_value = False
             attr, attributes_value, attributes_description = self.get_attributes(
                 self.get_data_info('Option', line['SpecItem'],), product_template=product_template)
-            code_value = self._generate_attribute_value(attributes_value)
-            full_description = self._generate_full_description(attributes_description)
-            # Remove last char
-            code_value = code_value[:-1]
-            full_description = full_description[:-2]
-            attr_value = False
-            attr_value = self.search_data(
-                code_value, 'product.attribute.value', attr=attr[0], product_template=product_template)
-            try:
-                attribute_lines, attributes_ids = self._prepare_item(attr[0], attr_value)
-                _logger.info("%s", attributes_ids)
-                routes = product_template.route_ids
-                default_code = product_template.default_code
-                if not product_template.attribute_line_ids:
-                    product_template.write({
-                        'attribute_line_ids': attribute_lines,
-                    })
-                else:
-                    # Filter to create new variants
-                    lines_attributes = product_template.attribute_line_ids
-                    product_attribute_values = lines_attributes.product_template_value_ids
-                    names = product_attribute_values.filtered(lambda l: l.name == attr_value.name)
-                    if not names:
-                        product_template.attribute_line_ids[0].write({
-                            'value_ids': [(4, attr_value.id)],
-                        })
 
-                for variant in product_template.product_variant_ids:
-                    full_code = self._generate_default_code_variant(default_code, variant)
-                    if variant.default_code != full_code:
-                        variant.write({
-                            'default_code': full_code,
-                            'route_ids': [(6, 0, routes.ids)],
-                            'full_description': default_code+' '+full_description,
-                            'categ_id': self.product_category_id.id,
-                            'taxes_id': self.taxes_id.ids,
-                            'maker_id': vendor,
-                            'product_brand_id': product_template.product_brand_id.id,
+            if not attr:
+                pub_price_total[tag_alias[0]] = pub_price_total.setdefault(
+                    tag_alias[0], 0.0) + (
+                        line['Price']['PublishedPrice'] * line['Quantity'])
+                cust_price_total[tag_alias[0]] = cust_price_total.setdefault(
+                    tag_alias[0], 0.0) + (
+                        line['Price']['EndCustomerPrice'] * line['Quantity'])
+                dealer_price_total[tag_alias[0]] = dealer_price_total.setdefault(
+                    tag_alias[0], 0.0) + (
+                    line['Price']['OrderDealerPrice'] * line['Quantity'])
+                customer_discount = (
+                    1 - (dealer_price_total[tag_alias[0]] / pub_price_total[tag_alias[0]])) * 100
+                iho_price_list = line['Price']['PublishedPrice']
+
+                sale_order_line = sale_order.order_line.create({
+                    'product_id': int(product_template.product_variant_ids),
+                    'product_uom_qty': int(line['Quantity']),
+                    'name': '['+str(line['SpecItem']['Number'])+']'+str(line['SpecItem']['Description']),
+                    'order_id': int(sale_order.id),
+                    'iho_price_list': float(iho_price_list),
+                    'discount': float(0.0),
+                    'product_uom': int(product_template.product_variant_ids.uom_id.id),
+                    'customer_discount': float(customer_discount),
+                    'iho_currency_id': int(iho_currency_id.id),
+                    'analytic_tag_ids': [(6, 0, sale_order.analytic_tag_ids.ids)],
+                    'product_packaging': 0,
+                    'display_type': 0,
+                })
+                sale_order_line.write({
+                    'iho_service_factor': 1.0,
+                })
+                sale_order_line._compute_sell_1()
+                sale_order_line._compute_sell_2()
+                sale_order_line._compute_sell_3()
+                sale_order_line._compute_sell_4()
+
+            if attr:
+                code_value = self._generate_attribute_value(attributes_value)
+                full_description = self._generate_full_description(attributes_description)
+                # Remove last char
+                code_value = code_value[:-1]
+                full_description = full_description[:-2]
+                attr_value = False
+                attr_value = self.search_data(
+                    code_value, 'product.attribute.value', attr=attr[0], product_template=product_template)
+                try:
+                    attribute_lines, attributes_ids = self._prepare_item(attr[0], attr_value)
+                    _logger.info("%s", attributes_ids)
+                    routes = product_template.route_ids
+                    default_code = product_template.default_code
+                    if not product_template.attribute_line_ids:
+                        product_template.write({
+                            'attribute_line_ids': attribute_lines,
                         })
-                        if len(product_template.product_variant_ids) == 1:
-                            variant.variant_seller_ids.write({
-                                'product_id': variant,
+                    else:
+                        # Filter to create new variants
+                        lines_attributes = product_template.attribute_line_ids
+                        product_attribute_values = lines_attributes.product_template_value_ids
+                        names = product_attribute_values.filtered(lambda l: l.name == attr_value.name)
+                        if not names:
+                            product_template.attribute_line_ids[0].write({
+                                'value_ids': [(4, attr_value.id)],
                             })
-                        else:
-                            seller = variant.variant_seller_ids.filtered(
-                                lambda l: l.sale_order_id == sale_order
-                                and l.product_id == variant)
-                            if not seller:
-                                psi_obj = self.env['product.supplierinfo']
-                                currency_id = self.env.ref('base.'+currency).id
-                                psi_obj.create({
-                                    'name': vendor.id,
-                                    'delay': 1,
-                                    'min_qty': 0,
-                                    'price': 1.0,
-                                    'product_tmpl_id': product_template.id,
-                                    'sale_order_id': sale_order.id,
-                                    'currency_id': currency_id,
-                                    'product_id': variant.id,
+
+                    for variant in product_template.product_variant_ids:
+                        full_code = self._generate_default_code_variant(default_code, variant)
+                        if variant.default_code != full_code:
+                            variant.write({
+                                'default_code': full_code,
+                                'route_ids': [(6, 0, routes.ids)],
+                                'full_description': default_code+' '+full_description,
+                                'categ_id': self.product_category_id.id,
+                                'taxes_id': self.taxes_id.ids,
+                                'maker_id': vendor,
+                                'product_brand_id': product_template.product_brand_id.id,
+                            })
+                            if len(product_template.product_variant_ids) == 1:
+                                variant.variant_seller_ids.write({
+                                    'product_id': variant,
                                 })
-                if not product_template.default_code:
-                    product_template.write({
-                        'default_code': default_code,
-                    })
-            except Exception as exc:
-                error_def_code = str(line['SpecItem']['Alias']['Number'])
-                error_prod_descp = str(line['SpecItem']['Description'])
-                raise ValidationError(str(exc) + _(
-                    '\n\n Product: [%s] - %s')
-                    % (error_def_code, error_prod_descp))
-            current_code_variant = default_code + ' ' + code_value
-            product_variant = product_template.product_variant_ids.filtered(
-                lambda l: l.default_code == current_code_variant)
-            pub_price_total[tag_alias[0]] = pub_price_total.setdefault(
-                tag_alias[0], 0.0) + (
-                    line['Price']['PublishedPrice'] * line['Quantity'])
-            cust_price_total[tag_alias[0]] = cust_price_total.setdefault(
-                tag_alias[0], 0.0) + (
-                    line['Price']['EndCustomerPrice'] * line['Quantity'])
-            dealer_price_total[tag_alias[0]] = dealer_price_total.setdefault(
-                tag_alias[0], 0.0) + (
-                line['Price']['OrderDealerPrice'] * line['Quantity'])
-            customer_discount = (
-                1 - (cust_price_total[tag_alias[0]] / pub_price_total[tag_alias[0]])) * 100
-            customer_discount = (
-                1 - (dealer_price_total[tag_alias[0]] / pub_price_total[tag_alias[0]])) * 100
-            iho_price_list = line['Price']['PublishedPrice']
-            sale_order_line = sale_order.order_line.create({
-                'product_id': product_variant.id,
-                'product_uom_qty': line['Quantity'],
-                'name': product_variant.display_name,
-                'order_id': sale_order.id,
-                'iho_price_list': iho_price_list,
-                'discount': customer_discount,
-                'product_uom': product_variant.uom_id.id,
-                'customer_discount': customer_discount,
-                'iho_currency_id': iho_currency_id.id,
-                'analytic_tag_ids': [(6, 0, sale_order.analytic_tag_ids.ids)],
-            })
-            sale_order_line.write({
-                'iho_service_factor': 1.0,
-            })
-            sale_order_line._compute_sell_1()
-            sale_order_line._compute_sell_2()
-            sale_order_line._compute_sell_3()
-            sale_order_line._compute_sell_4()
-            self._change_varriant_seller(product_variant, vendor, sale_order_line.price_unit)
+                            else:
+                                seller = variant.variant_seller_ids.filtered(
+                                    lambda l: l.sale_order_id == sale_order
+                                    and l.product_id == variant)
+                                if not seller:
+                                    psi_obj = self.env['product.supplierinfo']
+                                    currency_id = self.env.ref('base.'+currency).id
+                                    psi_obj.create({
+                                        'name': vendor.id,
+                                        'delay': 1,
+                                        'min_qty': 0,
+                                        'price': 1.0,
+                                        'product_tmpl_id': product_template.id,
+                                        'sale_order_id': sale_order.id,
+                                        'currency_id': currency_id,
+                                        'product_id': variant.id,
+                                    })
+                    if not product_template.default_code:
+                        product_template.write({
+                            'default_code': default_code,
+                        })
+                except Exception as exc:
+                    error_def_code = str(line['SpecItem']['Alias']['Number'])
+                    error_prod_descp = str(line['SpecItem']['Description'])
+                    raise ValidationError(str(exc) + _(
+                        '\n\n Product: [%s] - %s')
+                        % (error_def_code, error_prod_descp))
+                current_code_variant = default_code + ' ' + code_value
+                product_variant = product_template.product_variant_ids.filtered(
+                    lambda l: l.default_code == current_code_variant)
+                pub_price_total[tag_alias[0]] = pub_price_total.setdefault(
+                    tag_alias[0], 0.0) + (
+                        line['Price']['PublishedPrice'] * line['Quantity'])
+                cust_price_total[tag_alias[0]] = cust_price_total.setdefault(
+                    tag_alias[0], 0.0) + (
+                        line['Price']['EndCustomerPrice'] * line['Quantity'])
+                dealer_price_total[tag_alias[0]] = dealer_price_total.setdefault(
+                    tag_alias[0], 0.0) + (
+                    line['Price']['OrderDealerPrice'] * line['Quantity'])
+                customer_discount = (
+                    1 - (dealer_price_total[tag_alias[0]] / pub_price_total[tag_alias[0]])) * 100
+                iho_price_list = line['Price']['PublishedPrice']
+
+                sale_order_line = sale_order.order_line.create({
+                    'product_id': product_variant.id,
+                    'product_uom_qty': line['Quantity'],
+                    'name': product_variant.display_name,
+                    'order_id': sale_order.id,
+                    'iho_price_list': iho_price_list,
+                    'discount': 0.0,
+                    'product_uom': product_variant.uom_id.id,
+                    'customer_discount': customer_discount,
+                    'iho_currency_id': iho_currency_id.id,
+                    'analytic_tag_ids': [(6, 0, sale_order.analytic_tag_ids.ids)],
+                })
+                sale_order_line.write({
+                    'iho_service_factor': 1.0,
+                })
+                sale_order_line._compute_sell_1()
+                sale_order_line._compute_sell_2()
+                sale_order_line._compute_sell_3()
+                sale_order_line._compute_sell_4()
+
+                self._change_varriant_seller(product_variant, vendor, sale_order_line.price_unit)
+
         message = _(
             "The file %s was correctly loaded. ") % (self.file_name)
         sale_order.message_post(body=message)
