@@ -17,8 +17,11 @@
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
+        'views/res_partner_view.xml',
         'views/project_project_view.xml',
         'views/project_task_view.xml',
         'views/project_task_class_view.xml',
+        'reports/report_ods_service_order_iho.xml',
+        'views/report_ods_service_order_iho_views.xml',
     ],
 }

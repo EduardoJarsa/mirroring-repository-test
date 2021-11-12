@@ -1,13 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="view_project_task_kanban_iho" model="ir.ui.view">
+        <field name="name">view.project.task.kanban.iho</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="service_order_number"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_project_task_tree_iho" model="ir.ui.view">
+        <field name="name">view.project.task.tree.iho</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_tree2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="before">
+                <field name="service_order_number"/>
+            </xpath>
+        </field>
+    </record>
     <record id="view_project_task_form_iho" model="ir.ui.view">
         <field name="name">view.project.task.form.iho</field>
         <field name="model">project.task</field>
         <field name="inherit_id" ref="project.view_task_form2"/>
         <field name="arch" type="xml">
             <xpath expr="//notebook/page[last()]" position="after">
-                <page name="ods" string="OdS" groups="project_ods.group_project_ods_fields_visible">
+                <page name="ods" string="OdS" 
+                    attrs="{'invisible': [('project_project_service_order_iho','=',False)]}" 
+                    groups="project_ods.group_project_ods_fields_visible">
+                    <field name="project_project_service_order_iho" invisible="1"/>
                     <group>
+                        <b><h2><field name="service_order_number" readonly="1"/></h2></b>
                         <field name="company_partner_id" invisible="1"/>
                         <field name="service_center_id" options="{'no_create': True}" 
                             domain="[('parent_id','=',company_partner_id),
@@ -20,7 +44,13 @@
                                 domain="[('partner_id','=',partner_id)]" 
                                 options="{'no_create': True}"/>
                             <field name="sale_order_opportunity_id"/>
-                            <field name="planner_id" options="{'no_create': True}"/>
+                            <field name="service_order_contact_id" 
+                                domain="[('parent_id','=',partner_id),('type','=','contact')]"
+                                options="{'no_create': True}"/>
+                            <field name="service_order_address_id" 
+                                domain="[('parent_id','=',partner_id),('type','=','delivery')]"
+                                options="{'no_create': True}"/>
+                            <field name="planner_id" options="{'no_create': True, 'no_open': '1'}"/>
                             <field name="requested_execution_date_time" 
                                 options="{'datepicker': {
                                     'daysOfWeekDisabled': [0, 6],
@@ -33,9 +63,10 @@
                                 }"/>
                             <br/>
                             <field name="to_invoice" widget="monetary"/>
-                            <field name="currency_id" options="{'no_create': True}"/>
+                            <field name="currency_id" options="{'no_create': True, 'no_open': '1'}"/>
                         </group>
                         <group>
+                            <br/><br/>
                             <field name="create_uid"/>
                             <field name="create_date"/>
                             <field name="write_uid"/>
@@ -49,11 +80,10 @@
                         </group>
                     </group>    
                     <group>
-                        <field name="project_task_class_id" widget="many2many"/>
+                        <field name="project_task_class_ids" widget="many2many"/>
                     </group>
                 </page>
             </xpath>
-
         </field>
     </record>
 </odoo>

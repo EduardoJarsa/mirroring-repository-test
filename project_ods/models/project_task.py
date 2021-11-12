@@ -9,12 +9,12 @@ from odoo.tools import date_utils
 class ProjectTask(models.Model):
     _inherit = "project.task"
 
-    project_task_class_id = fields.Many2many(
+    project_task_class_ids = fields.Many2many(
         'project.task.class',
     )
     sale_order_id = fields.Many2one(
         'sale.order',
-        help='Approved sale oredrs of the Customer',
+        help='Approved sale order of the Customer',
     )
     sale_order_opportunity_id = fields.Many2one(
         'crm.lead',
@@ -44,6 +44,28 @@ class ProjectTask(models.Model):
     requested_execution_date_time = fields.Datetime(
         help='Date this order has to be executed',
     )
+    service_order_number = fields.Char(
+        string='OdS'
+    )
+    service_order_contact_id = fields.Many2one(
+        'res.partner',
+    )
+    service_order_address_id = fields.Many2one(
+        'res.partner',
+    )
+    project_project_service_order_iho = fields.Boolean(
+        related='project_id.service_order_iho'
+    )
+
+    @api.depends('name', 'service_order_number')
+    def _compute_display_name(self):
+        for rec in self:
+            rec.display_name = (
+                (rec.service_order_number + ' '
+                    if rec.service_order_number else '')
+                + (rec.name
+                    if rec.name else '')
+            )
 
     @api.depends('company_id')
     def _compute_company_partner_id(self):
@@ -93,3 +115,20 @@ class ProjectTask(models.Model):
                     _('Date not available, select on or after %s') %
                     best_date.strftime('%d-%m-%Y')
                 )
+
+    def write(self, vals):
+        for rec in self:
+            res = super().write(vals)
+            if (
+                rec.project_id.service_order_iho
+                and not rec.service_order_number
+            ):
+                if not rec.service_center_id.service_order_sequence_id:
+                    raise ValidationError(
+                        _('Service center sequence not defined'))
+                next_folio = (
+                    rec.service_center_id.service_order_sequence_id.
+                    next_by_id())
+                rec.write(
+                    {'service_order_number': next_folio})
+        return res

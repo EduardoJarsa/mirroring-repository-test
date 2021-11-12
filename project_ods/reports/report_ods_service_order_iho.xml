@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id = "report_ods_service_order_iho">
+        <t t-call= "web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call= "web.external_layout">
+                    <div class="container" style="background-color:#F8F9F9;">
+                        <table width="100%">
+                            <tbody>
+                                <tr>
+                                    <td width="50%">
+                                        <h4><span t-field="o.partner_id" style="color:black"/></h4>
+                                        <span style="color:black;font-size:18px;" t-field="o.service_order_address_id.name"></span>
+                                        <div t-field="o.service_order_address_id" t-options='{"widget": "contact", "fields": ["address",], "no_marker": True, "phone_icons": True}'/>
+                                        <br/>
+                                        <span style="color:black;font-size:18px;" t-field="o.service_order_contact_id.name"></span>
+                                        <div t-field="o.service_order_contact_id" t-options='{"widget": "contact", "fields": ["phone", "mobile", "email"], "no_marker": False, "phone_icons": True}'/>
+                                    </td>
+                                    <td width="50%">
+                                        <h4 style="color:black">Service Order     <span t-field="o.service_order_number" style="color:black;text-align:right"/></h4>
+                                        <span t-field="o.service_center_id.name" style="color:black"></span><br/><br/>
+                                        <div t-if="o.sale_order_id">
+                                            <strong style="color:black;font-size:18px;">Sales Order</strong><br/>
+                                            <span t-field="o.sale_order_id"></span><br/>
+                                            <span t-field="o.sale_order_opportunity_id"></span><br/>
+                                        </div>
+                                        <t t-if="o.requested_execution_date_time">
+                                            <br>Requested Date Time: </br>
+                                            <span t-esc="o.requested_execution_date_time.strftime('%d-%b-%y %H:%M')"/>
+                                        </t>
+                                        <br>Requestor: </br>
+                                        <span t-field="o.create_uid"></span><br/>
+                                        <strong style="color:black;font-size:18px;" t-if="o.to_invoice &gt; 0">Service WITH cost</strong>
+                                        <br t-if="o.to_invoice == 0">Service WITHOUT cost authorized by: </br>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <br/>
+                                        <strong style="color:black;font-size:18px">Service Description</strong><br/>
+                                        <span t-field="o.description" style="font-size:12px"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <b style="color:black;font-size:18px;">Service Team</b>
+                                        <br>Transport</br>
+                                        <br>Handling</br>
+                                        <br>Installation</br>
+                                        <br>Supervisor</br>
+                                        <br/>
+                                        <br>Notes:</br>
+                                    </td>
+                                    <td align="right">
+                                        <br/>
+                                        <br/>
+                                        <br>_____________________________________________</br>
+                                        <br>Material received complete and in good shape</br>
+                                        <br>Electronic parts have not warranty</br>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

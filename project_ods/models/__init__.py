@@ -5,3 +5,4 @@
 from . import project_task_class
 from . import project_task
 from . import project_project
+from . import res_partner
