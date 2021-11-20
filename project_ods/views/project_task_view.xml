@@ -25,6 +25,26 @@
         <field name="model">project.task</field>
         <field name="inherit_id" ref="project.view_task_form2"/>
         <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button type="object" name="show_task_warnings" class="oe_stat_button"
+                    icon="fa-exclamation" 
+                    attrs="{'invisible': ['|',
+                        ('ptc_number_of_ids', '=', 0),
+                        ('ptc_was_modified', '=', True),
+                    ], }">
+                    <field name="ptc_number_of_ids" widget="statinfo" string="Warnings" invisible="0"/>
+                    <field name="ptc_was_modified" invisible="1"/>
+                </button>
+                <button type="object" name="show_task_warnings" class="oe_stat_button text-danger"
+                    icon="fa-exclamation-circle" 
+                    attrs="{'invisible': ['|',
+                        ('ptc_number_of_ids', '=', 0),
+                        ('ptc_was_modified', '=', False),
+                    ], }">
+                    <field name="ptc_number_of_ids" widget="statinfo" string="Warnings" invisible="0"/>
+                    <field name="ptc_was_modified" invisible="1"/>
+                </button>
+            </div>
             <xpath expr="//notebook/page[last()]" position="after">
                 <page name="ods" string="OdS" 
                     attrs="{'invisible': [('project_project_service_order_iho','=',False)]}" 

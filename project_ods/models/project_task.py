@@ -12,6 +12,19 @@ class ProjectTask(models.Model):
     project_task_class_ids = fields.Many2many(
         'project.task.class',
     )
+    ptc_was_modified = fields.Boolean(
+        compute='_compute_ptc_was_modified',
+        store=True,
+    )
+    ptc_number_of_ids = fields.Integer(
+        compute='_compute_ptc_number_of_ids',
+    )
+    ptc_service_type = fields.Char(
+        compute='_compute_ptc_service_type',
+    )
+    ptc_additionals = fields.Char(
+        compute='_compute_ptc_additionals',
+    )
     sale_order_id = fields.Many2one(
         'sale.order',
         help='Approved sale order of the Customer',
@@ -57,6 +70,20 @@ class ProjectTask(models.Model):
         related='project_id.service_order_iho'
     )
 
+    @api.depends('project_task_class_ids')
+    def _compute_ptc_was_modified(self):
+        for rec in self:
+            rec.ptc_was_modified = True
+
+    @api.depends('project_task_class_ids')
+    def _compute_ptc_number_of_ids(self):
+        for rec in self:
+            rec.ptc_number_of_ids = (len(
+                rec.project_task_class_ids.filtered(
+                    lambda l: l.warning_message
+                ).ids
+            ) if rec.project_task_class_ids else 0)
+
     @api.depends('name', 'service_order_number')
     def _compute_display_name(self):
         for rec in self:
@@ -82,6 +109,30 @@ class ProjectTask(models.Model):
                 rec.sale_order_id.opportunity_id if rec.sale_order_id
                 and rec.sale_order_id.opportunity_id else False
             )
+
+    @api.depends('project_task_class_ids')
+    def _compute_ptc_service_type(self):
+        for rec in self:
+            ptc_service_type = ''
+            for ptc in rec.project_task_class_ids:
+                ptc_service_type +=\
+                    ptc.name+", " if (
+                        ptc.parent_id ==
+                        self.env.ref('project_ods.project_task_class_service_type')
+                    ) else ''
+            rec.ptc_service_type = ptc_service_type
+
+    @api.depends('project_task_class_ids')
+    def _compute_ptc_additionals(self):
+        for rec in self:
+            ptc_additionals = ''
+            for ptc in rec.project_task_class_ids:
+                ptc_additionals +=\
+                    ptc.name+", " if (
+                        ptc.parent_id ==
+                        self.env.ref('project_ods.project_task_class_additionals')
+                    ) else ''
+            rec.ptc_additionals = ptc_additionals
 
     @api.constrains('requested_execution_date_time')
     def _validate_requested_execution_date(self):
@@ -116,19 +167,20 @@ class ProjectTask(models.Model):
                     best_date.strftime('%d-%m-%Y')
                 )
 
+    def show_task_warnings(self):
+        return self.project_task_class_ids.show_class_warnings(
+            self.project_task_class_ids.ids)
+
     def write(self, vals):
         for rec in self:
+            if rec.project_id.service_order_iho:
+                if not rec.service_order_number:
+                    if not rec.service_center_id.service_order_sequence_id:
+                        raise ValidationError(
+                            _('Service center sequence not defined'))
+                    vals['service_order_number'] = (
+                        rec.service_center_id.service_order_sequence_id.
+                        next_by_id())
+                vals['ptc_was_modified'] = False
             res = super().write(vals)
-            if (
-                rec.project_id.service_order_iho
-                and not rec.service_order_number
-            ):
-                if not rec.service_center_id.service_order_sequence_id:
-                    raise ValidationError(
-                        _('Service center sequence not defined'))
-                next_folio = (
-                    rec.service_center_id.service_order_sequence_id.
-                    next_by_id())
-                rec.write(
-                    {'service_order_number': next_folio})
         return res

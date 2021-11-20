@@ -23,5 +23,6 @@
         'views/project_task_class_view.xml',
         'reports/report_ods_service_order_iho.xml',
         'views/report_ods_service_order_iho_views.xml',
+        'data/project_task_class.xml',
     ],
 }

@@ -1,13 +1,13 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* sale_order_sequence
+# 	* project_ods
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-28 03:54+0000\n"
-"PO-Revision-Date: 2020-10-28 03:54+0000\n"
+"POT-Creation-Date: 2021-11-21 02:33+0000\n"
+"PO-Revision-Date: 2021-11-21 02:33+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -15,39 +15,341 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: sale_order_sequence
-#: model:ir.model.fields,field_description:sale_order_sequence.field_crm_team__confirmed_sequence_id
-msgid "Confirmed Sequence"
-msgstr "Secuencia Confirmado"
+#. module: project_ods
+#: model_terms:ir.ui.view,arch_db:project_ods.report_ods_service_order_iho
+msgid ""
+"<b style=\"color:black;font-size:18px;\">Service Team</b>\n"
+"                                        <br>Transport</br>\n"
+"                                        <br>Handling</br>\n"
+"                                        <br>Installation</br>\n"
+"                                        <br>Supervisor</br>\n"
+"                                        <br/>\n"
+"                                        <br>Notes:</br>"
+msgstr ""
+"<b style=\"color:black;font-size:18px;\">Equipo de Servicio</b>\n"
+"                                        <br>Transporte</br>\n"
+"                                        <br>Manejo</br>\n"
+"                                        <br>Instalación</br>\n"
+"                                        <br>Supervisor</br>\n"
+"                                        <br/>\n"
+"                                        <br>Notas:</br>"
 
-#. module: sale_order_sequence
-#: model:ir.model,name:sale_order_sequence.model_sale_order
+#. module: project_ods
+#: model_terms:ir.ui.view,arch_db:project_ods.report_ods_service_order_iho
+msgid ""
+"<br/>\n"
+"                                        <br/>\n"
+"                                        <br>_____________________________________________</br>\n"
+"                                        <br>Material received complete and in good shape</br>\n"
+"                                        <br>Electronic parts have not warranty</br>"
+msgstr ""
+"<br/>\n"
+"                                        <br/>\n"
+"                                        <br>___________________________________________________</br>\n"
+"                                        <br>Material recibido completo y en Buenas condiciones</br>\n"
+"                                        <br>Partes electrónicas No tienen garantía</br>"
+
+#. module: project_ods
+#: model_terms:ir.ui.view,arch_db:project_ods.report_ods_service_order_iho
+msgid ""
+"<br/>\n"
+"                                        <strong style=\"color:black;font-size:18px\">Service Description</strong><br/>"
+msgstr ""
+"<br/>\n"
+"                                        <strong style=\"color:black;font-size:18px\">Descripción del Servicio</strong><br/>"
+
+#. module: project_ods
+#: model_terms:ir.ui.view,arch_db:project_ods.report_ods_service_order_iho
+msgid ""
+"<br/>\n"
+"                                        <strong style=\"color:black;font-size:18px;\">Additionals: </strong>"
+msgstr ""
+"<br/>\n"
+"                                        <strong style=\"color:black;font-size:18px;\">Adicionales: </strong>"
+
+#. module: project_ods
+#: model_terms:ir.ui.view,arch_db:project_ods.report_ods_service_order_iho
+msgid ""
+"<br/><br/>\n"
+"                                        <strong style=\"color:black;font-size:18px;\">Type of Service: </strong>"
+msgstr ""
+"<br/><br/>\n"
+"                                        <strong style=\"color:black;font-size:18px;\">Tipo de Servicio: </strong>"
+
+#. module: project_ods
+#: model_terms:ir.ui.view,arch_db:project_ods.report_ods_service_order_iho
+msgid "<br>Requested Date Time: </br>"
+msgstr "<br>Fecha y Hora solicitada: </br>"
+
+#. module: project_ods
+#: model_terms:ir.ui.view,arch_db:project_ods.report_ods_service_order_iho
+msgid "<br>Requestor: </br>"
+msgstr "<br>Solicitante: </br>"
+
+#. module: project_ods
+#: model_terms:ir.ui.view,arch_db:project_ods.report_ods_service_order_iho
+msgid "<strong style=\"color:black;font-size:18px;\">Sales Order:    .</strong>"
+msgstr "<strong style=\"color:black;font-size:18px;\">Número de Pedido:    .</strong>"
+
+#. module: project_ods
+#: model:res.groups,comment:project_ods.group_project_ods_all_access
+msgid "Allows to manage config for IHO Service orders"
+msgstr "Permite administrar la Configuración de OdS IHO"
+
+#. module: project_ods
+#: model:res.groups,comment:project_ods.group_project_ods_fields_visible
+msgid "Allows to see project added fields for IHO Service orders"
+msgstr "Permite VER los campos agregados para OdS IHO"
+
+#. module: project_ods
+#: model:ir.model.fields,help:project_ods.field_project_task__planner_id
+msgid "Available Planners as \"Proyectista\""
+msgstr "Planeadores registrados como \"Proyectista\""
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task__company_partner_id
+msgid "Company Partner"
+msgstr ""
+
+#. module: project_ods
+#: model:ir.model.fields,help:project_ods.field_project_task__service_center_id
+msgid "Company Service centers registered as company contacts \"Suc \""
+msgstr "Centros de Servicio de la Compañia registrados como Contactos \"Suc \""
+
+#. module: project_ods
+#: model:ir.model,name:project_ods.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task_class__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task_class__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: project_ods
+#: code:addons/project_ods/models/project_task.py:0
+#, python-format
+msgid "Date not available, select on or after %s"
+msgstr "Fecha NO disponible, seleccione una a partir del %s"
+
+#. module: project_ods
+#: model:ir.model.fields,help:project_ods.field_project_task__requested_execution_date_time
+msgid "Date this order has to be executed"
+msgstr "Fecha en la que la Orden debe ser realizada"
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task_class__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task_class__id
+msgid "ID"
+msgstr ""
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task_class____last_update
+msgid "Last Modified on"
+msgstr "Última fecha de modificación"
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task_class__write_uid
+msgid "Last Updated by"
+msgstr "Último usuario que Actualizó"
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task_class__write_date
+msgid "Last Updated on"
+msgstr "Última fecha de Actualización"
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task_class__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task__service_order_number
+#: model_terms:ir.ui.view,arch_db:project_ods.view_project_task_form_iho
+msgid "OdS"
+msgstr ""
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task_class__parent_id
+msgid "Parent"
+msgstr "Padre"
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task__planner_id
+msgid "Planner"
+msgstr "Planeador"
+
+#. module: project_ods
+#: model:ir.model,name:project_ods.model_project_project
+msgid "Project"
+msgstr "Proyecto"
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task__project_task_class_ids
+msgid "Project Task Class"
+msgstr "Clasificaciones"
+
+#. module: project_ods
+#: model:ir.actions.act_window,name:project_ods.action_project_task_class
+#: model:ir.ui.menu,name:project_ods.project_task_class_menu
+msgid "Project Task Classifications"
+msgstr "Clasificaciones"
+
+#. module: project_ods
+#: code:addons/project_ods/models/project_task_class.py:0
+#, python-format
+msgid "Project class task warnings"
+msgstr "Advertencias"
+
+#. module: project_ods
+#: model:res.groups,name:project_ods.group_project_ods_all_access
+msgid "Projects with IHO Service order all access"
+msgstr ""
+
+#. module: project_ods
+#: model:res.groups,name:project_ods.group_project_ods_fields_visible
+msgid "Projects with IHO Service order fields access"
+msgstr ""
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task__ptc_additionals
+msgid "Ptc Additionals"
+msgstr ""
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task__ptc_number_of_ids
+msgid "Ptc Number Of"
+msgstr ""
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task__ptc_service_type
+msgid "Ptc Service Type"
+msgstr ""
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task__ptc_was_modified
+msgid "Ptc Was Modified"
+msgstr ""
+
+#. module: project_ods
+#: model:ir.model.fields,help:project_ods.field_project_task__sale_order_opportunity_id
+msgid "Registered opportunity at the sale order"
+msgstr "Oportunidad"
+
+#. module: project_ods
+#: model:ir.actions.report,name:project_ods.action_report_ods_service_order_iho
+msgid "Report Service Order IHO"
+msgstr "Reporte OdS"
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task__requested_execution_date_time
+msgid "Requested Execution Date Time"
+msgstr "Fecha y Hora del Servicio"
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task__sale_order_opportunity_id
+msgid "Sale Order Opportunity"
+msgstr "Oportunidad"
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task__sale_order_id
 msgid "Sales Order"
-msgstr "Pedido de venta"
+msgstr "Pedido"
 
-#. module: sale_order_sequence
-#: model:ir.model,name:sale_order_sequence.model_crm_team
-msgid "Sales Team"
-msgstr "Equipo de Ventas"
+#. module: project_ods
+#: model:ir.model.fields,help:project_ods.field_project_task__sale_order_id
+msgid "Sales order to which the task is linked."
+msgstr "Pedido ligado a esta tarea"
 
-#. module: sale_order_sequence
-#: model:ir.model.fields,field_description:sale_order_sequence.field_crm_team__sequence_id
-msgid "Sequence"
-msgstr "Secuencia"
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task__service_center_id
+msgid "Service Center"
+msgstr "Centro de Servicio"
 
-#. module: sale_order_sequence
-#: model:ir.model.fields,help:sale_order_sequence.field_crm_team__confirmed_sequence_id
-msgid ""
-"The sequence selected on this field will be passed to the Sale Order when is"
-" confirmed"
+#. module: project_ods
+#: model_terms:ir.ui.view,arch_db:project_ods.report_ods_service_order_iho
+msgid "Service Order"
+msgstr "Órden de Servicio"
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task__service_order_address_id
+msgid "Service Order Address"
+msgstr "Dirección"
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task__service_order_contact_id
+msgid "Service Order Contact"
+msgstr "Contacto"
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_project__service_order_iho
+#: model:ir.model.fields,field_description:project_ods.field_project_task__project_project_service_order_iho
+msgid "Service Order Iho"
+msgstr "OdS IHO"
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_res_partner__service_order_sequence_id
+#: model:ir.model.fields,field_description:project_ods.field_res_users__service_order_sequence_id
+msgid "Service Order Sequence"
 msgstr ""
-"La secuencia seleccionada en este campo será definida en el pedido de venta "
-"cuando sea confirmado"
 
-#. module: sale_order_sequence
-#: model:ir.model.fields,help:sale_order_sequence.field_crm_team__sequence_id
-msgid ""
-"The sequence selected on this field will be passed to the sale team selected"
-" in the Sale Order."
+#. module: project_ods
+#: model:ir.model.fields,help:project_ods.field_res_partner__service_order_sequence_id
+#: model:ir.model.fields,help:project_ods.field_res_users__service_order_sequence_id
+msgid "Service Orders Sequence for the service center"
 msgstr ""
-"La secuencia seleccionada en este campo será definida al pedido de venta."
+
+#. module: project_ods
+#: model_terms:ir.ui.view,arch_db:project_ods.report_ods_service_order_iho
+msgid "Service WITH cost"
+msgstr "Servicio CON Costo"
+
+#. module: project_ods
+#: model_terms:ir.ui.view,arch_db:project_ods.report_ods_service_order_iho
+msgid "Service WITHOUT cost authorized by:"
+msgstr "Servicio SIN Costo autorizado por:"
+
+#. module: project_ods
+#: code:addons/project_ods/models/project_task.py:0
+#, python-format
+msgid "Service center sequence not defined"
+msgstr "Secuencia del folio del Centro de Servicio NO definida"
+
+#. module: project_ods
+#: model:ir.model,name:project_ods.model_project_task
+msgid "Task"
+msgstr "Tarea"
+
+#. module: project_ods
+#: model:ir.model,name:project_ods.model_project_task_class
+msgid "Task classifications for IHO Project tasks"
+msgstr "Clasificaciones de tareas para OdS IHO"
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task__to_invoice
+msgid "To Invoice"
+msgstr "Para facturar"
+
+#. module: project_ods
+#: model:ir.model.fields,field_description:project_ods.field_project_task_class__warning_message
+msgid "Warning Message"
+msgstr "Mensaje de Advertencia"
+
+#. module: project_ods
+#: model_terms:ir.ui.view,arch_db:project_ods.view_project_task_form_iho
+msgid "Warnings"
+msgstr "Advertencias"
