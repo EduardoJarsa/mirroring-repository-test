@@ -153,40 +153,44 @@ class SaleOrderLine(models.Model):
     # Field level validation at saving time
     @api.constrains('dealer_discount')
     def _onchange_dealer_discount(self):
-        if self.dealer_discount < 0 or self.dealer_discount > 100:
-            raise ValidationError(
-                _('Error: Column "Dealer discount" at [%s] has value of [%s] '
-                  'and must be [0-100]') %
-                (self._product_int_ref(), self.dealer_discount))
+        for rec in self:
+            if rec.dealer_discount < 0 or rec.dealer_discount > 100:
+                raise ValidationError(
+                    _('Error: Column "Dealer discount" at [%s] has value '
+                        'of [%s] and must be [0-100]') %
+                    (rec._product_int_ref(), rec.dealer_discount))
 
     @api.constrains('customer_discount')
     def _constrains_customer_discount(self):
-        if self.customer_discount < 0 or self.customer_discount > 100:
-            raise ValidationError(
-                _('Error: Column "Customer discount" at [%s] has value '
-                  ' of [%s] and must be [0-100]') %
-                (self._product_int_ref(), self.customer_discount))
+        for rec in self:
+            if rec.customer_discount < 0 or rec.customer_discount > 100:
+                raise ValidationError(
+                    _('Error: Column "Customer discount" at [%s] has value '
+                      ' of [%s] and must be [0-100]') %
+                    (rec._product_int_ref(), rec.customer_discount))
 
     @api.constrains('iho_factor')
     def _constrains_iho_factor(self):
-        if self.iho_factor < 1 or self.iho_factor > 10:
-            raise ValidationError(
-                _('Error: Column "Factor" at [%s] has value of [%s] '
-                  'and must be [1-10]') %
-                (self._product_int_ref(), self.iho_factor))
+        for rec in self:
+            if rec.iho_factor < 1 or rec.iho_factor > 10:
+                raise ValidationError(
+                    _('Error: Column "Factor" at [%s] has value of [%s] '
+                      'and must be [1-10]') %
+                    (rec._product_int_ref(), rec.iho_factor))
 
     @api.constrains('iho_service_factor')
     def _constrains_iho_service_factor(self):
-        if self.product_id.type in ('product', 'consu') and\
-                (self.iho_service_factor < 1 or
-                 self.iho_service_factor > 1.99):
-            raise ValidationError(
-                _('Error: Column "Service factor" at [%s] has value of [%s] '
-                  'and must be [1-1.99]') %
-                (self._product_int_ref(), self.iho_service_factor))
-        if self.product_id.type == 'service' and \
-                self.iho_service_factor != 1.0:
-            self.iho_service_factor = 1.0
+        for rec in self:
+            if rec.product_id.type in ('product', 'consu') and\
+                    (rec.iho_service_factor < 1 or
+                     rec.iho_service_factor > 1.99):
+                raise ValidationError(
+                    _('Error: Column "Service factor" at [%s] has '
+                        'value of [%s] and must be [1-1.99]') %
+                    (rec._product_int_ref(), rec.iho_service_factor))
+            if rec.product_id.type == 'service' and \
+                    rec.iho_service_factor != 1.0:
+                rec.iho_service_factor = 1.0
 
     def _process_product_supplierinfo(self):
         for rec in self:

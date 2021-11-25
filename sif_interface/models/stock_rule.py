@@ -4,8 +4,7 @@
 
 # pylint: disable=C0103
 
-from odoo import _, models
-from odoo.exceptions import ValidationError
+from odoo import models
 
 
 class StockRule(models.Model):
@@ -17,11 +16,6 @@ class StockRule(models.Model):
         maker_currency = values[0].get('supplier').name.property_purchase_currency_id.id
         if maker_currency:
             res['currency_id'] = maker_currency
-        else:
-            partner_name = values[0].get('supplier').name.ref
-            raise ValidationError(_(
-                'Maker Partner [%s] has not Purchase Currency set') %
-                (partner_name))
         return res
 
     def _prepare_purchase_order_line(self, product_id, product_qty,
