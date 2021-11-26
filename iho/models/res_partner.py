@@ -20,7 +20,11 @@ class Partner(models.Model):
     street_number2 = fields.Char(
         'Internal', compute='_split_street',
         help="Door Number",
-        inverse='_set_street', store=True)
+        inverse='_set_street', store=True
+    )
+    property_purchase_currency_id = fields.Many2one(
+        default=lambda self: self.env.ref('base.USD'),
+    )
 
     @api.onchange('state_id')
     def _onchange_country_id(self):
@@ -101,3 +105,15 @@ class Partner(models.Model):
                     city_placeholder_mod
                 )
         return arch
+
+    def write(self, vals):
+        for rec in self:
+            if not rec.property_product_pricelist:
+                usd = self.env.ref('base.USD')
+                usd_pl = self.env['product.pricelist'].search(
+                    [('currency_id', '=', usd.id)], limit=1
+                )
+                if usd_pl:
+                    vals['property_product_pricelist'] = usd_pl.id
+            res = super().write(vals)
+        return res
