@@ -38,6 +38,7 @@
         'stock_landed_costs',
         'purchase_order_steps_status',
         'report_quotation_iho',
+        'project_ods',
     ],
     'data': [
         'views/res_partner_view.xml',
