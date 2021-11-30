@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-11-21 02:33+0000\n"
-"PO-Revision-Date: 2021-11-21 02:33+0000\n"
+"POT-Creation-Date: 2021-11-30 01:22+0000\n"
+"PO-Revision-Date: 2021-11-30 01:22+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -69,15 +69,6 @@ msgstr ""
 
 #. module: project_ods
 #: model_terms:ir.ui.view,arch_db:project_ods.report_ods_service_order_iho
-msgid ""
-"<br/><br/>\n"
-"                                        <strong style=\"color:black;font-size:18px;\">Type of Service: </strong>"
-msgstr ""
-"<br/><br/>\n"
-"                                        <strong style=\"color:black;font-size:18px;\">Tipo de Servicio: </strong>"
-
-#. module: project_ods
-#: model_terms:ir.ui.view,arch_db:project_ods.report_ods_service_order_iho
 msgid "<br>Requested Date Time: </br>"
 msgstr "<br>Fecha y Hora solicitada: </br>"
 
@@ -89,7 +80,14 @@ msgstr "<br>Solicitante: </br>"
 #. module: project_ods
 #: model_terms:ir.ui.view,arch_db:project_ods.report_ods_service_order_iho
 msgid "<strong style=\"color:black;font-size:18px;\">Sales Order:    .</strong>"
-msgstr "<strong style=\"color:black;font-size:18px;\">Número de Pedido:    .</strong>"
+msgstr ""
+"<strong style=\"color:black;font-size:18px;\">Número de Pedido:    "
+".</strong>"
+
+#. module: project_ods
+#: model_terms:ir.ui.view,arch_db:project_ods.report_ods_service_order_iho
+msgid "<strong style=\"color:black;font-size:18px;\">Service type: </strong>"
+msgstr "<strong style=\"color:black;font-size:18px;\">Tipo servicio: </strong>"
 
 #. module: project_ods
 #: model:res.groups,comment:project_ods.group_project_ods_all_access
@@ -268,22 +266,17 @@ msgstr "Oportunidad"
 #. module: project_ods
 #: model:ir.model.fields,field_description:project_ods.field_project_task__sale_order_id
 msgid "Sales Order"
-msgstr "Pedido"
+msgstr "Pedido de venta"
 
 #. module: project_ods
 #: model:ir.model.fields,help:project_ods.field_project_task__sale_order_id
 msgid "Sales order to which the task is linked."
-msgstr "Pedido ligado a esta tarea"
+msgstr "Pedido de venta al que está vinculada la tarea."
 
 #. module: project_ods
 #: model:ir.model.fields,field_description:project_ods.field_project_task__service_center_id
 msgid "Service Center"
 msgstr "Centro de Servicio"
-
-#. module: project_ods
-#: model_terms:ir.ui.view,arch_db:project_ods.report_ods_service_order_iho
-msgid "Service Order"
-msgstr "Órden de Servicio"
 
 #. module: project_ods
 #: model:ir.model.fields,field_description:project_ods.field_project_task__service_order_address_id

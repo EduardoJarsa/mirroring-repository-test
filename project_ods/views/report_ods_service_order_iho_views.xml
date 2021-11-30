@@ -4,6 +4,7 @@
         id="action_report_ods_service_order_iho"
         model="project.task"
         string="Report Service Order IHO"
+        print_report_name="'Service Order %s' % (object.service_order_number)"
         report_type="qweb-pdf"
         name="project_ods.report_ods_service_order_iho"
         file="project_ods.report_ods_service_order_iho"

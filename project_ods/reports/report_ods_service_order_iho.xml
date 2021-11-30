@@ -16,11 +16,9 @@
                                         <span style="color:black;font-size:18px;" t-field="o.service_order_contact_id.name"></span>
                                         <div t-field="o.service_order_contact_id" t-options='{"widget": "contact", "fields": ["phone", "mobile", "email"], "no_marker": False, "phone_icons": True}'/>
                                         <br/>
-                                        <strong style="color:black;font-size:18px;">Additionals: </strong>
-                                        <span t-field="o.ptc_additionals"/><br/>
                                     </td>
                                     <td width="50%">
-                                        <h4 style="color:black">Service Order     <span t-field="o.service_order_number" style="color:black;text-align:right"/></h4>
+                                        <h4><span t-field="o.service_order_number"/></h4>
                                         <span t-field="o.service_center_id.name" style="color:black"></span><br/><br/>
                                         <div t-if="o.sale_order_id">
                                             <strong style="color:black;font-size:18px;">Sales Order:    .</strong>
@@ -35,9 +33,15 @@
                                         <span t-field="o.create_uid"></span><br/>
                                         <strong style="color:black;font-size:18px;" t-if="o.to_invoice &gt; 0">Service WITH cost</strong>
                                         <br t-if="o.to_invoice == 0">Service WITHOUT cost authorized by: </br><br/><br/>
-                                        <strong style="color:black;font-size:18px;">Type of Service: </strong>
-                                        <span t-field="o.ptc_service_type"/><br/>
-
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <strong style="color:black;font-size:18px;">Service type: </strong>
+                                        <span t-field="o.ptc_service_type"/>
+                                        <br/>
+                                        <strong style="color:black;font-size:18px;">Additionals: </strong>
+                                        <span t-field="o.ptc_additionals"/>
                                     </td>
                                 </tr>
                                 <tr>

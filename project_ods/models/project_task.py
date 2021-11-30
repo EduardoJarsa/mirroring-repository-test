@@ -116,7 +116,7 @@ class ProjectTask(models.Model):
             ptc_service_type = ''
             for ptc in rec.project_task_class_ids:
                 ptc_service_type +=\
-                    ptc.name+", " if (
+                    ptc.name+";   " if (
                         ptc.parent_id ==
                         self.env.ref('project_ods.project_task_class_service_type')
                     ) else ''
@@ -128,7 +128,7 @@ class ProjectTask(models.Model):
             ptc_additionals = ''
             for ptc in rec.project_task_class_ids:
                 ptc_additionals +=\
-                    ptc.name+", " if (
+                    ptc.name+";   " if (
                         ptc.parent_id ==
                         self.env.ref('project_ods.project_task_class_additionals')
                     ) else ''
