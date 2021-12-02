@@ -67,10 +67,12 @@
                             <field name="service_order_contact_id" 
                                 domain="[('parent_id','=',partner_id),('type','=','contact')]"
                                 options="{'no_create': True}"/>
-                            <field name="service_order_address_id" 
+                            <field name="service_order_address_id"
                                 domain="[('parent_id','=',partner_id),('type','=','delivery')]"
                                 options="{'no_create': True}"/>
-                            <field name="planner_id" options="{'no_create': True, 'no_open': '1'}"/>
+                            <field name="planner_id"
+                                domain="[('job_id.name', '=', 'Proyectista')]"
+                                options="{'no_create': True, 'no_open': '1'}"/>
                             <field name="requested_execution_date_time" 
                                 options="{'datepicker': {
                                     'daysOfWeekDisabled': [0, 6],
@@ -100,7 +102,8 @@
                         </group>
                     </group>    
                     <group>
-                        <field name="project_task_class_ids" widget="many2many"/>
+                        <field name="project_task_class_ids" widget="many2many_tags"
+                            options="{'no_create_edit': True, 'no_edit': True, 'no_create': True, 'no_open': True}"/>
                     </group>
                 </page>
             </xpath>

@@ -36,7 +36,6 @@ class ProjectTask(models.Model):
     )
     planner_id = fields.Many2one(
         'hr.employee',
-        domain="[('job_id.name', '=', 'Proyectista')]",
         help='Available Planners as "Proyectista"',
     )
     service_center_id = fields.Many2one(
