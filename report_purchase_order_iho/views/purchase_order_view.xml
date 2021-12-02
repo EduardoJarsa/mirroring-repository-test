@@ -11,4 +11,23 @@
             </xpath>
         </field>
     </record>
+    <report
+        id="action_report_purchase_order_iho"
+        model="purchase.order"
+        string="Report purchase order complete IHO"
+        report_type="qweb-pdf"
+        name="report_purchase_order_iho.report_purchase_order_complete_document"
+        file="report_purchase_order_iho.report_purchase_order_complete_document"
+    />
+    <record id="purchase_order_iho_salesman" model="ir.ui.view">
+        <field name="name">view.purchase.order.iho;salesman</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='currency_id']" position="after">
+                <field name="sale_executive" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
 </odoo>

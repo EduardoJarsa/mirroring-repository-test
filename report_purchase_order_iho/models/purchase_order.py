@@ -15,3 +15,11 @@ class PurchaseOrder(models.Model):
         return res
 
     delivery_address = fields.Many2one('res.partner')
+
+    @api.constrains('order_line')
+    def _constrains_default_get(self):
+        domain = [
+            ('name', '=', self.origin),
+        ]
+        candidates = self.env['sale.order'].search(domain).user_id.name
+        self.sale_executive = candidates
