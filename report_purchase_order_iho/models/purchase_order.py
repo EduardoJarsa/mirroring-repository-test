@@ -7,6 +7,8 @@ from odoo import api, fields, models
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
+    sale_executive = fields.Char()
+
     @api.onchange('picking_type_id')
     def _onchange_picking_type_id(self):
         res = super()._onchange_picking_type_id()
