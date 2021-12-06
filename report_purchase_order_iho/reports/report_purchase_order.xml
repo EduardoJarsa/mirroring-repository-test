@@ -242,7 +242,7 @@
                                     </td>
                                     <td style="text-align:center" colspan="3">
                                         <t t-if="le.product_id.image_1920">
-                                            <img t-att-src="image_data_uri(le.product_id.image_1920)" width="200"/>
+                                            <img t-att-src="image_data_uri(le.product_id.image_1920)" width="134"/>
                                         </t>
                                     </td>
                                         <t t-set="departure" t-value="departure + 1"/>
@@ -285,7 +285,7 @@
                         </tr>
                         <tr>
                             <td colspan="11" style="text-align:right;">
-                                <span>Amount with letter: </span><span t-esc="o.company_id.currency_id.amount_to_text(o.amount_total)"/>
+                                <span>Amount with letter: </span><span t-esc="o.currency_id.amount_to_text(o.amount_total)"/>
                             </td>
                         </tr>
                     </tfooter>

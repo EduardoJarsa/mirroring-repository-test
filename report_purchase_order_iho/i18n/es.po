@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-16 19:33+0000\n"
-"PO-Revision-Date: 2021-06-16 19:33+0000\n"
+"POT-Creation-Date: 2021-12-09 21:28+0000\n"
+"PO-Revision-Date: 2021-12-09 21:28+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,53 +16,52 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: report_purchase_order_iho
+#: model:ir.actions.report,print_report_name:report_purchase_order_iho.action_report_purchase_order_iho
+msgid "'Purchase Order - %s' % (object.name)"
+msgstr "'Orden de compra - %s' % (object.name)"
+
+#. module: report_purchase_order_iho
+#: model_terms:ir.ui.view,arch_db:report_purchase_order_iho.report_purchase_order_complete_document
+msgid ""
+"<br/>\n"
+"                                <strong>Provider</strong><br/>"
+msgstr ""
+"<br/>\n"
+"                                <strong>Proveedor</strong><br/>"
+
+#. module: report_purchase_order_iho
+#: model_terms:ir.ui.view,arch_db:report_purchase_order_iho.report_purchase_order_complete_document
+msgid ""
+"<br/>\n"
+"                                <strong>Sold to:</strong><br/>"
+msgstr ""
+"<br/>\n"
+"                                <strong>Vendido a:</strong><br/>"
+
+#. module: report_purchase_order_iho
+#: model_terms:ir.ui.view,arch_db:report_purchase_order_iho.report_purchase_order_complete_document
+msgid "<span>Amount with letter: </span>"
+msgstr "<span>Total con letra: </span>"
+
+#. module: report_purchase_order_iho
+#: model_terms:ir.ui.view,arch_db:report_purchase_order_iho.report_purchase_order_complete_document
+msgid "<span>Total:</span>"
+msgstr ""
+
+#. module: report_purchase_order_iho
 #: model_terms:ir.ui.view,arch_db:report_purchase_order_iho.report_purchase_order_iho
 #: model_terms:ir.ui.view,arch_db:report_purchase_order_iho.report_purchase_order_quotation_iho
 msgid "<strong>Shipping address:</strong>"
 msgstr "<strong>Dirección de Envio:</strong>"
 
 #. module: report_purchase_order_iho
-#: model:ir.model.fields,field_description:report_purchase_order_iho.field_purchase_order__delivery_address
-msgid "Delivery Address"
-msgstr "Dirección de Entrega"
-
-#. module: report_purchase_order_iho
-#: model:ir.model,name:report_purchase_order_iho.model_purchase_order
-msgid "Purchase Order"
-msgstr "Línea de orden de compra"
+#: model_terms:ir.ui.view,arch_db:report_purchase_order_iho.report_purchase_order_complete_document
+msgid "<strong>Shipping address:</strong><br/>"
+msgstr "<strong>Dirección de Envio:</strong><br/>"
 
 #. module: report_purchase_order_iho
 #: model_terms:ir.ui.view,arch_db:report_purchase_order_iho.report_purchase_order_complete_document
-msgid ""
-"<br/>\n"
-"                                    <br/>\n"
-"                                    <strong>Shipping address:</strong><br/>"
-msgstr ""
-"<br/>\n"
-"                                    <br/>\n"
-"                                    <strong>Dirección de envío:</strong><br/>"
-
-#. module: report_purchase_order_iho
-#: model_terms:ir.ui.view,arch_db:report_purchase_order_iho.report_purchase_order_complete_document
-msgid ""
-"<br/>\n"
-"                                    <strong>Provider</strong><br/>"
-msgstr ""
-"<br/>\n"
-"                                    <strong>Proveedor</strong><br/>"
-
-#. module: report_purchase_order_iho
-#: model_terms:ir.ui.view,arch_db:report_purchase_order_iho.report_purchase_order_complete_document
-msgid ""
-"<br/>\n"
-"                                    <strong>Sold to:</strong><br/>"
-msgstr ""
-"<br/>\n"
-"                                    <strong>Vendido a:</strong><br/>"
-
-#. module: report_purchase_order_iho
-#: model_terms:ir.ui.view,arch_db:report_purchase_order_iho.report_purchase_order_complete_document
-msgid "<span>Total:</span>"
+msgid "BID<br/>"
 msgstr ""
 
 #. module: report_purchase_order_iho
@@ -73,12 +72,22 @@ msgstr "Orden de compra cancelada"
 #. module: report_purchase_order_iho
 #: model_terms:ir.ui.view,arch_db:report_purchase_order_iho.report_purchase_order_complete_document
 msgid "Cancelled Purchase Order #<br/>"
-msgstr "Orden de compra cancelada # <br/>"
+msgstr "Orden de compra cancelada #<br/>"
+
+#. module: report_purchase_order_iho
+#: model_terms:ir.ui.view,arch_db:report_purchase_order_iho.report_purchase_order_complete_document
+msgid "Customer Reference<br/>"
+msgstr "Referencia del cliente<br/>"
 
 #. module: report_purchase_order_iho
 #: model_terms:ir.ui.view,arch_db:report_purchase_order_iho.report_purchase_order_complete_document
 msgid "Date<br/>"
 msgstr "Fecha<br/>"
+
+#. module: report_purchase_order_iho
+#: model:ir.model.fields,field_description:report_purchase_order_iho.field_purchase_order__delivery_address
+msgid "Delivery Address"
+msgstr "Dirección de Entrega"
 
 #. module: report_purchase_order_iho
 #: model_terms:ir.ui.view,arch_db:report_purchase_order_iho.report_purchase_order_complete_document
@@ -121,6 +130,12 @@ msgid "Provider contact<br/>"
 msgstr "Contacto del proveedor<br/>"
 
 #. module: report_purchase_order_iho
+#: model:ir.model,name:report_purchase_order_iho.model_purchase_order
+#: model_terms:ir.ui.view,arch_db:report_purchase_order_iho.report_purchase_order_complete_document
+msgid "Purchase Order"
+msgstr "Línea de orden de compra"
+
+#. module: report_purchase_order_iho
 #: model_terms:ir.ui.view,arch_db:report_purchase_order_iho.report_purchase_order_complete_document
 msgid "Purchase Order #<br/>"
 msgstr "Orden de compra #<br/>"
@@ -133,7 +148,7 @@ msgstr "Cantidad"
 #. module: report_purchase_order_iho
 #: model:ir.actions.report,name:report_purchase_order_iho.action_report_purchase_order_iho
 msgid "Report purchase order complete IHO"
-msgstr "Informe de orden de compra completa IHO"
+msgstr "Orden de compra IHO"
 
 #. module: report_purchase_order_iho
 #: model_terms:ir.ui.view,arch_db:report_purchase_order_iho.report_purchase_order_complete_document
@@ -159,18 +174,3 @@ msgstr "Ejecutivo de ventas<br/>"
 #: model_terms:ir.ui.view,arch_db:report_purchase_order_iho.report_purchase_order_complete_document
 msgid "Terms and Conditions"
 msgstr "Términos y condiciones"
-
-#. module: report_purchase_order_iho
-#: model_terms:ir.ui.view,arch_db:report_purchase_order_iho.report_purchase_order_complete_document
-msgid "<span>Amount with letter: </span>"
-msgstr "<span>Total con letra: </span>"
-
-#. module: report_purchase_order_iho
-#: model_terms:ir.ui.view,arch_db:report_purchase_order_iho.report_purchase_order_complete_document
-msgid "<strong>Shipping address:</strong><br/>"
-msgstr "<strong>Dirección de Envio:</strong><br/>"
-
-#. module: report_purchase_order_iho
-#: model_terms:ir.ui.view,arch_db:report_purchase_order_iho.report_purchase_order_complete_document
-msgid "Customer Reference<br/>"
-msgstr "Referencia del cliente <br/>"

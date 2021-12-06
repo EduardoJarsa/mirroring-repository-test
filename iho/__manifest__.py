@@ -39,6 +39,7 @@
         'purchase_order_steps_status',
         'report_quotation_iho',
         'project_ods',
+        'report_purchase_order_iho',
     ],
     'data': [
         'views/res_partner_view.xml',

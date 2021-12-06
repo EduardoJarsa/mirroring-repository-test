@@ -7,7 +7,7 @@ from odoo import api, fields, models
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
-    sale_executive = fields.Char()
+    sale_executive = fields.Char(compute="_compute_default_get")
 
     @api.onchange('picking_type_id')
     def _onchange_picking_type_id(self):
@@ -18,8 +18,8 @@ class PurchaseOrder(models.Model):
 
     delivery_address = fields.Many2one('res.partner')
 
-    @api.constrains('order_line')
-    def _constrains_default_get(self):
+    @api.depends('order_line')
+    def _compute_default_get(self):
         domain = [
             ('name', '=', self.origin),
         ]
