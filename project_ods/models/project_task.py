@@ -68,6 +68,25 @@ class ProjectTask(models.Model):
     project_project_service_order_iho = fields.Boolean(
         related='project_id.service_order_iho'
     )
+    project_project_warehouse_order_iho = fields.Boolean(
+        related='project_id.warehouse_order_iho'
+    )
+    ods_oda_name = fields.Char(
+        compute='_compute_ods_oda_name'
+    )
+
+    @api.depends(
+        'project_project_warehouse_order_iho',
+        'project_project_service_order_iho'
+    )
+    def _compute_ods_oda_name(self):
+        for rec in self:
+            ods_oda_text = ''
+            if rec.project_project_service_order_iho:
+                ods_oda_text = 'Service Order'
+            if rec.project_project_warehouse_order_iho:
+                ods_oda_text = 'Warehouse Order'
+            rec.ods_oda_name = ods_oda_text
 
     @api.depends('project_task_class_ids')
     def _compute_ptc_was_modified(self):
@@ -180,6 +199,15 @@ class ProjectTask(models.Model):
                             _('Service center sequence not defined'))
                     vals['service_order_number'] = (
                         rec.service_center_id.service_order_sequence_id.
+                        next_by_id())
+                vals['ptc_was_modified'] = False
+            if rec.project_id.warehouse_order_iho:
+                if not rec.service_order_number:
+                    if not rec.service_center_id.warehouse_order_sequence_id:
+                        raise ValidationError(
+                            _('Service center sequence not defined'))
+                    vals['service_order_number'] = (
+                        rec.service_center_id.warehouse_order_sequence_id.
                         next_by_id())
                 vals['ptc_was_modified'] = False
             res = super().write(vals)

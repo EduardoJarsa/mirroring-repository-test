@@ -11,3 +11,7 @@ class ResPartner(models.Model):
         'ir.sequence',
         help='Service Orders Sequence for the service center',
     )
+    warehouse_order_sequence_id = fields.Many2one(
+        'ir.sequence',
+        help='Warehouse Orders Sequence for the service center',
+    )

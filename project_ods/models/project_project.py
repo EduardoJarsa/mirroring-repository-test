@@ -10,3 +10,6 @@ class ProjectProject(models.Model):
     service_order_iho = fields.Boolean(
         default=False,
     )
+    warehouse_order_iho = fields.Boolean(
+        default=False,
+    )

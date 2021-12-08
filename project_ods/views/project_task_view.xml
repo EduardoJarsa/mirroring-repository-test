@@ -46,12 +46,18 @@
                 </button>
             </div>
             <xpath expr="//notebook/page[last()]" position="after">
-                <page name="ods" string="OdS" 
-                    attrs="{'invisible': [('project_project_service_order_iho','=',False)]}" 
+                <page name="ods" string='odS odA'
+                    attrs="{'invisible': [('project_project_service_order_iho','=',False),
+                    ('project_project_warehouse_order_iho','=',False),]}" 
                     groups="project_ods.group_project_ods_fields_visible">
                     <field name="project_project_service_order_iho" invisible="1"/>
+                    <field name="project_project_warehouse_order_iho" invisible="1"/>
                     <group>
-                        <b><h2><field name="service_order_number" readonly="1"/></h2></b>
+                        <b><h2>
+                            <field name="ods_oda_name"/>
+                            <b> - </b>
+                            <field name="service_order_number" readonly="1"/>
+                        </h2></b>
                         <field name="company_partner_id" invisible="1"/>
                         <field name="service_center_id" options="{'no_create': True}" 
                             domain="[('parent_id','=',company_partner_id),
