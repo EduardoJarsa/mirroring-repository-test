@@ -158,7 +158,8 @@ class ProjectTask(models.Model):
                                 span, 'day')
                         )
             # look for best possible execution day
-            while best_date.weekday in [0, 6] or best_date in non_working_days:
+            while (best_date.weekday() == 6) or (
+                    best_date in non_working_days):
                 best_date = date_utils.add(best_date, days=1)
             if self.requested_execution_date_time.date() < best_date:
                 raise ValidationError(

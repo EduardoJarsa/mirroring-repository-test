@@ -75,12 +75,11 @@
                                 options="{'no_create': True, 'no_open': '1'}"/>
                             <field name="requested_execution_date_time" 
                                 options="{'datepicker': {
-                                    'daysOfWeekDisabled': [0, 6],
+                                    'daysOfWeekDisabled': [0],
                                     'sideBySide': True,
-                                    'disabledHours': [0,1,2,3,4,5,6,7,8,20,21,22,23,24],
                                     'stepping': 15,
-                                    'format': 'DD/MM/YYYY hh:mm',
-                                    'showTodayButton': True,
+                                    'format': 'DD/MM/YYYY HH:mm',
+                                    'showTodayButton': False,
                                     }
                                 }"/>
                             <br/>
