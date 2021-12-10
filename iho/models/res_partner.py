@@ -107,6 +107,7 @@ class Partner(models.Model):
         return arch
 
     def write(self, vals):
+        res = super().write(vals)
         for rec in self:
             if not rec.property_product_pricelist:
                 usd = self.env.ref('base.USD')
@@ -114,6 +115,5 @@ class Partner(models.Model):
                     [('currency_id', '=', usd.id)], limit=1
                 )
                 if usd_pl:
-                    vals['property_product_pricelist'] = usd_pl.id
-            res = super().write(vals)
+                    rec.property_product_pricelist = usd_pl.id
         return res
