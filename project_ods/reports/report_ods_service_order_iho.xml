@@ -27,7 +27,7 @@
                                         </div>
                                         <t t-if="o.requested_execution_date_time">
                                             <br>Requested Date Time: </br>
-                                            <span t-esc="o.requested_execution_date_time.strftime('%d-%b-%y %H:%M')"/>
+                                            <span t-esc="context_timestamp(o.requested_execution_date_time).strftime('%d-%b-%y %H:%M')"/>
                                         </t>
                                         <br>Requestor: </br>
                                         <span t-field="o.create_uid"></span><br/>
