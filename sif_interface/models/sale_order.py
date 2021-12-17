@@ -60,17 +60,19 @@ class SaleOrder(models.Model):
         # in the sale order.
         for rec in self.order_line:
             seller = rec.product_id.seller_ids.filtered(lambda l: l.sale_order_id == self)
-            if len(seller) == 1 and not seller.product_id:
-                seller.write({
-                    'product_id': rec.product_id.id,
-                    'price': rec.price_unit
-                })
-            else:
-                new_seller = seller[0].sudo().copy()
-                new_seller.write({
-                    'product_id': rec.product_id.id,
-                    'price': rec.price_unit
-                })
+            line_type = rec.display_type
+            if line_type is False:
+                if len(seller) == 1 and not seller.product_id:
+                    seller.write({
+                        'product_id': rec.product_id.id,
+                        'price': rec.price_unit
+                    })
+                else:
+                    new_seller = seller[0].sudo().copy()
+                    new_seller.write({
+                        'product_id': rec.product_id.id,
+                        'price': rec.price_unit
+                    })
 
     def action_confirm(self):
         self._create_missing_sellers()
