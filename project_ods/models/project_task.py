@@ -212,3 +212,27 @@ class ProjectTask(models.Model):
                 vals['ptc_was_modified'] = False
             res = super().write(vals)
         return res
+
+    def copy(self, default=None):
+        if default is None:
+            default = {}
+        for rec in self:
+            if (
+                rec.project_id.service_order_iho or
+                rec.project_id.warehouse_order_iho
+            ):
+                if rec.project_id.service_order_iho:
+                    if not rec.service_center_id.service_order_sequence_id:
+                        raise ValidationError(
+                            _('Service center sequence not defined'))
+                    default['service_order_number'] = (
+                        rec.service_center_id.service_order_sequence_id.
+                        next_by_id())
+                if rec.project_id.warehouse_order_iho:
+                    if not rec.service_center_id.warehouse_order_sequence_id:
+                        raise ValidationError(
+                            _('Service center sequence not defined'))
+                    default['service_order_number'] = (
+                        rec.service_center_id.warehouse_order_sequence_id.
+                        next_by_id())
+        return super().copy(default)
