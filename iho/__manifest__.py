@@ -40,6 +40,7 @@
         'report_quotation_iho',
         'project_ods',
         'report_purchase_order_iho',
+        'report_account_invoice_iho',
     ],
     'data': [
         'views/res_partner_view.xml',
