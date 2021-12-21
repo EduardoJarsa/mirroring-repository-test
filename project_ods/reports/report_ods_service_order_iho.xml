@@ -9,7 +9,7 @@
                             <tbody>
                                 <tr>
                                     <td width="50%">
-                                        <h4><span t-field="o.partner_id" style="color:black"/></h4>
+                                        <strong><span t-field="o.partner_id" style="color:black"/></strong>
                                         <span style="color:black;font-size:18px;" t-field="o.service_order_address_id.name"></span>
                                         <div t-field="o.service_order_address_id" t-options='{"widget": "contact", "fields": ["address",], "no_marker": True, "phone_icons": True}'/>
                                         <br/>
@@ -18,7 +18,7 @@
                                         <br/>
                                     </td>
                                     <td width="50%">
-                                        <h4><span t-field="o.service_order_number"/></h4>
+                                        <strong><span t-field="o.service_order_number"/></strong>
                                         <span t-field="o.service_center_id.name" style="color:black"></span><br/><br/>
                                         <div t-if="o.sale_order_id">
                                             <strong style="color:black;font-size:18px;">Sales Order:    .</strong>
