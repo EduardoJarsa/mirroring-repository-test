@@ -791,6 +791,10 @@ class ImportSaleOrderWizard(models.TransientModel):
                 sale_order_line._compute_sell_2()
                 sale_order_line._compute_sell_3()
                 sale_order_line._compute_sell_4()
+                if product_template.maker_id.name == 'N/D':
+                    product_template.write({
+                        'maker_id': vendor,
+                    })
 
             if attr:
                 code_value = self._generate_attribute_value(attributes_value)
