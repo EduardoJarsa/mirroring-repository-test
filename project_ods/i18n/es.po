@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-08 03:56+0000\n"
-"PO-Revision-Date: 2021-12-08 03:56+0000\n"
+"POT-Creation-Date: 2021-12-23 19:41+0000\n"
+"PO-Revision-Date: 2021-12-23 19:41+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 #. module: project_ods
 #: model:ir.actions.report,print_report_name:project_ods.action_report_ods_service_order_iho
 msgid "'Service Order %s' % (object.service_order_number)"
-msgstr ""
+msgstr "'Orden de Servicio %s' % (object.service_order_number)"
 
 #. module: project_ods
 #: model_terms:ir.ui.view,arch_db:project_ods.report_ods_service_order_iho
@@ -112,7 +112,7 @@ msgstr "Planeadores registrados como \"Proyectista\""
 #. module: project_ods
 #: model:ir.model.fields,field_description:project_ods.field_project_task__company_partner_id
 msgid "Company Partner"
-msgstr ""
+msgstr "Company Partner"
 
 #. module: project_ods
 #: model:ir.model.fields,help:project_ods.field_project_task__service_center_id
@@ -153,12 +153,12 @@ msgstr "Fecha en la que la Orden debe ser realizada"
 #. module: project_ods
 #: model:ir.model.fields,field_description:project_ods.field_project_task_class__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nombre para mostrar"
 
 #. module: project_ods
 #: model:ir.model.fields,field_description:project_ods.field_project_task_class__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: project_ods
 #: model:ir.model.fields,field_description:project_ods.field_project_task_class____last_update
@@ -183,12 +183,12 @@ msgstr "Nombre"
 #. module: project_ods
 #: model:ir.model.fields,field_description:project_ods.field_project_task__service_order_number
 msgid "OdS"
-msgstr ""
+msgstr "OdS"
 
 #. module: project_ods
 #: model:ir.model.fields,field_description:project_ods.field_project_task__ods_oda_name
 msgid "Ods Oda Name"
-msgstr ""
+msgstr "Ods Nombre Oda"
 
 #. module: project_ods
 #: model:ir.model.fields,field_description:project_ods.field_project_task_class__parent_id
@@ -225,32 +225,32 @@ msgstr "Advertencias"
 #. module: project_ods
 #: model:res.groups,name:project_ods.group_project_ods_all_access
 msgid "Projects with IHO Service order all access"
-msgstr ""
+msgstr "Proyectos con IHO Service order all access"
 
 #. module: project_ods
 #: model:res.groups,name:project_ods.group_project_ods_fields_visible
 msgid "Projects with IHO Service order fields access"
-msgstr ""
+msgstr "Proyectos con IHO Service order fields access"
 
 #. module: project_ods
 #: model:ir.model.fields,field_description:project_ods.field_project_task__ptc_additionals
 msgid "Ptc Additionals"
-msgstr ""
+msgstr "Ptc adicionales"
 
 #. module: project_ods
 #: model:ir.model.fields,field_description:project_ods.field_project_task__ptc_number_of_ids
 msgid "Ptc Number Of"
-msgstr ""
+msgstr "Número de Ptc"
 
 #. module: project_ods
 #: model:ir.model.fields,field_description:project_ods.field_project_task__ptc_service_type
 msgid "Ptc Service Type"
-msgstr ""
+msgstr "Tipo de servicio Ptc"
 
 #. module: project_ods
 #: model:ir.model.fields,field_description:project_ods.field_project_task__ptc_was_modified
 msgid "Ptc Was Modified"
-msgstr ""
+msgstr "El Ptc fue modificado"
 
 #. module: project_ods
 #: model:ir.model.fields,help:project_ods.field_project_task__sale_order_opportunity_id
@@ -313,7 +313,7 @@ msgstr "Secuencia OdS"
 #: model:ir.model.fields,help:project_ods.field_res_partner__service_order_sequence_id
 #: model:ir.model.fields,help:project_ods.field_res_users__service_order_sequence_id
 msgid "Service Orders Sequence for the service center"
-msgstr ""
+msgstr "Secuencia de órdenes de servicio para el centro de servicio"
 
 #. module: project_ods
 #: model_terms:ir.ui.view,arch_db:project_ods.report_ods_service_order_iho
@@ -326,6 +326,8 @@ msgid "Service WITHOUT cost authorized by:"
 msgstr "Servicio SIN Costo autorizado por:"
 
 #. module: project_ods
+#: code:addons/project_ods/models/project_task.py:0
+#: code:addons/project_ods/models/project_task.py:0
 #: code:addons/project_ods/models/project_task.py:0
 #: code:addons/project_ods/models/project_task.py:0
 #, python-format
@@ -363,7 +365,7 @@ msgstr "Secuencia OdA"
 #: model:ir.model.fields,help:project_ods.field_res_partner__warehouse_order_sequence_id
 #: model:ir.model.fields,help:project_ods.field_res_users__warehouse_order_sequence_id
 msgid "Warehouse Orders Sequence for the service center"
-msgstr ""
+msgstr "Secuencia de pedidos de almacén para el centro de servicio"
 
 #. module: project_ods
 #: model:ir.model.fields,field_description:project_ods.field_project_task_class__warning_message
@@ -378,4 +380,4 @@ msgstr "Advertencias"
 #. module: project_ods
 #: model_terms:ir.ui.view,arch_db:project_ods.view_project_task_form_iho
 msgid "odS odA"
-msgstr ""
+msgstr "odS odA"

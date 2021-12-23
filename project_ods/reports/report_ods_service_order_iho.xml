@@ -4,11 +4,11 @@
         <t t-call= "web.html_container">
             <t t-foreach="docs" t-as="o">
                 <t t-call= "web.external_layout">
-                    <div class="container" style="background-color:#F8F9F9;">
+                    <div class="container" style="background-color:white;">
                         <table width="100%">
                             <tbody>
                                 <tr>
-                                    <td width="50%">
+                                    <td width="50%" style="background-color:white;">
                                         <strong><span t-field="o.partner_id" style="color:black"/></strong>
                                         <span style="color:black;font-size:18px;" t-field="o.service_order_address_id.name"></span>
                                         <div t-field="o.service_order_address_id" t-options='{"widget": "contact", "fields": ["address",], "no_marker": True, "phone_icons": True}'/>
@@ -17,9 +17,12 @@
                                         <div t-field="o.service_order_contact_id" t-options='{"widget": "contact", "fields": ["phone", "mobile", "email"], "no_marker": False, "phone_icons": True}'/>
                                         <br/>
                                     </td>
-                                    <td width="50%">
-                                        <strong><span t-field="o.service_order_number"/></strong>
-                                        <span t-field="o.service_center_id.name" style="color:black"></span><br/><br/>
+                                    <td width="50%" style="background-color:white;">
+                                        <strong style="color:black;font-size:18px;">ODS Folio: </strong>
+                                        <strong><span t-field="o.service_order_number"/></strong><br/>
+                                        <span t-field="o.service_center_id.name" style="color:black"></span><br/>
+                                        <strong style="color:black;font-size:18px;">Client: </strong>
+                                        <span t-field="o.partner_id"></span>
                                         <div t-if="o.sale_order_id">
                                             <strong style="color:black;font-size:18px;">Sales Order:    .</strong>
                                             <span t-field="o.sale_order_id"></span><br/>
@@ -45,7 +48,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2">
+                                    <td colspan="2" style="background-color:white;">
                                         <br/>
                                         <strong style="color:black;font-size:18px">Service Description</strong><br/>
                                         <span t-field="o.description" style="font-size:12px"></span>
