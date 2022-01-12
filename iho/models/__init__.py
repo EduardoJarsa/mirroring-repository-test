@@ -11,3 +11,4 @@ from . import res_country
 from . import account_invoice
 from . import stock_landed_cost
 from . import account_aged_partner
+from . import purchase

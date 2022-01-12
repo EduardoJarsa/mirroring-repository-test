@@ -211,6 +211,7 @@ class ProjectTask(models.Model):
                         next_by_id())
                 vals['ptc_was_modified'] = False
             res = super().write(vals)
+        self.message_unsubscribe([self.partner_id.id])
         return res
 
     def copy(self, default=None):
