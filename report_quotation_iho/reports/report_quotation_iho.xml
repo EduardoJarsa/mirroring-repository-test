@@ -62,8 +62,8 @@
                             <div t-if="o.partner_id.child_ids">
                                 <strong style="color:black">Contact: </strong>
                             </div>
-                            <div t-if="o.partner_id.child_ids.email">
-                                <strong style="color:black">E-mail:</strong>
+                            <div t-if="o.partner_id.child_ids">
+                                <strong t-if="o.partner_id.child_ids[0].email" style="color:black">E-mail:</strong>
                             </div>
                             <div t-if="o.partner_id.phone">
                                 <strong style="color:black">Cellphone:</strong>
@@ -85,11 +85,11 @@
                         <div>
                             <span t-field="o.partner_id"></span>
                         </div>
-                        <div>
-                            <span t-field="o.partner_id.child_ids.name"></span>
+                        <div t-if="o.partner_id.child_ids">
+                            <span t-field="o.partner_id.child_ids[0].name"></span>
                         </div>
-                        <div>
-                            <span t-field="o.partner_id.child_ids.email"></span>
+                        <div  t-if="o.partner_id.child_ids">
+                            <span t-field="o.partner_id.child_ids[0].email"></span>
                         </div>
                         <div>
                             <span t-field="o.partner_id.phone"></span>
