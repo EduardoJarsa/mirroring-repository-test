@@ -303,6 +303,7 @@
                                 </table>
                             </div>
                         </div>
+                        <p style="page-break-after:always;"/>
                         <div class="row" t-if="o.l10n_mx_edi_cfdi_uuid">
                             <br/><br/>
                             <div class="col-6">
