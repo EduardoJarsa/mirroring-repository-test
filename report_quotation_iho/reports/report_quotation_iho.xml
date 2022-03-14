@@ -59,10 +59,10 @@
                             <div t-if="o.partner_id">
                                 <strong style="color:black">Customer: </strong>
                             </div>
-                            <div t-if="o.partner_id.child_ids">
+                            <div t-if="o.partner_id.parent_id">
                                 <strong style="color:black">Contact: </strong>
                             </div>
-                            <div t-if="o.partner_id.child_ids.email">
+                            <div t-if="o.partner_id.parent_id and o.partner_id.email">
                                 <strong style="color:black">E-mail:</strong>
                             </div>
                             <div t-if="o.partner_id.phone">
@@ -82,15 +82,26 @@
                             </div>
                         </div>
                     <div class="col">
-                        <div>
+                        <div t-if="o.partner_id.parent_id">
+                            <span t-field="o.partner_id.parent_id"></span>
+                        </div>
+                        <div t-if="not o.partner_id.parent_id">
                             <span t-field="o.partner_id"></span>
                         </div>
-                        <div>
-                            <span t-field="o.partner_id.child_ids.name"></span>
+
+                        <div t-if="o.partner_id.parent_id">
+                            <div>
+                                <div t-if="o.partner_id.parent_id">
+                                    <span t-field="o.partner_id.name"></span>
+                                </div>
+                            </div>
+                            <div>
+                                <div t-if="o.partner_id.email">
+                                    <span t-field="o.partner_id.email"></span>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <span t-field="o.partner_id.child_ids.email"></span>
-                        </div>
+
                         <div>
                             <span t-field="o.partner_id.phone"></span>
                         </div>
@@ -156,8 +167,13 @@
                                 </td>
                                 <td>
                                     <t t-if="le.image_sol">
-                                    <img t-att-src="image_data_uri(le.image_sol)" width="120"/>
-                                </t>
+                                        <img t-att-src="image_data_uri(le.image_sol)" width="120"/>
+                                    </t>
+                                    <t t-if="not le.image_sol">
+                                        <t t-if="le.product_id.image_1920">
+                                            <img t-att-src="image_data_uri(le.product_id.image_1920)" width="120"/>
+                                        </t>
+                                    </t>
                                 </td>
                                 <td>
                                     <span t-field="le.price_unit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>

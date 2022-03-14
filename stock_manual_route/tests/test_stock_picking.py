@@ -3,6 +3,7 @@
 
 from odoo import fields
 from odoo.tests.common import TransactionCase
+# pylint: disable=W8121
 
 
 class TestStockPicking(TransactionCase):

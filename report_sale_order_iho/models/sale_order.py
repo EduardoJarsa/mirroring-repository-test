@@ -4,6 +4,7 @@
 from odoo import _, api, fields, models
 from odoo.tools.safe_eval import safe_eval
 from odoo.exceptions import ValidationError
+# pylint: disable=W8121
 
 
 class SaleOrderLine(models.Model):

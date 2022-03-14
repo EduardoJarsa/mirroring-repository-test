@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-01 21:38+0000\n"
-"PO-Revision-Date: 2021-10-01 21:38+0000\n"
+"POT-Creation-Date: 2022-06-30 20:23+0000\n"
+"PO-Revision-Date: 2022-06-30 20:23+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -20,25 +20,45 @@ msgstr ""
 msgid ""
 "<br/>\n"
 "                            _____________________________________________________\n"
-"                            <br/><span>I accept quote, terms and conditions</span>"
+"                            <br/><span style=\"font-size: 10pt;\">I accept quote, terms and conditions</span>"
 msgstr ""
 "<br/>\n"
 "                            _____________________________________________________\n"
 "                            <br/><span>Acepto cotización, términos y condiciones</span>"
 
 #. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.external_layout_background_iho
+msgid "<i class=\"fa fa-at\" role=\"img\" aria-label=\"Email\" title=\"Email\"/>"
+msgstr ""
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.external_layout_background_iho
+msgid "<i class=\"fa fa-building-o\" role=\"img\" aria-label=\"Fiscal number\"/>"
+msgstr ""
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.external_layout_background_iho
+msgid "<i class=\"fa fa-globe\" role=\"img\" aria-label=\"Website\" title=\"Website\"/>"
+msgstr ""
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.external_layout_background_iho
+msgid "<i class=\"fa fa-phone\" role=\"img\" aria-label=\"Phone\" title=\"Phone\"/>"
+msgstr ""
+
+#. module: report_quotation_iho
 #: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
-msgid "<span style=\"font-size: 12pt;\" align=\"right\">Discount total:</span>"
+msgid "<span style=\"font-size: 10pt;\" align=\"right\">Discount total:</span>"
 msgstr "<span style=\"font-size: 12pt;\" align=\"right\">Descuento total:</span>"
 
 #. module: report_quotation_iho
 #: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
-msgid "<span style=\"font-size: 12pt;\" align=\"right\">Service total:</span>"
+msgid "<span style=\"font-size: 10pt;\" align=\"right\">Service total:</span>"
 msgstr "<span style=\"font-size: 12pt;\" align=\"right\">Servicio total:</span>"
 
 #. module: report_quotation_iho
 #: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
-msgid "<span style=\"font-size: 12pt;\">Product total:</span>"
+msgid "<span style=\"font-size: 10pt;\">Product total:</span>"
 msgstr "<span style=\"font-size: 12pt;\">Producto total:</span>"
 
 #. module: report_quotation_iho
@@ -50,6 +70,11 @@ msgstr "<strong style=\"color:black\">Telefono:</strong>"
 #: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
 msgid "<strong style=\"color:black\">Contact: </strong>"
 msgstr "<strong style=\"color:black\">Contacto: </strong>"
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
+msgid "<strong style=\"color:black\">Currency:</strong>"
+msgstr ""
 
 #. module: report_quotation_iho
 #: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
@@ -108,7 +133,7 @@ msgstr "<strong style=\"color:white\">Unidad</strong>"
 
 #. module: report_quotation_iho
 #: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
-msgid "<strong style=\"font-size: 12pt; color:black\" align=\"right\">Total:</strong>"
+msgid "<strong style=\"font-size: 10pt; color:black\" align=\"right\">Total:</strong>"
 msgstr ""
 
 #. module: report_quotation_iho
@@ -122,6 +147,20 @@ msgid "Extra expenses:"
 msgstr "Gastos extras:"
 
 #. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.external_layout_background_iho
+msgid "Logo"
+msgstr ""
+
+#. module: report_quotation_iho
+#: model_terms:ir.ui.view,arch_db:report_quotation_iho.external_layout_background_iho
+msgid ""
+"Page:\n"
+"                    <span class=\"page\"/>\n"
+"                    of \n"
+"                    <span class=\"topage\"/>"
+msgstr ""
+
+#. module: report_quotation_iho
 #: model:ir.actions.report,name:report_quotation_iho.action_report_quotation_iho
 msgid "Report Quotation IHO"
 msgstr "Reporte de cotización IHO"
@@ -129,4 +168,5 @@ msgstr "Reporte de cotización IHO"
 #. module: report_quotation_iho
 #: model_terms:ir.ui.view,arch_db:report_quotation_iho.report_quotation_document
 msgid "Terms and Conditions for the Sale of goods supplied by IHO."
-msgstr "Términos y Condiciones para la Venta de bienes suministrados por la OHI."
+msgstr ""
+"Términos y Condiciones para la Venta de bienes suministrados por la IHO."

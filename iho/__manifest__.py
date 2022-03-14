@@ -36,7 +36,6 @@
         'stock_landed_costs_analytic',
         'stock_landed_costs',
         'purchase_order_steps_status',
-        'report_quotation_iho',
         'project_ods',
         'report_purchase_order_iho',
         'report_account_invoice_iho',
