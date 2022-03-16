@@ -60,7 +60,7 @@ class TestStockPicking(TransactionCase):
             'active_id': self.purchase_picking.id,
         }
         wizard = self.env['stock.create.manual.route.wizard'].with_context(
-            context).create({
+            **context).create({
                 'move_type': 'internal',
                 'warehouse_id': self.warehouse_3.id,
                 'programed_date': fields.Date.today(),

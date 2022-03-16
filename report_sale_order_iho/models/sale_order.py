@@ -86,8 +86,8 @@ class SaleOrder(models.Model):
                 updated_terms = rec.sale_order_term_ids.mapped('term_id').ids
                 for term in rec.sale_order_term_ids:
                     term.name = safe_eval(
-                        term.term_id.with_context(context).name, {
-                            'order': rec.with_context(context)
+                        term.term_id.with_context(**context).name, {
+                            'order': rec.with_context(**context)
                         })
             terms = self.env['sale.term'].search(
                 [('default', '=', True), ('id', 'not in', updated_terms)],
@@ -99,8 +99,8 @@ class SaleOrder(models.Model):
             for term in terms:
                 new_terms.append({
                     'name': safe_eval(
-                        term.with_context(context).name, {
-                            'order': rec.with_context(context)
+                        term.with_context(**context).name, {
+                            'order': rec.with_context(**context)
                         }),
                     'order_id': rec.id,
                     'term_id': term.id,

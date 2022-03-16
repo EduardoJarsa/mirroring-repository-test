@@ -39,8 +39,8 @@ class GenerateSaleOrderTermsWizard(models.TransientModel):
             'term_id': self.term_id.id,
             'sequence': self.term_id.sequence,
             'name': safe_eval(
-                self.term_id.with_context(context).name, {
-                    'order': self.order_id.with_context(context),
+                self.term_id.with_context(**context).name, {
+                    'order': self.order_id.with_context(**context),
                 }),
         })
         self.env['sale.order.term'].create(new_terms)
