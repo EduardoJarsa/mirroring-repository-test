@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_order_inherit_tree_iho" model="ir.ui.view">
+        <field name="name">view.purchase.order.inherit.tree.iho</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount_total']" position="after">
+                <field name="amount_untaxed_usd"/>
+                <field name="amount_total_usd"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

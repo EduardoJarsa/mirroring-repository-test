@@ -49,5 +49,6 @@
         'views/ir_ui_menu_view.xml',
         'views/account_move_views.xml',
         'views/stock_landed_cost_views.xml',
+        'views/purchase_order.xml',
     ],
 }
