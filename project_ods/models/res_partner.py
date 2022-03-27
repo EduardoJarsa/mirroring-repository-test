@@ -15,3 +15,8 @@ class ResPartner(models.Model):
         'ir.sequence',
         help='Warehouse Orders Sequence for the service center',
     )
+    service_center_admins_ids = fields.Many2many(
+        'res.partner',
+        'service_center', 'partner_admin',
+        help='Administrators of the service center'
+    )

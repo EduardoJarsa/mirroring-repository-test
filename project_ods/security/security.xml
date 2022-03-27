@@ -18,4 +18,36 @@
         ]"/>
         <field name="comment">Allows to manage config for IHO Service orders</field>
     </record>
+
+    <record id="rule_project_ods_tasks_access" model="ir.rule">
+        <field name="name">Project: OdS Tasks: Access if user is service center admin</field>
+        <field name="model_id" ref="model_project_task"/>
+        <field name="domain_force">['|', ('project_id.service_order_iho', '=', True), ('project_id.warehouse_order_iho', '=', True), 
+'|', ('service_center_id.service_center_admins_ids', 'in', [user.partner_id.id]), ('user_id', '=', user.id) ]</field>
+        <field name="groups" eval="[(4, ref('group_project_ods_fields_visible')), (4, ref('group_project_ods_all_access'))]"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+        <field name="perm_read" eval="1"/>
+    </record>
+    <record id="rule_project_ods_users_access" model="ir.rule">
+        <field name="name">Project: OdS: Read access for all users</field>
+        <field name="model_id" ref="model_project_project"/>
+        <field name="domain_force">[ '|', ('service_order_iho', '=', True), ('warehouse_order_iho', '=', True),  ]</field>
+        <field name="groups" eval="[(4, ref('group_project_ods_fields_visible'))]"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+        <field name="perm_read" eval="1"/>
+    </record>
+    <record id="rule_project_ods_full_access" model="ir.rule">
+        <field name="name">Project: OdS: Full access for admin users</field>
+        <field name="model_id" ref="model_project_project"/>
+        <field name="domain_force">[ '|', ('service_order_iho', '=', True), ('warehouse_order_iho', '=', True),  ]</field>
+        <field name="groups" eval="[(4, ref('group_project_ods_all_access'))]"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+        <field name="perm_read" eval="1"/>
+    </record>
 </odoo>

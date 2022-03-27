@@ -194,21 +194,39 @@ class ProjectTask(models.Model):
         for rec in self:
             if rec.project_id.service_order_iho:
                 if not rec.service_order_number:
-                    if not rec.service_center_id.service_order_sequence_id:
+                    calculated_sequence = False
+                    if vals['service_center_id']:
+                        calculated_sequence = (
+                            self.env['res.partner'].browse(
+                                vals['service_center_id']
+                            ).service_order_sequence_id
+                        )
+                    calculated_folio = False
+                    if calculated_sequence:
+                        calculated_folio = calculated_sequence.next_by_id()
+                    if calculated_folio:
+                        vals['service_order_number'] = calculated_folio
+                    else:
                         raise ValidationError(
                             _('Service center sequence not defined'))
-                    vals['service_order_number'] = (
-                        rec.service_center_id.service_order_sequence_id.
-                        next_by_id())
                 vals['ptc_was_modified'] = False
             if rec.project_id.warehouse_order_iho:
                 if not rec.service_order_number:
-                    if not rec.service_center_id.warehouse_order_sequence_id:
+                    calculated_sequence = False
+                    if vals['service_center_id']:
+                        calculated_sequence = (
+                            self.env['res.partner'].browse(
+                                vals['service_center_id']
+                            ).warehouse_order_sequence_id
+                        )
+                    calculated_folio = False
+                    if calculated_sequence:
+                        calculated_folio = calculated_sequence.next_by_id()
+                    if calculated_folio:
+                        vals['service_order_number'] = calculated_folio
+                    else:
                         raise ValidationError(
                             _('Service center sequence not defined'))
-                    vals['service_order_number'] = (
-                        rec.service_center_id.warehouse_order_sequence_id.
-                        next_by_id())
                 vals['ptc_was_modified'] = False
             res = super().write(vals)
         self.message_unsubscribe([self.partner_id.id])

@@ -8,6 +8,11 @@
             <xpath expr="//field[@name='category_id']" position="after">
                 <field name="service_order_sequence_id" groups="project_ods.group_project_ods_all_access"/>
                 <field name="warehouse_order_sequence_id" groups="project_ods.group_project_ods_all_access"/>
+                <field name="service_center_admins_ids" 
+                    groups="project_ods.group_project_ods_all_access" 
+                    domain="[('parent_id','=',parent_id),]"
+                    options="{'no_create': True, 'no_create_edit':True, 'no_open': True}" 
+                    widget='many2many_tags' />
             </xpath>
         </field>
     </record>
