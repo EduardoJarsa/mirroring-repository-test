@@ -9,6 +9,9 @@ class ProjectProject(models.Model):
 
     service_order_iho = fields.Boolean(
         default=False,
+        help='To implement: \n1-Set project visibility as followers,'
+        '\n   2-Per Service center set consecutive and admins'
+        '\n   3-Assign users to the proper iho-ods sec. groups'
     )
     warehouse_order_iho = fields.Boolean(
         default=False,

@@ -54,7 +54,8 @@ class ProjectTask(models.Model):
         default=lambda self: self.env.company.currency_id,
     )
     requested_execution_date_time = fields.Datetime(
-        help='Date this order has to be executed',
+        help='Date this order has to be executed.'
+        '\nBe sure to have dd/mm/aaaa date format assigned',
     )
     service_order_number = fields.Char(
         string='OdS'
