@@ -31,7 +31,6 @@
         'l10n_mx',
         'l10n_mx_edi',
         'l10n_mx_reports',
-        'l10n_mx_import_taxes',
         'iho_simplification',
         'stock_analytic',
         'stock_landed_costs_analytic',
