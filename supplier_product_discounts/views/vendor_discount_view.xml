@@ -48,7 +48,7 @@
         <field name="model">vendor.product.discounts</field>
         <field name="priority" eval="20"/>
         <field name="arch" type="xml">
-            <tree string="Customs">
+            <tree>
                 <field name="name"/>
                 <field name="partner_id"/>
                 <field name="catalog_id"/>
