@@ -187,7 +187,6 @@
                                         <td style="background-color:#af000a; color:white;" class="text-center">R</td>
                                         <td style="background-color:#af000a; color:white;" class="text-center">Quantity</td>
                                         <td style="background-color:#af000a; color:white;" class="text-center" width="10%" t-if="o.l10n_mx_edi_cfdi_uuid and xml.get('Version')">SAT Code</td>
-                                        <td style="background-color:#af000a; color:white;" class="text-left">Part No.</td>
                                         <td style="background-color:#af000a; color:white;" width="40%">Description</td>
                                         <td style="background-color:#af000a; color:white;" class="text-center" t-if="o.l10n_mx_edi_cfdi_uuid and xml.get('Version')">Unit code</td>
                                         <td style="background-color:#af000a; color:white;" class="text-right">Unit Price</td>
@@ -205,9 +204,6 @@
                                         </td>
                                         <td class="text-center" t-if="o.l10n_mx_edi_cfdi_uuid and xml.get('Version')">
                                             <span t-field="l.product_id.l10n_mx_edi_code_sat_id.code"/>
-                                        </td>
-                                        <td class="text-left">
-                                            <span t-field="l.product_id.default_code"/>
                                         </td>
                                         <td class="text-left"><span t-field="l.name"/></td>
                                         <td class="text-center" t-if="o.l10n_mx_edi_cfdi_uuid and xml.get('Version')">
