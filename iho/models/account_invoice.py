@@ -8,6 +8,7 @@ class AccountMove(models.Model):
     _inherit = 'account.move'
 
     has_sdl = fields.Boolean(compute="_compute_has_sdl")
+    hide_post_button = fields.Boolean(compute="_compute_hide_post_button")
 
     def action_view_landed_costs(self):
         self.ensure_one()
@@ -41,3 +42,9 @@ class AccountMove(models.Model):
             'vendors_bill_ids': [self.id],
         })
         return res
+
+    def _compute_hide_post_button(self):
+        for rec in self:
+            hide_post = not \
+                self.user_has_groups('iho.group_view_account_move_post')
+            rec.hide_post_button = hide_post

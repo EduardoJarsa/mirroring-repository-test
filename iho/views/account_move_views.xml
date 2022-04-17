@@ -8,9 +8,15 @@
             <xpath expr="//field[@name='landed_costs_ids']" position="after">
                 <field name="has_sdl" invisible="1"/>
             </xpath>
-
             <xpath expr="//button[@name='action_view_landed_costs']" position="attributes">
                 <attribute name="attrs">{'invisible': [('landed_costs_ids', '=', []), ('has_sdl', '=', False)]}</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='action_post']" position="after">
+                <field name="hide_post_button" invisible="1"/>
+            </xpath>
+            <xpath expr="//button[@name='action_post']" position="attributes">
+                <attribute name="attrs">{'invisible': [('hide_post_button', '=', True),]}</attribute>
             </xpath>
         </field>
     </record>
