@@ -1,7 +1,8 @@
 # Copyright 2021, Jarsa
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
-from odoo import fields, models
+from odoo import _, fields, models
+from odoo.exceptions import ValidationError
 
 
 class AccountMove(models.Model):
@@ -48,3 +49,25 @@ class AccountMove(models.Model):
             hide_post = not \
                 self.user_has_groups('iho.group_view_account_move_post')
             rec.hide_post_button = hide_post
+
+    def action_post(self):
+        for rec in self:
+            cust_invoice = \
+                rec.type in ['out_invoice', 'out_refund', 'out_receipt']
+            cust_country_mx = False
+            if cust_invoice:
+                cust_country_mx = (
+                    rec.partner_id.country_id
+                    if not rec.partner_id.parent_id
+                    else rec.partner_id.parent_id.country_id
+                ) == self.env.ref("base.mx")
+            if cust_invoice and cust_country_mx:
+                cust_rfc = (
+                    rec.partner_id.vat
+                    if not rec.partner_id.parent_id
+                    else rec.partner_id.parent_id.vat
+                )
+                if not cust_rfc:
+                    raise ValidationError(_(
+                        'Can not POST an invoice without Mexican RFC defined'))
+            return super().action_post()

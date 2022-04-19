@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-14 14:39+0000\n"
-"PO-Revision-Date: 2020-12-14 14:39+0000\n"
+"POT-Creation-Date: 2022-04-18 23:55+0000\n"
+"PO-Revision-Date: 2022-04-18 23:55+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -16,14 +16,61 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: iho
+#: code:addons/iho/models/account_aged_partner.py:0
+#, python-format
+msgid "1 - 30"
+msgstr ""
+
+#. module: iho
+#: code:addons/iho/models/account_aged_partner.py:0
+#, python-format
+msgid "31 - 60"
+msgstr ""
+
+#. module: iho
+#: code:addons/iho/models/account_aged_partner.py:0
+#, python-format
+msgid "61 - 90"
+msgstr ""
+
+#. module: iho
+#: code:addons/iho/models/account_aged_partner.py:0
+#, python-format
+msgid "91 - 120"
+msgstr ""
+
+#. module: iho
+#: code:addons/iho/models/account_aged_partner.py:0
+#, python-format
+msgid "Account"
+msgstr "Cuenta"
+
+#. module: iho
+#: model:ir.model,name:iho.model_account_aged_partner
+msgid "Aged Partner Balances"
+msgstr "Saldos vencidos por empresa"
+
+#. module: iho
 #: model:ir.model.fields,field_description:iho.field_sale_order__analytic_tag_ids
 msgid "Analytic Tags"
 msgstr "Etiquetas analíticas"
 
 #. module: iho
+#: code:addons/iho/models/account_aged_partner.py:0
+#, python-format
+msgid "As of: %s"
+msgstr "A partir de: %s"
+
+#. module: iho
 #: model:res.groups,name:iho.group_sale_salesman_readonly
 msgid "Branch Manager"
 msgstr "Gerente Sucursal"
+
+#. module: iho
+#: code:addons/iho/models/account_invoice.py:0
+#, python-format
+msgid "Can not POST an invoice without Mexican RFC defined"
+msgstr "No puede timbrar sin definir RFC para Clientes en México"
 
 #. module: iho
 #: model:res.groups,name:iho.group_manager_catalogs
@@ -47,13 +94,32 @@ msgid "Door Number"
 msgstr "Número Interior"
 
 #. module: iho
+#: code:addons/iho/models/account_aged_partner.py:0
+#, python-format
+msgid "Due Date"
+msgstr "Fecha vencimiento"
+
+#. module: iho
 #: code:addons/iho/models/sale_order.py:0
 #, python-format
 msgid ""
 "Error: \"Unit Price\" or \"Price List\" at line [%i] of [%s] have value of "
 "[%s] [%s] and must NOT be [1.00]"
-msgstr "Error: \"Precio unitario\" o \"Precio lista\" en linea [%i] de [%s] tienen "
+msgstr ""
+"Error: \"Precio unitario\" o \"Precio lista\" en linea [%i] de [%s] tienen "
 "[%s] [%s] y no deben de tener [1.00]"
+
+#. module: iho
+#: code:addons/iho/models/account_aged_partner.py:0
+#, python-format
+msgid "Exchange rate"
+msgstr "Tipo de Cambio"
+
+#. module: iho
+#: code:addons/iho/models/account_aged_partner.py:0
+#, python-format
+msgid "Exp. Date"
+msgstr "Fecha de exp."
 
 #. module: iho
 #: model:ir.model.fields,field_description:iho.field_res_partner__street_number
@@ -65,6 +131,11 @@ msgstr "Exterior"
 #: model:res.groups,name:iho.group_sale_salesman_opportunities
 msgid "Group Can change Opportunity name"
 msgstr "Puede cambiar Nombre a la Oportunidad"
+
+#. module: iho
+#: model:ir.model.fields,field_description:iho.field_account_move__has_sdl
+msgid "Has Sdl"
+msgstr ""
 
 #. module: iho
 #: model:ir.model.fields,help:iho.field_res_partner__street_number
@@ -79,6 +150,17 @@ msgid "Internal"
 msgstr "Interior"
 
 #. module: iho
+#: code:addons/iho/models/account_aged_partner.py:0
+#, python-format
+msgid "Journal"
+msgstr "Diario"
+
+#. module: iho
+#: model:ir.model,name:iho.model_account_move
+msgid "Journal Entries"
+msgstr "Asientos contables"
+
+#. module: iho
 #: model:ir.model,name:iho.model_crm_lead_tag
 msgid "Lead Tag"
 msgstr "Etiqueta de Iniciativa"
@@ -87,6 +169,12 @@ msgstr "Etiqueta de Iniciativa"
 #: model:ir.model,name:iho.model_crm_lead
 msgid "Lead/Opportunity"
 msgstr "Iniciativa/Oportunidad"
+
+#. module: iho
+#: code:addons/iho/models/account_aged_partner.py:0
+#, python-format
+msgid "Older"
+msgstr "Anterior"
 
 #. module: iho
 #: model:res.groups,name:iho.group_sale_salesman_no_create_leads
@@ -101,12 +189,23 @@ msgstr "Producto"
 #. module: iho
 #: model:res.groups,name:iho.group_sale_projector
 msgid "Project Designer"
-msgstr ""
+msgstr "Proyectista"
+
+#. module: iho
+#: model:ir.model,name:iho.model_purchase_order
+msgid "Purchase Order"
+msgstr "Línea de orden de compra"
+
+#. module: iho
+#: code:addons/iho/models/account_aged_partner.py:0
+#, python-format
+msgid "Reference"
+msgstr "Referencia"
 
 #. module: iho
 #: model:ir.model,name:iho.model_sale_order
 msgid "Sales Order"
-msgstr "Pedido de venta"
+msgstr ""
 
 #. module: iho
 #: model:ir.model,name:iho.model_sale_order_line
@@ -114,14 +213,30 @@ msgid "Sales Order Line"
 msgstr "Línea de pedido de venta"
 
 #. module: iho
+#: model:ir.model.fields,field_description:iho.field_stock_landed_cost_lines__split_method
+msgid "Split Method"
+msgstr "Método de división"
+
+#. module: iho
+#: model:ir.model,name:iho.model_stock_landed_cost
+msgid "Stock Landed Cost"
+msgstr "Coste en destino"
+
+#. module: iho
+#: model:ir.model,name:iho.model_stock_landed_cost_lines
+msgid "Stock Landed Cost Line"
+msgstr "Línea de coste en destino"
+
+#. module: iho
+#: model:ir.model.fields,field_description:iho.field_res_partner__property_purchase_currency_id
+#: model:ir.model.fields,field_description:iho.field_res_users__property_purchase_currency_id
+msgid "Supplier Currency"
+msgstr "Moneda de Proveedor"
+
+#. module: iho
 #: model:res.groups,comment:iho.group_view_calendar_event
 msgid "The user can view the calendar events."
 msgstr "Puede ver eventos de Calendario"
-
-#. module: iho
-#: model:res.groups,comment:iho.group_manager_catalogs
-msgid "The user can will do anything with enought modules."
-msgstr "Puede modificar Catálogos"
 
 #. module: iho
 #: model:res.groups,comment:iho.group_sale_salesman_readonly
@@ -134,15 +249,48 @@ msgid "The user will have access to the whole information on readonly."
 msgstr "Tiene acceso a Todo como Consulta"
 
 #. module: iho
+#: model:res.groups,comment:iho.group_manager_catalogs
+msgid "The user will have elevated rights to models"
+msgstr "Puede modificar Catálogos"
+
+#. module: iho
+#: model:ir.model.fields,help:iho.field_res_partner__property_purchase_currency_id
+#: model:ir.model.fields,help:iho.field_res_users__property_purchase_currency_id
+msgid ""
+"This currency will be used, instead of the default one, for purchases from "
+"the current partner"
+msgstr ""
+"Se utilizará esta moneda, en lugar de la predeterminada, para las compras de"
+" la pareja actual"
+
+#. module: iho
 #: model:res.groups,comment:iho.group_sale_salesman_no_create_leads
 #: model:res.groups,comment:iho.group_sale_salesman_opportunities
 msgid "This user can edit opportunities name."
 msgstr "Puede editar el Nombre de Oportunidad"
 
 #. module: iho
+#: code:addons/iho/models/account_aged_partner.py:0
+#: code:addons/iho/models/account_aged_partner.py:0
+#, python-format
+msgid "Total"
+msgstr ""
+
+#. module: iho
+#: code:addons/iho/models/account_aged_partner.py:0
+#, python-format
+msgid "Type of currency"
+msgstr ""
+
+#. module: iho
 #: model:ir.model,name:iho.model_utm_source
 msgid "UTM Source"
 msgstr "Captación de Negocio"
+
+#. module: iho
+#: model:ir.model.fields,field_description:iho.field_stock_landed_cost__vendors_bill_ids
+msgid "Vendors Bill"
+msgstr "Factura Proveedor"
 
 #. module: iho
 #: model:res.groups,name:iho.group_view_calendar_event
