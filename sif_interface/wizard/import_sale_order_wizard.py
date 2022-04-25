@@ -524,13 +524,13 @@ class ImportSaleOrderWizard(models.TransientModel):
         return items, items_ids
 
     def _generate_default_code_variant(self, default_code, variant):
-        code = ''
+        code = ' '
         attribute_values = variant.product_template_attribute_value_ids
         attr_list = []
         for rec in attribute_values.mapped('name'):
             attr_list.append(rec)
         full_code = (code.join(attr_list))
-        full_code = default_code+' '+full_code
+        full_code = default_code + ' - ' + full_code
         return full_code
 
     def _run_2020_import_xls(self):
