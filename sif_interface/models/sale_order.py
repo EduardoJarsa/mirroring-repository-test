@@ -79,6 +79,14 @@ class SaleOrder(models.Model):
         res = super().action_confirm()
         return res
 
+    # Validations on the record at entry time
+    @api.onchange('pricelist_id')
+    def _onchange_pricelilst_id(self):
+        for lin in self.order_line.filtered(
+            lambda l: l.price_list_fixed > 0.0
+        ):
+            lin._update_product_price()
+
     @api.onchange('iho_tc')
     def _onchange_iho_tc(self):
         if self.iho_tc < 1 or self.iho_tc > 49.99:
@@ -124,6 +132,7 @@ class SaleOrder(models.Model):
                         _('Service total is less than the equivalent'
                             ' of %s USD') % min_service_usd)
 
+    # computed values for the record
     @api.depends('order_line')
     def _compute_is_bom(self):
         for rec in self:
@@ -175,6 +184,7 @@ class SaleOrder(models.Model):
                         l.product_id == product_product_extraexpenses)
                     )
 
+    # Field level validation at saving time
     @api.constrains('iho_tc')
     def _constrains_iho_tc(self):
         if self.iho_tc < 1 or self.iho_tc > 49.99:

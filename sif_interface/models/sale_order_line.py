@@ -141,8 +141,7 @@ class SaleOrderLine(models.Model):
         if self.product_id.type == 'service' and self.iho_service_factor != 1:
             raise ValidationError(_('Error: Service factor must be [1]'))
 
-    @api.onchange('product_id')
-    def _onchange_product_id(self):
+    def _update_product_price(self):
         if self.product_id:
             product_price = self.env['product.pricelist.item'].search([
                 ('applied_on', '=', '1_product'), 
@@ -158,10 +157,17 @@ class SaleOrderLine(models.Model):
                             ' [%s]') %
                         (self.product_id.default_code))
                 else:
-                    self.iho_price_list = product_price.fixed_price
-                    self.price_list_fixed = product_price.fixed_price
+                    product_price_currency = product_price.currency_id._convert(
+                        product_price.fixed_price, self.order_id.currency_id, 
+                        self.order_id.company_id, self.order_id.date_order.today())
+                    self.iho_price_list = product_price_currency
+                    self.price_list_fixed = product_price_currency
             else:
                 self.price_list_fixed = False
+
+    @api.onchange('product_id')
+    def _onchange_product_id(self):
+        self._update_product_price()
 
     #
     @api.model
@@ -175,16 +181,16 @@ class SaleOrderLine(models.Model):
     # Field level validation at saving time
     @api.constrains('iho_price_list')
     def _onchange_iho_price_list(self):
-        for line, rec in enumerate(self):
+        for rec in self:
             if (
                 rec.price_list_fixed and
                 rec.iho_price_list != rec.price_list_fixed
             ):
                 raise ValidationError(
-                    _('Error: At line [%s], the Product [%s] '
+                    _('Error: The Product [%s] '
                         'has a Fixed Price list of [%s] '
                         'and can not be modified to [%s]') %
-                    (line+1, rec.product_id.default_code,
+                    (rec.product_id.default_code,
                         rec.price_list_fixed, rec.iho_price_list)
                 )
 
