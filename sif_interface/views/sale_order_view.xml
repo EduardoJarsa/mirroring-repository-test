@@ -24,7 +24,8 @@
                 <field name="extra_expenses" attrs="{'invisible': [('show_order_details', '==', False)]}"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="before">
-                <field name="iho_price_list"/>
+                <field name="price_list_fixed" optional="hidden" />
+                <field name="iho_price_list" />
                 <field name="iho_factor" />
                 <field name="iho_sell_1" attrs="{'column_invisible': [('parent.show_order_details', '==', False)]}"/>
                 <field name="customer_discount"/>
@@ -35,7 +36,7 @@
                 <field name="dealer_discount" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
-                <field name="full_description" optional="hide"/>
+                <field name="full_description" optional="hidden"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">
                 <attribute name="attrs">{'column_invisible': [('parent.show_order_details','==',False)]}</attribute>
@@ -51,7 +52,7 @@
             <xpath expr="//field[@name='order_line']/form/label[1]" position="before">
                 <group attrs="{'invisible': [('display_type', '!=', False)]}">
                     <group>
-                        <field name="iho_price_list"/>
+                        <field name="iho_price_list" />
                         <field name="iho_sell_1"/>
                         <field name="iho_sell_2"/>
                         <field name="iho_sell_3"/>

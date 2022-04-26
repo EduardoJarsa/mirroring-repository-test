@@ -8,10 +8,10 @@ from odoo.exceptions import ValidationError
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
+    price_list_fixed = fields.Float()
     iho_price_list = fields.Float(
         string='Price List',
         help='Vendor Catalog public price',
-        default=1.0
     )
     customer_discount = fields.Float(
         string='Customer Discount (%)',
@@ -141,6 +141,28 @@ class SaleOrderLine(models.Model):
         if self.product_id.type == 'service' and self.iho_service_factor != 1:
             raise ValidationError(_('Error: Service factor must be [1]'))
 
+    @api.onchange('product_id')
+    def _onchange_product_id(self):
+        if self.product_id:
+            product_price = self.env['product.pricelist.item'].search([
+                ('applied_on', '=', '1_product'), 
+                ('product_tmpl_id', '=', self.product_id.product_tmpl_id.id),
+                '|', 
+                ('company_id', '=', False), 
+                ('company_id', '=', self.env.company.id), ]
+            )
+            if product_price:
+                if len(product_price) > 1:
+                    raise ValidationError(
+                        _('Error: More than one price found for product'
+                            ' [%s]') %
+                        (self.product_id.default_code))
+                else:
+                    self.iho_price_list = product_price.fixed_price
+                    self.price_list_fixed = product_price.fixed_price
+            else:
+                self.price_list_fixed = False
+
     #
     @api.model
     def _product_int_ref(self):
@@ -151,6 +173,21 @@ class SaleOrderLine(models.Model):
         return int_ref
 
     # Field level validation at saving time
+    @api.constrains('iho_price_list')
+    def _onchange_iho_price_list(self):
+        for line, rec in enumerate(self):
+            if (
+                rec.price_list_fixed and
+                rec.iho_price_list != rec.price_list_fixed
+            ):
+                raise ValidationError(
+                    _('Error: At line [%s], the Product [%s] '
+                        'has a Fixed Price list of [%s] '
+                        'and can not be modified to [%s]') %
+                    (line+1, rec.product_id.default_code,
+                        rec.price_list_fixed, rec.iho_price_list)
+                )
+
     @api.constrains('dealer_discount')
     def _onchange_dealer_discount(self):
         for rec in self:
@@ -242,6 +279,7 @@ class SaleOrderLine(models.Model):
         self._process_product_supplierinfo()
         return res
 
+    # computed values for record
     @api.depends('product_id')
     def _compute_is_bom_line__service_factor__iho_currency_id(self):
         for rec in self:
