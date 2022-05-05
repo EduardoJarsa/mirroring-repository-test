@@ -268,6 +268,42 @@
                     <tfooter>
                         <tr>
                             <td style="text-align:right" class="col-12" colspan="7">
+                                <div t-if="o.amount_untaxed">
+                                    <span>Subtotal:</span>
+                                </div>
+                            </td>
+                            <td style="text-align:right">
+                                <div t-if="o.amount_untaxed">
+                                    <span t-field="o.amount_untaxed" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                </div>
+                            </td>
+                            <td style="text-align:center;" colspan="3">
+                                <div t-if="o.currency_id">
+                                    <span t-esc="o.currency_id.name"/>
+                                </div>
+                            </td>
+                        </tr>
+                        <t t-foreach="o._compute_different_taxes()" t-as="taxa">
+                            <tr>
+                                <td style="text-align:right" class="col-12" colspan="7">
+                                    <div t-if="taxa['name']">
+                                        <span t-esc="taxa['name']" />
+                                    </div>
+                                </td>
+                                <td style="text-align:right">
+                                    <div t-if="taxa['amount']">
+                                        <span t-esc="taxa['amount']" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                    </div>
+                                </td>
+                                <td style="text-align:center;" colspan="3">
+                                    <div t-if="o.currency_id">
+                                        <span t-esc="o.currency_id.name"/>
+                                    </div>
+                                </td>
+                            </tr>
+                        </t>
+                        <tr>
+                            <td style="text-align:right" class="col-12" colspan="7">
                                 <div>
                                     <span>Total:</span>
                                 </div>

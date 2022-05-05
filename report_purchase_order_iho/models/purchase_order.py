@@ -25,3 +25,22 @@ class PurchaseOrder(models.Model):
         ]
         candidates = self.env['sale.order'].search(domain).user_id.name
         self.sale_executive = candidates
+
+    def _compute_different_taxes(self):
+        taxes = {}
+        taxis = []
+        for line in self.order_line:
+            for lin in line.taxes_id:
+                if lin.amount == 0.0:
+                    continue
+            for tax in line.taxes_id:
+                for t in tax:
+                    if t.id not in taxes:
+                        taxes[t.id] = {
+                            'name': t.description,
+                            'amount': 0,
+                        }
+                    taxes[t.id]['amount'] += line.price_tax
+        for tax in taxes.values():
+            taxis.append(tax)
+        return taxis
