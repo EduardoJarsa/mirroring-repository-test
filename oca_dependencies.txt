@@ -18,3 +18,5 @@ web git@github.com:Jarsa/web.git 13.0
 product-attribute git@github.com:Jarsa/product-attribute.git 13.0
 rma git@github.com:Jarsa/rma.git 13.0
 project git@github.com:OCA/project.git 13.0
+account-invoicing git@github.com:Jarsa/account-invoicing.git 13.0
+server-ux git@github.com:Jarsa/server-ux.git 13.0
