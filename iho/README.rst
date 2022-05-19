@@ -9,9 +9,8 @@ This module allows:
 Installation
 ============
 
-- This module depends on:
+- Automatically installed as dependancy from iho
 
-  utm
 
 Credits
 =======
