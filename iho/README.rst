@@ -9,7 +9,7 @@ This module allows:
 Installation
 ============
 
-- Automatically installed as dependancy from iho
+- Automatically installed as dependancy from iho.
 
 
 Credits
