@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import models, fields, api
+import datetime
 
 
 class PurchaseOrder(models.Model):
@@ -30,7 +31,7 @@ class PurchaseOrder(models.Model):
                 rec.amount_untaxed,
                 self.env.ref('base.USD'),
                 rec.company_id,
-                rec.date_approve or fields.Date.today()
+                rec.date_approve or datetime.date.today()
             )
 
     @api.depends('amount_total')
@@ -40,5 +41,5 @@ class PurchaseOrder(models.Model):
                 rec.amount_total,
                 self.env.ref('base.USD'),
                 rec.company_id,
-                rec.date_approve or fields.Date.today()
+                rec.date_approve or datetime.date.today()
             )
