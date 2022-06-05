@@ -13,3 +13,4 @@ class VendorProductDiscounts(models.Model):
     catalog_id = fields.Many2one('iho.catalog', string='Catalog')
     family_id = fields.Many2one('iho.family', string='Family')
     discount = fields.Float(string='Discount (%)',)
+    active = fields.Boolean(default=True)
