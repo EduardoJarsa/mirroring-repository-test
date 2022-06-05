@@ -28,12 +28,12 @@ class SaleOrder(models.Model):
 
     @api.constrains('order_line')
     def _verify_price_unit_1(self):
-        # for line_number, line in enumerate(self.order_line):
-        #     if line.product_id and (line.price_unit == 1.0 or line.iho_price_list == 1.0):
-        #         raise ValidationError(
-        #             _('Error: "Unit Price" or "Price List" at line [%i] of [%s] have '
-        #                 'value of [%s] [%s] and must NOT be [1.00]') %
-        #             (line_number+1, line._product_int_ref(), line.price_unit, line.iho_price_list))
+        for line_number, line in enumerate(self.order_line):
+            if line.product_id and (line.price_unit == 1.0 or line.iho_price_list == 1.0):
+                raise ValidationError(
+                    _('Error: "Unit Price" or "Price List" at line [%i] of [%s] have '
+                        'value of [%s] [%s] and must NOT be [1.00]') %
+                    (line_number+1, line._product_int_ref(), line.price_unit, line.iho_price_list))
         return
 
     def action_confirm(self):

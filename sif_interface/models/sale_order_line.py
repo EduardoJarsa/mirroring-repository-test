@@ -12,6 +12,7 @@ class SaleOrderLine(models.Model):
     iho_price_list = fields.Float(
         string='Price List',
         help='Vendor Catalog public price',
+        default=1.0,
     )
     customer_discount = fields.Float(
         string='Customer Discount (%)',
@@ -79,7 +80,7 @@ class SaleOrderLine(models.Model):
         'Unit Price',
         required=True,
         digits='Product Price',
-        default=0.0,
+        default=1.0,
         compute="_compute_price_unit"
     )
     dealer_discount = fields.Float(
@@ -179,20 +180,20 @@ class SaleOrderLine(models.Model):
         return int_ref
 
     # Field level validation at saving time
-    @api.constrains('iho_price_list')
-    def _onchange_iho_price_list(self):
-        for rec in self:
-            if (
-                rec.price_list_fixed and
-                rec.iho_price_list != rec.price_list_fixed
-            ):
-                raise ValidationError(
-                    _('Error: The Product [%s] '
-                        'has a Fixed Price list of [%s] '
-                        'and can not be modified to [%s]') %
-                    (rec.product_id.default_code,
-                        rec.price_list_fixed, rec.iho_price_list)
-                )
+    # @api.constrains('iho_price_list')
+    # def _onchange_iho_price_list(self):
+    #     for rec in self:
+    #         if (
+    #             rec.price_list_fixed and
+    #             rec.iho_price_list != rec.price_list_fixed
+    #         ):
+    #             raise ValidationError(
+    #                 _('Error: The Product [%s] '
+    #                     'has a Fixed Price list of [%s] '
+    #                     'and can not be modified to [%s]') %
+    #                 (rec.product_id.default_code,
+    #                     rec.price_list_fixed, rec.iho_price_list)
+    #             )
 
     @api.constrains('dealer_discount')
     def _onchange_dealer_discount(self):
@@ -327,10 +328,12 @@ class SaleOrderLine(models.Model):
     @api.depends('iho_sell_4', 'order_id')
     def _compute_price_unit(self):
         for rec in self:
-            if rec.iho_sell_4 and rec.iho_sell_4 != 0.0:
+            if rec.iho_sell_4 != 0.0:
                 rec.price_unit = rec.iho_sell_4
-            else:
+            elif rec.product_id.lst_price:
                 rec.price_unit = rec.product_id.lst_price
+            else:
+                rec.price_unit = 1.0
 
     @api.depends('product_id', 'iho_price_list', 'iho_factor',
                  'customer_discount', 'product_uom_qty')
