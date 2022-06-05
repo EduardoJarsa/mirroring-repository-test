@@ -15,7 +15,7 @@ This module allows to:
 Configuration
 =============
 
-Any special config is required.
+Installed as dependancy from iho main app
 
 Usage
 =====

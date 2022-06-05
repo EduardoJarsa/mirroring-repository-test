@@ -80,7 +80,8 @@ class SaleOrderLine(models.Model):
         required=True,
         digits='Product Price',
         default=0.0,
-        compute="_compute_price_unit"
+        compute="_compute_price_unit",
+        store=True,
     )
     dealer_discount = fields.Float(
         string="Dealer discount (%)",
@@ -92,18 +93,21 @@ class SaleOrderLine(models.Model):
         digits='Product Price',
         default=0.0,
         compute="_compute_service_extended",
+        store=True,
         help="Total cost of the service of the order line",
     )
     discount_extended = fields.Float(
         digits='Product Price',
         default=0.0,
         compute="_compute_discount_extended",
+        store=True,
         help="Total value of the discount offered in the order line",
     )
     product_extended = fields.Float(
         digits='Product Price',
         default=0.0,
         compute="_compute_product_extended",
+        store=True,
         help="Total value of the products offered in the order line",
     )
     iho_tc = fields.Float(
