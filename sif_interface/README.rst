@@ -8,9 +8,9 @@ SIF Interface
 
 This module allows to:
 
-* Create Products from XML files exported from 2020 system.
-* Export SIF files from Purchase Orders.
-* Load CSV quotation files into Sales Orders. 
+* Create Products from XML files exported from 2020 system
+* Export SIF files from Purchase Orders
+* Load CSV quotation files into Sales Orders
 
 Configuration
 =============
