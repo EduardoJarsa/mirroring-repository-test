@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mail_template_sale_order_low_price" model="mail.template">
+        <field name="name">Sale order Low price warning</field>
+        <field name="model_id" ref="sif_interface.model_sale_order"/>
+        <field name="subject">Lower price than approved in Sale order</field>
+        <field name="mail_to">${object.warnings_email_to_ids}</field>
+        <field name="body_html" type="xml">
+            <div style="margin: 0px; padding: 0px;">
+                <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                    Dear ${object.name}<br/>
+                    Sale order A new month is started and we are missing your attendances<br/>
+                    <strong>Please register them at Odoo</strong><br/> <br/>
+                    Any doubt let us know<br/><br/>
+                    Best regards,<br/>
+                    % if user and user.signature:
+                    ${user.signature | safe}
+                    % endif
+                </p>
+            </div>
+        </field>
+        <field name="user_signature" eval="False"/>
+    </record>
+</odoo>

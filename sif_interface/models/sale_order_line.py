@@ -8,6 +8,10 @@ from odoo.exceptions import ValidationError
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
 
+    supplier_max_discount = fields.Float(
+        string='Vendor Max Discount',
+        compute='_compute_supplier_max_discount'
+    )
     price_list_fixed = fields.Float()
     iho_price_list = fields.Float(
         string='Price List',
@@ -145,10 +149,10 @@ class SaleOrderLine(models.Model):
     def _update_product_price(self):
         if self.product_id:
             product_price = self.env['product.pricelist.item'].search([
-                ('applied_on', '=', '1_product'), 
+                ('applied_on', '=', '1_product'),
                 ('product_tmpl_id', '=', self.product_id.product_tmpl_id.id),
-                '|', 
-                ('company_id', '=', False), 
+                '|',
+                ('company_id', '=', False),
                 ('company_id', '=', self.env.company.id), ]
             )
             if product_price:
@@ -157,12 +161,11 @@ class SaleOrderLine(models.Model):
                         _('Error: More than one price found for product'
                             ' [%s]') %
                         (self.product_id.default_code))
-                else:
-                    product_price_currency = product_price.currency_id._convert(
-                        product_price.fixed_price, self.order_id.currency_id, 
-                        self.order_id.company_id, self.order_id.date_order.today())
-                    self.iho_price_list = product_price_currency
-                    self.price_list_fixed = product_price_currency
+                product_price_currency = product_price.currency_id._convert(
+                    product_price.fixed_price, self.order_id.currency_id,
+                    self.order_id.company_id, self.order_id.date_order.today())
+                self.iho_price_list = product_price_currency
+                self.price_list_fixed = product_price_currency
             else:
                 self.price_list_fixed = False
 
@@ -287,6 +290,18 @@ class SaleOrderLine(models.Model):
         return res
 
     # computed values for record
+    @api.depends('product_id')
+    def _compute_supplier_max_discount(self):
+        for rec in self:
+            maker_id = rec.product_id.maker_id
+            if maker_id:
+                maker_discounts = self.env['vendor.product.discounts'].search(
+                    [('partner_id', '=', maker_id.id), ])
+                if maker_discounts and len(maker_discounts) == 1:
+                    rec.supplier_max_discount = maker_discounts.discount
+                else:
+                    rec.supplier_max_discount = False
+
     @api.depends('product_id')
     def _compute_is_bom_line__service_factor__iho_currency_id(self):
         for rec in self:

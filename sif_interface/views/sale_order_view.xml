@@ -16,6 +16,7 @@
                 <field name="show_order_details" widget="boolean_toggle"/>
                 <field name="show_errors" style="color: red;" attrs="{'readonly': True}"/>
                 <field name="is_bom" invisible="1"/>
+                <!-- <field name="warnings_email_to_ids" widget="one2many_tags"/> -->
             </xpath>
             <xpath expr="//field[@name='amount_untaxed']" position="before">
                 <field name="product_total" attrs="{'invisible': [('show_order_details', '==', False)]}"/>
@@ -25,6 +26,7 @@
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="before">
                 <field name="price_list_fixed" optional="hidden" />
+                <field name="supplier_max_discount" optional="hidden" />
                 <field name="iho_price_list" />
                 <field name="iho_factor" />
                 <field name="iho_sell_1" attrs="{'column_invisible': [('parent.show_order_details', '==', False)]}"/>
@@ -39,7 +41,10 @@
                 <field name="full_description" optional="hidden"/>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">
-                <attribute name="attrs">{'column_invisible': [('parent.show_order_details','==',False)]}</attribute>
+                <attribute name="attrs">{
+                    'column_invisible': [('parent.show_order_details','==',False)], 
+                    'optional': 'hidden', }
+                </attribute>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after" >
                 <field name="is_bom_line" invisible="1"/>

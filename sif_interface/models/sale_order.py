@@ -53,6 +53,10 @@ class SaleOrder(models.Model):
     show_errors = fields.Char(
         default=False,
     )
+    warnings_email_to_ids = fields.One2many(
+        'res.users',
+        compute="_compute_warnings_email_to_ids"
+    )
 
     def _create_missing_sellers(self):
         # This method change the value product_id in only one seller
@@ -78,6 +82,19 @@ class SaleOrder(models.Model):
         self._create_missing_sellers()
         res = super().action_confirm()
         return res
+
+    def _send_email_notifications(self):
+        template_id = self.env.ref(
+            'sif_interface.mail_template_sale_order_low_price')
+        for rec in self:
+            for lin in rec.order_line.filtered(
+                lambda l: l.price_list_fixed and l.supplier_max_discount and
+                l.price_list_fixed * (
+                    1-(l.supplier_max_discount/100)) < l.iho_price_list
+            ):
+                # lin.order_id.
+                if template_id:
+                    template_id.send_mail(rec.id, force_send=True)
 
     # Validations on the record at entry time
     @api.onchange('pricelist_id')
@@ -133,6 +150,23 @@ class SaleOrder(models.Model):
                             ' of %s USD') % min_service_usd)
 
     # computed values for the record
+    @api.depends('user_id')
+    def _compute_warnings_email_to_ids(self):
+        for rec in self:
+            employee_id = self.env['hr.employee'].search(
+                [('user_id', '=', rec.user_id.id)])
+            coach_id = employee_id.coach_id.user_id if employee_id else False
+            res = []
+            if coach_id:
+                res.append(coach_id.id)
+                ceo_id = self.env['hr.employee'].search([
+                    ('job_id.name', '=', 'CEO'),
+                    ('company_id', '=', self.env.company.id)
+                ])
+                if ceo_id and len(ceo_id) == 1:
+                    res.append(ceo_id.user_id.id)
+            rec.warnings_email_to_ids = [(6, 0, res)]
+
     @api.depends('order_line')
     def _compute_is_bom(self):
         for rec in self:
