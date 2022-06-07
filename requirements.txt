@@ -1,2 +1,1 @@
 openupgradelib
-pypdf2==1.28.0
