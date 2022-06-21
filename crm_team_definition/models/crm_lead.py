@@ -39,7 +39,7 @@ class CrmTeam(models.Model):
     def create(self, vals):
         if self.user_id:
             team_member_id = self.env['hr.employee'].search(
-                [('user_id', '=', self.user_id)]).id
+                [('user_id', '=', self.user_id.id)]).id
             vals['employee_ids'] = [(0, 0, {
                 'team_member_id': team_member_id,
                 'percentage': 100,
