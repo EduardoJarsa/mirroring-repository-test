@@ -1,4 +1,4 @@
-image: vauxoo/odoo-80-image-shippable-auto
+image: jarsa/odoo-80-image-shippable-auto
 stages:
   - test
   - test_build
