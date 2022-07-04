@@ -287,6 +287,8 @@ class SaleOrderLine(models.Model):
     @api.depends('iho_sell_4', 'order_id')
     def _compute_price_unit(self):
         for rec in self:
+            if rec.display_type in ["line_section", "line_note"]:
+                continue
             if rec.iho_sell_4 and rec.iho_sell_4 != 0.0:
                 rec.price_unit = rec.iho_sell_4
             else:
