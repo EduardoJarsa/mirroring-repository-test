@@ -20,3 +20,4 @@ rma git@github.com:Jarsa/rma.git 13.0
 project git@github.com:OCA/project.git 13.0
 l10n-mexico git@github.com:Jarsa/l10n-mexico.git 13.0
 attachments-manager git@github.com:hectorHerreraTeigeiro/attachments-manager.git 13.0
+l10n-mx-edi-40 git@git.vauxoo.com:jarsa/l10n-mx-edi-40.git 13.0
