@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<odoo>
+<odoo noupdate="1">
     <record id="kno_res_partner" model="res.partner">
         <field name="name">KNO</field>
         <field name="ref">KNO</field>
