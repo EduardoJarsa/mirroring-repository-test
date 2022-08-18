@@ -174,7 +174,7 @@
                                                     <span t-esc="xml.Emisor.get('RegimenFiscal', '')"/>
                                                 </t>
                                                 <t t-if="xml.get('Version', '') == '4.0'">
-                                                    <span t-esc="xml.Emisor.get('RegimenFiscal', '')"/>
+                                                    <span t-esc="xml.Receptor.get('RegimenFiscalReceptor', '')"/>
                                                 </t>
                                             </td>
                                         </tr>
