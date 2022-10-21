@@ -184,6 +184,10 @@
                             <br/>
                         </div>
                         <t t-set="disc" t-value="0"/>
+                        <t t-set="field" t-value="0"/>
+                        <t t-foreach="o.invoice_line_ids" t-as="d">
+                            <t t-set="field" t-value="field+d.discount"/>
+                        </t>
                         <div id="total" class="row" style="margin-top: 15px; margin-bottom: 10px;">
                             <div class="col-12">
                                 <table>
@@ -195,7 +199,7 @@
                                         <td style="background-color:#af000a; color:white;" width="40%">Description</td>
                                         <td style="background-color:#af000a; color:white;" class="text-center" t-if="o.l10n_mx_edi_cfdi_uuid and xml.get('Version')">Unit code</td>
                                         <td style="background-color:#af000a; color:white;" class="text-right">Unit Price</td>
-                                        <td style="background-color:#af000a; color:white;" class="text-right">Disc.(%)</td>
+                                        <td style="background-color:#af000a; color:white;" class="text-right" t-if="field">Disc.(%)</td>
                                         <td style="background-color:#af000a; color:white;" class="text-right">Amount</td>
                                     </tr>
                                     <t t-set="row_count" t-value="1"/>
@@ -221,11 +225,11 @@
                                         <td class="text-right">
                                             <span t-esc="'{:,.2f}'.format(l.price_unit)"/>
                                         </td>
-                                        <td class="text-right">
-                                            <span t-field="l.discount"/>
+                                        <td class="text-right" t-if="field">
+                                            <span t-esc="'{:,.0f}'.format(l.discount)"/>%
                                         </td>
                                         <td class="text-right" id="subtotal">
-                                            <span>$ </span><span t-esc="'{:,.2f}'.format(l.price_subtotal)"/>
+                                            <span>$ </span><span t-esc="'{:,.2f}'.format(l.price_unit)"/>
                                         </td>
                                         <t t-set="row_count" t-value="row_count+1"/>
                                         <t t-set="disc" t-value="disc+l.price_unit"/>
@@ -248,7 +252,7 @@
                             </div>
                             <div class="col-4 pull-right">
                                 <table class="col-12">
-                                    <tr style="border-bottom:1px solid #dddddd;">
+                                    <tr style="border-bottom:1px solid #dddddd;" t-if="field">
                                         <td height="10"><strong>Discount</strong></td>
                                         <td class="text-right">
                                             <t t-set="disc2" t-value="disc-o.amount_untaxed"/>
