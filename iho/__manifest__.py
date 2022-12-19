@@ -6,7 +6,7 @@
 {
     'name': 'IHO Instance Module',
     'summary': 'Module to install Instance',
-    'version': '13.0.1.0.3',
+    'version': '13.0.1.0.4',
     'category': 'Instance',
     'author': 'MtNet, Jarsa Sistemas, Vauxoo, Odoo Community Association (OCA)',
     'website': 'https://www.jarsa.com.mx',
@@ -49,5 +49,6 @@
         'views/account_move_views.xml',
         'views/stock_landed_cost_views.xml',
         'views/purchase_order.xml',
+        'reports/report_payment_receipt.xml',
     ],
 }

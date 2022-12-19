@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <template id="report_payment_receipt_iho" inherit_id="account.report_payment_receipt_document">
+        <xpath expr="//span[@t-field='o.amount']" position="after">
+            <span t-field="o.currency_id"/>
+        </xpath>
+    </template>
+</odoo>
