@@ -24,6 +24,15 @@ msgstr "'Factura - %s' % (object.name)"
 #: model_terms:ir.ui.view,arch_db:report_account_invoice_iho.report_account_invoice_document
 msgid ""
 "<br/>\n"
+"                                                <span>Customs: </span>"
+msgstr ""
+"<br/>\n"
+"                                                <span>Pedimento: </span>"
+
+#. module: report_account_invoice_iho
+#: model_terms:ir.ui.view,arch_db:report_account_invoice_iho.report_account_invoice_document
+msgid ""
+"<br/>\n"
 "                                            <span>ZIP</span>"
 msgstr ""
 "<br/>\n"

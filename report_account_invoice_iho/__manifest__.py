@@ -4,7 +4,7 @@
 {
     'name': 'Report: Invoice for IHO',
     'summary': 'Custom report for invoice',
-    'version': '13.0.1.0.0',
+    'version': '13.0.1.0.1',
     'category': 'report',
     'author': 'Jarsa Sistemas',
     'website': 'https://www.jarsa.com.mx',

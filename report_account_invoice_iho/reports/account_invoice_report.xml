@@ -212,6 +212,10 @@
                                         </td>
                                         <td class="text-left">
                                             <span t-field="l.product_id.default_code"/>
+                                            <t t-if="l.l10n_mx_edi_customs_number">
+                                                <br/>
+                                                <span>Customs: </span><span t-field="l.l10n_mx_edi_customs_number"/>
+                                            </t>
                                         </td>
                                         <td class="text-left"><span t-field="l.name"/></td>
                                         <td class="text-center" t-if="o.l10n_mx_edi_cfdi_uuid and xml.get('Version')">
