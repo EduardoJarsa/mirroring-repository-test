@@ -1,7 +1,7 @@
 # Copyright 2021, Jarsa
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
-from odoo import _, fields, models
+from odoo import _, fields, models, api
 from odoo.exceptions import ValidationError
 
 
@@ -71,3 +71,9 @@ class AccountMove(models.Model):
                     raise ValidationError(_(
                         'Can not POST an invoice without Mexican RFC defined'))
             return super().action_post()
+
+    @api.model
+    def _reverse_move_vals(self, default_values, cancel=True):
+        values = super()._reverse_move_vals(default_values, cancel=cancel)
+        values.update({'l10n_mx_edi_usage': self.l10n_mx_edi_usage})
+        return values
