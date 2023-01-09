@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="view_export_sif_wizard" model="ir.ui.view">
         <field name="name">Export Sif</field>
@@ -10,18 +10,24 @@
                         <h2>Your File is ready to download.!!!</h2>
                     </group>
                     <group states="download">
-                        <field name="name" invisible="1"/>
-                        <field filename="name" name="sif_binary" readonly="1"/>
-                        <field invisible="1" name="state"/>
+                        <field name="name" invisible="1" />
+                        <field filename="name" name="sif_binary" readonly="1" />
+                        <field invisible="1" name="state" />
                     </group>
                     <group states="choose">
                         <h2>Are you sure to export the SIF file?</h2>
                     </group>
                 </sheet>
                 <footer>
-                    <button class="oe_highlight" name="generate_file" states="choose" string="Export Sif" type="object"/>
-                    <button special="cancel" states="choose" string="Cancel"/>
-                    <button class="oe_highlight" special="cancel" states="download" string="Close"/>
+                    <button
+                        class="oe_highlight"
+                        name="generate_file"
+                        states="choose"
+                        string="Export Sif"
+                        type="object"
+                    />
+                    <button special="cancel" states="choose" string="Cancel" />
+                    <button class="oe_highlight" special="cancel" states="download" string="Close" />
                 </footer>
             </form>
         </field>

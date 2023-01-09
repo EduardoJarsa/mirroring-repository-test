@@ -5,9 +5,9 @@ from odoo import fields, models
 
 
 class SaleTermCategory(models.Model):
-    _name = 'sale.term.category'
-    _description = 'Categories of Sale Terms'
-    _order = 'sequence asc'
+    _name = "sale.term.category"
+    _description = "Categories of Sale Terms"
+    _order = "sequence asc"
 
     name = fields.Char(required=True, translate=True)
     sequence = fields.Integer(required=True, default=10)

@@ -5,7 +5,7 @@ from odoo import fields, models
 
 
 class IhoCatalog(models.Model):
-    _name = 'iho.catalog'
-    _description = 'iho catalog of models'
+    _name = "iho.catalog"
+    _description = "iho catalog of models"
 
     name = fields.Char(required=True)

@@ -8,6 +8,6 @@ class CrmTeam(models.Model):
     _inherit = "crm.team"
 
     analytic_tag_ids = fields.Many2many(
-        'account.analytic.tag',
-        string='Analytic Tags',
+        "account.analytic.tag",
+        string="Analytic Tags",
     )

@@ -1,38 +1,42 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_crm_block_ui_inherit_crm_case_form_view_oppor" model="ir.ui.view">
         <field name="name">crm.block.ui.inherit.crm.case.form.view.oppor</field>
         <field name="model">crm.lead</field>
         <field name="priority">100</field>
-        <field name="inherit_id" ref="sale_crm.crm_case_form_view_oppor"/>
-        <field name="arch" type="xml"> 
+        <field name="inherit_id" ref="sale_crm.crm_case_form_view_oppor" />
+        <field name="arch" type="xml">
             <xpath expr="//field[@name='date_deadline']" position="after">
-                <field name="block_ui_crm" invisible="1"/>
+                <field name="block_ui_crm" invisible="1" />
             </xpath>
             <xpath expr="//field[@name='email_from']" position="attributes">
-                <attribute name="attrs">{'invisible': ['|', ('partner_address_email', '!=', False), ('email_from', '=', False)], 
+                <attribute
+                    name="attrs"
+                >{'invisible': ['|', ('partner_address_email', '!=', False), ('email_from', '=', False)],
                     'readonly': [('block_ui_crm', '=', True)]}</attribute>
             </xpath>
             <xpath expr="//field[@name='phone']" position="attributes">
-                <attribute name="attrs">{'invisible': ['|', ('partner_address_phone', '!=', False), ('phone', '=', False)], 
+                <attribute
+                    name="attrs"
+                >{'invisible': ['|', ('partner_address_phone', '!=', False), ('phone', '=', False)],
                     'readonly': [('block_ui_crm', '=', True)]}</attribute>
             </xpath>
             <xpath expr="//field[@name='partner_address_phone']" position="attributes">
-                <attribute name="attrs">{'invisible': [('partner_address_phone', '=', False)], 
+                <attribute name="attrs">{'invisible': [('partner_address_phone', '=', False)],
                     'readonly': [('block_ui_crm', '=', True)]}</attribute>
             </xpath>
-            <xpath expr="//page[1]" position="attributes">  
+            <xpath expr="//page[1]" position="attributes">
                 <attribute name="groups">iho_simplification.group_show_blocked_fields_CRM</attribute>
             </xpath>
-            <xpath expr="//page[@name='lead']" position="attributes">  
+            <xpath expr="//page[@name='lead']" position="attributes">
                 <attribute name="groups">iho_simplification.group_show_blocked_fields_CRM</attribute>
             </xpath>
-            <xpath expr="//notebook" position="before">  
+            <xpath expr="//notebook" position="before">
                 <group name="relocated_fields_oppor" attrs="{'invisible': [('block_ui_crm', '=', False)]}">
                     <field name="campaign_id" />
                     <field name="medium_id" />
                     <field name="source_id" />
-                </group>            
+                </group>
             </xpath>
         </field>
     </record>
@@ -44,8 +48,8 @@
         <field name="priority">100</field>
         <field name="inherit_id" ref="crm.crm_case_form_view_leads"/>
         <field name="arch" type="xml">
-        **** removes group no_one, 
-            <xpath expr="//field[@name='partner_id']" position="attributes">  
+        **** removes group no_one,
+            <xpath expr="//field[@name='partner_id']" position="attributes">
                 <attribute name="groups"></attribute>
             </xpath>
             <xpath expr="//field[@name='partner_name']" position="attributes">
@@ -70,7 +74,7 @@
                 <attribute name="readonly">1</attribute>
             </xpath>
             <xpath expr="//field[@name='website']" position="attributes">
-                <attribute name="attrs">{'readonly': True, 
+                <attribute name="attrs">{'readonly': True,
                     'invisible': [('website', '=', False)]}
                 </attribute>
             </xpath>
@@ -84,7 +88,7 @@
                 <attribute name="readonly">1</attribute>
             </xpath>
             <xpath expr="//field[@name='phone']" position="attributes">
-                <attribute name="attrs">{'readonly': True, 
+                <attribute name="attrs">{'readonly': True,
                     'invisible': [('phone', '=', False)]}
                 </attribute>
             </xpath>
@@ -92,17 +96,17 @@
                 <attribute name="readonly">1</attribute>
             </xpath>
             <xpath expr="//field[@name='email_from']" position="attributes">
-                <attribute name="attrs">{'readonly': True, 
+                <attribute name="attrs">{'readonly': True,
                     'invisible': [('email_from', '=', False)]}
                 </attribute>
             </xpath>
-            <xpath expr="//page[1]" position="attributes">  
+            <xpath expr="//page[1]" position="attributes">
                 <attribute name="groups">iho_simplification.group_show_blocked_fields_CRM</attribute>
             </xpath>
-            <xpath expr="//page[@name='extra']" position="attributes">  
+            <xpath expr="//page[@name='extra']" position="attributes">
                 <attribute name="groups">iho_simplification.group_show_blocked_fields_CRM</attribute>
             </xpath>
-            <xpath expr="//notebook" position="before">  
+            <xpath expr="//notebook" position="before">
                 <group name="relocated_fields_lead" attrs="{'invisible': [('block_ui_crm', '=', False)]}">
                     <group>
                         <field name="campaign_id" />
@@ -113,8 +117,8 @@
                         <field name="referred" />
                         <field name="probability" />
                         <field name="block_ui_crm" invisible="1"/>
-                    </group>            
-                </group>            
+                    </group>
+                </group>
             </xpath>
         </field>
     </record>

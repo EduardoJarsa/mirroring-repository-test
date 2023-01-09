@@ -1,22 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="view_stock_create_manual_route_wizard" model="ir.ui.view">
-        <field name="name"></field>
+        <field name="name" />
         <field name="model">stock.create.manual.route.wizard</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
                     <group>
                         <group>
-                            <field name="move_type" widget="radio"/>
-                            <field name="warehouse_id" options="{'no_create_edit': 1, 'no_open': 1, 'no_create': 1}" attrs="{'invisible': [('move_type', '=', 'customer')]}" groups="stock.group_stock_multi_locations"/>
-                            <field name="programed_date" widget="date"/>
+                            <field name="move_type" widget="radio" />
+                            <field
+                                name="warehouse_id"
+                                options="{'no_create_edit': 1, 'no_open': 1, 'no_create': 1}"
+                                attrs="{'invisible': [('move_type', '=', 'customer')]}"
+                                groups="stock.group_stock_multi_locations"
+                            />
+                            <field name="programed_date" widget="date" />
                         </group>
                     </group>
                 </sheet>
                 <footer>
-                    <button class="oe_highlight" name="run_routing" string="Confirm" type="object"/>
-                    <button special="cancel" string="Cancel"/>
+                    <button class="oe_highlight" name="run_routing" string="Confirm" type="object" />
+                    <button special="cancel" string="Cancel" />
                 </footer>
             </form>
         </field>

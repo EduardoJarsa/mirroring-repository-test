@@ -8,14 +8,14 @@ class SaleOrder(models.Model):
     _inherit = "crm.team"
 
     sequence_id = fields.Many2one(
-        'ir.sequence',
-        string='Sequence',
-        ondelete='restrict',
-        help='The sequence selected on this field will be passed '
-        'to the sale team selected in the Sale Order.')
+        "ir.sequence",
+        string="Sequence",
+        ondelete="restrict",
+        help="The sequence selected on this field will be passed " "to the sale team selected in the Sale Order.",
+    )
     confirmed_sequence_id = fields.Many2one(
-        'ir.sequence',
-        string='Confirmed Sequence',
-        ondelete='restrict',
-        help='The sequence selected on this field will be passed '
-        'to the Sale Order when is confirmed')
+        "ir.sequence",
+        string="Confirmed Sequence",
+        ondelete="restrict",
+        help="The sequence selected on this field will be passed " "to the Sale Order when is confirmed",
+    )

@@ -8,6 +8,6 @@ class ProductSupplierinfo(models.Model):
     _inherit = "product.supplierinfo"
 
     sale_order_id = fields.Many2one(
-        'sale.order',
-        string='Sale Order',
+        "sale.order",
+        string="Sale Order",
     )

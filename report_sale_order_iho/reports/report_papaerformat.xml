@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="paperformat_sale_order_iho" model="report.paperformat">
         <field name="name">Sale order iho</field>
@@ -16,6 +16,6 @@
         <field name="dpi">90</field>
     </record>
     <record id="sale.action_report_saleorder" model="ir.actions.report">
-        <field name="paperformat_id" ref="report_sale_order_iho.paperformat_sale_order_iho"/>
+        <field name="paperformat_id" ref="report_sale_order_iho.paperformat_sale_order_iho" />
     </record>
 </odoo>

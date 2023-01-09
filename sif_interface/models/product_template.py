@@ -7,6 +7,6 @@ from odoo import api, models
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    @api.depends('product_variant_ids', 'product_variant_ids.default_code')
+    @api.depends("product_variant_ids", "product_variant_ids.default_code")
     def _compute_default_code(self):
         return True

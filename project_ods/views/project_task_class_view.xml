@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_project_task_class_tree_iho" model="ir.ui.view">
         <field name="name">view.project.task.class.tree.iho</field>
         <field name="model">project.task.class</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="display_name"/>
+                <field name="display_name" />
             </tree>
         </field>
     </record>
@@ -14,8 +14,8 @@
         <field name="model">project.task.class</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="display_name" widget='text'/>
-                <field name="warning_message" widget='text'/>
+                <field name="display_name" widget='text' />
+                <field name="warning_message" widget='text' />
             </tree>
         </field>
     </record>
@@ -27,12 +27,12 @@
             <form>
                 <sheet>
                     <div class="oe_title">
-                        <h1><field name="name" class="oe_inline"/></h1>
+                        <h1><field name="name" class="oe_inline" /></h1>
                     </div>
                     <group>
-                        <field name="parent_id"/>
-                        <field name="display_name"/>
-                        <field name="warning_message"/>
+                        <field name="parent_id" />
+                        <field name="display_name" />
+                        <field name="warning_message" />
                     </group>
                 </sheet>
             </form>
@@ -43,7 +43,12 @@
         <field name="name">Project Task Classifications</field>
         <field name="res_model">project.task.class</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="view_project_task_class_tree_iho"/>
+        <field name="view_id" ref="view_project_task_class_tree_iho" />
     </record>
-    <menuitem id="project_task_class_menu" name="Project Task Classifications" parent="project.menu_project_config" action="action_project_task_class"/>
+    <menuitem
+        id="project_task_class_menu"
+        name="Project Task Classifications"
+        parent="project.menu_project_config"
+        action="action_project_task_class"
+    />
 </odoo>

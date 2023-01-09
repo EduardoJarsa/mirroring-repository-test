@@ -1,13 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_purchase_order_inherit_deliver_address" model="ir.ui.view">
         <field name="name">view.purchase.order.inherit.deliver.address</field>
         <field name="model">purchase.order</field>
         <field name="priority">115</field>
-        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='picking_type_id']" position="after">
-                <field name="delivery_address"   domain="[('type','=','delivery'), ('parent_id','=',company_id)]" options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                <field
+                    name="delivery_address"
+                    domain="[('type','=','delivery'), ('parent_id','=',company_id)]"
+                    options="{'no_create': True, 'no_edit': True, 'no_open': True}"
+                />
             </xpath>
         </field>
     </record>
@@ -23,10 +27,10 @@
     <record id="purchase_order_iho_salesman" model="ir.ui.view">
         <field name="name">view.purchase.order.iho;salesman</field>
         <field name="model">purchase.order</field>
-        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='currency_id']" position="after">
-                <field name="sale_executive" invisible="1"/>
+                <field name="sale_executive" invisible="1" />
             </xpath>
         </field>
     </record>

@@ -1,18 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_sale_order_inherit_form_sale_review" model="ir.ui.view">
         <field name="name">sale.order.inherit.form.sale.authorization</field>
         <field name="model">sale.order</field>
         <field name="priority">100</field>
-        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="inherit_id" ref="sale.view_order_form" />
         <field name="arch" type="xml">
-            <xpath expr="//button[@name='action_cancel']" position="after">  
-                <button name="review_sale_order" type="object" string="Request to review" class="btn-primary" attrs="{'invisible': [('state', '=', 'sale')]}" groups="sale_review.group_sale_review"/>
+            <xpath expr="//button[@name='action_cancel']" position="after">
+                <button
+                    name="review_sale_order"
+                    type="object"
+                    string="Request to review"
+                    class="btn-primary"
+                    attrs="{'invisible': [('state', '=', 'sale')]}"
+                    groups="sale_review.group_sale_review"
+                />
             </xpath>
             <xpath expr="//field[@name='partner_shipping_id']" position="after">
-                <field name="version_name" invisible="1"/>
-                <field name="use_prefix" invisible="1"/>
-                <field name="flag_first_time" invisible="1"/>
+                <field name="version_name" invisible="1" />
+                <field name="use_prefix" invisible="1" />
+                <field name="flag_first_time" invisible="1" />
             </xpath>
         </field>
     </record>

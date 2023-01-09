@@ -6,10 +6,9 @@ from odoo.exceptions import ValidationError
 
 
 class StockMoveLine(models.Model):
-    _inherit = 'stock.move.line'
+    _inherit = "stock.move.line"
 
-    @api.onchange('qty_done')
+    @api.onchange("qty_done")
     def _onchange_qty_done(self):
         if self.qty_done > self.product_uom_qty:
-            raise ValidationError(_('The qty done must be lower or'
-                                    ' equal than the initial demand.'))
+            raise ValidationError(_("The qty done must be lower or" " equal than the initial demand."))

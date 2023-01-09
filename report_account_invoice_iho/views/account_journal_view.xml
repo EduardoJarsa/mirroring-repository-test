@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <report
         id="action_report_account_invoice_iho"
@@ -30,10 +30,10 @@
     <record model="ir.ui.view" id="account_journal_report_account_invoice_iho_form">
         <field name="name">account_journal_report_account_invoice_iho.form</field>
         <field name="model">account.journal</field>
-        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="inherit_id" ref="account.view_account_journal_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='account_control_ids']" position="after">
-                <field name="display_on_footer" attrs="{'invisible': [('type', '!=', 'bank')]}"/>
+                <field name="display_on_footer" attrs="{'invisible': [('type', '!=', 'bank')]}" />
             </xpath>
         </field>
     </record>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_vendor_product_discounts_form_iho" model="ir.ui.view">
         <field name="name">vendor.product.discounts.form.iho</field>
@@ -7,15 +7,18 @@
             <form>
                 <sheet>
                     <div class="oe_title">
-                        <label for="name" class="oe_edit_only"/>
-                        <h1><field name="name" class="oe_inline"/></h1>
+                        <label for="name" class="oe_edit_only" />
+                        <h1><field name="name" class="oe_inline" /></h1>
                     </div>
                     <group>
                         <group>
-                            <field name="partner_id" domain="[('supplier','=',True), ('ref','!=', False), ('is_company','=',True)]"/>
-                            <field name="catalog_id"/>
-                            <field name="family_id"/>
-                            <field name="discount"/>
+                            <field
+                                name="partner_id"
+                                domain="[('supplier','=',True), ('ref','!=', False), ('is_company','=',True)]"
+                            />
+                            <field name="catalog_id" />
+                            <field name="family_id" />
+                            <field name="discount" />
                         </group>
                     </group>ss
                 </sheet>
@@ -29,15 +32,18 @@
             <form>
                 <sheet>
                     <div class="oe_title">
-                        <label for="name" class="oe_edit_only"/>
-                        <h1><field name="name" class="oe_inline"/></h1>
+                        <label for="name" class="oe_edit_only" />
+                        <h1><field name="name" class="oe_inline" /></h1>
                     </div>
                     <group>
                         <group>
-                            <field name="partner_id" domain="[('supplier','=',True), ('ref','!=', False), ('is_company','=',True)]"/>
-                            <field name="catalog_id"/>
-                            <field name="family_id"/>
-                            <field name="discount"/>
+                            <field
+                                name="partner_id"
+                                domain="[('supplier','=',True), ('ref','!=', False), ('is_company','=',True)]"
+                            />
+                            <field name="catalog_id" />
+                            <field name="family_id" />
+                            <field name="discount" />
                         </group>
                     </group>
                 </sheet>
@@ -46,14 +52,14 @@
     </record>
     <record id="view_vendor_product_discounts_tree_iho" model="ir.ui.view">
         <field name="model">vendor.product.discounts</field>
-        <field name="priority" eval="20"/>
+        <field name="priority" eval="20" />
         <field name="arch" type="xml">
             <tree>
-                <field name="name"/>
-                <field name="partner_id"/>
-                <field name="catalog_id"/>
-                <field name="family_id"/>
-                <field name="discount"/>
+                <field name="name" />
+                <field name="partner_id" />
+                <field name="catalog_id" />
+                <field name="family_id" />
+                <field name="discount" />
             </tree>
        </field>
     </record>
@@ -61,5 +67,11 @@
         <field name="name">Vendor discounts</field>
         <field name="res_model">vendor.product.discounts</field>
     </record>
-    <menuitem id="menu_vendor_products_discount" name="Discounts"  parent="sale.sale_order_menu" action="template_vendor_discount" groups="supplier_product_discounts.group_manage_global_discount,base.group_user"/>
+    <menuitem
+        id="menu_vendor_products_discount"
+        name="Discounts"
+        parent="sale.sale_order_menu"
+        action="template_vendor_discount"
+        groups="supplier_product_discounts.group_manage_global_discount,base.group_user"
+    />
 </odoo>

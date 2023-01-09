@@ -1,13 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_purchase_order_inherit_form_sif_interface" model="ir.ui.view">
         <field name="name">purchase.order.inherit.form.sif.interface</field>
         <field name="model">purchase.order</field>
         <field name="priority">101</field>
-        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="inherit_id" ref="purchase.purchase_order_form" />
         <field name="arch" type="xml">
             <xpath expr="//header/button[@name='button_unlock']" position="before">
-                <button class="btn-primary" name="%(action_report_export_sif_wizard)d" string="Export Sif" type="action" states="purchase,done"/>
+                <button
+                    class="btn-primary"
+                    name="%(action_report_export_sif_wizard)d"
+                    string="Export Sif"
+                    type="action"
+                    states="purchase,done"
+                />
             </xpath>
         </field>
     </record>

@@ -11,7 +11,7 @@ class StockMove(models.Model):
         res = super()._prepare_procurement_values()
         # res = super(StockMove, self)._prepare_procurement_values()
         if isinstance(self.sale_line_id, int):
-            res['sale_line_id'] = self.sale_line_id
+            res["sale_line_id"] = self.sale_line_id
         else:
-            res['sale_line_id'] = self.sale_line_id.id
+            res["sale_line_id"] = self.sale_line_id.id
         return res

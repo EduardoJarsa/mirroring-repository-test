@@ -1,14 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <!-- UTM Source -->
-    <!-- delete installation data fields --> 
+    <!-- delete installation data fields -->
 <!--     <function name="unlink" eval="[ref('utm.utm_source_search_engine')]" model="utm.source"/>
     <function name="unlink" eval="[ref('utm.utm_source_mailing')]" model="utm.source"/>
     <function name="unlink" eval="[ref('utm.utm_source_newsletter')]" model="utm.source"/>
     <function name="unlink" eval="[ref('utm.utm_source_facebook')]" model="utm.source"/>
     <function name="unlink" eval="[ref('utm.utm_source_twitter')]" model="utm.source"/> -->
 
-    <!-- adding iho utm.source data fields --> 
+    <!-- adding iho utm.source data fields -->
     <record model="utm.source" id="utm_source_house_customer">
         <field name="name">House customer</field>
     </record>
@@ -30,5 +30,5 @@
     <record model="utm.source" id="utm_source_recommendation">
         <field name="name">Recommendation</field>
     </record>
-    
+
 </odoo>

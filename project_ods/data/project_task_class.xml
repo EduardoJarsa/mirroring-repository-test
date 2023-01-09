@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo noupdate="1">
 
     <record id="project_task_class_service_type" model="project.task.class">
@@ -6,39 +6,39 @@
     </record>
     <record id="project_task_class_service_type_delivery" model="project.task.class">
         <field name="name">Entrega</field>
-        <field name="parent_id" ref="project_ods.project_task_class_service_type"/>
+        <field name="parent_id" ref="project_ods.project_task_class_service_type" />
     </record>
     <record id="project_task_class_service_type_warranty" model="project.task.class">
         <field name="name">Garantía</field>
-        <field name="parent_id" ref="project_ods.project_task_class_service_type"/>
+        <field name="parent_id" ref="project_ods.project_task_class_service_type" />
     </record>
     <record id="project_task_class_service_type_lightning" model="project.task.class">
         <field name="name">Iluminación</field>
-        <field name="parent_id" ref="project_ods.project_task_class_service_type"/>
+        <field name="parent_id" ref="project_ods.project_task_class_service_type" />
     </record>
     <record id="project_task_class_service_type_installation" model="project.task.class">
         <field name="name">Instalación</field>
-        <field name="parent_id" ref="project_ods.project_task_class_service_type"/>
+        <field name="parent_id" ref="project_ods.project_task_class_service_type" />
     </record>
     <record id="project_task_class_service_type_rug_installation" model="project.task.class">
         <field name="name">Instalación alfombra</field>
-        <field name="parent_id" ref="project_ods.project_task_class_service_type"/>
+        <field name="parent_id" ref="project_ods.project_task_class_service_type" />
     </record>
     <record id="project_task_class_service_type_pickup" model="project.task.class">
         <field name="name">Recolección</field>
-        <field name="parent_id" ref="project_ods.project_task_class_service_type"/>
+        <field name="parent_id" ref="project_ods.project_task_class_service_type" />
     </record>
     <record id="project_task_class_service_type_checkup" model="project.task.class">
         <field name="name">Revisión</field>
-        <field name="parent_id" ref="project_ods.project_task_class_service_type"/>
+        <field name="parent_id" ref="project_ods.project_task_class_service_type" />
     </record>
     <record id="project_task_class_service_type_cristal_delivery" model="project.task.class">
         <field name="name">Traslado de cristales</field>
-        <field name="parent_id" ref="project_ods.project_task_class_service_type"/>
+        <field name="parent_id" ref="project_ods.project_task_class_service_type" />
     </record>
     <record id="project_task_class_service_type_sketch" model="project.task.class">
         <field name="name">Trazo</field>
-        <field name="parent_id" ref="project_ods.project_task_class_service_type"/>
+        <field name="parent_id" ref="project_ods.project_task_class_service_type" />
     </record>
 
     <record id="project_task_class_additionals" model="project.task.class">
@@ -46,31 +46,31 @@
     </record>
     <record id="project_task_class_additionals_settings" model="project.task.class">
         <field name="name">Ajustes</field>
-        <field name="parent_id" ref="project_ods.project_task_class_additionals"/>
+        <field name="parent_id" ref="project_ods.project_task_class_additionals" />
     </record>
     <record id="project_task_class_additionals_changes" model="project.task.class">
         <field name="name">Cambios</field>
-        <field name="parent_id" ref="project_ods.project_task_class_additionals"/>
+        <field name="parent_id" ref="project_ods.project_task_class_additionals" />
     </record>
     <record id="project_task_class_additionals_disassembly" model="project.task.class">
         <field name="name">Desarmado</field>
-        <field name="parent_id" ref="project_ods.project_task_class_additionals"/>
+        <field name="parent_id" ref="project_ods.project_task_class_additionals" />
     </record>
     <record id="project_task_class_additionals_delivery" model="project.task.class">
         <field name="name">Flete</field>
-        <field name="parent_id" ref="project_ods.project_task_class_additionals"/>
+        <field name="parent_id" ref="project_ods.project_task_class_additionals" />
     </record>
     <record id="project_task_class_additionals_installation" model="project.task.class">
         <field name="name">Instalación</field>
-        <field name="parent_id" ref="project_ods.project_task_class_additionals"/>
+        <field name="parent_id" ref="project_ods.project_task_class_additionals" />
     </record>
     <record id="project_task_class_additionals_cleanning" model="project.task.class">
         <field name="name">Limpieza</field>
-        <field name="parent_id" ref="project_ods.project_task_class_additionals"/>
+        <field name="parent_id" ref="project_ods.project_task_class_additionals" />
     </record>
     <record id="project_task_class_additionals_storing" model="project.task.class">
         <field name="name">Resguardo</field>
-        <field name="parent_id" ref="project_ods.project_task_class_additionals"/>
+        <field name="parent_id" ref="project_ods.project_task_class_additionals" />
     </record>
 
 </odoo>

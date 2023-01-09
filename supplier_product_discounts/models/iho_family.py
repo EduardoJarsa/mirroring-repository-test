@@ -5,7 +5,7 @@ from odoo import fields, models
 
 
 class IhoFamily(models.Model):
-    _name = 'iho.family'
-    _description = 'iho catalog of product families'
+    _name = "iho.family"
+    _description = "iho catalog of product families"
 
     name = fields.Char(required=True)

@@ -7,11 +7,9 @@ from odoo.exceptions import UserError
 
 
 class ResCountry(models.Model):
-    _inherit = 'res.country'
+    _inherit = "res.country"
 
     def write(self, values):
-        if 'demonym' not in values and not self.user_has_groups(
-                'iho.group_manager_catalogs'):
-            raise UserError(
-                _("You don't have access to modify the country."))
+        if "demonym" not in values and not self.user_has_groups("iho.group_manager_catalogs"):
+            raise UserError(_("You don't have access to modify the country."))
         return super().write(values)

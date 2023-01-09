@@ -5,5 +5,5 @@ from odoo import models
 
 
 class CrmLeadTag(models.Model):
-    _inherit = 'crm.lead.tag'
-    _order = 'name'
+    _inherit = "crm.lead.tag"
+    _order = "name"

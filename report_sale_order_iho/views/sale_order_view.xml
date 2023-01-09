@@ -1,40 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_sale_order_inherit_form_report" model="ir.ui.view">
         <field name="name">sale.order.inherit.form.sif.interface</field>
         <field name="model">sale.order</field>
         <field name="priority">101</field>
-        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="inherit_id" ref="sale.view_order_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='order_line']/form/label[1]" position="before">
                 <group>
                     <group>
-                        <field name="image_sol"  widget="image"/>
+                        <field name="image_sol" widget="image" />
                     </group>
                 </group>
             </xpath>
             <xpath expr="//field[@name='incoterm']" position="after">
-                <field name="incoterm_spec"/>
+                <field name="incoterm_spec" />
             </xpath>
             <xpath expr="//field[@name='picking_policy']" position="after">
-                <field name="delivery"/>
-                <field name="amount_services"  invisible="1" readonly="0"/>
+                <field name="delivery" />
+                <field name="amount_services" invisible="1" readonly="0" />
             </xpath>
             <xpath expr="//field[@name='note']" position="after">
                 <field name="sale_order_term_ids">
                     <tree create="0">
-                        <field name="sequence" widget="handle"/>
-                        <field name="term_id"/>
-                        <field name="name"/>
+                        <field name="sequence" widget="handle" />
+                        <field name="term_id" />
+                        <field name="name" />
                     </tree>
                 </field>
             </xpath>
-            <xpath expr="//field[@name='note']" position="replace"/>
+            <xpath expr="//field[@name='note']" position="replace" />
             <xpath expr="//group[@name='note_group']" position="after">
-                <field name="note" nolabel="1" placeholder="Terms and conditions..."/>
+                <field name="note" nolabel="1" placeholder="Terms and conditions..." />
             </xpath>
             <xpath expr="//button[@name='action_confirm']" position="after">
-                <button name="%(report_sale_order_iho.action_generate_sale_order_terms_wizard)d" string="Add T&amp;C" type="action" class="oe_highlight"/>
+                <button
+                    name="%(report_sale_order_iho.action_generate_sale_order_terms_wizard)d"
+                    string="Add T&amp;C"
+                    type="action"
+                    class="oe_highlight"
+                />
             </xpath>
         </field>
     </record>

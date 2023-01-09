@@ -6,6 +6,6 @@ from odoo import models
 
 
 class UtmSource(models.Model):
-    _inherit = 'utm.source'
+    _inherit = "utm.source"
 
-    _order = 'name asc'
+    _order = "name asc"

@@ -6,15 +6,10 @@ from odoo import fields, models
 
 
 class CrmLead(models.Model):
-    _inherit = 'crm.lead'
+    _inherit = "crm.lead"
 
-    block_ui_crm = fields.Boolean(
-        string="Block UI CRM",
-        compute='_compute_block_ui_crm',
-        default=True)
+    block_ui_crm = fields.Boolean(string="Block UI CRM", compute="_compute_block_ui_crm", default=True)
 
     def _compute_block_ui_crm(self):
         for record in self:
-            record.block_ui_crm = \
-                not self.user_has_groups(
-                    'iho_simplification.group_show_blocked_fields_CRM')
+            record.block_ui_crm = not self.user_has_groups("iho_simplification.group_show_blocked_fields_CRM")

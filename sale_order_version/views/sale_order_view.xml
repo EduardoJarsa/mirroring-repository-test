@@ -1,35 +1,51 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_sale_order_version_inherit_form_iho" model="ir.ui.view">
         <field name="name">sale.order.version.inherit.form.iho</field>
         <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="inherit_id" ref="sale.view_order_form" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="after">
                 <span> - </span>
-                <field name="active_version_name"/>
-                <field name="has_lines" invisible="1"/>
+                <field name="active_version_name" />
+                <field name="has_lines" invisible="1" />
             </xpath>
             <xpath expr="//header/field[@name='state']" position="before">
                 <!-- hidden button -->
-                <button name="%(sale_order_version.action_sale_order_version_wizard)d" id="restore_version" type="action" string="Restore Version" class="btn-primary" attrs="{'invisible': ['|', (True), ('order_version_ids', '=', [])]}" groups="sale_order_version.group_restore_quotations"/>
+                <button
+                    name="%(sale_order_version.action_sale_order_version_wizard)d"
+                    id="restore_version"
+                    type="action"
+                    string="Restore Version"
+                    class="btn-primary"
+                    attrs="{'invisible': ['|', (True), ('order_version_ids', '=', [])]}"
+                    groups="sale_order_version.group_restore_quotations"
+                />
                 <!-- hidden button -->
-                <button name="%(sale_order_version.action_sale_order_version_create_wizard)d" id="approve_version" type="action" string="Version approve" class="btn-primary" attrs="{'invisible': ['|', (True), '|', ('has_lines', '!=', True), ('state','not in',('draft'))]}" groups="sale_order_version.group_create_quotations"/>
+                <button
+                    name="%(sale_order_version.action_sale_order_version_create_wizard)d"
+                    id="approve_version"
+                    type="action"
+                    string="Version approve"
+                    class="btn-primary"
+                    attrs="{'invisible': ['|', (True), '|', ('has_lines', '!=', True), ('state','not in',('draft'))]}"
+                    groups="sale_order_version.group_create_quotations"
+                />
             </xpath>
             <xpath expr="//page[@name='other_information']" position="after">
                 <page name="versions" string="Versions" attrs="{'invisible': [('order_version_ids', '=', [])]}">
                     <group>
                         <field name="order_version_ids" nolabel="1" readonly="1">
                             <tree>
-                                <field name="name"/>
-                                <field name="date_order"/>
-                                <field name="client_order_ref"/>
-                                <field name="state"/>
+                                <field name="name" />
+                                <field name="date_order" />
+                                <field name="client_order_ref" />
+                                <field name="state" />
                             </tree>
                         </field>
                     </group>
                 </page>
             </xpath>
-        </field> 
+        </field>
     </record>
 </odoo>

@@ -2,6 +2,7 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 import string
+
 from odoo import api, models
 
 
@@ -10,20 +11,19 @@ class PurchaseOrder(models.Model):
 
     @api.model
     def create(self, vals):
-        if vals.get('name', 'New') == 'New':
+        if vals.get("name", "New") == "New":
             alphabet = list(string.ascii_uppercase)
             alphabet.extend([i + b for i in alphabet for b in alphabet])
-            name_purchase = ''
+            name_purchase = ""
 
             for letter in alphabet:
-                next_code = vals['origin']
+                next_code = vals["origin"]
                 if next_code:
-                    name_purchase = '%s - %s' % (next_code, letter)
-                    purchase_order = self.env['purchase.order'].search(
-                        [('name', '=', name_purchase)])
+                    name_purchase = "%s - %s" % (next_code, letter)
+                    purchase_order = self.env["purchase.order"].search([("name", "=", name_purchase)])
                     if not purchase_order:
                         break
-                    vals['name'] = name_purchase
+                    vals["name"] = name_purchase
                 else:
                     break
         return super().create(vals)

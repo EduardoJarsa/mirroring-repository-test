@@ -5,11 +5,13 @@ from odoo import fields, models
 
 
 class VendorProductDiscounts(models.Model):
-    _name = 'vendor.product.discounts'
-    _description = 'Discounts allowed per vendor/product'
+    _name = "vendor.product.discounts"
+    _description = "Discounts allowed per vendor/product"
 
     name = fields.Char()
-    partner_id = fields.Many2one('res.partner', string='Partner')
-    catalog_id = fields.Many2one('iho.catalog', string='Catalog')
-    family_id = fields.Many2one('iho.family', string='Family')
-    discount = fields.Float(string='Discount (%)',)
+    partner_id = fields.Many2one("res.partner", string="Partner")
+    catalog_id = fields.Many2one("iho.catalog", string="Catalog")
+    family_id = fields.Many2one("iho.family", string="Family")
+    discount = fields.Float(
+        string="Discount (%)",
+    )

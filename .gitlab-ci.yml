@@ -1,65 +1,81 @@
-image: jarsa/odoo-80-image-shippable-auto
+image: quay.io/vauxoo/dockerv:latest
 stages:
+  - pre
   - test
-  - test_build
-  - build
+  - post
 
-lint:
-  stage: test
+precommit:
+  stage: pre
   tags:
     - lint
-  variables:
-    LINT_CHECK: "1"
-    TESTS: "0"
-  script:
-    - source variables.sh 
-    - export TRAVIS_BUILD_DIR=$(pwd)
-    - pip3 install deployv-addon-gitlab-tools
-    - deployvcmd gitlab_tools check_keys
-    - source ${REPO_REQUIREMENTS}/virtualenv/nodejs/bin/activate
-    - source ${REPO_REQUIREMENTS}/virtualenv/python${TRAVIS_PYTHON_VERSION}/bin/activate
-    - git clone https://github.com/vauxoo/maintainer-quality-tools.git -b master ${HOME}/maintainer-quality-tools
-    - export PATH=${HOME}/maintainer-quality-tools/travis:${HOME}/gitlab_tools:${PATH}
-    - travis_install_nightly
-    - travis_run_tests
-
-test:
-  stage: test
-  coverage: '/^TOTAL.*\s+(\d+\%)$/'
-  tags:
-    - odoo
-    - test
-  variables:
-    LINT_CHECK: "0"
-    TESTS: "1"
-    INCLUDE: "iho,company_country"
-    INSTALL: "iho"
   script:
     - source variables.sh
-    - export TRAVIS_BUILD_DIR=$(pwd)
-    - pip3 install deployv-addon-gitlab-tools
-    - deployvcmd gitlab_tools check_keys
-    - source ${REPO_REQUIREMENTS}/virtualenv/nodejs/bin/activate
-    - source ${REPO_REQUIREMENTS}/virtualenv/python${TRAVIS_PYTHON_VERSION}/bin/activate
-    - git clone https://github.com/vauxoo/maintainer-quality-tools.git -b master ${HOME}/maintainer-quality-tools
-    - export PATH=${HOME}/maintainer-quality-tools/travis:${HOME}/gitlab_tools:${PATH}
-    - travis_install_nightly
-    - travis_run_tests
-    - travis_after_tests_success || true
-    - coverage html --rcfile=${CI_PROJECT_DIR}/.coveragerc -d $CI_COMMIT_REF_SLUG || true
-    - coverage report -m --show-missing --rcfile=${CI_PROJECT_DIR}/.coveragerc || true
+    - PRECOMMIT_HOOKS_TYPE=${PRECOMMIT_HOOKS_TYPE},-optional pre-commit-vauxoo
 
-build:
-  stage: build
-  image: quay.io/vauxoo/dockerv:latest
+precommit_optional:
+  stage: pre
+  allow_failure: true
+  tags:
+    - lint
+  script:
+    - pre-commit-vauxoo -t optional --fail-optional
+
+build_docker:
+  stage: pre
   tags:
     - build
-  variables:
-    INSTALL: "iho"
-    CUSTOMER: "iho"
-
   script:
     - source variables.sh
-    - deployvcmd gitlab_tools check_keys
-    - deployvcmd gitlab_tools test_images --push_image
+    - vxci check_keys
+    - vxci build_image --push_image
+  artifacts:
+    paths:
+      - $CI_COMMIT_REF_SLUG
 
+odoo_test:
+  stage: test
+  tags:
+    - odoo
+  needs: ["build_docker"]
+  script:
+    - source variables.sh
+    - source $CI_COMMIT_REF_SLUG/image_name.env
+    - vxci check_keys
+    - vxci test_repo --allow_deprecated
+  artifacts:
+    when: always
+    paths:
+      - $CI_COMMIT_REF_SLUG
+
+publish_coverage:
+  stage: post
+  tags:
+    - build
+  coverage: '/^TOTAL.*\s+(\d+(?:\.\d+)?\%)$/'
+  allow_failure: true
+  needs: ["odoo_test"]
+  script:
+    - source variables.sh
+    - source $CI_COMMIT_REF_SLUG/image_name.env
+    - vxci check_keys
+    - vxci push_coverage_combine
+  artifacts:
+    when: always
+    paths:
+      - $CI_COMMIT_REF_SLUG
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: $CI_COMMIT_REF_SLUG/coverage.xml
+  environment:
+    name: coverage
+    url: https://coverage.vauxoo.com/${CI_COMMIT_REF_SLUG}-${CI_PROJECT_NAME}
+
+odoo_warnings:
+  stage: post
+  tags:
+    - build
+  allow_failure: true
+  needs: ["odoo_test"]
+  script:
+    - vxci check_log --logpath="./$CI_COMMIT_REF_SLUG"

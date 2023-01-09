@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="furniture_product_default_sat_code" model="ir.default">
-        <field name="field_id" ref="l10n_mx_edi.field_product_template__l10n_mx_edi_code_sat_id"/>
-        <field name="json_value" ref="l10n_mx_edi.prod_code_sat_56101900"/>
+        <field name="field_id" ref="l10n_mx_edi.field_product_template__l10n_mx_edi_code_sat_id" />
+        <field name="json_value" ref="l10n_mx_edi.prod_code_sat_56101900" />
     </record>
 
     <record id="product_category_cdv" model="product.category">
@@ -13,7 +13,7 @@
 
     <record id="product_category_no_cost_materials" model="product.category">
         <field name="name">No cost Materials</field>
-        <field name="parent_id" ref="product_category_cdv"/>
+        <field name="parent_id" ref="product_category_cdv" />
         <field name="property_cost_method">standard</field>
         <field name="property_valuation">manual_periodic</field>
      </record>

@@ -11,64 +11,70 @@ class MrpBomLine(models.Model):
     iho_purchase_cost = fields.Float()
     iho_customer_cost = fields.Float()
     vendor_id = fields.Many2one(
-        'res.partner',
-        string='Partner',
+        "res.partner",
+        string="Partner",
     )
     iho_currency_id = fields.Many2one(
-        'res.currency',
-        string='Currency',
+        "res.currency",
+        string="Currency",
     )
 
     def write(self, vals):
         res = super().write(vals)
-        obj_sale_order = self.env['sale.order']
+        obj_sale_order = self.env["sale.order"]
         if self.vendor_id:
-            order_name = self.bom_id.product_tmpl_id.name.split('-')[1].strip()
-            order = obj_sale_order.search([('name', '=', order_name)])
-            partner = self.product_id.seller_ids.with_context(
-                partner=self.vendor_id, order=order).filtered(
-                lambda r: r.name == r._context.get('partner') and
-                r.sale_order_id == r._context.get('order'))
+            order_name = self.bom_id.product_tmpl_id.name.split("-")[1].strip()
+            order = obj_sale_order.search([("name", "=", order_name)])
+            partner = self.product_id.seller_ids.with_context(partner=self.vendor_id, order=order).filtered(
+                lambda r: r.name == r._context.get("partner") and r.sale_order_id == r._context.get("order")
+            )
             if not partner:
-                self.product_id.seller_ids.create({
-                    'name': self.vendor_id.id,
-                    'delay': 1,
-                    'min_qty': 0,
-                    'price': self.iho_purchase_cost,
-                    'currency_id': self.iho_currency_id.id,
-                    'product_tmpl_id': self.product_id.product_tmpl_id.id,
-                    'sale_order_id': order.id,
-                })
+                self.product_id.seller_ids.create(
+                    {
+                        "name": self.vendor_id.id,
+                        "delay": 1,
+                        "min_qty": 0,
+                        "price": self.iho_purchase_cost,
+                        "currency_id": self.iho_currency_id.id,
+                        "product_tmpl_id": self.product_id.product_tmpl_id.id,
+                        "sale_order_id": order.id,
+                    }
+                )
                 return res
-            partner.write({
-                'price': self.iho_purchase_cost,
-                'currency_id': self.iho_currency_id.id,
-            })
+            partner.write(
+                {
+                    "price": self.iho_purchase_cost,
+                    "currency_id": self.iho_currency_id.id,
+                }
+            )
         return res
 
     def create(self, vals):
         res = super().create(vals)
-        obj_sale_order = self.env['sale.order']
+        obj_sale_order = self.env["sale.order"]
         if self.vendor_id:
-            order_name = self.bom_id.product_tmpl_id.name.split('-')[1].strip()
-            order = obj_sale_order.search([('name', '=', order_name)])
-            partner = self.product_id.seller_ids.with_context(
-                partner=self.vendor_id, order=order).filtered(
-                lambda r: r.name == r._context.get('partner') and
-                r.sale_order_id == r._context.get('order'))
+            order_name = self.bom_id.product_tmpl_id.name.split("-")[1].strip()
+            order = obj_sale_order.search([("name", "=", order_name)])
+            partner = self.product_id.seller_ids.with_context(partner=self.vendor_id, order=order).filtered(
+                lambda r: r.name == r._context.get("partner") and r.sale_order_id == r._context.get("order")
+            )
             if not partner:
-                self.product_id.seller_ids.create({
-                    'name': self.vendor_id.id,
-                    'delay': 1,
-                    'min_qty': 0,
-                    'price': self.iho_purchase_cost,
-                    'currency_id': self.iho_currency_id.id,
-                    'product_tmpl_id': self.product_id.product_tmpl_id.id,
-                    'sale_order_id': order.id,
-                })
+                self.product_id.seller_ids.create(
+                    {
+                        "name": self.vendor_id.id,
+                        "delay": 1,
+                        "min_qty": 0,
+                        "price": self.iho_purchase_cost,
+                        "currency_id": self.iho_currency_id.id,
+                        "product_tmpl_id": self.product_id.product_tmpl_id.id,
+                        "sale_order_id": order.id,
+                    }
+                )
                 return res
-            partner.write({
-                'price': self.iho_purchase_cost,
-                'currency_id': self.iho_currency_id.id,
-            })
+            partner.write(
+                {
+                    "price": self.iho_purchase_cost,
+                    "currency_id": self.iho_currency_id.id,
+                }
+            )
         return res
