@@ -19,6 +19,5 @@ Credits
 =======
 
 **Contributors**
-* Isabel Avila Esparza <isabel.esparza@jarsa.com.mx> (Developer)
-* Jarsa Sistemas SA de CV <info@jarsa.com.mx>
-
+* Isabel Avila Esparza <isabel.esparza@jarsa.com> (Developer)
+* Jarsa Sistemas SA de CV <info@jarsa.com>

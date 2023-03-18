@@ -7,5 +7,5 @@ Credits
 =======
 
 **Contributors**
-* Jesus Alcala <jesus.alcala@jarsa.com.mx> (Developer)
-* Jarsa Sistemas SA de CV <info@jarsa.com.mx>
+* Jesus Alcala <jesus.alcala@jarsa.com> (Developer)
+* Jarsa Sistemas SA de CV <info@jarsa.com>

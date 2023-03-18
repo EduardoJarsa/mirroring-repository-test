@@ -1,85 +1,108 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_project_task_kanban_iho" model="ir.ui.view">
         <field name="name">view.project.task.kanban.iho</field>
         <field name="model">project.task</field>
-        <field name="inherit_id" ref="project.view_task_kanban"/>
+        <field name="inherit_id" ref="project.view_task_kanban" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="before">
-                <field name="service_order_number"/>
+                <field name="service_order_number" />
             </xpath>
         </field>
     </record>
     <record id="view_project_task_tree_iho" model="ir.ui.view">
         <field name="name">view.project.task.tree.iho</field>
         <field name="model">project.task</field>
-        <field name="inherit_id" ref="project.view_task_tree2"/>
+        <field name="inherit_id" ref="project.view_task_tree2" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='name']" position="before">
-                <field name="service_order_number"/>
+                <field name="service_order_number" />
             </xpath>
         </field>
     </record>
     <record id="view_project_task_form_iho" model="ir.ui.view">
         <field name="name">view.project.task.form.iho</field>
         <field name="model">project.task</field>
-        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="inherit_id" ref="project.view_task_form2" />
         <field name="arch" type="xml">
             <div name="button_box" position="inside">
-                <button type="object" name="show_task_warnings" class="oe_stat_button"
-                    icon="fa-exclamation" 
+                <button
+                    type="object"
+                    name="show_task_warnings"
+                    class="oe_stat_button"
+                    icon="fa-exclamation"
                     attrs="{'invisible': ['|',
                         ('ptc_number_of_ids', '=', 0),
                         ('ptc_was_modified', '=', True),
-                    ], }">
-                    <field name="ptc_number_of_ids" widget="statinfo" string="Warnings" invisible="0"/>
-                    <field name="ptc_was_modified" invisible="1"/>
+                    ], }"
+                >
+                    <field name="ptc_number_of_ids" widget="statinfo" string="Warnings" invisible="0" />
+                    <field name="ptc_was_modified" invisible="1" />
                 </button>
-                <button type="object" name="show_task_warnings" class="oe_stat_button text-danger"
-                    icon="fa-exclamation-circle" 
+                <button
+                    type="object"
+                    name="show_task_warnings"
+                    class="oe_stat_button text-danger"
+                    icon="fa-exclamation-circle"
                     attrs="{'invisible': ['|',
                         ('ptc_number_of_ids', '=', 0),
                         ('ptc_was_modified', '=', False),
-                    ], }">
-                    <field name="ptc_number_of_ids" widget="statinfo" string="Warnings" invisible="0"/>
-                    <field name="ptc_was_modified" invisible="1"/>
+                    ], }"
+                >
+                    <field name="ptc_number_of_ids" widget="statinfo" string="Warnings" invisible="0" />
+                    <field name="ptc_was_modified" invisible="1" />
                 </button>
             </div>
             <xpath expr="//notebook/page[last()]" position="after">
-                <page name="ods" string='odS odA'
+                <page
+                    name="ods"
+                    string='odS odA'
                     attrs="{'invisible': [('project_project_service_order_iho','=',False),
-                    ('project_project_warehouse_order_iho','=',False),]}" 
-                    groups="project_ods.group_project_ods_fields_visible">
-                    <field name="project_project_service_order_iho" invisible="1"/>
-                    <field name="project_project_warehouse_order_iho" invisible="1"/>
+                    ('project_project_warehouse_order_iho','=',False),]}"
+                    groups="project_ods.group_project_ods_fields_visible"
+                >
+                    <field name="project_project_service_order_iho" invisible="1" />
+                    <field name="project_project_warehouse_order_iho" invisible="1" />
                     <group>
                         <b><h2>
-                            <field name="ods_oda_name"/>
+                            <field name="ods_oda_name" />
                             <b> - </b>
-                            <field name="service_order_number" readonly="1"/>
+                            <field name="service_order_number" readonly="1" />
                         </h2></b>
-                        <field name="company_partner_id" invisible="1"/>
-                        <field name="service_center_id" options="{'no_create': True}" 
+                        <field name="company_partner_id" invisible="1" />
+                        <field
+                            name="service_center_id"
+                            options="{'no_create': True}"
                             domain="[('parent_id','=',company_partner_id),
-                                ('name','like','Suc %'),]"/>
+                                ('name','like','Suc %'),]"
+                        />
                     </group>
                     <group>
                         <group>
-                            <field name="partner_id" options="{'no_create': True}"/>
-                            <field name="sale_order_id" 
-                                domain="[('partner_id','=',partner_id)]" 
-                                options="{'no_create': True}"/>
-                            <field name="sale_order_opportunity_id"/>
-                            <field name="service_order_contact_id" 
+                            <field name="partner_id" options="{'no_create': True}" />
+                            <field
+                                name="sale_order_id"
+                                domain="[('partner_id','=',partner_id)]"
+                                options="{'no_create': True}"
+                            />
+                            <field name="sale_order_opportunity_id" />
+                            <field
+                                name="service_order_contact_id"
                                 domain="[('parent_id','=',partner_id),('type','=','contact')]"
-                                options="{'no_create': True}"/>
-                            <field name="service_order_address_id"
+                                options="{'no_create': True}"
+                            />
+                            <field
+                                name="service_order_address_id"
                                 domain="[('parent_id','=',partner_id),('type','=','delivery')]"
-                                options="{'no_create': True}"/>
-                            <field name="planner_id"
+                                options="{'no_create': True}"
+                            />
+                            <field
+                                name="planner_id"
                                 domain="[('job_id.name', '=', 'Proyectista')]"
-                                options="{'no_create': True, 'no_open': '1'}"/>
-                            <field name="requested_execution_date_time" 
+                                options="{'no_create': True, 'no_open': '1'}"
+                            />
+                            <field
+                                name="requested_execution_date_time"
                                 options="{'datepicker': {
                                     'daysOfWeekDisabled': [0],
                                     'sideBySide': True,
@@ -87,28 +110,36 @@
                                     'format': 'DD/MM/YYYY HH:mm',
                                     'showTodayButton': False,
                                     }
-                                }"/>
-                            <br/>
-                            <field name="to_invoice" widget="monetary"/>
-                            <field name="currency_id" options="{'no_create': True, 'no_open': '1'}"/>
+                                }"
+                            />
+                            <br />
+                            <field name="to_invoice" widget="monetary" />
+                            <field name="currency_id" options="{'no_create': True, 'no_open': '1'}" />
                         </group>
                         <group>
-                            <br/><br/>
-                            <field name="create_uid"/>
-                            <field name="create_date"/>
-                            <field name="write_uid"/>
-                            <field name="write_date"/>
-                            <br/>
-                            <field name="__last_update"/>
-                            <br/>
-                            <br/>
-                            <field name="planned_date_begin" widget="daterange" options="{'related_end_date': 'planned_date_end'}"/>
-                            <field name="planned_date_end"/>
+                            <br /><br />
+                            <field name="create_uid" />
+                            <field name="create_date" />
+                            <field name="write_uid" />
+                            <field name="write_date" />
+                            <br />
+                            <field name="__last_update" />
+                            <br />
+                            <br />
+                            <field
+                                name="planned_date_begin"
+                                widget="daterange"
+                                options="{'related_end_date': 'planned_date_end'}"
+                            />
+                            <field name="planned_date_end" />
                         </group>
-                    </group>    
+                    </group>
                     <group>
-                        <field name="project_task_class_ids" widget="many2many_tags"
-                            options="{'no_create_edit': True, 'no_edit': True, 'no_create': True, 'no_open': True}"/>
+                        <field
+                            name="project_task_class_ids"
+                            widget="many2many_tags"
+                            options="{'no_create_edit': True, 'no_edit': True, 'no_create': True, 'no_open': True}"
+                        />
                     </group>
                 </page>
             </xpath>

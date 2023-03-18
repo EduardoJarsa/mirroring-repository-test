@@ -1,13 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_project_project_form_iho" model="ir.ui.view">
         <field name="name">view.project.project.form.iho</field>
         <field name="model">project.project</field>
-        <field name="inherit_id" ref="project.edit_project"/>
+        <field name="inherit_id" ref="project.edit_project" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='partner_id']" position="after">
-                <field name="service_order_iho" groups="project_ods.group_project_ods_fields_visible"/>
-                <field name="warehouse_order_iho" groups="project_ods.group_project_ods_fields_visible"/>
+                <field name="service_order_iho" groups="project_ods.group_project_ods_fields_visible" />
+                <field name="warehouse_order_iho" groups="project_ods.group_project_ods_fields_visible" />
             </xpath>
         </field>
     </record>

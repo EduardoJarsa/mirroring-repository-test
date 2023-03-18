@@ -1,28 +1,28 @@
-# Copyright 2018, Jarsa Sistemas, S.A. de C.V.
+# Copyright 2018, Jarsa
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
-    'name': 'Sale Order Version IHO',
-    'version': '13.0.1.0.0',
-    'category': 'sale',
-    'author': 'Jarsa Sistemas',
-    'website': 'https://www.jarsa.com.mx',
-    'license': 'AGPL-3',
-    'summary': """
+    "name": "Sale Order Version IHO",
+    "version": "13.0.1.0.0",
+    "category": "sale",
+    "author": "Jarsa",
+    "website": "https://www.jarsa.com",
+    "license": "AGPL-3",
+    "summary": """
         Allows to have a different versions of sale order
         For this module is necessary unactive the rule Personal Order Lines.
     """,
-    'depends': [
-        'sale_stock',
-        'sale_crm',
+    "depends": [
+        "sale_stock",
+        "sale_crm",
         # 'sif_interface'
     ],
-    'data': [
-        'security/security.xml',
-        'security/ir.model.access.csv',
-        'wizard/sale_order_version_wizard_view.xml',
-        'wizard/sale_order_version_create_wizard.xml',
-        'views/sale_order_view.xml',
-        'views/sale_order_version_view.xml',
+    "data": [
+        "security/security.xml",
+        "security/ir.model.access.csv",
+        "wizard/sale_order_version_wizard_view.xml",
+        "wizard/sale_order_version_create_wizard.xml",
+        "views/sale_order_view.xml",
+        "views/sale_order_version_view.xml",
     ],
 }

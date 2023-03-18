@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo noupdate="1">
     <record id="activity_type_sale_review_quotations" model="mail.activity.type">
         <field name="name">Review quotation</field>
-        <field name="res_model_id" ref="sale.model_sale_order"/>
+        <field name="res_model_id" ref="sale.model_sale_order" />
         <field name="icon">fa-check</field>
     </record>
 </odoo>

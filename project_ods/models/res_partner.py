@@ -8,10 +8,10 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     service_order_sequence_id = fields.Many2one(
-        'ir.sequence',
-        help='Service Orders Sequence for the service center',
+        "ir.sequence",
+        help="Service Orders Sequence for the service center",
     )
     warehouse_order_sequence_id = fields.Many2one(
-        'ir.sequence',
-        help='Warehouse Orders Sequence for the service center',
+        "ir.sequence",
+        help="Warehouse Orders Sequence for the service center",
     )

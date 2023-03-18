@@ -1,4 +1,4 @@
-# Copyright 2018, Jarsa Sistemas, S.A. de C.V.
+# Copyright 2018, Jarsa
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import string
@@ -8,35 +8,36 @@ from odoo.tools.translate import _
 
 
 class SaleOrderVersionCreateWizard(models.TransientModel):
-    _name = 'sale.order.version.create.wizard'
-    _description = 'Wizard model to create SO version'
+    _name = "sale.order.version.create.wizard"
+    _description = "Wizard model to create SO version"
 
     name = fields.Char()
     sale_id = fields.Many2one(
-        comodel_name='sale.order',
+        comodel_name="sale.order",
         string="Sale Order",
     )
-    prefix_selection = fields.Selection([
-        ('new_prefix', 'New prefix'),
-        ('use_same_prefix', 'Use same prefix'),
-    ],
+    prefix_selection = fields.Selection(
+        [
+            ("new_prefix", "New prefix"),
+            ("use_same_prefix", "Use same prefix"),
+        ],
         required=True,
-        default='new_prefix'
+        default="new_prefix",
     )
 
     boolean_switch = fields.Boolean(
-        compute='_compute_same_prefix_boolean',
-        help='This field helps to control the invisible'
+        compute="_compute_same_prefix_boolean",
+        help="This field helps to control the invisible"
         ' property of the field below "use_same_prefix".'
-        ' If there is any line, the field will appear,'
-        ' in other way, the field will remain hidden.',
+        " If there is any line, the field will appear,"
+        " in other way, the field will remain hidden.",
     )
     use_same_prefix = fields.Boolean(
-        string='Use same prefix?',
-        help='If this field is checked, it allows you'
-        ' to use the same prefix in different versions'
-        ', in other way, the prefix will be increased to the'
-        ' next letter of the alphabet.',
+        string="Use same prefix?",
+        help="If this field is checked, it allows you"
+        " to use the same prefix in different versions"
+        ", in other way, the prefix will be increased to the"
+        " next letter of the alphabet.",
     )
     use_prefix = fields.Boolean()
 
@@ -44,7 +45,7 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
 
     flag_first_time = fields.Integer()
 
-    @api.depends('use_same_prefix')
+    @api.depends("use_same_prefix")
     def _compute_same_prefix_boolean(self):
         for rec in self:
             rec.boolean_switch = bool(rec.sale_id.order_version_ids)
@@ -52,95 +53,118 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
     @api.model
     def default_get(self, res_fields):
         res = super().default_get(res_fields)
-        res['sale_id'] = self._context.get('active_id', False)
-        so_order = self.env['sale.order']
-        order = so_order.browse(self._context.get('active_id'))
-        res['name'] = order.version_name
-        res['use_prefix'] = order.use_prefix
-        res['flag_first_time'] = order.flag_first_time
+        res["sale_id"] = self._context.get("active_id", False)
+        so_order = self.env["sale.order"]
+        order = so_order.browse(self._context.get("active_id"))
+        res["name"] = order.version_name
+        res["use_prefix"] = order.use_prefix
+        res["flag_first_time"] = order.flag_first_time
         return res
 
     @api.model
     def _prepare_sov_lines(self, lines):
         res = []
         line_fields = [
-            "product_id", "name", "iho_price_list", "customer_discount",
-            "iho_sell_1", "iho_factor", "iho_sell_2", "iho_sell_3",
-            "product_uom_qty", "qty_delivered", "qty_invoiced",
-            "analytic_tag_ids", "route_id", "price_unit", "tax_id",
-            "price_subtotal", "order_id", "display_type", "image_sol",
-            "vendor_id", "iho_currency_id", "iho_purchase_cost", "discount",
-            "iho_tc", "iho_service_factor", "iho_sell_4"]
+            "product_id",
+            "name",
+            "iho_price_list",
+            "customer_discount",
+            "iho_sell_1",
+            "iho_factor",
+            "iho_sell_2",
+            "iho_sell_3",
+            "product_uom_qty",
+            "qty_delivered",
+            "qty_invoiced",
+            "analytic_tag_ids",
+            "route_id",
+            "price_unit",
+            "tax_id",
+            "price_subtotal",
+            "order_id",
+            "display_type",
+            "image_sol",
+            "vendor_id",
+            "iho_currency_id",
+            "iho_purchase_cost",
+            "discount",
+            "iho_tc",
+            "iho_service_factor",
+            "iho_sell_4",
+        ]
         for line in lines:
-            data = line.read(line_fields, 'without_name_get')[0]
-            data['tax_id'] = [(6, 0, data['tax_id'])]
-            data['analytic_tag_ids'] = [(6, 0, data['analytic_tag_ids'])]
+            data = line.read(line_fields, "without_name_get")[0]
+            data["tax_id"] = [(6, 0, data["tax_id"])]
+            data["analytic_tag_ids"] = [(6, 0, data["analytic_tag_ids"])]
             res.append((0, 0, data))
         return res
 
     def create_version(self):
         self.ensure_one()
-        sov_obj = self.env['sale.order.version']
+        sov_obj = self.env["sale.order.version"]
         alphabet = list(string.ascii_uppercase)
         alphabet.extend([i + b for i in alphabet for b in alphabet])
-        index = sov_obj.search(
-            [('sale_id', '=', self.sale_id.id)], order='id desc', limit=1)
+        index = sov_obj.search([("sale_id", "=", self.sale_id.id)], order="id desc", limit=1)
         prefix = index.prefix if index else 0
-        prefix_char = self.prefix_char or ''
-        name = self.name or ''
+        prefix_char = self.prefix_char or ""
+        name = self.name or ""
         if not self.use_prefix:
             pass
         elif not index and not self.prefix_char:
-            name = '%s %s' % (alphabet[prefix], name)
+            name = "%s %s" % (alphabet[prefix], name)
         elif not index and self.prefix_char:
-            name = '%s %s' % (prefix_char, name)
-        elif self.prefix_char and self.prefix_selection != 'use_same_prefix':
-            name = '%s %s' % (prefix_char, name)
-        elif index and self.prefix_selection == 'use_same_prefix':
+            name = "%s %s" % (prefix_char, name)
+        elif self.prefix_char and self.prefix_selection != "use_same_prefix":
+            name = "%s %s" % (prefix_char, name)
+        elif index and self.prefix_selection == "use_same_prefix":
             prefix = index.prefix
             prefix_char = index.prefix_char
-            name = '%s %s' % (index.prefix_char or alphabet[prefix], name)
-        elif index and not self.prefix_char and self.prefix_selection != 'use_same_prefix':
+            name = "%s %s" % (index.prefix_char or alphabet[prefix], name)
+        elif index and not self.prefix_char and self.prefix_selection != "use_same_prefix":
             prefix = (index.prefix) + 1
-            name = '%s %s' % (alphabet[prefix], name)
+            name = "%s %s" % (alphabet[prefix], name)
 
-        version = sov_obj.sudo().create({
-            'name': name,
-            'partner_id': self.sale_id.partner_id.id,
-            'partner_invoice_id': self.sale_id.partner_invoice_id.id,
-            'partner_shipping_id': self.sale_id.partner_shipping_id.id,
-            'validity_date': self.sale_id.validity_date,
-            'payment_term_id': self.sale_id.payment_term_id.id,
-            'picking_policy': self.sale_id.picking_policy,
-            'user_id': self.sale_id.user_id.id,
-            'team_id': self.sale_id.team_id.id,
-            'warehouse_id': self.sale_id.warehouse_id.id,
-            'pricelist_id': self.sale_id.pricelist_id.id,
-            'incoterm': self.sale_id.incoterm.id,
-            'expected_date': self.sale_id.expected_date,
-            'commitment_date': self.sale_id.commitment_date,
-            'date_order': self.sale_id.date_order,
-            'origin': self.sale_id.origin,
-            'client_order_ref': self.sale_id.client_order_ref,
-            'analytic_account_id': self.sale_id.analytic_account_id.id,
-            'analytic_tag_ids': [(6, 0, self.sale_id.analytic_tag_ids.ids)],
-            'tag_ids': [(6, 0, self.sale_id.tag_ids.ids)],
-            'fiscal_position_id': self.sale_id.fiscal_position_id.id,
-            'prefix': prefix,
-            'prefix_char': prefix_char,
-            'line_ids': self._prepare_sov_lines(self.sale_id.order_line),
-            'sale_id': self.sale_id.id,
-        })
-        self._create_version_terms(
-            self.sale_id.sale_order_term_ids, version)
-        self.sale_id.sudo().write({
-            'active_version_id': version.id,
-            'active_version_modified': False,
-        })
+        version = sov_obj.sudo().create(
+            {
+                "name": name,
+                "partner_id": self.sale_id.partner_id.id,
+                "partner_invoice_id": self.sale_id.partner_invoice_id.id,
+                "partner_shipping_id": self.sale_id.partner_shipping_id.id,
+                "validity_date": self.sale_id.validity_date,
+                "payment_term_id": self.sale_id.payment_term_id.id,
+                "picking_policy": self.sale_id.picking_policy,
+                "user_id": self.sale_id.user_id.id,
+                "team_id": self.sale_id.team_id.id,
+                "warehouse_id": self.sale_id.warehouse_id.id,
+                "pricelist_id": self.sale_id.pricelist_id.id,
+                "incoterm": self.sale_id.incoterm.id,
+                "expected_date": self.sale_id.expected_date,
+                "commitment_date": self.sale_id.commitment_date,
+                "date_order": self.sale_id.date_order,
+                "origin": self.sale_id.origin,
+                "client_order_ref": self.sale_id.client_order_ref,
+                "analytic_account_id": self.sale_id.analytic_account_id.id,
+                "analytic_tag_ids": [(6, 0, self.sale_id.analytic_tag_ids.ids)],
+                "tag_ids": [(6, 0, self.sale_id.tag_ids.ids)],
+                "fiscal_position_id": self.sale_id.fiscal_position_id.id,
+                "prefix": prefix,
+                "prefix_char": prefix_char,
+                "line_ids": self._prepare_sov_lines(self.sale_id.order_line),
+                "sale_id": self.sale_id.id,
+            }
+        )
+        self._create_version_terms(self.sale_id.sale_order_term_ids, version)
+        self.sale_id.sudo().write(
+            {
+                "active_version_id": version.id,
+                "active_version_modified": False,
+            }
+        )
 
-        message = _("The <a href=# data-oe-model=sale.order.version"
-                    " data-oe-id=%d>%s</a> version was created.") % (
-                        version.id, version.name)
+        message = _("The <a href=# data-oe-model=sale.order.version data-oe-id=%d>%s</a> version was created.") % (
+            version.id,
+            version.name,
+        )
         self.sale_id.message_post(body=message)
 
     def _create_version_terms(self, sale_order_terms, version):
@@ -153,10 +177,10 @@ class SaleOrderVersionCreateWizard(models.TransientModel):
 
     def _prepare_term(self, term, version):
         res = {
-            'name': term.name,
-            'sale_version_id': version,
-            'order_id': term.order_id.id,
-            'term_id': term.term_id.id,
-            'sequence': term.sequence,
+            "name": term.name,
+            "sale_version_id": version,
+            "order_id": term.order_id.id,
+            "term_id": term.term_id.id,
+            "sequence": term.sequence,
         }
         return res

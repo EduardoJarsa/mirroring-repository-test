@@ -9,11 +9,11 @@ Installation
 
 - This module depends on:
 
-  Sale Module 
+  Sale Module
 
 Credits
 =======
 
 **Contributors**
-* Miguel Ruiz <miguel.ruiz@jarsa.com.mx> (Developer)
-* Jarsa Sistemas SA de CV <info@jarsa.com.mx>
+* Miguel Ruiz <miguel.ruiz@jarsa.com> (Developer)
+* Jarsa Sistemas SA de CV <info@jarsa.com>

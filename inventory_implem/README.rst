@@ -10,7 +10,7 @@ This module allows to:
 
 * User to use Sale order as data entry point to allocate products to a sale.
 * User to browse inventory items and inventory levels, hiding cost
-* Reactivates the APPROVE button at the SO view: 
+* Reactivates the APPROVE button at the SO view:
   https://git.vauxoo.com/jarsa/iho/-/merge_requests/154
 
 Configuration

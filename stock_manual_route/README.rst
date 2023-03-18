@@ -15,7 +15,7 @@ Credits
 =======
 
 **Contributors**
-* Oscar Garza <oscar.garza@jarsa.com.mx> (Developer)
-* Jarsa Sistemas SA de CV <info@jarsa.com.mx>
-* Jesus Alcala <jesus.alcala@jarsa.com.mx> (Developer)
+* Oscar Garza <oscar.garza@jarsa.com> (Developer)
+* Jarsa Sistemas SA de CV <info@jarsa.com>
+* Jesus Alcala <jesus.alcala@jarsa.com> (Developer)
 * Héctor Herrera <hector.herrera.mx@gmail.com>

@@ -1,4 +1,4 @@
-# Copyright 2019, Jarsa Sistemas, S.A. de C.V.
+# Copyright 2019, Jarsa
 # Copyright 2020, MtNet Services, S.A. de C.V.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
@@ -7,11 +7,9 @@ from odoo.exceptions import UserError
 
 
 class ResCountry(models.Model):
-    _inherit = 'res.country'
+    _inherit = "res.country"
 
     def write(self, values):
-        if 'demonym' not in values and not self.user_has_groups(
-                'iho.group_manager_catalogs'):
-            raise UserError(
-                _("You don't have access to modify the country."))
+        if "demonym" not in values and not self.user_has_groups("iho.group_manager_catalogs"):
+            raise UserError(_("You don't have access to modify the country."))
         return super().write(values)

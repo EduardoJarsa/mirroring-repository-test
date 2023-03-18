@@ -38,16 +38,16 @@ Credits
 Contributors
 ------------
 
-* Oscar Garza <oscar.garza@jarsa.com.mx>
-* Sarai Osorio <sarai.osorio@jarsa.com.mx>
-* Jesus Alcala <jesus.alcala@jarsa.com.mx> (Developer)
+* Oscar Garza <oscar.garza@jarsa.com>
+* Sarai Osorio <sarai.osorio@jarsa.com>
+* Jesus Alcala <jesus.alcala@jarsa.com> (Developer)
 * Héctor Herrera <hector.herrera.mx@gmail.com>
 
 Maintainer
 ----------
 
-.. image:: http://www.jarsa.com.mx/logo.png
-   :alt: Jarsa Sistemas, S.A. de C.V.
-   :target: http://www.jarsa.com.mx
+.. image:: http://www.jarsa.com/logo.png
+   :alt: Jarsa
+   :target: http://www.jarsa.com
 
-This module is maintained by Jarsa Sistemas, S.A. de C.V., MtNet Services, S.A. de C.V.
+This module is maintained by Jarsa, MtNet Services, S.A. de C.V.

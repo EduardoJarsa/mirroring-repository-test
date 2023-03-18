@@ -17,6 +17,5 @@ Credits
 =======
 
 **Contributors**
-* Sarai Osorio <sarai.osorio@jarsa.com.mx> (Developer)
-* Jarsa Sistemas SA de CV <info@jarsa.com.mx>
-
+* Sarai Osorio <sarai.osorio@jarsa.com> (Developer)
+* Jarsa Sistemas SA de CV <info@jarsa.com>

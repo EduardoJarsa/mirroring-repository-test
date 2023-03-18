@@ -3,20 +3,20 @@
     <record model="ir.ui.view" id="team_definition_form_view">
         <field name="name">crm.lead.team_definition.form</field>
         <field name="model">crm.lead</field>
-        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="inherit_id" ref="crm.crm_lead_view_form" />
         <field name="arch" type="xml">
             <xpath expr="//notebook" position="inside">
-                <form string="Team" >
+                <form string="Team">
                     <sheet>
-                        <group><field name="total_percentage"/></group>
+                        <group><field name="total_percentage" /></group>
                         <field name="employee_ids">
                             <form>
-                                <field name="team_member_id"/>
-                                <field name="percentage"/>
+                                <field name="team_member_id" />
+                                <field name="percentage" />
                             </form>
                             <tree editable="bottom">
-                                <field name="team_member_id"/>
-                                <field name="percentage"/>
+                                <field name="team_member_id" />
+                                <field name="percentage" />
                                 <field name="oppor_percentage" class="oe_inline" widget="monetary" />
                             </tree>
                         </field>

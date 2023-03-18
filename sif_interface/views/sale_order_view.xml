@@ -1,91 +1,106 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_sale_order_inherit_form_sif_interface" model="ir.ui.view">
         <field name="name">sale.order.inherit.form.sif.interface</field>
         <field name="model">sale.order</field>
         <field name="priority">101</field>
-        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="inherit_id" ref="sale.view_order_form" />
         <field name="arch" type="xml">
             <xpath expr="//header/button[@name='action_draft']" position="before">
-                <button class="btn-primary" name="%(action_import_sale_order_wizard)d" attrs="{'invisible': [('state', 'not in', ['draft', 'sent', 'sale'])]}" string="Import From File" type="action"/>
-                
-                <button name="remove_all_sale_order_lines" states="draft,sent" string="Delete Lines" type="object" class="btn-primary"/>
+                <button
+                    class="btn-primary"
+                    name="%(action_import_sale_order_wizard)d"
+                    attrs="{'invisible': [('state', 'not in', ['draft', 'sent', 'sale'])]}"
+                    string="Import From File"
+                    type="action"
+                />
+
+                <button
+                    name="remove_all_sale_order_lines"
+                    states="draft,sent"
+                    string="Delete Lines"
+                    type="object"
+                    class="btn-primary"
+                />
             </xpath>
             <xpath expr="//field[@name='payment_term_id']" position="after">
-                <field name="iho_tc"/>
-                <field name="show_order_details" widget="boolean_toggle"/>
-                <field name="show_errors" style="color: red;" attrs="{'readonly': True}"/>
-                <field name="is_bom" invisible="1"/>
+                <field name="iho_tc" />
+                <field name="show_order_details" widget="boolean_toggle" />
+                <field name="show_errors" style="color: red;" attrs="{'readonly': True}" />
+                <field name="is_bom" invisible="1" />
             </xpath>
             <xpath expr="//field[@name='amount_untaxed']" position="before">
-                <field name="product_total" attrs="{'invisible': [('show_order_details', '==', False)]}"/>
-                <field name="service_total" attrs="{'invisible': [('show_order_details', '==', False)]}"/>
-                <field name="discount_total" attrs="{'invisible': [('show_order_details', '==', False)]}"/>
-                <field name="extra_expenses" attrs="{'invisible': [('show_order_details', '==', False)]}"/>
+                <field name="product_total" attrs="{'invisible': [('show_order_details', '==', False)]}" />
+                <field name="service_total" attrs="{'invisible': [('show_order_details', '==', False)]}" />
+                <field name="discount_total" attrs="{'invisible': [('show_order_details', '==', False)]}" />
+                <field name="extra_expenses" attrs="{'invisible': [('show_order_details', '==', False)]}" />
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="before">
-                <field name="iho_price_list"/>
+                <field name="iho_price_list" />
                 <field name="iho_factor" />
-                <field name="iho_sell_1" attrs="{'column_invisible': [('parent.show_order_details', '==', False)]}"/>
-                <field name="customer_discount"/>
-                <field name="iho_sell_2" attrs="{'column_invisible': [('parent.show_order_details', '==', False)]}"/>
-                <field name="iho_service_factor"/>
-                <field name="iho_sell_3" attrs="{'column_invisible': [('parent.show_order_details', '==', False)]}"/>
-                <field name="iho_sell_4" attrs="{'column_invisible': ['|',('parent.show_order_details', '==', False),('parent.iho_tc','=',1.0)]}"/>
-                <field name="dealer_discount" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
+                <field name="iho_sell_1" attrs="{'column_invisible': [('parent.show_order_details', '==', False)]}" />
+                <field name="customer_discount" />
+                <field name="iho_sell_2" attrs="{'column_invisible': [('parent.show_order_details', '==', False)]}" />
+                <field name="iho_service_factor" />
+                <field name="iho_sell_3" attrs="{'column_invisible': [('parent.show_order_details', '==', False)]}" />
+                <field
+                    name="iho_sell_4"
+                    attrs="{'column_invisible': ['|',('parent.show_order_details', '==', False),('parent.iho_tc','=',1.0)]}"
+                />
+                <field name="dealer_discount" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}" />
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
-                <field name="full_description" optional="hide"/>
+                <field name="full_description" optional="hide" />
             </xpath>
             <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">
                 <attribute name="attrs">{'column_invisible': [('parent.show_order_details','==',False)]}</attribute>
             </xpath>
-            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after" >
-                <field name="is_bom_line" invisible="1"/>
-                <field name="iho_purchase_cost" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
-                <field name="iho_currency_id" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}"/>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">
+                <field name="is_bom_line" invisible="1" />
+                <field name="iho_purchase_cost" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}" />
+                <field name="iho_currency_id" attrs="{'column_invisible': [('parent.state', '!=', 'sale')]}" />
             </xpath>
             <xpath expr="//div[@name='discount']" position="after">
-                <field name="price_subtotal"/>
+                <field name="price_subtotal" />
             </xpath>
             <xpath expr="//field[@name='order_line']/form/label[1]" position="before">
                 <group attrs="{'invisible': [('display_type', '!=', False)]}">
                     <group>
-                        <field name="iho_price_list"/>
-                        <field name="iho_sell_1"/>
-                        <field name="iho_sell_2"/>
-                        <field name="iho_sell_3"/>
-                        <field name="iho_sell_4"/>
-                        <field name="service_extended"/>
-                        <field name="product_extended"/>
+                        <field name="iho_price_list" />
+                        <field name="iho_sell_1" />
+                        <field name="iho_sell_2" />
+                        <field name="iho_sell_3" />
+                        <field name="iho_sell_4" />
+                        <field name="service_extended" />
+                        <field name="product_extended" />
                     </group>
                     <group>
-                        <field name="iho_factor"/>
-                        <field name="customer_discount"/>
-                        <field name="iho_service_factor"/>
-                        <field name="iho_tc"/>
-                        <p/><p/>
-                        <field name="discount_extended"/>
+                        <field name="iho_factor" />
+                        <field name="customer_discount" />
+                        <field name="iho_service_factor" />
+                        <field name="iho_tc" />
+                        <p /><p />
+                        <field name="discount_extended" />
                     </group>
                     <group>
-                        <field name="iho_price_list"/>
-                        <field name="iho_purchase_cost"/>
+                        <field name="iho_price_list" />
+                        <field name="iho_purchase_cost" />
                     </group>
                     <group>
-                        <field name="dealer_discount"/>
-                        <field name="iho_currency_id"/>
+                        <field name="dealer_discount" />
+                        <field name="iho_currency_id" />
                     </group>
                 </group>
                 <group attrs="{'invisible': ['|', ('is_bom_line', '!=', False), ('display_type', '!=', False)]}">
                     <group>
-                        <field name="catalog_id"/>
-                        <field name="family_id"/>
-                        <field name="is_bom_line" invisible="1"/>
+                        <field name="catalog_id" />
+                        <field name="family_id" />
+                        <field name="is_bom_line" invisible="1" />
                     </group>
                 </group>
             </xpath>
             <xpath expr="//field[@name='order_line']/tree" position="attributes">
-                    <attribute name="editable" eval="False"/>
+                    <attribute name="editable" eval="False" />
             </xpath>
         </field>
     </record>

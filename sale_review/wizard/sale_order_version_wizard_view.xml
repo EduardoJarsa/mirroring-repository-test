@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="view_sale_order_review_wizard" model="ir.ui.view">
         <field name="name">Sale Order Review Wizard</field>
@@ -7,14 +7,14 @@
             <form>
                 <sheet>
                     <group>
-                        <field name="use_prefix"/>
-                        <field name="seller_ids" options="{'no_create': True, 'no_open': True}"/>
-                        <field name="version_name" attrs="{'required':[('use_prefix','=',False)]}"/>
+                        <field name="use_prefix" />
+                        <field name="seller_ids" options="{'no_create': True, 'no_open': True}" />
+                        <field name="version_name" attrs="{'required':[('use_prefix','=',False)]}" />
                     </group>
                 </sheet>
                 <footer>
-                    <button class="oe_highlight" name="request_review_so" string="Request review" type="object"/>
-                    <button special="cancel" string="Cancel"/>
+                    <button class="oe_highlight" name="request_review_so" string="Request review" type="object" />
+                    <button special="cancel" string="Cancel" />
                 </footer>
             </form>
         </field>

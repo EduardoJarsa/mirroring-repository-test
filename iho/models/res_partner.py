@@ -1,37 +1,33 @@
-# Copyright 2019, Jarsa Sistemas, S.A. de C.V.
+# Copyright 2019, Jarsa
 # Copyright 2021, MtNet Services, S.A. de C.V.
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
-# pylint: disable=C8108
-# pylint: disable=C8110
+# pylint: disable=method-compute
+# pylint: disable=method-inverse
 
 
-from odoo import fields, models, api
 from lxml import etree
+
+from odoo import api, fields, models
 
 
 class Partner(models.Model):
-    _inherit = 'res.partner'
+    _inherit = "res.partner"
 
     street_number = fields.Char(
-        'External', compute='_split_street',
-        help="House Number",
-        inverse='_set_street', store=True
+        "External", compute="_split_street", help="House Number", inverse="_set_street", store=True
     )
     street_number2 = fields.Char(
-        'Internal', compute='_split_street',
-        help="Door Number",
-        inverse='_set_street', store=True
+        "Internal", compute="_split_street", help="Door Number", inverse="_set_street", store=True
     )
     property_purchase_currency_id = fields.Many2one(
-        default=lambda self: self.env.ref('base.USD'),
+        default=lambda self: self.env.ref("base.USD"),
     )
 
-    @api.onchange('state_id')
+    @api.onchange("state_id")
     def _onchange_country_id(self):
-        res = {'domain': {'city_id': []}}
+        res = {"domain": {"city_id": []}}
         if self.state_id:
-            res['domain']['city_id'] = [
-                ('state_id', 'in', [self.state_id.id, False])]
+            res["domain"]["city_id"] = [("state_id", "in", [self.state_id.id, False])]
         return res
 
     @api.model
@@ -70,7 +66,8 @@ class Partner(models.Model):
                     "                         'readonly':"
                     " [('type', '=', 'contact'),"
                     " ('parent_id', '!=', False)]                     }"
-                    '"/>')
+                    '"/>'
+                )
                 city_placeholder_mod = (
                     '<field name="city_id" placeholder="Delegacion/Ciudad" '
                     'string="Ciudad" class="o_address_city"'
@@ -90,7 +87,7 @@ class Partner(models.Model):
                     " [('type', '=', 'contact'),"
                     " ('parent_id', '!=', False)]                     }"
                     '"/>'
-                    '\n                '
+                    "\n                "
                     '<field name="city" '
                     'placeholder="" '
                     'class="o_address_city" '
@@ -99,21 +96,17 @@ class Partner(models.Model):
                     "('city_id', '!=', False)],                         "
                     "'readonly': [('type', '=', 'contact')"
                     ", ('parent_id', '!=', False)]"
-                    '                     }"/>')
-                arch = arch.replace(
-                    city_placeholder,
-                    city_placeholder_mod
+                    '                     }"/>'
                 )
+                arch = arch.replace(city_placeholder, city_placeholder_mod)
         return arch
 
     def write(self, vals):
         res = super().write(vals)
         for rec in self:
             if not rec.property_product_pricelist:
-                usd = self.env.ref('base.USD')
-                usd_pl = self.env['product.pricelist'].search(
-                    [('currency_id', '=', usd.id)], limit=1
-                )
+                usd = self.env.ref("base.USD")
+                usd_pl = self.env["product.pricelist"].search([("currency_id", "=", usd.id)], limit=1)
                 if usd_pl:
                     rec.property_product_pricelist = usd_pl.id
         return res

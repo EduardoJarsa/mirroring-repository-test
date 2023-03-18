@@ -91,7 +91,7 @@
                       <td >
                         <strong style="color:white">Total price</strong>
                       </td>
-                    </tr>          
+                    </tr>
                 </thead>
                 <tbody class="invoices_tbody;col-2" align="center">
                     <t t-foreach="o.order_line" t-as="le">
@@ -505,7 +505,7 @@
                             </tr>
                             <tr style="font-size:10px;" t-if="o.l10n_mx_edi_cfdi_uuid">
                                 <td><strong>CFDI Use:</strong></td>
-                                <td>                                        
+                                <td>
                                     <t t-if="xml.Receptor.get('UsoCFDI', False)" t-set="usage" t-value="xml.Receptor.get('UsoCFDI')"/>
                                     <span t-esc="usage"/> - <span t-field="o.l10n_mx_edi_usage"/>
                                 </td>
@@ -594,7 +594,7 @@
                     </div>
                 </div>
                 <div style="font-size:12px; margin-bottom: 10px;" class="row">
-                    <div class="col-8 pull-left"> 
+                    <div class="col-8 pull-left">
                         <table>
                             <tr>
                                 <th style="background-color:#2d3b4a; color:white;">Amount with letters</th>
@@ -651,7 +651,7 @@
                                 <td>
                                     <strong>CLABE</strong>
                                 </td>
-                                
+
                             </tr>
                             <tr t-foreach="banks" t-as="bank" style="text-align:left;">
                                 <td width="45%">
@@ -711,4 +711,3 @@
         </xpath>
     </template>
 </odoo>
-

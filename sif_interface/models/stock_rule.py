@@ -1,54 +1,55 @@
-# Copyright 2018, Jarsa Sistemas, S.A. de C.V.
+# Copyright 2018, Jarsa
 # Copyright 2020, 2021 MtNet Services, S.A. de C.V.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-# pylint: disable=C0103
+# pylint: disable=invalid-name
 
 from odoo import models
 
 
 class StockRule(models.Model):
-    _inherit = 'stock.rule'
+    _inherit = "stock.rule"
 
     def _prepare_purchase_order(self, company_id, origins, values):
-        """ overriding currency_id based on purchase currency from partner """
+        """overriding currency_id based on purchase currency from partner"""
         res = super()._prepare_purchase_order(company_id, origins, values)
-        maker_currency = values[0].get('supplier').name.property_purchase_currency_id.id
+        maker_currency = values[0].get("supplier").name.property_purchase_currency_id.id
         if maker_currency:
-            res['currency_id'] = maker_currency
+            res["currency_id"] = maker_currency
         return res
 
-    def _prepare_purchase_order_line(self, product_id, product_qty,
-                                     product_uom, company_id, values, po):
+    def _prepare_purchase_order_line(self, product_id, product_qty, product_uom, company_id, values, po):
         """Set the proper product price unit on PO taking in consideration
         multi currency and the supplier info from so.
         Mar 7,2021: copying analytic fields as sale.order has them"""
-        res = super()._prepare_purchase_order_line(
-            product_id, product_qty, product_uom, company_id, values, po)
-        seller = values.get('supplier')
+        res = super()._prepare_purchase_order_line(product_id, product_qty, product_uom, company_id, values, po)
+        seller = values.get("supplier")
         taxes = product_id.supplier_taxes_id
         fpos = po.fiscal_position_id
-        taxes_id = fpos.map_tax(
-            taxes, product_id, seller.name) if fpos else taxes
+        taxes_id = fpos.map_tax(taxes, product_id, seller.name) if fpos else taxes
         if taxes_id:
-            taxes_id = taxes_id.filtered(
-                lambda x: x.company_id.id == values['company_id'].id)
+            taxes_id = taxes_id.filtered(lambda x: x.company_id.id == values["company_id"].id)
         # search for the last unit price at the product.seller_ids
         sale_order = po.origin
         seller_price = False
         record = product_id.seller_ids.filtered(
-            lambda l: l.sale_order_id.name == sale_order and
-            l.product_id == product_id).sorted('id', reverse=True)
+            lambda l: l.sale_order_id.name == sale_order and l.product_id == product_id
+        ).sorted("id", reverse=True)
         if record:
             seller_price = record[0].price
-        price_unit = self.env['account.tax']._fix_tax_included_price_company(
-            seller_price if seller_price else seller.price,
-            product_id.supplier_taxes_id,
-            taxes_id, values['company_id']) if seller else 0.0
-        res['price_unit'] = price_unit
+        price_unit = (
+            self.env["account.tax"]._fix_tax_included_price_company(
+                seller_price if seller_price else seller.price,
+                product_id.supplier_taxes_id,
+                taxes_id,
+                values["company_id"],
+            )
+            if seller
+            else 0.0
+        )
+        res["price_unit"] = price_unit
         # copying analytic_tag_ids and analytic_account from so
-        so_line = self.env['sale.order.line'].browse(
-            values['sale_line_id'])
-        res['analytic_tag_ids'] = so_line.analytic_tag_ids
-        res['account_analytic_id'] = so_line.order_id.analytic_account_id.id
+        so_line = self.env["sale.order.line"].browse(values["sale_line_id"])
+        res["analytic_tag_ids"] = so_line.analytic_tag_ids
+        res["account_analytic_id"] = so_line.order_id.analytic_account_id.id
         return res
