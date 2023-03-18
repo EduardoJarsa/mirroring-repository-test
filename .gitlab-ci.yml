@@ -1,8 +1,9 @@
-image: quay.io/jarsa/dockerv:latest
+image: quay.io/vauxoo/dockerv:latest
 stages:
   - pre
   - test
   - post
+  - deploy
 
 precommit:
   stage: pre
@@ -24,6 +25,7 @@ build_docker:
   stage: pre
   tags:
     - build
+  timeout: 3 hours 30 minutes
   script:
     - source variables.sh
     - vxci check_keys
@@ -79,3 +81,41 @@ odoo_warnings:
   needs: ["odoo_test"]
   script:
     - vxci check_log --logpath="./$CI_COMMIT_REF_SLUG"
+
+deploy_staging:
+  stage: deploy
+  tags:
+    - deploy
+  only:
+    - "13.0"
+  before_script:
+    - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )'
+    - eval $(ssh-agent -s)
+    - echo "$PRIVATE_DEPLOY_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan $STAGING_SERVER >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - source variables.sh
+    - ssh $SSH_USER@$STAGING_SERVER "deployvcmd restore -f ~/config/$CUSTOMER.conf -s $DEFAULT_PASSWORD --jobs=$JOBS --update-method=$UPDATE_METHOD"
+
+deploy_production:
+  stage: deploy
+  tags:
+    - deploy
+  only:
+    - "13.0"
+  before_script:
+    - 'command -v ssh-agent >/dev/null || ( apk add --update openssh )'
+    - eval $(ssh-agent -s)
+    - echo "$PRIVATE_DEPLOY_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan $PRODUCTION_SERVER >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - source variables.sh
+    - ssh $SSH_USER@$PRODUCTION_SERVER "deployvcmd update_production -f ~/config/${CUSTOMER}.conf"
+  needs: ["deploy_staging"]
+  when: manual
